@@ -1,0 +1,717 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --y-white: rgb(245, 248, 250);
+    --y-grey: rgb(151, 157, 160);
+    --y-black: rgb(29, 31, 32);
+
+    --y3m-size: 47.5%;
+    --y3m-size2: calc((100% - var(--y3m-size)) / 2);
+    --y3lbg-initW: 10px;
+    --y3lbg-initW-minus: calc(0px - var(--y3lbg-initW));
+    --y3ltxt-padding: 5px;
+    --Y3-width: 30%;
+    --Y3-minwidth: 215px;
+    --Y3-maxwidth: 360px;
+    --y3-persp-i: 800px;
+    --y3-persp-tr-active: transform 0.3s cubic-bezier(0, 0.7, 0, 1);
+}
+body { margin: 0; font-family: "Josefin Sans", sans-serif; background-color: var(--y-white); overflow-x: hidden; }
+
+/*/ Y3MENU /*/
+.y3-fill {
+    fill: var(--y-white);
+}
+.y3-shadow {
+    fill: var(--y-grey);
+}
+.y3-stroke {
+    fill: var(--y-black);
+    stroke: var(--y-black);
+    stroke-width: 0;
+    stroke-miterlimit: 1000;
+}
+.y3-fill, .y3-shadow, .y3-stroke {
+    transition: 1s cubic-bezier(0.2, 0.75, 0, 1);
+}
+
+#Y3-menu-container {
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /*load*/
+}
+#Y3-menu {
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: var(--y3m-size);
+    height: 100%;
+}
+#Y3-menu > #y3-center {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+}
+
+#Y3-hitbox-block {
+    z-index: 12;
+    height: 100%;
+    width: calc(var(--Y3-width) / 2);
+    min-width: calc(var(--Y3-minwidth) / 2);
+    left: -100%;
+    padding-left: 100%;
+    pointer-events: all;
+}
+
+#Y3-logo-container,
+#Y3-hitbox-block {
+    position: absolute;
+}
+#Y3-logo-container {
+    z-index: 13;
+    width: var(--Y3-width);
+    min-width: var(--Y3-minwidth);
+    max-width: var(--Y3-maxwidth);
+    transform: scale(1) perspective(var(--y3-persp-i)) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    transition: transform 0.5s 25ms cubic-bezier(0.1, 0.7, 0, 1);
+    will-change: transform, left, top;
+    pointer-events: none;
+}
+.Y3L-Persp-TL {
+    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-15deg) rotateY(10deg) rotateZ(-1.75deg) !important;
+}
+.Y3L-Persp-TR {
+    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-12deg) rotateY(-11deg) rotateZ(1.75deg) !important;
+}
+.Y3L-Persp-BM {
+    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(12deg) rotateY(-3deg) rotateZ(-1deg) !important;
+}
+.Y3L-Persp-active {
+    transform: scale(1.075) perspective(var(--y3-persp-i)) rotateX(0deg) rotateY(0deg) rotateZ(0deg) !important;
+    transition: var(--y3-persp-tr-active) !important;
+}
+#Y3-logo {
+    transform: scale(1) translate(0, 0);
+    overflow: visible;
+}
+#Y3-logo > g, .Y3-arrow-normal {
+    cursor: pointer;
+}
+
+/*LINKS*/
+#Y3-links {
+    z-index: 10;
+    position: fixed;
+    width: 100%;
+    right: 0;
+    overflow: hidden;
+    background-color: var(--y-white);
+}
+.Y3-links {
+    z-index: 12;
+    display: flex;
+    justify-content: right;
+    position: relative;
+    top: 0;
+    width: calc(100% - var(--y3m-size2));
+    padding: 8px 0;
+    padding-right: var(--y3m-size2);
+    text-align: right;
+    text-decoration: none;
+    font-size: 20px;
+    color: var(--y-grey);
+    transition: 0.9s cubic-bezier(0.1, 0.7, 0, 1),
+                filter 0.45s cubic-bezier(0.1, 0.7, 0, 1),
+                font-size 0s,
+                padding 0s !important;
+    cursor: pointer;
+    user-select: none;
+}
+.Y3-linksbg {
+    z-index: 10;
+    position: absolute;
+    width: var(--y3lbg-initW);
+    height: 100%;
+    top: 0;
+    right: var(--y3m-size2);
+    background-color: var(--y-black);
+    transition: 0.65s cubic-bezier(0.9, 0.5, 0, 1),
+                background-color 0.6s cubic-bezier(0.5, 0.3, 0, 1),
+                border 0s;
+    pointer-events: none;
+}
+.Y3-linkbg-hover, .Y3-linkbg-focus {
+    width: 100%;
+    right: 0;
+    transition: 0.5s cubic-bezier(0.5, 0.7, 0, 1);
+}
+
+.Y3-linktxt {
+    z-index: 12;
+    position: sticky;
+    left: 100%;
+    margin-right: var(--y3lbg-initW);
+    padding: 2px var(--y3ltxt-padding) 0px;
+    background-color: var(--y-white);
+}
+
+.Y3-linktxt > div[class*="Y3ltxt"] {
+    display: inline-flex;
+    position: relative;
+    right: 0;
+    letter-spacing: 0px;
+    line-height: 1.25;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.5s ease,
+                width 0.65s cubic-bezier(0.25, 0.7, 0, 1),
+                letter-spacing 0.1s linear;
+    transition-delay: 35ms;
+    overflow: hidden;
+}
+.Y3ltxt-hover {
+    width: 0 !important;
+    letter-spacing: 7px !important;
+    opacity: 0 !important;
+    transition: opacity 0.7s ease,
+                width 0.7s cubic-bezier(0.7, 0.45, 0, 1),
+                letter-spacing 0.6s cubic-bezier(0.8, 0.8, 0, 1) !important;
+}
+.Y3ltxt-title {
+    font-weight: 700;
+}
+.Y3ltxt-plus {
+    font-weight: 400;
+}
+
+.Y3-links-focus,
+.Y3-linkbg-focus,
+.Y3-linktxt-focus {
+    transition: 0.55s cubic-bezier(0.1, 0.7, 0, 1) !important;
+}
+.Y3-links-focus {
+    color: var(--y-white);
+}
+.Y3-linkbg-focus {
+    background-color: var(--y-white) !important;
+}
+
+/*Y3 ANIM*/
+#Y3-anim {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    overflow: hidden;
+}
+#Y3-anim > * {
+    z-index: 5;
+}
+
+#y3an-boom {
+    width: 100%;
+    overflow: visible;
+    image-rendering: optimizeSpeed;
+}
+#y3an-boom > circle {
+    fill: var(--y-grey);
+    transition: 0.8s cubic-bezier(0.4, 0.7, 0, 1),
+                fill 0.9s cubic-bezier(0, 0.6, 0, 1);
+}
+
+#y3an-slash1,
+#y3an-slash2 {
+    position: fixed;
+    width: 0;
+    height: 400%;
+    transform: rotate(25deg);
+    will-change: width, height, background-color;
+}
+#y3an-slash1 {
+    background-color: var(--y-black);
+    transition: 0.7s cubic-bezier(0.4, 0.75, 0, 1),
+                background-color 1s cubic-bezier(0.6, 0.75, 0, 1);
+}
+#y3an-slash2 {
+    background-color: var(--y-grey);
+    transition: 1.1s cubic-bezier(0.6, 0.5, 0, 1),
+                background-color 1.1s cubic-bezier(0, 0.6, 0, 1);
+}
+.Y3anSlash-prev {
+    transition: none !important;
+}
+.Y3anSlash-new {
+    background-color: var(--y-white) !important;
+}
+
+.Y3linksAll-prev {
+    transition: 0.9s cubic-bezier(0.1, 0.7, 0, 1),
+                filter 0.45s cubic-bezier(0.1, 0.7, 0, 1),
+                color 0.7s 0.2s cubic-bezier(0.5, 0, 0, 1) !important;
+}
+
+@media (min-width: 1101px) /*PC*/ {
+    #Y3-logo-container {
+        left: 0;
+    }
+    .Y3-linktxt {
+        border: 0px solid var(--y-white);
+        border-left-width: 0px;
+        box-shadow: 0px 0 0 var(--y-white);
+    }
+    .Y3-linktxt > div[class*="Y3ltxt"] {
+        top: 2px;
+    }
+    .Y3-linktxt-hover {
+        border-left-width: 45px;
+        box-shadow: var(--y3lbg-initW) 0 0 0 var(--y-grey) !important;
+        transition: 0.5s cubic-bezier(0.15, 0.7, 0, 1),
+                    border 0.7s cubic-bezier(0.15, 0.75, 0, 1) !important;
+    }
+    .Y3-linktxt-active {
+        border-left-width: 0px;
+        box-shadow: 0px 0 0 var(--y-white) !important;
+        transition: 0.3s cubic-bezier(0, 0.7, 0, 1) !important;
+    }
+    .Y3-linktxt-focus {
+        color: var(--y-white);
+        background-color: var(--y-black) !important;
+        border-left-width: var(--y3lbg-initW);
+        border-color: var(--y-black);
+        box-shadow: var(--y3lbg-initW) 0 0 var(--y-black) !important;
+    }
+    #y3an-slash1 {
+        width: 13.5%;
+    }
+    #y3an-slash2 {
+        width: 115%;
+    }
+
+    .Y3logoC-prev {
+        left: var(--y3logoC-left-prev) !important;
+    }
+    .Y3links-prev {
+        height: var(--y3links-height0-prev);
+        transition: transform 0.8s 0.1s cubic-bezier(0.35, 0.7, 0, 1),
+                    height 0.5s 0.1s cubic-bezier(0.5, 0.5, 0, 0.95);
+    }
+    .Y3linktxtAll-prev {
+        background-color: var(--y-white);
+    }
+    .Y3lbgAll-prev {
+        background-color: var(--y-grey);
+    }
+    .Y3anSlash-prev {
+        width: 0 !important;
+    }
+}
+
+
+@media (max-width: 1100px) /*MOBILE*/ {
+    :root {
+        --y3m-size: 100%;
+        --Y3-minwidth: 155px;
+        --Y3-maxwidth: 180px;
+        --y3m-m-margin: 12.5%;
+        --y3lbg-m-shad: 150px;
+        --y3lbg-m-shad-minus: calc(0px - var(--y3lbg-m-shad));
+    }
+    #Y3-menu-container {
+        align-items: center;
+    }
+    #Y3-menu {
+        width: 100%;
+        height: var(--y3m-size);
+    }
+    #Y3-menu > #y3-center {
+        display: flex;
+        justify-content: center;
+        align-items: normal;
+    }
+    #Y3-hitbox-block {
+        display: none;
+    }
+    #Y3-logo-container {
+        bottom: 0;
+        margin: 0 auto;
+    }
+
+    #Y3-links {
+        right: auto;
+        margin-top: var(--y3m-m-margin);
+        background-color: transparent;
+    }
+    .Y3-links {
+        justify-content: center;
+        top: -100%;
+        width: 100%;
+        padding: 10px 0;
+        font-size: 18px;
+        text-align: center;
+    }
+    .Y3-linksbg {
+        width: 100%;
+        top: auto;
+        right: auto;
+        bottom: 0;
+        border: 0px solid var(--y-black);
+        border-left-width: 600px;
+        border-right-width: 600px;
+        box-shadow: inset 0px 0 0.01px var(--y-grey), inset 0px 0 0.01px var(--y-grey);
+        background-color: transparent;
+    }
+    .Y3-linkbg-hover, .Y3-linkbg-focus {
+        width: 0%;
+        box-shadow: inset var(--y3lbg-m-shad) 0 0.01px var(--y-grey), inset var(--y3lbg-m-shad-minus) 0 0.01px var(--y-grey);
+        transition: width 0.7s 0.2s cubic-bezier(0.2, 0.5, 0, 1),
+                    box-shadow 0.2s linear !important;
+    }
+    .Y3-linktxt {
+        left: auto;
+        margin-right: 0;
+        padding: 8px 8px 3px;
+        box-shadow: none !important;
+    }
+    .Y3ltxt-hover {
+        width: auto !important;
+        letter-spacing: 0px !important;
+        opacity: 1 !important;
+    }
+
+    #y3an-boom {
+        width: auto;
+        height: 100%;
+        min-height: 100%;
+    }
+    #y3an-slash1,
+    #y3an-slash2 {
+        width: 100%;
+        transform: rotate(0deg);
+    }
+    #y3an-slash1 {
+        display: none;
+    }
+    #y3an-slash2 {
+        height: 100%;
+    }
+
+    .Y3logoC-prev {
+        bottom: var(--y3logoC-bottom-prev) !important;
+    }
+    .Y3links-prev {
+        height: var(--y3links-heightN-prev);
+        transition: transform 0.6s 0.1s cubic-bezier(0.2, 0.75, 0, 1),
+                    top 0.5s 0.1s cubic-bezier(0.5, 0.5, 0, 0.95);
+    }
+    .Y3linksAll-prev {
+        transition-duration: 0.9s, 0.45s, 0.7s !important;
+    }
+    .Y3linktxtAll-prev {
+        background-color: transparent;
+    }
+    .Y3lbgAll-prev {
+        background-color: transparent;
+    }
+    .Y3anSlash-prev {
+        height: 0 !important;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div id="Y3-menu-container">
+        <div id="Y3-anim">
+            <svg id="y3an-boom" viewBox="0 0 10 10">
+                <circle cx="5" cy="5" r="0" stroke-width="0"/>
+            </svg>
+            <div id="y3an-slash2"></div>
+            <div id="y3an-slash1"></div>
+        </div>
+        <div id="Y3-menu">
+            <div id="Y3-hitbox-block"></div>
+            <div id="y3-center">
+                <div id="Y3-logo-container">
+                    <svg id="Y3-logo" viewbox="0 0 73.5 105.9">
+                        <g id="TL">
+                            <polygon class="y3-fill" points="40.7,33.6 6.6,8.2 28,45.4" />
+                            <polygon class="y3-shadow" points="28.5,42.3 30.6,45.8 40.8,36.2 35.6,31.9" />
+                            <polygon class="y3-stroke" points="25.5,45.1 0,0.9 43.8,33.4 40.8,36.2 13.1,15.6 30.6,45.8" />
+                        </g>
+                        <g id="BM">
+                            <polygon class="y3-fill" points="46.2,53.9 26.4,96.2 28,45.4" />
+                            <polygon class="y3-shadow" points="30,47.4 30.1,44.2 45.2,51.2 46.2,53.9 30,83.8 39.9,55.1" />
+                            <polygon class="y3-stroke" points="24.1,105.9 26,46.7 30.1,44.2 28.8,86.5 45.2,51.2 47.1,56.5" />
+                        </g>
+                        <g id="TR">
+                            <polygon class="y3-fill" points="46.2,53.9 67.3,8.6 28,45.4" />
+                            <polygon class="y3-shadow" points="57.2,25.7 46.2,53.9 31.3,44.8 43.7,48.6" />
+                            <path class="y3-stroke" d="M47.1,56.5L26,46.7l0-0.7l-0.5-0.9L73.5,0L47.1,56.5z M31.6,44.9l13.6,6.4l15.9-34.1L31.6,44.9z" />
+                        </g>
+                    </svg>
+                </div>
+                <div id="Y3-links">
+                    <a class="Y3-links" y3arrow="TL">
+                        <div class="Y3-linktxt">
+                            <div class="Y3ltxt-title">WHAT</div>
+                            <div class="Y3ltxt-plus">I'VE DONE SO FAR</div>
+                        </div>
+                        <div class="Y3-linksbg"></div>
+                    </a>
+                    <a class="Y3-links" y3arrow="TR">
+                        <div class="Y3-linktxt">
+                            <div class="Y3ltxt-title">MORE</div>
+                            <div class="Y3ltxt-plus">THINGS I'M DOING</div>
+                        </div>
+                        <div class="Y3-linksbg"></div>
+                    </a>
+                    <a class="Y3-links" y3arrow="BM">
+                        <div class="Y3-linktxt">
+                            <div class="Y3ltxt-title">WHO</div>
+                            <div class="Y3ltxt-plus">I AM&nbsp;</div><div class="Y3ltxt-title">& HOW</div>
+                            <div class="Y3ltxt-plus">TO CONTACT ME</div>
+                        </div>
+                        <div class="Y3-linksbg"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+var Y3arrowsID = ["TL","TR","BM"],
+    Y3arrowsOthersID = [["TR","BM"],["TL","BM"],["TL","TR"]],
+    Y3hrefs = ["https://www.google.fr/","https://www.google.com/","https://www.google.net/"],
+    Y3links = document.querySelector("#Y3-links"),
+    Y3logo = document.querySelector("#Y3-logo"),
+    Y3logoC = document.querySelector("#Y3-logo-container"),
+    y3aCount = 1,
+    isMobile = undefined;
+
+function checkWinSize() { if(window.innerWidth > 1100) { isMobile = false } else { isMobile = true }};
+window.addEventListener("resize", checkWinSize);
+checkWinSize();
+
+function Y3Spawn() {
+    var doc = document.documentElement,
+        Y3linksAll = document.querySelectorAll(".Y3-links"),
+        Y3linktxtAll = document.querySelectorAll(".Y3-linktxt"),
+        Y3lbgAll = document.querySelectorAll(".Y3-linksbg"),
+        Y3logoStroke = document.querySelectorAll(".y3-stroke"),
+        Y3linksWidth = Y3links.offsetWidth,
+        Y3linksHeight = Y3links.offsetHeight,
+        y3linkSpawnTr = "0.7s 0.2s cubic-bezier(0.5, 0, 0, 1)",
+        Y3anBoom = document.querySelector("#y3an-boom > circle"),
+        Y3anSlash1 = document.querySelector("#y3an-slash1"),
+        Y3anSlash2 = document.querySelector("#y3an-slash2");
+
+    setTimeout( function() { document.querySelector("#Y3-menu-container").style.opacity = 1; }, 50); // to be sure we don't see menu at loading
+
+    Y3logoStroke.forEach( function (y3aStroke) {
+        y3aStroke.style.transition = "none";
+        y3aStroke.style.stroke = "var(--y-white)";
+        y3aStroke.style.strokeWidth = "20px";
+    });
+    Y3lbgAll.forEach( function (y3lbg) { y3lbg.style.transition = "0.65s cubic-bezier(0.9, 0.5, 0, 1), background-color " + y3linkSpawnTr; });
+
+    doc.style.setProperty('--y3logoC-left-prev', "calc(50% - (" + Y3logoC.offsetWidth + "px / 2))");
+    doc.style.setProperty('--y3logoC-bottom-prev', "calc(50% - (" + Y3logoC.offsetHeight + "px / 2))");
+    Y3logoC.classList.add("Y3logoC-prev");
+    doc.style.setProperty('--y3links-height0-prev', "0");
+    doc.style.setProperty('--y3links-heightN-prev', Y3linksHeight + "px");
+    Y3links.classList.add("Y3links-prev");
+    Y3linksAll.forEach( function (y3l) { y3l.classList.add("Y3linksAll-prev"); });
+    Y3linktxtAll.forEach( function (y3ltxt) { y3ltxt.classList.add("Y3linktxtAll-prev"); });
+    Y3lbgAll.forEach( function (y3lbg) { y3lbg.classList.add("Y3lbgAll-prev"); });
+    Y3anSlash1.classList.add("Y3anSlash-prev");
+    Y3anSlash2.classList.add("Y3anSlash-prev");
+    if(isMobile == true) { Y3anSlash1.style.display = "none"; }
+
+    if(isMobile == false) {
+        Y3logo.style.transform = "scale(2) translate(92.5%, -200%)";
+        Y3links.style.transform = "translateX(calc(-" + Y3linksWidth / 2 + "px + var(--y3m-size2)))";
+    } else {
+        Y3logo.style.transform = "scale(3) translate(85%, -200%)";
+        Y3links.style.transform = "translateY(calc(-" + Y3linksHeight / 2 + "px - var(--y3m-m-margin)))";
+    }
+
+    setTimeout( function() {
+        Y3logo.style.transition = "transform 1.25s cubic-bezier(0.25, 1, 0, 1)";
+        Y3logo.style.transform = null;
+        Y3logoStroke.forEach( function (y3aStroke) {
+            y3aStroke.style.transition = "1s cubic-bezier(0.8, 0.3, 0, 1), stroke 2s cubic-bezier(0.7, 0.2, 0, 1), stroke-width 1.5s cubic-bezier(0.9, 0.8, 0, 1)";
+            y3aStroke.style.stroke = "var(--y-grey)";
+            y3aStroke.style.strokeWidth = null;
+        });
+        setTimeout( function() {
+            Y3anBoom.setAttribute('r', "5" );
+            Y3anBoom.style.fill = "var(--y-white)";
+        }, 700);
+        setTimeout( function() {
+            Y3logoC.style.transition = "0.9s 0.1s cubic-bezier(0.3, 0.75, 0, 1), transform 0.5s 25ms cubic-bezier(0.1, 0.7, 0, 1)";
+            Y3logoC.classList.remove("Y3logoC-prev");
+            Y3linksAll.forEach( function (y3l) { y3l.style.color = "var(--y-black)"; });
+            Y3lbgAll.forEach( function (y3lbg) { y3lbg.classList.remove("Y3lbgAll-prev"); });
+            if(isMobile == false) {
+                Y3links.style.height = Y3linksHeight;
+                Y3links.style.transform = null;
+            } else { setTimeout( function() { Y3links.style.transform = null; }, 200); }
+            setTimeout( function() { Y3linksAll.forEach( function (y3l) { y3l.style.top = "0"; }); }, 200);
+            setTimeout( function() {
+                Y3anSlash2.classList.remove("Y3anSlash-prev");
+                setTimeout( function() {
+                    Y3anSlash1.classList.remove("Y3anSlash-prev");
+                    Y3anSlash1.classList.add("Y3anSlash-new");
+                }, 100);
+                Y3anSlash2.classList.add("Y3anSlash-new");
+            }, 90);
+            setTimeout( function() {
+                document.querySelectorAll("#Y3-logo > g[id] > *").forEach( function (y3aPath) { y3aPath.style.pointerEvents = "all"; });
+                setTimeout( function() {
+                    Y3linktxtAll.forEach( function (y3ltxt) {
+                        y3ltxt.classList.remove("Y3linktxtAll-prev");
+                        y3ltxt.style.transition = "0.7s cubic-bezier(0.2, 0.5, 0, 1), padding 0s";
+                    });
+                }, 200);
+            }, 300);
+            setTimeout( function() { // FINISH CLEAR
+                Y3links.style.height = null;
+                Y3links.style.backgroundColor = "transparent";
+                Y3links.classList.remove("Y3links-prev");
+                Y3logoC.style.transition = null;
+                Y3linksAll.forEach( function (y3l) { y3l.classList.remove("Y3linksAll-prev"); });
+                Y3lbgAll.forEach( function (y3lbg) { y3lbg.style.transition = null; });
+                document.querySelector("#Y3-anim").style.display = "none";
+                doc.style.setProperty('--y3logoC-left-prev', null);
+                doc.style.setProperty('--y3logoC-bottom-prev', null);
+                doc.style.setProperty('--y3links-height0-prev', null);
+                doc.style.setProperty('--y3links-heightN-prev', null);
+            }, 1250);
+        }, 1000);
+    }, 200);
+};
+if(document.hidden == true) { document.addEventListener("visibilitychange", Y3Spawn, { once: true }); } else { Y3Spawn(); }
+
+Y3arrowsID.forEach(function (y3aID) {
+    var y3aIDPath = 'a[y3arrow="' + y3aID + '"]',
+        y3a = document.querySelector("#Y3-logo > g[id='" + y3aID + "']"),
+        y3l = document.querySelector(".Y3-links:nth-of-type(" + y3aCount + ")"),
+        y3w = document.querySelector("div[id^='Y3-W'][y3arrow='" + y3aID + "']"),
+        Y3linkbg = document.querySelector(y3aIDPath + " > .Y3-linksbg"),
+        Y3linktxt = document.querySelector(y3aIDPath + " > .Y3-linktxt"),
+        Y3ltxtTitle = document.querySelectorAll(y3aIDPath + " .Y3ltxt-title"),
+        Y3ltxtPlus = document.querySelectorAll(y3aIDPath + " .Y3ltxt-plus"),
+        Y3ltxtAll_TitleInitW = [],
+        Y3arrowsOtherID = Y3arrowsOthersID[y3aCount - 1],
+        Y3href = Y3hrefs[y3aCount - 1];
+
+    setTimeout( function() { // needs to let the font-fam init to get true width
+        Y3ltxtTitle.forEach( function (y3ltxtTitle) {
+            Y3ltxtAll_TitleInitW.push(y3ltxtTitle.offsetWidth);});
+        Y3ltxtPlus.forEach( function (y3ltxtPlus) {
+            y3ltxtPlus.style.width = y3ltxtPlus.offsetWidth + 2;
+            y3ltxtPlus.classList.add("Y3ltxt-hover");
+        });
+    }, 1000);
+
+    function y3aEffect(arrowID, b, n) {
+        var y3aPath = "#Y3-logo > g[id='" + arrowID + "'] ";
+        if(b == true || Y3links.hasAttribute("focus") == true && n == true) {
+            var e = ["var(--y-black)", "var(--y-white)", "0.55s 50ms cubic-bezier(0.1, 0.7, 0, 1)"];
+        } else { var e = [null, null, null]; }
+        document.querySelector(y3aPath + ".y3-fill").style.fill = e[0];
+        document.querySelector(y3aPath + ".y3-stroke").style.fill = e[1];
+        document.querySelector(y3aPath + ".y3-fill").style.transition = e[2];
+        document.querySelector(y3aPath + ".y3-stroke").style.transition = e[2];
+    };
+    function y3ALHover(b) {
+        if(isMobile == false) {
+            if(b == true) {
+                y3ArrowOtherTr(b, true);
+                Y3linktxt.classList.add("Y3-linktxt-hover");
+                Y3ltxtPlus.forEach( function (y3ltxtPlus) { y3ltxtPlus.classList.remove("Y3ltxt-hover"); });
+            } else {
+                if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) {
+                    y3ArrowOtherTr(b, true);
+                    Y3linktxt.classList.remove("Y3-linktxt-hover");
+                    Y3ltxtPlus.forEach( function (y3ltxtPlus) { y3ltxtPlus.classList.add("Y3ltxt-hover"); });
+                }
+            }
+        }
+        if(b == true) { Y3linkbg.classList.add("Y3-linkbg-hover");
+        } else {
+            if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) { Y3linkbg.classList.remove("Y3-linkbg-hover"); }}
+        if(b == true) { Y3logoC.classList.add("Y3L-Persp-" + y3aID);
+        } else { Y3logoC.classList.remove("Y3L-Persp-" + y3aID); }
+    };
+    function Y3Focus() {
+        y3ArrowOtherTr(true, true);
+        y3a.style.transitionDelay = "0s !important";
+        Y3links.classList.add("Y3-links-focus");
+        Y3linkbg.classList.add("Y3-linkbg-focus");
+        Y3arrowsID.forEach(function(y3aGID) { document.querySelector("#Y3-logo > g[id='" + y3aGID + "']").classList.add("Y3-arrow-focus"); });
+        Y3links.setAttribute("focus", "");
+        if(isMobile == false) {
+            y3aEffect(y3aID, true, true)
+            Y3linktxt.classList.add("Y3-linktxt-focus");
+        } else {
+            y3aEffect(y3aID, false, false)
+            Y3logoC.classList.add("Y3L-Persp-" + y3aID);
+        }
+    };
+    function Y3Click() {
+        Y3Focus();
+        //location.href = Y3href;
+    };
+    function Y3Active() {
+        if(isMobile == false) {
+            Y3linktxt.classList.add("Y3-linktxt-active");
+            Y3logoC.classList.add("Y3L-Persp-active");
+        } else { Y3logoC.classList.add("Y3L-Persp-" + y3aID); }
+    };
+    function y3ArrowOtherTr(b, n) {
+        var d = 1;
+        Y3arrowsOtherID.forEach(function(y3aOID) {
+            y3aEffect(y3aOID, b, n);
+            d += 1;
+        });
+    };
+
+    y3a.addEventListener("mouseover", function() { y3ALHover(true) });
+    y3l.addEventListener("mouseover", function() { y3ALHover(true) });
+    y3a.addEventListener("mouseout", function() { y3ALHover(false) });
+    y3l.addEventListener("mouseout", function() { y3ALHover(false) });
+
+    y3a.addEventListener("mousedown", Y3Active);
+    y3l.addEventListener("mousedown", Y3Active);
+    document.addEventListener("mouseup", function() {
+        setTimeout( function() { Y3logoC.classList.remove("Y3L-Persp-active"); }, 75);
+        if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) {
+            Y3linktxt.classList.remove("Y3-linktxt-active");
+            if(isMobile == true) { Y3logoC.classList.remove("Y3L-Persp-" + y3aID); }
+        }
+    });
+
+    y3a.addEventListener("click", Y3Click);
+    y3l.addEventListener("click", Y3Click);
+
+    y3aCount += 1;
+});
+
+</script>
+</html>
