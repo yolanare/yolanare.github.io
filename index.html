@@ -1,8 +1,17 @@
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Y3</title>
+
+    <meta name="theme-color" content="#1d1f20" />
+    <meta name="msapplication-navbutton-color" content="#1d1f20" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="src/icons/y-favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="src/icons/y-favicon-16.png">
+    
+    <title>Yolan' Website</title>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
 :root {
@@ -263,9 +272,26 @@ body { margin: 0; font-family: "Josefin Sans", sans-serif; background-color: var
                 color 0.7s 0.2s cubic-bezier(0.5, 0, 0, 1) !important;
 }
 
+
+.y3trpage {
+    z-index: 19;
+    position: fixed;
+    width: 100%;
+    right: 0;
+    background-color: var(--y-black);
+    cursor: grab;
+}
+.y3trpage-full {
+    height: 100% !important;
+    top: 0 !important;
+}
+
 @media (min-width: 1101px) /*PC*/ {
     #Y3-logo-container {
         left: 0;
+    }
+    .Y3-links {
+        align-items: center;
     }
     .Y3-linktxt {
         border: 0px solid var(--y-white);
@@ -318,7 +344,6 @@ body { margin: 0; font-family: "Josefin Sans", sans-serif; background-color: var
         width: 0 !important;
     }
 }
-
 
 @media (max-width: 1100px) /*MOBILE*/ {
     :root {
@@ -496,7 +521,7 @@ body { margin: 0; font-family: "Josefin Sans", sans-serif; background-color: var
 
 var Y3arrowsID = ["TL","TR","BM"],
     Y3arrowsOthersID = [["TR","BM"],["TL","BM"],["TL","TR"]],
-    Y3hrefs = ["https://www.google.fr/","https://www.google.com/","https://www.google.net/"],
+    Y3hrefs = ["https://www.yolan.art/what","https://www.yolan.art/more","https://www.yolan.art/about"],
     Y3links = document.querySelector("#Y3-links"),
     Y3logo = document.querySelector("#Y3-logo"),
     Y3logoC = document.querySelector("#Y3-logo-container"),
@@ -618,7 +643,8 @@ Y3arrowsID.forEach(function (y3aID) {
         Y3ltxtPlus = document.querySelectorAll(y3aIDPath + " .Y3ltxt-plus"),
         Y3ltxtAll_TitleInitW = [],
         Y3arrowsOtherID = Y3arrowsOthersID[y3aCount - 1],
-        Y3href = Y3hrefs[y3aCount - 1];
+        Y3href = Y3hrefs[y3aCount - 1],
+        y3TrPageDuration = 700;
 
     setTimeout( function() { // needs to let the font-fam init to get true width
         Y3ltxtTitle.forEach( function (y3ltxtTitle) {
@@ -676,7 +702,24 @@ Y3arrowsID.forEach(function (y3aID) {
     };
     function Y3Click() {
         Y3Focus();
-        //location.href = Y3href;
+        if(document.querySelector(".y3trpage") == null) {
+            var y3TrPage = document.createElement("div"),
+                y3lPos = y3l.getBoundingClientRect();
+
+            y3l.style.zIndex = "22";
+
+            y3TrPage.setAttribute("class", "y3trpage");
+            y3TrPage.style.top = y3lPos.top + (y3l.offsetHeight / 2);
+            y3TrPage.style.height = 0;
+            document.querySelector("body").appendChild(y3TrPage);
+
+            y3TrPage.style.transition = y3TrPageDuration + "ms cubic-bezier(0.35, 0.7, 0, 1)";
+            setTimeout( function() { y3TrPage.classList.add("y3trpage-full"); }, 100);
+
+            //y3TrPage.classList.remove("y3trpage-full");
+        }
+
+        //setTimeout( function() { location.href = Y3href; }, y3TrPageDuration);
     };
     function Y3Active() {
         if(isMobile == false) {
