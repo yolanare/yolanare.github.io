@@ -1,11 +1,22 @@
-const swup = new Swup();
+const options = {
+    animateHistoryBrowsing: true
+};
+const swup = new Swup(options);
+
+window.addEventListener('mousemove', function(event) {
+    var x = event.clientX;
+    var y = event.clientY;
+    console.log("X: " + x + ", Y: " + y);
+});
+
+
 
 // Y3-MENU
 function Y3Init() {
     if(document.querySelector("#Y3-menu-container")) {
         var Y3arrowsID = ["TL","TR","BM"],
             Y3arrowsOthersID = [["TR","BM"],["TL","BM"],["TL","TR"]],
-            Y3hrefs = ["https://yolan.art/what/", "https://yolan.art/more/", "https://yolan.art/about/"],
+            Y3hrefs = ["/what/", "/more/", "/about/"],
             Y3links = document.querySelector("#Y3-links"),
             Y3logo = document.querySelector("#Y3-logo"),
             Y3logoC = document.querySelector("#Y3-logo-container"),
@@ -127,8 +138,7 @@ function Y3Init() {
                 Y3ltxtAll_TitleInitW = [],
                 Y3arrowsOtherID = Y3arrowsOthersID[y3aCount - 1],
                 Y3href = Y3hrefs[y3aCount - 1],
-                y3TrPage = document.querySelector("#y3trpage"),
-                y3lPos = y3l.getBoundingClientRect();
+                y3TrPage = document.querySelector("#y3trpage");
 
             setTimeout( function() { // needs to let the font-fam init to get true width
                 Y3ltxtTitle.forEach( function (y3ltxtTitle) {
@@ -185,10 +195,18 @@ function Y3Init() {
                 }
             };
             function Y3Click() {
-                y3TrPage.style.top = y3lPos.top + y3l.offsetHeight / 2;
+                y3TrPage.style.transition = "none";
+                y3TrPage.style.top = y3l.getBoundingClientRect().top + (y3l.offsetHeight / 2) + "px";
                 y3l.style.zIndex = "22";
                 Y3Focus();
-                setTimeout(function () { swup.loadPage({ url: Y3href }); }, 50);
+                setTimeout(function () {
+                    y3TrPage.style.transition = null;
+                    swup.loadPage({ url: Y3href });
+                    swup.on('animationInDone', function() {
+                        y3TrPage.style.top = null;
+                        swup.off('animationInDone');
+                    });
+                }, 100);
             };
             function Y3Active(b) {
                 if(b == true) {
