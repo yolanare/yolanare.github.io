@@ -3,13 +3,11 @@ const options = {
 };
 const swup = new Swup(options);
 
-window.addEventListener('mousemove', function(event) {
-    var x = event.clientX;
-    var y = event.clientY;
-    console.log("X: " + x + ", Y: " + y);
-});
-
-
+//window.addEventListener('mousemove', function(event) {
+//    var x = event.clientX;
+//    var y = event.clientY;
+//    console.log("X: " + x + ", Y: " + y);
+//});
 
 // Y3-MENU
 function Y3Init() {
