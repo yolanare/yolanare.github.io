@@ -1,23 +1,75 @@
-const options = {
+const swup = new Swup({
     animateHistoryBrowsing: true
-};
-const swup = new Swup(options);
-
-//window.addEventListener('mousemove', function(event) {
-//    var x = event.clientX;
-//    var y = event.clientY;
-//    console.log("X: " + x + ", Y: " + y);
-//});
+});
 
 // Y3-MENU
 function Y3Init() {
-    if(document.querySelector("#Y3-menu-container")) {
+    if(window.location.pathname == "/") {
+        document.querySelector("nav#Y3").innerHTML = `
+            <div id="Y3-menu-container">
+                <div id="Y3-anim">
+                    <svg id="y3an-boom" viewBox="0 0 10 10">
+                        <circle cx="5" cy="5" r="0" stroke-width="0"/>
+                    </svg>
+                    <div id="y3an-slash2"></div>
+                    <div id="y3an-slash1"></div>
+                </div>
+                <div id="Y3-menu">
+                    <div id="Y3-hitbox-block"></div>
+                    <div id="y3-center">
+                        <div id="Y3-logo-container">
+                            <svg id="Y3-logo" viewbox="0 0 73.5 105.9">
+                                <g id="TL">
+                                    <polygon class="y3-fill" points="40.7,33.6 6.6,8.2 28,45.4" />
+                                    <polygon class="y3-shadow" points="28.5,42.3 30.6,45.8 40.8,36.2 35.6,31.9" />
+                                    <polygon class="y3-stroke" points="25.5,45.1 0,0.9 43.8,33.4 40.8,36.2 13.1,15.6 30.6,45.8" />
+                                </g>
+                                <g id="BM">
+                                    <polygon class="y3-fill" points="46.2,53.9 26.4,96.2 28,45.4" />
+                                    <polygon class="y3-shadow" points="30,47.4 30.1,44.2 45.2,51.2 46.2,53.9 30,83.8 39.9,55.1" />
+                                    <polygon class="y3-stroke" points="24.1,105.9 26,46.7 30.1,44.2 28.8,86.5 45.2,51.2 47.1,56.5" />
+                                </g>
+                                <g id="TR">
+                                    <polygon class="y3-fill" points="46.2,53.9 67.3,8.6 28,45.4" />
+                                    <polygon class="y3-shadow" points="57.2,25.7 46.2,53.9 31.3,44.8 43.7,48.6" />
+                                    <path class="y3-stroke" d="M47.1,56.5L26,46.7l0-0.7l-0.5-0.9L73.5,0L47.1,56.5z M31.6,44.9l13.6,6.4l15.9-34.1L31.6,44.9z" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div id="Y3-links">
+                            <a class="Y3-links" y3arrow="TL">
+                                <div class="Y3-linktxt">
+                                    <div class="Y3ltxt-title">WHAT</div><div class="Y3ltxt-plus">&nbsp;I'VE DONE SO FAR</div>
+                                </div>
+                                <div class="Y3-linksbg"></div>
+                            </a>
+                            <a class="Y3-links" y3arrow="TR">
+                                <div class="Y3-linktxt">
+                                    <div class="Y3ltxt-title">MORE</div><div class="Y3ltxt-plus">&nbsp;THINGS I'M DOING</div>
+                                </div>
+                                <div class="Y3-linksbg"></div>
+                            </a>
+                            <a class="Y3-links" y3arrow="BM">
+                                <div class="Y3-linktxt">
+                                    <div class="Y3ltxt-title">WHO</div><div class="Y3ltxt-plus">&nbsp;I AM</div><div class="Y3ltxt-title">&nbsp;& HOW</div><div class="Y3ltxt-plus">&nbsp;TO CONTACT ME</div>
+                                </div>
+                                <div class="Y3-linksbg"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
         var Y3arrowsID = ["TL","TR","BM"],
             Y3arrowsOthersID = [["TR","BM"],["TL","BM"],["TL","TR"]],
             Y3hrefs = ["/what/", "/more/", "/about/"],
             Y3links = document.querySelector("#Y3-links"),
             Y3logo = document.querySelector("#Y3-logo"),
             Y3logoC = document.querySelector("#Y3-logo-container"),
+            Y3menuC = document.querySelector("#Y3-menu-container"),
+            Y3logoPaths = document.querySelectorAll("#Y3-logo > g[id] > *"),
+            y3TrPage = document.querySelector("#y3trpage"),
             y3aCount = 1,
             isMobile = undefined;
 
@@ -38,7 +90,9 @@ function Y3Init() {
                 Y3anSlash1 = document.querySelector("#y3an-slash1"),
                 Y3anSlash2 = document.querySelector("#y3an-slash2");
 
-            setTimeout( function() { document.querySelector("#Y3-menu-container").style.opacity = 1; }, 50); // to be sure we don't see menu at loading
+            setTimeout( function() { Y3menuC.style.opacity = 1; }, 50); // to be sure we don't see menu at loading
+
+            y3TrPage.style.zIndex = "1300";
 
             Y3logoStroke.forEach( function (y3aStroke) {
                 y3aStroke.style.transition = "none";
@@ -99,7 +153,8 @@ function Y3Init() {
                         Y3anSlash2.classList.add("Y3anSlash-new");
                     }, 90);
                     setTimeout( function() {
-                        document.querySelectorAll("#Y3-logo > g[id] > *").forEach( function (y3aPath) { y3aPath.style.pointerEvents = "all"; });
+                        y3TrPage.style.zIndex = null;
+                        Y3logoPaths.forEach( function (y3aPath) { y3aPath.style.pointerEvents = "all"; });
                         setTimeout( function() {
                             Y3linktxtAll.forEach( function (y3ltxt) {
                                 y3ltxt.classList.remove("Y3linktxtAll-prev");
@@ -107,9 +162,11 @@ function Y3Init() {
                             });
                         }, 200);
                     }, 300);
+                    setTimeout( function() {
+                        Y3links.style.backgroundColor = "transparent";
+                    }, 700);
                     setTimeout( function() { // FINISH CLEAR
                         Y3links.style.height = null;
-                        Y3links.style.backgroundColor = "transparent";
                         Y3links.classList.remove("Y3links-prev");
                         Y3logoC.style.transition = null;
                         Y3linksAll.forEach( function (y3l) { y3l.classList.remove("Y3linksAll-prev"); });
@@ -135,8 +192,7 @@ function Y3Init() {
                 Y3ltxtPlus = document.querySelectorAll(y3aIDPath + " .Y3ltxt-plus"),
                 Y3ltxtAll_TitleInitW = [],
                 Y3arrowsOtherID = Y3arrowsOthersID[y3aCount - 1],
-                Y3href = Y3hrefs[y3aCount - 1],
-                y3TrPage = document.querySelector("#y3trpage");
+                Y3href = Y3hrefs[y3aCount - 1];
 
             setTimeout( function() { // needs to let the font-fam init to get true width
                 Y3ltxtTitle.forEach( function (y3ltxtTitle) {
@@ -195,14 +251,23 @@ function Y3Init() {
             function Y3Click() {
                 y3TrPage.style.transition = "none";
                 y3TrPage.style.top = y3l.getBoundingClientRect().top + (y3l.offsetHeight / 2) + "px";
-                y3l.style.zIndex = "22";
+                y3l.style.zIndex = "221";
+                Y3menuC.style.pointerEvents = "none";
+                Y3logoPaths.forEach( function (y3aPath) { y3aPath.style.pointerEvents = "none"; });
                 Y3Focus();
                 setTimeout(function () {
                     y3TrPage.style.transition = null;
                     swup.loadPage({ url: Y3href });
                     swup.on('animationInDone', function() {
                         y3TrPage.style.top = null;
-                        swup.off('animationInDone');
+                        setTimeout(function () {
+                            Y3menuC.style.transition = "opacity 0.2s ease";
+                            Y3menuC.style.opacity = "0";
+                            setTimeout(function () {
+                                Y3menuC.remove();
+                                swup.off('animationInDone');
+                            }, 200);
+                        }, 250);
                     });
                 }, 100);
             };
