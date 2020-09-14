@@ -111,10 +111,10 @@ html.is-animating .transition-y3trpage {
     pointer-events: none;
 }
 .Y3L-Persp-TL {
-    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-15deg) rotateY(10deg) rotateZ(-1.75deg) !important;
+    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-15deg) rotateY(10deg) rotateZ(-2deg) !important;
 }
 .Y3L-Persp-TR {
-    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-12deg) rotateY(-11deg) rotateZ(1.75deg) !important;
+    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-12deg) rotateY(-11deg) rotateZ(2deg) !important;
 }
 .Y3L-Persp-BM {
     transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(12deg) rotateY(-3deg) rotateZ(-1deg) !important;
@@ -214,8 +214,10 @@ html.is-animating .transition-y3trpage {
 .Y3-linktxt-focus {
     transition: 0.55s cubic-bezier(0.1, 0.7, 0, 1) !important;
 }
-.Y3-links-focus {
+
+.Y3-linktxt-focus {
     color: var(--y-white);
+    background-color: var(--y-black) !important;
 }
 .Y3-linkbg-focus {
     background-color: var(--y-white) !important;
@@ -304,8 +306,6 @@ html.is-animating .transition-y3trpage {
         transition: 0.3s cubic-bezier(0, 0.7, 0, 1) !important;
     }
     .Y3-linktxt-focus {
-        color: var(--y-white);
-        background-color: var(--y-black) !important;
         border-left-width: var(--y3lbg-initW);
         border-color: var(--y-black);
         box-shadow: var(--y3lbg-initW) 0 0 var(--y-black) !important;
@@ -353,6 +353,7 @@ html.is-animating .transition-y3trpage {
         --y3m-m-margin: 12.5%;
         --y3lbg-m-shad: 150px;
         --y3lbg-m-shad-minus: calc(0px - var(--y3lbg-m-shad));
+        --y3-persp-i: 300px;
     }
     #Y3-menu-container {
         align-items: center;
@@ -401,8 +402,12 @@ html.is-animating .transition-y3trpage {
     .Y3-linkbg-hover, .Y3-linkbg-focus {
         width: 0%;
         box-shadow: inset var(--y3lbg-m-shad) 0 0.01px var(--y-grey), inset var(--y3lbg-m-shad-minus) 0 0.01px var(--y-grey);
-        transition: width 0.7s 0.2s cubic-bezier(0.2, 0.5, 0, 1),
+        transition: 0.55s cubic-bezier(0.1, 0.7, 0, 1),
+                    width 0.7s 0.2s cubic-bezier(0.2, 0.5, 0, 1),
                     box-shadow 0.2s linear !important;
+    }
+    .Y3-linkbg-focus {
+        border-color: var(--y-white) !important;
     }
     .Y3-linktxt {
         left: auto;

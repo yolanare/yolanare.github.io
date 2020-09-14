@@ -71,7 +71,8 @@ function Y3Init() {
             Y3logoPaths = document.querySelectorAll("#Y3-logo > g[id] > *"),
             y3TrPage = document.querySelector("#y3trpage"),
             y3aCount = 1,
-            isMobile = undefined;
+            isMobile = undefined,
+            y3DespawnDelay = undefined;
 
         function checkWinSize() { if(window.innerWidth > 1100) { isMobile = false } else { isMobile = true }};
         window.addEventListener("resize", checkWinSize);
@@ -233,18 +234,31 @@ function Y3Init() {
                 if(b == true) { Y3logoC.classList.add("Y3L-Persp-" + y3aID);
                 } else { Y3logoC.classList.remove("Y3L-Persp-" + y3aID); }
             };
+            function Y3Active(b) {
+                if(b == true) {
+                    if(isMobile == false) {
+                        Y3linktxt.classList.add("Y3-linktxt-active");
+                        Y3logoC.classList.add("Y3L-Persp-active");
+                    } else { Y3logoC.classList.add("Y3L-Persp-" + y3aID); }
+                } else {
+                    setTimeout( function() { Y3logoC.classList.remove("Y3L-Persp-active"); }, 75);
+                    if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) {
+                        Y3linktxt.classList.remove("Y3-linktxt-active");
+                        if(isMobile == true) { Y3logoC.classList.remove("Y3L-Persp-" + y3aID); }
+                    }
+                }
+            };
             function Y3Focus() {
                 y3ArrowOtherTr(true, true);
                 y3a.style.transitionDelay = "0s !important";
                 Y3links.classList.add("Y3-links-focus");
+                Y3linktxt.classList.add("Y3-linktxt-focus");
                 Y3linkbg.classList.add("Y3-linkbg-focus");
                 Y3arrowsID.forEach(function(y3aGID) { document.querySelector("#Y3-logo > g[id='" + y3aGID + "']").classList.add("Y3-arrow-focus"); });
                 Y3links.setAttribute("focus", "");
+                y3aEffect(y3aID, true, true);
                 if(isMobile == false) {
-                    y3aEffect(y3aID, true, true)
-                    Y3linktxt.classList.add("Y3-linktxt-focus");
                 } else {
-                    y3aEffect(y3aID, false, false)
                     Y3logoC.classList.add("Y3L-Persp-" + y3aID);
                 }
             };
@@ -260,6 +274,7 @@ function Y3Init() {
                     swup.loadPage({ url: Y3href });
                     swup.on('animationInDone', function() {
                         y3TrPage.style.top = null;
+                        if(isMobile == false) { y3DespawnDelay = 200; } else { y3DespawnDelay = 100; }
                         setTimeout(function () {
                             Y3menuC.style.transition = "opacity 0.2s ease";
                             Y3menuC.style.opacity = "0";
@@ -267,29 +282,13 @@ function Y3Init() {
                                 Y3menuC.remove();
                                 swup.off('animationInDone');
                             }, 200);
-                        }, 250);
+                        }, y3DespawnDelay);
                     });
                 }, 100);
             };
-            function Y3Active(b) {
-                if(b == true) {
-                    if(isMobile == false) {
-                        Y3linktxt.classList.add("Y3-linktxt-active");
-                        Y3logoC.classList.add("Y3L-Persp-active");
-                    } else { Y3logoC.classList.add("Y3L-Persp-" + y3aID); }
-                } else {
-                    setTimeout( function() { Y3logoC.classList.remove("Y3L-Persp-active"); }, 75);
-                    if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) {
-                        Y3linktxt.classList.remove("Y3-linktxt-active");
-                        if(isMobile == true) { Y3logoC.classList.remove("Y3L-Persp-" + y3aID); }
-                    }
-                }
-            };
             function y3ArrowOtherTr(b, n) {
-                var d = 1;
                 Y3arrowsOtherID.forEach(function(y3aOID) {
                     y3aEffect(y3aOID, b, n);
-                    d += 1;
                 });
             };
 
