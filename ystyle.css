@@ -39,7 +39,10 @@ nav#Y3 {
 .transition-y3trpage {
     height: 0;
     top: 50%;
-    transition: 0.9s cubic-bezier(0.6, 0.8, 0, 1.05);
+    transition: 1s cubic-bezier(0.7, 0.9, 0, 1.04);
+}
+html.is-leaving .transition-y3trpage {
+    transition: 0.75s cubic-bezier(0.7, 0.8, 0, 1.04);
 }
 html.is-animating .transition-y3trpage {
     height: 100% !important;
@@ -114,7 +117,7 @@ html.is-animating .transition-y3trpage {
     transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-15deg) rotateY(10deg) rotateZ(-2deg) !important;
 }
 .Y3L-Persp-TR {
-    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-12deg) rotateY(-11deg) rotateZ(2deg) !important;
+    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-15deg) rotateY(-11deg) rotateZ(2deg) !important;
 }
 .Y3L-Persp-BM {
     transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(12deg) rotateY(-3deg) rotateZ(-1deg) !important;
@@ -160,34 +163,14 @@ html.is-animating .transition-y3trpage {
     cursor: pointer;
     user-select: none;
 }
-.Y3-linksbg {
-    z-index: 1010;
-    position: absolute;
-    width: var(--y3lbg-initW);
-    height: 100%;
-    top: 0;
-    right: var(--y3m-size2);
-    background-color: var(--y-black);
-    transition: 0.65s cubic-bezier(0.9, 0.5, 0, 1),
-                background-color 0.6s cubic-bezier(0.5, 0.3, 0, 1),
-                border 0s;
-    pointer-events: none;
-}
-.Y3-linkbg-hover, .Y3-linkbg-focus {
-    width: 100%;
-    right: 0;
-    transition: 0.5s cubic-bezier(0.5, 0.7, 0, 1);
-}
-
 .Y3-linktxt {
     z-index: 1012;
     position: sticky;
     left: 100%;
     margin-right: var(--y3lbg-initW);
     padding: 2px var(--y3ltxt-padding) 0px;
-    background-color: var(--y-white);
+    background-color: transparent;
 }
-
 .Y3-linktxt > div[class*="Y3ltxt"] {
     display: inline-flex;
     position: relative;
@@ -207,6 +190,29 @@ html.is-animating .transition-y3trpage {
 }
 .Y3ltxt-plus {
     font-weight: 400;
+}
+.Y3-linktxt-hover {
+    background-color: var(--y-white);
+    transition: background-color 0s !important;
+}
+
+.Y3-linksbg {
+    z-index: 1010;
+    position: absolute;
+    width: var(--y3lbg-initW);
+    height: 100%;
+    top: 0;
+    right: var(--y3m-size2);
+    background-color: var(--y-black);
+    transition: 0.65s cubic-bezier(0.9, 0.5, 0, 1),
+                background-color 0.6s cubic-bezier(0.5, 0.3, 0, 1),
+                border 0s;
+    pointer-events: none;
+}
+.Y3-linkbg-hover, .Y3-linkbg-focus {
+    width: 100%;
+    right: 0;
+    transition: 0.5s cubic-bezier(0.5, 0.7, 0, 1);
 }
 
 .Y3-links-focus,
@@ -274,7 +280,7 @@ html.is-animating .transition-y3trpage {
 }
 
 .Y3linksAll-prev {
-    transition: 0.9s cubic-bezier(0.1, 0.7, 0, 1),
+    transition: 0.9s ease,
                 filter 0.45s cubic-bezier(0.1, 0.7, 0, 1),
                 color 0.7s 0.2s cubic-bezier(0.5, 0, 0, 1) !important;
 }
@@ -298,11 +304,13 @@ html.is-animating .transition-y3trpage {
         border-left-width: 40px;
         box-shadow: var(--y3lbg-initW) 0 0 0 var(--y-grey) !important;
         transition: 0.5s cubic-bezier(0.15, 0.7, 0, 1),
-                    border 0.4s ease /*cubic-bezier(0.15, 0.75, 0, 1)*/ !important;
+                    border 0s /*0.7s cubic-bezier(0.15, 0.75, 0, 1)*/,
+                    background-color 0s !important;
     }
     .Y3-linktxt-active {
         border-left-width: 0px;
         box-shadow: 0px 0 0 var(--y-white) !important;
+        background-color: var(--y-white);
         transition: 0.3s cubic-bezier(0, 0.7, 0, 1) !important;
     }
     .Y3-linktxt-focus {
@@ -388,6 +396,15 @@ html.is-animating .transition-y3trpage {
         font-size: 18px;
         text-align: center;
     }
+    .Y3-linktxt {
+        left: auto;
+        margin-right: 0;
+        padding: 8px 8px 3px;
+        box-shadow: none !important;
+    }
+    .Y3ltxt-plus {
+        width: auto !important;
+    }
     .Y3-linksbg {
         width: 100%;
         top: auto;
@@ -408,15 +425,6 @@ html.is-animating .transition-y3trpage {
     }
     .Y3-linkbg-focus {
         border-color: var(--y-white) !important;
-    }
-    .Y3-linktxt {
-        left: auto;
-        margin-right: 0;
-        padding: 8px 8px 3px;
-        box-shadow: none !important;
-    }
-    .Y3ltxt-plus {
-        width: auto !important;
     }
 
     #y3an-boom {
@@ -441,12 +449,11 @@ html.is-animating .transition-y3trpage {
     }
     .Y3links-prev {
         height: var(--y3links-heightN-prev);
-        transition: transform 0.6s 0.1s cubic-bezier(0.2, 0.75, 0, 1),
-                    top 0.5s 0.1s cubic-bezier(0.5, 0.5, 0, 0.95),
+        transition: transform 0.9s 0s cubic-bezier(0.2, 0.7, 0, 1),
                     background-color 0.2s ease;
     }
     .Y3linksAll-prev {
-        transition-duration: 0.9s, 0.45s, 0.7s !important;
+        transition-duration: 0.4s, 0.45s, 0.7s !important;
     }
     .Y3linktxtAll-prev {
         background-color: transparent;

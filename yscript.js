@@ -2,8 +2,47 @@ const swup = new Swup({
     animateHistoryBrowsing: true
 });
 
+var isMobile = undefined;
+function checkWinSize() { if(window.innerWidth > 1100) { isMobile = false } else { isMobile = true }};
+checkWinSize();
+window.addEventListener("resize", checkWinSize);
+
+var y3TrPage = document.querySelector("#y3trpage");
+
 // Y3-MENU
+function Y3GoCenter() {
+    if(document.querySelector("#Y3-menu-container") != null && document.querySelector("#Y3-links").hasAttribute("focus") == false) {
+        var Y3logoC = document.querySelector("#Y3-logo-container");
+        Y3logoC.style.transition = "0.5s 0.1s cubic-bezier(0.4, 0.6, 0, 1)";
+        Y3logoC.classList.add("Y3logoC-prev");
+        Y3logoC.style.transform = "scale(1.25)";
+        swup.on('animationInStart', function() {
+            setTimeout(function () {
+                Y3logoC.style.transform = "scale(0)";
+                swup.off('animationInStart')
+            }, 100);
+        });
+    }
+}
+swup.on('animationOutStart', Y3GoCenter);
+
 function Y3Init() {
+    var Y3Despawn = true;
+    if(window.location.pathname != "/") {
+        var Y3menuC = document.querySelector("#Y3-menu-container"),
+            y3DespawnDelay = undefined;
+            
+        y3TrPage.style.top = null;
+        if(Y3menuC != null) {
+            if(isMobile == false) { y3DespawnDelay = 200; } else { y3DespawnDelay = 100; }
+            setTimeout(function () {
+                Y3menuC.style.transition = "opacity 0.2s ease";
+                Y3menuC.style.opacity = "0";
+                setTimeout(function () { if(Y3Despawn == true) { Y3menuC.remove(); } else { Y3Despawn = null; } }, 200);
+            }, y3DespawnDelay);
+        }
+    }
+
     if(window.location.pathname == "/") {
         document.querySelector("nav#Y3").innerHTML = `
             <div id="Y3-menu-container">
@@ -69,14 +108,7 @@ function Y3Init() {
             Y3logoC = document.querySelector("#Y3-logo-container"),
             Y3menuC = document.querySelector("#Y3-menu-container"),
             Y3logoPaths = document.querySelectorAll("#Y3-logo > g[id] > *"),
-            y3TrPage = document.querySelector("#y3trpage"),
-            y3aCount = 1,
-            isMobile = undefined,
-            y3DespawnDelay = undefined;
-
-        function checkWinSize() { if(window.innerWidth > 1100) { isMobile = false } else { isMobile = true }};
-        window.addEventListener("resize", checkWinSize);
-        checkWinSize();
+            y3aCount = 1;
 
         function Y3Spawn() {
             var doc = document.documentElement,
@@ -92,7 +124,7 @@ function Y3Init() {
                 Y3anSlash2 = document.querySelector("#y3an-slash2");
 
             setTimeout( function() { Y3menuC.style.opacity = 1; }, 50); // to be sure we don't see menu at loading
-
+            Y3Despawn = false;
             y3TrPage.style.zIndex = "1300";
 
             Y3logoStroke.forEach( function (y3aStroke) {
@@ -144,7 +176,7 @@ function Y3Init() {
                         Y3links.style.height = Y3linksHeight;
                         Y3links.style.transform = null;
                     } else { setTimeout( function() { Y3links.style.transform = null; }, 200); }
-                    setTimeout( function() { Y3linksAll.forEach( function (y3l) { y3l.style.top = "0"; }); }, 200);
+                    setTimeout( function() { Y3linksAll.forEach( function (y3l) { y3l.style.top = "0"; }); }, 100);
                     setTimeout( function() {
                         Y3anSlash2.classList.remove("Y3anSlash-prev");
                         setTimeout( function() {
@@ -159,7 +191,7 @@ function Y3Init() {
                         setTimeout( function() {
                             Y3linktxtAll.forEach( function (y3ltxt) {
                                 y3ltxt.classList.remove("Y3linktxtAll-prev");
-                                y3ltxt.style.transition = "0.7s cubic-bezier(0.2, 0.5, 0, 1), padding 0s";
+                                y3ltxt.style.transition = "0.7s cubic-bezier(0.2, 0.5, 0, 1), padding 0s, background-color 0.2s ease 0.6s";
                             });
                         }, 200);
                     }, 300);
@@ -173,10 +205,9 @@ function Y3Init() {
                         Y3linksAll.forEach( function (y3l) { y3l.classList.remove("Y3linksAll-prev"); });
                         Y3lbgAll.forEach( function (y3lbg) { y3lbg.style.transition = null; });
                         document.querySelector("#Y3-anim").style.display = "none";
-                        doc.style.setProperty('--y3logoC-left-prev', null);
-                        doc.style.setProperty('--y3logoC-bottom-prev', null);
                         doc.style.setProperty('--y3links-height0-prev', null);
                         doc.style.setProperty('--y3links-heightN-prev', null);
+                        if(Y3Despawn == null) { Y3menuC.remove(); Y3Despawn = true; }
                     }, 1250);
                 }, 1000);
             }, 200);
@@ -218,21 +249,25 @@ function Y3Init() {
                 if(isMobile == false) {
                     if(b == true) {
                         y3ArrowOtherTr(b, true);
-                        Y3linktxt.classList.add("Y3-linktxt-hover");
                         Y3ltxtPlus.forEach( function (y3ltxtPlus) { y3ltxtPlus.classList.remove("Y3ltxt-hover"); });
                     } else {
                         if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) {
                             y3ArrowOtherTr(b, true);
-                            Y3linktxt.classList.remove("Y3-linktxt-hover");
                             Y3ltxtPlus.forEach( function (y3ltxtPlus) { y3ltxtPlus.classList.add("Y3ltxt-hover"); });
                         }
                     }
                 }
-                if(b == true) { Y3linkbg.classList.add("Y3-linkbg-hover");
+                if(b == true) {
+                    Y3logoC.classList.add("Y3L-Persp-" + y3aID);
+                    Y3linktxt.classList.add("Y3-linktxt-hover");
+                    Y3linkbg.classList.add("Y3-linkbg-hover");
                 } else {
-                    if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) { Y3linkbg.classList.remove("Y3-linkbg-hover"); }}
-                if(b == true) { Y3logoC.classList.add("Y3L-Persp-" + y3aID);
-                } else { Y3logoC.classList.remove("Y3L-Persp-" + y3aID); }
+                    if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) {
+                        Y3logoC.classList.remove("Y3L-Persp-" + y3aID);
+                        Y3linktxt.classList.remove("Y3-linktxt-hover");
+                        Y3linkbg.classList.remove("Y3-linkbg-hover");
+                    }
+                }
             };
             function Y3Active(b) {
                 if(b == true) {
@@ -249,18 +284,15 @@ function Y3Init() {
                 }
             };
             function Y3Focus() {
+                Y3links.setAttribute("focus", "");
                 y3ArrowOtherTr(true, true);
                 y3a.style.transitionDelay = "0s !important";
                 Y3links.classList.add("Y3-links-focus");
                 Y3linktxt.classList.add("Y3-linktxt-focus");
                 Y3linkbg.classList.add("Y3-linkbg-focus");
                 Y3arrowsID.forEach(function(y3aGID) { document.querySelector("#Y3-logo > g[id='" + y3aGID + "']").classList.add("Y3-arrow-focus"); });
-                Y3links.setAttribute("focus", "");
                 y3aEffect(y3aID, true, true);
-                if(isMobile == false) {
-                } else {
-                    Y3logoC.classList.add("Y3L-Persp-" + y3aID);
-                }
+                Y3logoC.classList.add("Y3L-Persp-" + y3aID);
             };
             function Y3Click() {
                 y3TrPage.style.transition = "none";
@@ -272,18 +304,6 @@ function Y3Init() {
                 setTimeout(function () {
                     y3TrPage.style.transition = null;
                     swup.loadPage({ url: Y3href });
-                    swup.on('animationInDone', function() {
-                        y3TrPage.style.top = null;
-                        if(isMobile == false) { y3DespawnDelay = 200; } else { y3DespawnDelay = 100; }
-                        setTimeout(function () {
-                            Y3menuC.style.transition = "opacity 0.2s ease";
-                            Y3menuC.style.opacity = "0";
-                            setTimeout(function () {
-                                Y3menuC.remove();
-                                swup.off('animationInDone');
-                            }, 200);
-                        }, y3DespawnDelay);
-                    });
                 }, 100);
             };
             function y3ArrowOtherTr(b, n) {
@@ -309,4 +329,4 @@ function Y3Init() {
     }
 }
 Y3Init();
-swup.on('contentReplaced', Y3Init);
+swup.on("contentReplaced", Y3Init);
