@@ -7,7 +7,7 @@ function checkWinSize() { if(window.innerWidth > 1100) { isMobile = false } else
 checkWinSize();
 window.addEventListener("resize", checkWinSize);
 
-function navY3ClearChilds(parent) { if(window.location.pathname != "/") { while (parent.firstChild) { parent.removeChild(parent.firstChild); }}}
+function navY3ClearChilds(nav) { if(window.location.pathname != "/") { while(nav.firstChild) { nav.removeChild(nav.firstChild); }}}
 
 function y3DespawnDelayCalc() {
     var y3DespawnSubstract = 0;
@@ -46,7 +46,6 @@ function Y3Init() {
 
     if(window.location.pathname != "/") {
         var Y3menuC = document.querySelector("#Y3-menu-container");
-            
         y3TrPage.style.top = null;
         if(Y3menuC != null) {
             setTimeout(function () {
@@ -291,42 +290,32 @@ function Y3Init() {
                 } else {
                     setTimeout( function() { Y3logoC.classList.remove("Y3L-Persp-active"); }, 75);
                     if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) {
-                        setTimeout(function () {
-                            Y3linktxt.classList.remove("Y3-linktxt-active");
-                        }, 50);
+                        setTimeout(function () { Y3linktxt.classList.remove("Y3-linktxt-active"); }, 50);
                         if(isMobile == true) { Y3logoC.classList.remove("Y3L-Persp-" + y3aID); }
                     }
                 }
             };
             function Y3Focus() {
                 Y3links.setAttribute("focus", y3aID);
+                y3TrPage.style.transition = "none";
+                y3TrPage.style.top = y3l.getBoundingClientRect().top + (y3l.offsetHeight / 2) + "px";
                 y3ArrowOtherTr(true, true);
+                y3aEffect(y3aID, true, true);
+                Y3logoC.classList.add("Y3L-Persp-" + y3aID);
+                Y3arrowsID.forEach(function(y3aGID) { document.querySelector("#Y3-logo > g[id='" + y3aGID + "']").classList.add("Y3-arrow-focus"); });
+                Y3logoPaths.forEach( function (y3aPath) { y3aPath.style.pointerEvents = "none"; });
                 y3a.style.transitionDelay = "0s !important";
                 Y3links.classList.add("Y3-links-focus");
                 Y3linktxt.classList.add("Y3-linktxt-focus");
                 Y3linkbg.classList.add("Y3-linkbg-focus");
-                Y3arrowsID.forEach(function(y3aGID) { document.querySelector("#Y3-logo > g[id='" + y3aGID + "']").classList.add("Y3-arrow-focus"); });
-                y3aEffect(y3aID, true, true);
-                Y3logoC.classList.add("Y3L-Persp-" + y3aID);
-            };
-            function Y3Click() {
-                y3TrPage.style.transition = "none";
-                y3TrPage.style.top = y3l.getBoundingClientRect().top + (y3l.offsetHeight / 2) + "px";
                 Y3menuC.style.pointerEvents = "none";
-                Y3logoPaths.forEach( function (y3aPath) { y3aPath.style.pointerEvents = "none"; });
-                Y3Focus();
                 setTimeout(function () {
                     y3TrPage.style.transition = null;
-                    if(Y3links.hasAttribute("focus") == true) { Y3linksAll.forEach( function (y3l) { if(y3l.getAttribute("y3arrow") != Y3links.getAttribute("focus")) { y3l.style.opacity = "0"; } });
-                    }
                     swup.loadPage({ url: Y3href });
+                    if(Y3links.hasAttribute("focus") == true) { Y3linksAll.forEach( function (y3l) { if(y3l.getAttribute("y3arrow") != Y3links.getAttribute("focus")) { setTimeout(function () { y3l.style.opacity = "0"; }, 200); }});}
                 }, 100);
             };
-            function y3ArrowOtherTr(b, n) {
-                Y3arrowsOtherID.forEach(function(y3aOID) {
-                    y3aEffect(y3aOID, b, n);
-                });
-            };
+            function y3ArrowOtherTr(b, n) { Y3arrowsOtherID.forEach(function(y3aOID) { y3aEffect(y3aOID, b, n); }); };
 
             y3a.addEventListener("mouseover", function() { y3ALHover(true) });
             y3l.addEventListener("mouseover", function() { y3ALHover(true) });
@@ -337,8 +326,8 @@ function Y3Init() {
             y3l.addEventListener("mousedown", function() { Y3Active(true) });
             document.addEventListener("mouseup", function() { Y3Active(false) });
 
-            y3a.addEventListener("click", Y3Click);
-            y3l.addEventListener("click", Y3Click);
+            y3a.addEventListener("click", Y3Focus);
+            y3l.addEventListener("click", Y3Focus);
 
             y3aCount += 1;
         });
