@@ -11,7 +11,7 @@ function navY3ClearChilds(parent) { if(window.location.pathname != "/") { while 
 
 function y3DespawnDelayCalc() {
     var y3DespawnSubstract = 0;
-    if(isMobile == true) { y3DespawnSubstract = 50; }
+    if(isMobile == true) { y3DespawnSubstract = 40; }
     y3DespawnDelay = 150 - y3DespawnSubstract;
 }
 y3DespawnDelayCalc();
