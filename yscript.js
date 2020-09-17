@@ -7,52 +7,66 @@ function checkWinSize() { if(window.innerWidth > 1100) { isMobile = false } else
 checkWinSize();
 window.addEventListener("resize", checkWinSize);
 
+function navY3ClearChilds(parent) { if(window.location.pathname != "/") { while (parent.firstChild) { parent.removeChild(parent.firstChild); }}}
+
+function y3DespawnDelayCalc() {
+    var y3DespawnSubstract = 0;
+    if(isMobile == true) { y3DespawnSubstract = 50; }
+    y3DespawnDelay = 150 - y3DespawnSubstract;
+}
+y3DespawnDelayCalc();
+
 var y3TrPage = document.querySelector("#y3trpage");
 
 // Y3-MENU
 function Y3GoCenter() {
     if(document.querySelector("#Y3-menu-container") != null && document.querySelector("#Y3-links").hasAttribute("focus") == false) {
-        var Y3logoC = document.querySelector("#Y3-logo-container");
+        var Y3logoC = document.querySelector("#Y3-logo-container"),
+            Y3links = document.querySelector("#Y3-links");
         Y3logoC.style.transition = "0.5s 0.1s cubic-bezier(0.4, 0.6, 0, 1)";
         Y3logoC.classList.add("Y3logoC-prev");
         Y3logoC.style.transform = "scale(1.25)";
+        Y3links.style.opacity = "0";
+        Y3links.style.transition = "opacity 0.1s";
         swup.on('animationInStart', function() {
             setTimeout(function () {
                 Y3logoC.style.transform = "scale(0)";
                 swup.off('animationInStart')
-            }, 100);
+            }, 150 - y3DespawnDelay);
         });
+        document.querySelector("#Y3-menu-container").style.pointerEvents = "none";
+        document.querySelectorAll("#Y3-logo > g[id] > *").forEach( function (y3aPath) { y3aPath.style.pointerEvents = "none"; });
     }
 }
 swup.on('animationOutStart', Y3GoCenter);
 
 function Y3Init() {
     var Y3Despawn = true;
+    y3DespawnDelayCalc();
+
     if(window.location.pathname != "/") {
-        var Y3menuC = document.querySelector("#Y3-menu-container"),
-            y3DespawnDelay = undefined;
+        var Y3menuC = document.querySelector("#Y3-menu-container");
             
         y3TrPage.style.top = null;
         if(Y3menuC != null) {
-            if(isMobile == false) { y3DespawnDelay = 200; } else { y3DespawnDelay = 100; }
             setTimeout(function () {
                 Y3menuC.style.transition = "opacity 0.2s ease";
                 Y3menuC.style.opacity = "0";
-                setTimeout(function () { if(Y3Despawn == true) { Y3menuC.remove(); } else { Y3Despawn = null; } }, 200);
+                setTimeout(function () { if(Y3Despawn == true) { navY3ClearChilds(document.querySelector("nav#Y3")); } else { Y3Despawn = null; } }, 300);
             }, y3DespawnDelay);
         }
     }
 
     if(window.location.pathname == "/") {
         document.querySelector("nav#Y3").innerHTML = `
+            <div id="Y3-anim">
+                <svg id="y3an-boom" viewBox="0 0 10 10">
+                    <circle cx="5" cy="5" r="0" stroke-width="0"/>
+                </svg>
+                <div id="y3an-slash2"></div>
+                <div id="y3an-slash1"></div>
+            </div>
             <div id="Y3-menu-container">
-                <div id="Y3-anim">
-                    <svg id="y3an-boom" viewBox="0 0 10 10">
-                        <circle cx="5" cy="5" r="0" stroke-width="0"/>
-                    </svg>
-                    <div id="y3an-slash2"></div>
-                    <div id="y3an-slash1"></div>
-                </div>
                 <div id="Y3-menu">
                     <div id="Y3-hitbox-block"></div>
                     <div id="y3-center">
@@ -104,6 +118,8 @@ function Y3Init() {
             Y3arrowsOthersID = [["TR","BM"],["TL","BM"],["TL","TR"]],
             Y3hrefs = ["/what/", "/more/", "/about/"],
             Y3links = document.querySelector("#Y3-links"),
+            Y3linksAll = document.querySelectorAll(".Y3-links"),
+            Y3linktxtAll = document.querySelectorAll(".Y3-linktxt"),
             Y3logo = document.querySelector("#Y3-logo"),
             Y3logoC = document.querySelector("#Y3-logo-container"),
             Y3menuC = document.querySelector("#Y3-menu-container"),
@@ -112,13 +128,10 @@ function Y3Init() {
 
         function Y3Spawn() {
             var doc = document.documentElement,
-                Y3linksAll = document.querySelectorAll(".Y3-links"),
-                Y3linktxtAll = document.querySelectorAll(".Y3-linktxt"),
                 Y3lbgAll = document.querySelectorAll(".Y3-linksbg"),
                 Y3logoStroke = document.querySelectorAll(".y3-stroke"),
                 Y3linksWidth = Y3links.offsetWidth,
                 Y3linksHeight = Y3links.offsetHeight,
-                y3linkSpawnTr = "0.7s 0.2s cubic-bezier(0.5, 0, 0, 1)",
                 Y3anBoom = document.querySelector("#y3an-boom > circle"),
                 Y3anSlash1 = document.querySelector("#y3an-slash1"),
                 Y3anSlash2 = document.querySelector("#y3an-slash2");
@@ -132,7 +145,7 @@ function Y3Init() {
                 y3aStroke.style.stroke = "var(--y-white)";
                 y3aStroke.style.strokeWidth = "20px";
             });
-            Y3lbgAll.forEach( function (y3lbg) { y3lbg.style.transition = "0.65s cubic-bezier(0.9, 0.5, 0, 1), background-color " + y3linkSpawnTr; });
+            Y3lbgAll.forEach( function (y3lbg) { y3lbg.style.transition = "0.65s cubic-bezier(0.9, 0.5, 0, 1), background-color 0.7s 0.2s cubic-bezier(0.5, 0, 0, 1)"; });
 
             doc.style.setProperty('--y3logoC-left-prev', "calc(50% - (" + Y3logoC.offsetWidth + "px / 2))");
             doc.style.setProperty('--y3logoC-bottom-prev', "calc(50% - (" + Y3logoC.offsetHeight + "px / 2))");
@@ -191,7 +204,7 @@ function Y3Init() {
                         setTimeout( function() {
                             Y3linktxtAll.forEach( function (y3ltxt) {
                                 y3ltxt.classList.remove("Y3linktxtAll-prev");
-                                y3ltxt.style.transition = "0.7s cubic-bezier(0.2, 0.5, 0, 1), padding 0s, background-color 0.2s ease 0.6s";
+                                y3ltxt.style.transition = "0.7s cubic-bezier(0.2, 0.5, 0, 1), border 0.6s cubic-bezier(0.2, 0.5, 0, 1), padding 0s, background-color 0.2s ease 0.6s";
                             });
                         }, 200);
                     }, 300);
@@ -207,7 +220,7 @@ function Y3Init() {
                         document.querySelector("#Y3-anim").style.display = "none";
                         doc.style.setProperty('--y3links-height0-prev', null);
                         doc.style.setProperty('--y3links-heightN-prev', null);
-                        if(Y3Despawn == null) { Y3menuC.remove(); Y3Despawn = true; }
+                        if(Y3Despawn == null) { navY3ClearChilds(document.querySelector("nav#Y3")); Y3Despawn = true; }
                     }, 1250);
                 }, 1000);
             }, 200);
@@ -278,13 +291,15 @@ function Y3Init() {
                 } else {
                     setTimeout( function() { Y3logoC.classList.remove("Y3L-Persp-active"); }, 75);
                     if(Y3linkbg.classList.contains("Y3-linkbg-focus") == false) {
-                        Y3linktxt.classList.remove("Y3-linktxt-active");
+                        setTimeout(function () {
+                            Y3linktxt.classList.remove("Y3-linktxt-active");
+                        }, 50);
                         if(isMobile == true) { Y3logoC.classList.remove("Y3L-Persp-" + y3aID); }
                     }
                 }
             };
             function Y3Focus() {
-                Y3links.setAttribute("focus", "");
+                Y3links.setAttribute("focus", y3aID);
                 y3ArrowOtherTr(true, true);
                 y3a.style.transitionDelay = "0s !important";
                 Y3links.classList.add("Y3-links-focus");
@@ -297,12 +312,13 @@ function Y3Init() {
             function Y3Click() {
                 y3TrPage.style.transition = "none";
                 y3TrPage.style.top = y3l.getBoundingClientRect().top + (y3l.offsetHeight / 2) + "px";
-                y3l.style.zIndex = "221";
                 Y3menuC.style.pointerEvents = "none";
                 Y3logoPaths.forEach( function (y3aPath) { y3aPath.style.pointerEvents = "none"; });
                 Y3Focus();
                 setTimeout(function () {
                     y3TrPage.style.transition = null;
+                    if(Y3links.hasAttribute("focus") == true) { Y3linksAll.forEach( function (y3l) { if(y3l.getAttribute("y3arrow") != Y3links.getAttribute("focus")) { y3l.style.opacity = "0"; } });
+                    }
                     swup.loadPage({ url: Y3href });
                 }, 100);
             };

@@ -35,18 +35,24 @@ nav#Y3 {
     height: 0;
     right: 0;
     background-color: var(--y-black);
+    opacity: 1;
 }
 .transition-y3trpage {
     height: 0;
     top: 50%;
-    transition: 1s cubic-bezier(0.7, 0.9, 0, 1.04);
+    transition: 1.2s cubic-bezier(0.3, 0.95, 0, 1.04);
 }
 html.is-leaving .transition-y3trpage {
-    transition: 0.75s cubic-bezier(0.7, 0.8, 0, 1.04);
+    transition: 0.65s cubic-bezier(0.65, 0.6, 0, 1.04);
 }
 html.is-animating .transition-y3trpage {
     height: 100% !important;
     top: 0 !important;
+}
+@media (max-width: 1100px) /*MOBILE*/ {
+    .transition-y3trpage {
+        transition: 1.3s cubic-bezier(0.4, 0.9, 0, 1.04);
+    }
 }
 
 /*-/ Y3-MENU /-*/
@@ -69,7 +75,7 @@ html.is-animating .transition-y3trpage {
     z-index: 1010;
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     opacity: 0; /*load*/
@@ -81,6 +87,7 @@ html.is-animating .transition-y3trpage {
     position: fixed;
     width: var(--y3m-size);
     height: 100%;
+    left: var(--y3m-size2);
 }
 #Y3-menu > #y3-center {
     display: flex;
@@ -117,7 +124,7 @@ html.is-animating .transition-y3trpage {
     transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-15deg) rotateY(10deg) rotateZ(-2deg) !important;
 }
 .Y3L-Persp-TR {
-    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-15deg) rotateY(-11deg) rotateZ(2deg) !important;
+    transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(-15deg) rotateY(-12deg) rotateZ(2deg) !important;
 }
 .Y3L-Persp-BM {
     transform: scale(1.125) perspective(var(--y3-persp-i)) rotateX(12deg) rotateY(-3deg) rotateZ(-1deg) !important;
@@ -159,7 +166,8 @@ html.is-animating .transition-y3trpage {
     transition: 0.9s cubic-bezier(0.1, 0.7, 0, 1),
                 filter 0.45s cubic-bezier(0.1, 0.7, 0, 1),
                 font-size 0s,
-                padding 0s !important;
+                padding 0s,
+                opacity 0.1s !important;
     cursor: pointer;
     user-select: none;
 }
@@ -231,7 +239,9 @@ html.is-animating .transition-y3trpage {
 
 /*Y3 ANIM*/
 #Y3-anim {
+    z-index: 5;
     display: flex;
+    position: fixed;
     width: 100%;
     height: 100%;
     align-items: center;
@@ -315,8 +325,9 @@ html.is-animating .transition-y3trpage {
     }
     .Y3-linktxt-focus {
         border-left-width: var(--y3lbg-initW);
-        border-color: var(--y-black);
+        border-color: var(--y-black) !important;
         box-shadow: var(--y3lbg-initW) 0 0 var(--y-black) !important;
+        transition: 0.55s cubic-bezier(0.1, 0.7, 0, 1) !important;
     }
     .Y3ltxt-hover {
         width: 0 !important;
@@ -362,9 +373,6 @@ html.is-animating .transition-y3trpage {
         --y3lbg-m-shad: 150px;
         --y3lbg-m-shad-minus: calc(0px - var(--y3lbg-m-shad));
         --y3-persp-i: 300px;
-    }
-    #Y3-menu-container {
-        align-items: center;
     }
     #Y3-menu {
         width: 100%;
