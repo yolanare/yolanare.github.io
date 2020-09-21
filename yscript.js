@@ -312,8 +312,14 @@ function Y3Init() {
                 setTimeout(function () {
                     y3TrPage.style.transition = null;
                     swup.loadPage({ url: Y3href });
-                    if(Y3links.hasAttribute("focus") == true) { Y3linksAll.forEach( function (y3l) { if(y3l.getAttribute("y3arrow") != Y3links.getAttribute("focus")) { setTimeout(function () { y3l.style.opacity = "0"; }, 200); }});}
                 }, 100);
+                if(Y3links.hasAttribute("focus") == true) { Y3linksAll.forEach( function (y3l) { if(y3l.getAttribute("y3arrow") != Y3links.getAttribute("focus")) {
+                    setTimeout(function () {
+                        y3l.querySelector(".Y3-linktxt").style.transition = "none";
+                        y3l.querySelector(".Y3-linktxt").style.backgroundColor = "transparent";
+                    }, 125);
+                    setTimeout(function () { y3l.style.opacity = "0"; }, 300);
+                }});}
             };
             function y3ArrowOtherTr(b, n) { Y3arrowsOtherID.forEach(function(y3aOID) { y3aEffect(y3aOID, b, n); }); };
 

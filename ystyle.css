@@ -424,6 +424,8 @@ html.is-animating .transition-y3trpage {
         border-right-width: 600px;
         box-shadow: inset 0px 0 0px var(--y-grey), inset 0px 0 0px var(--y-grey);
         background-color: transparent;
+        transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1),
+                    border 0s;
     }
     .Y3-linkbg-hover, .Y3-linkbg-focus {
         width: 0%;
