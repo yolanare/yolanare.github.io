@@ -2,23 +2,42 @@ const swup = new Swup({
     animateHistoryBrowsing: true
 });
 
-var isMobile = undefined;
+var doc = document.documentElement,
+    isMobile = undefined,
+    yTrPage = document.querySelector("#ytrpage");
+
 function checkWinSize() { if(window.innerWidth > 1100) { isMobile = false } else { isMobile = true }};
 checkWinSize();
 window.addEventListener("resize", checkWinSize);
+
+function setPosYTrPage(page, target, anchor) {
+    pos = target.getBoundingClientRect().top;
+    if(page == "wh") {
+        if(anchor == "bottom") {
+            pos = 0;
+            anchorPos = target.offsetHeight;
+        }
+        if(anchor == "top") {
+            pos = document.body.scrollHeight - target.offsetHeight;
+            anchorPos = 0;
+        }
+    }
+    if(anchor == "middleH") { anchorPos = (target.offsetHeight / 2); }
+    yTrPage.style.transition = "none";
+    yTrPage.style.top = pos + anchorPos + "px";
+    yTrPage.style.transition = null;
+}
 
 function navY3ClearChilds(nav) { if(window.location.pathname != "/") { while(nav.firstChild) { nav.removeChild(nav.firstChild); }}}
 
 function y3DespawnDelayCalc() {
     var y3DespawnSubstract = 0;
-    if(isMobile == true) { y3DespawnSubstract = 165; }
-    y3DespawnDelay = 75 - y3DespawnSubstract;
+    if(isMobile == true) { y3DespawnSubstract = 50; }
+    y3DespawnDelay = 165 - y3DespawnSubstract;
 }
 y3DespawnDelayCalc();
 
-var y3TrPage = document.querySelector("#y3trpage");
 
-// Y3-MENU
 function Y3GoCenter() {
     if(document.querySelector("#Y3-menu-container") != null && document.querySelector("#Y3-links").hasAttribute("focus") == false) {
         var Y3logoC = document.querySelector("#Y3-logo-container"),
@@ -40,13 +59,62 @@ function Y3GoCenter() {
 }
 swup.on('animationOutStart', Y3GoCenter);
 
-function Y3Init() {
+function yInit() {
     var Y3Despawn = true;
     y3DespawnDelayCalc();
+    yTrPage.style.top = null;
 
+    //--- ABOUT
+    if(window.location.pathname == "/about/") {
+        var whTCenter = document.querySelector("#wht-center"),
+            whTrPart = document.querySelector("#whtrpart"),
+            whTitleWHO = document.querySelector(".wh-title#w"),
+            whTitleHOW = document.querySelector(".wh-title#h"),
+            whTrPDur = 500,
+            whTrPSmooth = whTrPDur + "ms cubic-bezier(0.7, 0.6, 0, 1)",
+            whTrPQuick = (whTrPDur + 300) + "ms cubic-bezier(0.3, 0.75, 0, 1)";
+        
+        whTrPart.classList.add("firsttime");
+        doc.style.setProperty('--wht-height', whTitleWHO.offsetHeight + "px");
+        
+
+        function whSelect(wh) {
+            var anchorYTrP = undefined;
+            whTrPart.classList.add("ytrpage-full");
+            if(whTrPart.classList.contains("firsttime") == false) {
+                doc.style.setProperty('--yTrP-whSelect', whTrPSmooth);
+                setTimeout(function () {
+                    doc.style.setProperty('--yTrP-whSelect', whTrPQuick);
+                    whTrPart.classList.remove("ytrpage-full");
+                }, whTrPDur);
+            } else {
+                doc.style.setProperty('--yTrP-whSelect', whTrPQuick);
+                whTrPart.classList.remove("ytrpage-full");
+                whTrPart.classList.remove("firsttime");
+                whTCenter.style.height = "100%";
+                whTCenter.style.transition = whTrPQuick;
+            }
+            if(wh == true) { // WHO
+                whTrPart.classList.remove("whTrPart-HOW");
+                whTrPart.classList.add("whTrPart-WHO");
+                anchorYTrP = "bottom";
+            } else { // HOW
+                whTrPart.classList.remove("whTrPart-WHO");
+                whTrPart.classList.add("whTrPart-HOW");
+                anchorYTrP = "top";
+            }
+            setPosYTrPage("wh", whTitleHOW, anchorYTrP);
+        };
+        whTitleWHO.addEventListener("click", function() { whSelect(true) });
+        whTitleHOW.addEventListener("click", function() { whSelect(false) });
+    }
+    if(window.location.pathname != "/about/") {
+        doc.style.setProperty('--yTrP-whSelect', null);
+    }
+
+    //--- HOME
     if(window.location.pathname != "/") {
         var Y3menuC = document.querySelector("#Y3-menu-container");
-        y3TrPage.style.top = null;
         if(Y3menuC != null) {
             setTimeout(function () {
                 Y3menuC.style.transition = "opacity 0.2s ease";
@@ -55,7 +123,6 @@ function Y3Init() {
             }, y3DespawnDelay);
         }
     }
-
     if(window.location.pathname == "/") {
         document.querySelector("nav#Y3").innerHTML = `
             <div id="Y3-anim">
@@ -66,9 +133,9 @@ function Y3Init() {
                 <div id="y3an-slash1"></div>
             </div>
             <div id="Y3-menu-container">
-                <div id="Y3-menu">
+                <div id="Y3-menu" class="inner-center1">
                     <div id="Y3-hitbox-block"></div>
-                    <div id="y3-center">
+                    <div class="inner-center2">
                         <div id="Y3-logo-container">
                             <svg id="Y3-logo" viewbox="0 0 73.5 105.9">
                                 <g id="TL">
@@ -126,8 +193,7 @@ function Y3Init() {
             y3aCount = 1;
 
         function Y3Spawn() {
-            var doc = document.documentElement,
-                Y3lbgAll = document.querySelectorAll(".Y3-linksbg"),
+            var Y3lbgAll = document.querySelectorAll(".Y3-linksbg"),
                 Y3logoStroke = document.querySelectorAll(".y3-stroke"),
                 Y3linksWidth = Y3links.offsetWidth,
                 Y3linksHeight = Y3links.offsetHeight,
@@ -137,7 +203,7 @@ function Y3Init() {
 
             setTimeout( function() { Y3menuC.style.opacity = 1; }, 50); // to be sure we don't see menu at loading
             Y3Despawn = false;
-            y3TrPage.style.zIndex = "1300";
+            yTrPage.style.zIndex = "1300";
 
             Y3logoStroke.forEach( function (y3aStroke) {
                 y3aStroke.style.transition = "none";
@@ -198,7 +264,7 @@ function Y3Init() {
                         Y3anSlash2.classList.add("Y3anSlash-new");
                     }, 90);
                     setTimeout( function() {
-                        y3TrPage.style.zIndex = null;
+                        yTrPage.style.zIndex = null;
                         Y3logoPaths.forEach( function (y3aPath) { y3aPath.style.pointerEvents = "all"; });
                         setTimeout( function() {
                             Y3linktxtAll.forEach( function (y3ltxt) {
@@ -297,8 +363,7 @@ function Y3Init() {
             };
             function Y3Focus() {
                 Y3links.setAttribute("focus", y3aID);
-                y3TrPage.style.transition = "none";
-                y3TrPage.style.top = y3l.getBoundingClientRect().top + (y3l.offsetHeight / 2) + "px";
+                setPosYTrPage("y3", y3l, "middleH");
                 y3ArrowOtherTr(true, true);
                 y3aEffect(y3aID, true, true);
                 Y3logoC.classList.add("Y3L-Persp-" + y3aID);
@@ -310,7 +375,6 @@ function Y3Init() {
                 Y3linkbg.classList.add("Y3-linkbg-focus");
                 Y3menuC.style.pointerEvents = "none";
                 setTimeout(function () {
-                    y3TrPage.style.transition = null;
                     swup.loadPage({ url: Y3href });
                 }, 100);
                 if(Y3links.hasAttribute("focus") == true) { Y3linksAll.forEach( function (y3l) { if(y3l.getAttribute("y3arrow") != Y3links.getAttribute("focus")) {
@@ -338,6 +402,7 @@ function Y3Init() {
             y3aCount += 1;
         });
     }
+
 }
-Y3Init();
-swup.on("contentReplaced", Y3Init);
+yInit();
+swup.on("contentReplaced", yInit);

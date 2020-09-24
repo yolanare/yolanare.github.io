@@ -28,32 +28,60 @@ nav#Y3 {
     left: 0;
 }
 
-#y3trpage {
+#ytrpage, #whtrpart {
     z-index: 1000;
     position: fixed;
     width: 100%;
     height: 0;
-    right: 0;
     background-color: var(--y-black);
     opacity: 1;
+    will-change: height, top !important;
 }
-.transition-y3trpage {
+.whTrPart-WHO {
+    top: 0 !important;
+    height: var(--wht-height) !important;
+}
+.whTrPart-HOW {
+    top: calc(100% - var(--wht-height)) !important;
+    height: var(--wht-height) !important;
+}
+.whtrpart-tr {
+    transition: var(--yTrP-whSelect);
+}
+
+.transition-ytrpage {
     height: 0;
     top: 50%;
-    transition: 1.2s cubic-bezier(0.3, 0.95, 0, 1.04);
+    transition: 1.3s cubic-bezier(0.4, 0.98, 0, 1.03);
 }
-html.is-leaving .transition-y3trpage {
-    transition: 0.65s cubic-bezier(0.65, 0.6, 0, 1.04);
+html.is-leaving .transition-ytrpage {
+    transition: 0.55s cubic-bezier(0.65, 0.6, 0, 1.04);
 }
-html.is-animating .transition-y3trpage {
+html.is-animating .transition-ytrpage, .ytrpage-full {
     height: 100% !important;
     top: 0 !important;
 }
+
 @media (max-width: 1100px) /*MOBILE*/ {
-    .transition-y3trpage {
+    .transition-ytrpage {
         transition: 1.3s cubic-bezier(0.4, 0.9, 0, 1.04);
     }
 }
+
+
+/*--/ CSS CLASSES /--*/
+.inner-center1 {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.inner-center2 {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+}
+
 
 /*-/ Y3-MENU /-*/
 .y3-fill {
@@ -82,18 +110,9 @@ html.is-animating .transition-y3trpage {
 }
 #Y3-menu {
     z-index: 1010;
-    display: flex;
-    align-items: center;
     position: fixed;
     width: var(--y3m-size);
-    height: 100%;
     left: var(--y3m-size2);
-}
-#Y3-menu > #y3-center {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    width: 100%;
 }
 
 #Y3-hitbox-block {
@@ -334,9 +353,9 @@ html.is-animating .transition-y3trpage {
         width: 0 !important;
         /*letter-spacing: 7px !important;*/
         opacity: 0 !important;
-        transition: opacity 0.7s ease,
-                    width 0.7s cubic-bezier(0.7, 0.45, 0, 1),
-                    /*letter-spacing 0.4s linear*/ !important;
+        transition: opacity 0.5s ease,
+                    width 0.7s cubic-bezier(0.6, 0.6, 0, 1)/*,
+                    letter-spacing 0.4s linear*/ !important;
     }
     #y3an-slash1 {
         width: 13.5%;
@@ -379,7 +398,7 @@ html.is-animating .transition-y3trpage {
         width: 100%;
         height: var(--y3m-size);
     }
-    #Y3-menu > #y3-center {
+    #Y3-menu > .inner-center2 {
         display: flex;
         justify-content: center;
         align-items: normal;
@@ -479,4 +498,62 @@ html.is-animating .transition-y3trpage {
 
 
 @media (max-width: 1100px) and (max-height: 450px) /*MOBILE BUT SMOLL*/ {
+}
+
+
+/*-/ ABOUT (WHO & HOW) /-*/
+#wht-container {
+    z-index: 990;
+    position: fixed;
+    width: 100%;
+    pointer-events: none;
+}
+#wht-center {
+    height: calc((var(--wht-height) * 2) + 20px);
+    pointer-events: all;
+    user-select: none;
+}
+.wh-title {
+    z-index: 1010;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 0;
+    font-size: 33px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-align: center;
+    cursor: pointer;
+}
+div[class^="wh-title"] {
+    position: absolute;
+}
+.wh-titlebg {
+    z-index: 990;
+    width: 100%;
+    height: var(--wht-height);
+    background: green;
+}
+div[class^="wh-title"]#w {
+    top: 0;
+}
+div[class^="wh-title"]#h {
+    bottom: 0;
+}
+
+.wh-title > div {
+    padding: 0 15px;
+    background-color: var(--y-white);
+}
+.wh-title > div > span {
+    position: relative;
+    top: 4px;
+}
+
+
+#wh-contents {
+    position: absolute;
+    top: var(--wht-height);
+    width: 100%;
+    height: calc(100% - (var(--wht-height) * 2));
 }
