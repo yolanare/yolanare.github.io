@@ -52,10 +52,10 @@ nav#Y3 {
 .transition-ytrpage {
     height: 0;
     top: 50%;
-    transition: 1.3s cubic-bezier(0.4, 0.98, 0, 1.03);
+    transition: 1.3s 0.1s cubic-bezier(0.4, 0.98, 0, 1.03);
 }
 html.is-leaving .transition-ytrpage {
-    transition: 0.55s cubic-bezier(0.65, 0.6, 0, 1.04);
+    transition: 0.55s cubic-bezier(0.7, 0.6, 0, 1.04);
 }
 html.is-animating .transition-ytrpage, .ytrpage-full {
     height: 100% !important;

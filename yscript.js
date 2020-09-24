@@ -110,6 +110,7 @@ function yInit() {
     }
     if(window.location.pathname != "/about/") {
         doc.style.setProperty('--yTrP-whSelect', null);
+        doc.style.setProperty('--wht-height', null);
     }
 
     //--- HOME
@@ -122,6 +123,8 @@ function yInit() {
                 setTimeout(function () { if(Y3Despawn == true) { navY3ClearChilds(document.querySelector("nav#Y3")); } else { Y3Despawn = null; } }, 300);
             }, y3DespawnDelay);
         }
+        doc.style.setProperty('--y3logoC-left-prev', null);
+        doc.style.setProperty('--y3logoC-bottom-prev', null);
     }
     if(window.location.pathname == "/") {
         document.querySelector("nav#Y3").innerHTML = `
