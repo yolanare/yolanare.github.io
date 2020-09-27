@@ -52,7 +52,7 @@ nav#Y3 {
 .transition-ytrpage {
     height: 0;
     top: 50%;
-    transition: 1.3s 0.1s cubic-bezier(0.4, 0.98, 0, 1.03);
+    transition: 1s 0.1s cubic-bezier(0.2, 0.98, 0, 1.03);
 }
 html.is-leaving .transition-ytrpage {
     transition: 0.55s cubic-bezier(0.7, 0.6, 0, 1.04);
@@ -509,7 +509,8 @@ html.is-animating .transition-ytrpage, .ytrpage-full {
     pointer-events: none;
 }
 #wht-center {
-    height: calc((var(--wht-height) * 2) + 20px);
+    justify-content: center;
+    height: calc(var(--wht-height) * 2);
     pointer-events: all;
     user-select: none;
 }
@@ -518,11 +519,11 @@ html.is-animating .transition-ytrpage, .ytrpage-full {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 15px 0;
-    font-size: 33px;
+    padding: 12.5px 0;
+    font-size: 34px;
     font-weight: 700;
-    letter-spacing: 3px;
     text-align: center;
+    color: var(--y-black);
     cursor: pointer;
 }
 div[class^="wh-title"] {
@@ -530,9 +531,10 @@ div[class^="wh-title"] {
 }
 .wh-titlebg {
     z-index: 990;
-    width: 100%;
+    width: 0%;
     height: var(--wht-height);
-    background: green;
+    background: var(--y-grey);
+    transition: width 0.5s cubic-bezier(0.75, 0.6, 0, 1.02);
 }
 div[class^="wh-title"]#w {
     top: 0;
@@ -542,13 +544,84 @@ div[class^="wh-title"]#h {
 }
 
 .wh-title > div {
-    padding: 0 15px;
+    padding: 2px 15px;
     background-color: var(--y-white);
+    transition: padding 0.4s cubic-bezier(0.2, 0.7, 0, 1);
 }
 .wh-title > div > span {
     position: relative;
     top: 4px;
+    transition: 0.8s cubic-bezier(0.2, 0.9, 0, 1);
 }
+
+.wh-title:hover > div > span {
+    left: 6px;
+    letter-spacing: 12px;
+    transition: 0.35s cubic-bezier(0.2, 0.65, 0, 1);
+}
+.wh-title:hover > div {
+    padding: 2px 25px;
+    transition: padding 0s;
+}
+.wh-title:hover + .wh-titlebg, .wh-titlebg-focus {
+    width: 100%;
+    transition: width 0.6s cubic-bezier(0.35, 0.75, 0, 1.01);
+}
+
+.wh-title > div > span,
+.wh-title:active > div > span {
+    left: 1.5px;
+    letter-spacing: 3px;
+}
+.wh-title:active > div > span {
+    transition: 0.4s cubic-bezier(0, 0.7, 0, 1);
+}
+
+.wh-title-focus {
+    pointer-events: none;
+}
+.wh-tdiv-focus {
+    padding: 2px 25px !important;
+}
+
+#wh-hoverselect {
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    transform: scaleY(0);
+    transform-origin: top;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: #000000;
+    transition: transform 0.6s cubic-bezier(0.15, 0.7, 0, 1),
+                opacity 0.4s ease;
+    pointer-events: none;
+}
+.wh-title:hover ~ #wh-hoverselect {
+    opacity: 1;
+    transition: transform 0.5s cubic-bezier(0.15, 0.6, 0, 1),
+                opacity 0.3s ease;
+}
+.wh-title#w:hover ~ #wh-hoverselect, .wh-hsel-w {
+    transform: scaleY(-0.5) !important;
+}
+.wh-title#h:hover ~ #wh-hoverselect, .wh-hsel-h {
+    transform: scaleY(0.5) !important;
+}
+
+div[class^="wh-hsel-"] {
+    opacity: 0 !important;
+    transition: 0.7s cubic-bezier(0.6, 0.6, 0, 1),
+                opacity 0.9s ease !important;
+}
+.wh-hsel-w {
+    top: var(--wht-height) !important;
+}
+.wh-hsel-h {
+    top: calc(100% - var(--wht-height)) !important;
+}
+
 
 
 #wh-contents {
