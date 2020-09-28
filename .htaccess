@@ -1,4 +1,0 @@
-# redirect "/index.html" to "/"
-RewriteEngine On
-RewriteRule ^index\.html$ / [R=301,L]
-RewriteRule ^(.*)/index\.html$ /$1/ [R=301,L]
