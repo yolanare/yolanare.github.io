@@ -15,6 +15,30 @@
     --y3-persp-tr-active: transform 0.3s cubic-bezier(0, 0.7, 0, 1);
 }
 
+@keyframes wip-Spawn {
+    0% { top: -35px; background-color: var(--y-grey); }
+    85% { top: 0px; }
+    100% { top: 0px; background-color: rgba(255, 255, 255, 0.35); }
+}
+.wip-c {
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    padding: 7.5px 0;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.35);
+    pointer-events: all;
+    animation: wip-Spawn 1s 2.25s cubic-bezier(0.3, 0.6, 0, 1) backwards;
+}
+.wip-txt {
+    display: inline;
+    font-size: clamp(11px, 2vw, 16px);
+    font-weight: 600;
+    letter-spacing: 0.75px;
+    word-spacing: 1.25px;
+    opacity: 0.3;
+}
+
 body {
     margin: 0;
     font-family: "Josefin Sans", sans-serif;
