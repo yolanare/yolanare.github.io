@@ -1,1 +1,3 @@
-include: [".htaccess", "node_modules/swup/dist/swup.min.js"]
+include:
+  - .htaccess
+  - node_modules/swup/dist/swup.min.js
