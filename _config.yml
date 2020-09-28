@@ -1,15 +1,2 @@
-# default excludes edited
-exclude:
-- .sass-cache/
-- .jekyll-cache/
-- gemfiles/
-- Gemfile
-- Gemfile.lock
-- vendor/bundle/
-- vendor/cache/
-- vendor/gems/
-- vendor/ruby/
-
-include:
-  - .htaccess
-  - node_modules/swup/dist/swup.min.js
+include: [".htaccess", "node_modules"]
+exclude: ["Gemfile", "Gemfile.lock", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/"]
