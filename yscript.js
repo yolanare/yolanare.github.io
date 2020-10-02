@@ -76,6 +76,11 @@ function yInit() {
         whTrPart.setAttribute("firsttime", "");
         doc.style.setProperty('--wht-height', whTitleWHO.offsetHeight + "px");
 
+        document.querySelectorAll(".wht-txt > div:nth-child(2)").forEach( function (whTP) {
+            whTP.style.width = whTP.offsetWidth;
+            whTP.classList.add("whtPlus-focus");
+        });
+
         function whSelect(bwh) {
             var whTCenter = document.querySelector("#wht-center"),
                 whTrPDur = 500,
@@ -110,18 +115,18 @@ function yInit() {
                         notwh = "w",
                         a = "top";
                 }
+                anchorYTrP = a;
                 whTrPart.classList.remove("whTrPart-" + notWH);
                 whTrPart.classList.add("whTrPart-" + WH);
                 document.querySelector("#wh-hoverselect").classList.add("wh-hsel-" + wh);
                 document.querySelector(".wh-title#" + notwh).classList.remove("wh-title-focus");
                 document.querySelector(".wh-title#" + wh).classList.add("wh-title-focus");
                 document.querySelector(".wh-titlebg#" + wh).classList.add("wh-titlebg-focus");
-                document.querySelector(".wh-title#" + notwh + "> div").classList.remove("wh-tdiv-focus");
-                document.querySelector(".wh-title#" + wh + "> div").classList.add("wh-tdiv-focus");
-                anchorYTrP = a;
-                setTimeout(function () {
-                    document.querySelector(".wh-titlebg#" + wh).classList.remove("wh-titlebg-focus");
-                }, whTrPDur2);
+                setTimeout(function () { document.querySelector(".wh-title#" + notwh + "> .wht-txt").classList.remove("wh-tdiv-focus"); }, 100);
+                document.querySelector(".wh-title#" + wh + "> .wht-txt").classList.add("wh-tdiv-focus");
+                setTimeout(function () { document.querySelector(".wh-titlebg#" + wh).classList.remove("wh-titlebg-focus"); }, whTrPDur2);
+                document.querySelector(".wh-title#" + notwh + "> .wht-txt > div:nth-child(2)").classList.add("whtPlus-focus");
+                document.querySelector(".wh-title#" + wh + "> .wht-txt > div:nth-child(2)").classList.remove("whtPlus-focus");
             }
             if(bwh == true) { applyWH("WHO", "w"); } else { applyWH("HOW", "h"); }
             setPosYTrPage("wh", whTitleHOW, anchorYTrP);
@@ -317,15 +322,11 @@ function yInit() {
                 y3l = document.querySelector(".Y3-links:nth-of-type(" + y3aCount + ")"),
                 Y3linkbg = document.querySelector(y3aIDPath + " > .Y3-linksbg"),
                 Y3linktxt = document.querySelector(y3aIDPath + " > .Y3-linktxt"),
-                Y3ltxtTitle = document.querySelectorAll(y3aIDPath + " .Y3ltxt-title"),
                 Y3ltxtPlus = document.querySelectorAll(y3aIDPath + " .Y3ltxt-plus"),
-                Y3ltxtAll_TitleInitW = [],
                 Y3arrowsOtherID = Y3arrowsOthersID[y3aCount - 1],
                 Y3href = Y3hrefs[y3aCount - 1];
 
             setTimeout( function() { // needs to let the font-fam init to get true width
-                Y3ltxtTitle.forEach( function (y3ltxtTitle) {
-                    Y3ltxtAll_TitleInitW.push(y3ltxtTitle.offsetWidth);});
                 Y3ltxtPlus.forEach( function (y3ltxtPlus) {
                     y3ltxtPlus.style.width = y3ltxtPlus.offsetWidth + 2;
                     y3ltxtPlus.classList.add("Y3ltxt-hover");

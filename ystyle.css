@@ -284,7 +284,7 @@ html.is-animating .transition-ytrpage, .ytrpage-full {
     background-color: var(--y-white) !important;
 }
 
-/*Y3 ANIM*/
+/*/ Y3 ANIM /*/
 #Y3-anim {
     z-index: 5;
     display: flex;
@@ -548,7 +548,7 @@ html.is-animating .transition-ytrpage, .ytrpage-full {
     justify-content: center;
     width: 100%;
     padding: 12.5px 0;
-    font-size: 34px;
+    font-size: clamp(27px, 5vw, 34px);
     font-weight: 700;
     text-align: center;
     color: var(--y-black);
@@ -571,22 +571,31 @@ div[class^="wh-title"]#h {
     bottom: 0;
 }
 
-.wh-title > div {
+.wht-txt {
+    display: inline-flex;
     padding: 2px 15px;
     background-color: var(--y-white);
     transition: padding 0.4s cubic-bezier(0.2, 0.7, 0, 1);
 }
-.wh-title > div > span {
+.wht-txt > div {
+    display: inline-flex;
     position: relative;
-    top: 4px;
+    top: 3px;
     transition: 0.8s cubic-bezier(0.2, 0.9, 0, 1);
 }
-
-.wh-title:hover > div > span {
-    left: 6px;
-    letter-spacing: 12px;
-    transition: 0.35s cubic-bezier(0.2, 0.65, 0, 1);
+.wht-txt > div:nth-child(2) {
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.5s 0.15s ease,
+                0.6s 0.1s cubic-bezier(0.3, 0.7, 0, 1) !important;
+    overflow: hidden;
 }
+.whtPlus-focus {
+    width: 0 !important;
+    opacity: 0 !important;
+}
+
 .wh-title:hover > div {
     padding: 2px 25px;
     transition: padding 0s;
@@ -596,13 +605,29 @@ div[class^="wh-title"]#h {
     transition: width 0.6s cubic-bezier(0.35, 0.75, 0, 1.01);
 }
 
-.wh-title > div > span,
-.wh-title:active > div > span {
-    left: 1.5px;
-    letter-spacing: 3px;
-}
-.wh-title:active > div > span {
-    transition: 0.4s cubic-bezier(0, 0.7, 0, 1);
+@media (min-width: 1101px) /*PC*/ {
+    :root {
+        --wht-ls: 3px;
+    }
+    .wht-txt > div {
+        top: 4px;
+    }
+    .wh-title:hover > .wht-txt > div:nth-child(1) {
+        letter-spacing: 12px;
+    }
+    .wh-title:hover > .wht-txt > div {
+        left: 6px;
+        transition: 0.35s cubic-bezier(0.2, 0.65, 0, 1);
+    }
+    .wht-txt > div,
+    .wh-title:active > .wht-txt > div {
+        left: calc(var(--wht-ls) / 2);
+        letter-spacing: var(--wht-ls);
+    }
+    .wh-title:active > .wht-txt > div {
+        letter-spacing: var(--wht-ls) !important;
+        transition: 0.4s cubic-bezier(0, 0.7, 0, 1);
+    }
 }
 
 .wh-title-focus {
@@ -650,8 +675,16 @@ div[class^="wh-hsel-"] {
     top: calc(100% - var(--wht-height)) !important;
 }
 
+@media (max-width: 1100px) /*MOBILE*/ {
+    #wh-hoverselect {
+        display: none !important;
+    }
+    .wh-title:hover > div {
+        transition: padding 0.6s cubic-bezier(0.2, 0.6, 0, 1);
+    }
+}
 
-
+/*/ WH CONTENT /*/
 #wh-contents {
     position: absolute;
     top: var(--wht-height);
