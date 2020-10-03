@@ -50,7 +50,11 @@ function Y3GoCenter() {
         swup.on('animationInStart', function() {
             setTimeout(function () {
                 Y3logoC.style.transform = "scale(0)";
-                swup.off('animationInStart')
+                setTimeout(function () {
+                    doc.style.setProperty('--y3logoC-left-prev', null);
+                    doc.style.setProperty('--y3logoC-bottom-prev', null);
+                    swup.off('animationInStart')
+                }, 600);
             }, 150 - y3DespawnDelay);
         });
         document.querySelector("#Y3-menu-container").style.pointerEvents = "none";
@@ -76,10 +80,12 @@ function yInit() {
         whTrPart.setAttribute("firsttime", "");
         doc.style.setProperty('--wht-height', whTitleWHO.offsetHeight + "px");
 
-        document.querySelectorAll(".wht-txt > div:nth-child(2)").forEach( function (whTP) {
-            whTP.style.width = whTP.offsetWidth;
-            whTP.classList.add("whtPlus-focus");
-        });
+        setTimeout( function() { // needs to let the font-fam init to get true width
+            document.querySelectorAll(".wht-txt > div:nth-child(2)").forEach( function (whTP) {
+                whTP.style.width = whTP.offsetWidth;
+                whTP.classList.add("whtPlus-focus");
+            });
+        }, 25);
 
         function whSelect(bwh) {
             var whTCenter = document.querySelector("#wht-center"),
@@ -145,8 +151,6 @@ function yInit() {
                 setTimeout(function () { if(Y3Despawn == true) { navY3ClearChilds(document.querySelector("nav#Y3")); } else { Y3Despawn = null; } }, 300);
             }, y3DespawnDelay);
         }
-        doc.style.setProperty('--y3logoC-left-prev', null);
-        doc.style.setProperty('--y3logoC-bottom-prev', null);
     } else {
         document.querySelector("nav#Y3").innerHTML = `
             <div id="Y3-anim">
