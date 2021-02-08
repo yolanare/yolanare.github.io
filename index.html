@@ -1,8 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <meta name="theme-color" content="#1d1f20" />
     <meta name="msapplication-navbutton-color" content="#1d1f20" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -11,22 +12,22 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/src/icons/y-favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/src/icons/y-favicon-16.png">
     <title>Yolan'Art</title>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/ystyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <main id="swup">
-        <div class="wip-c">
-            <div class="wip-txt">Website still on construction... See progress on&nbsp;</div><a class="wip-txt" href="https://github.com/Yolanare/yolanare.github.io" target="_blank">GitHub</a><div class="wip-txt">!</div>
+    <div id="container">
+        <nav class="pre-spawn"></nav>
+        <div id="content-container">
+            <main id="swup" class="transition-y" data-wheelz></main>
         </div>
-    </main>
-    <div id="ytrpage" class="transition-ytrpage"></div>
-    <nav id="Y3"></nav>
+    </div>
+
 </body>
-
-<script src="/node_modules/parallax-js/dist/parallax.min.js"></script>
 <script src="/node_modules/swup/dist/swup.min.js"></script>
-<script src="/yscript.js"></script>
-
+<script src="/node_modules/@swup/scroll-plugin/dist/SwupScrollPlugin.min.js"></script>
+<script src="/node_modules/pagewheelz/dist/pagewheelz.min.js"></script>
+<script src="/node_modules/wheelz/dist/plugins/delayItems.min.js"></script>
+<script src="/script.js"></script>
 </html>

@@ -1,8 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <meta name="theme-color" content="#1d1f20" />
     <meta name="msapplication-navbutton-color" content="#1d1f20" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -11,45 +12,24 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../src/icons/y-favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../src/icons/y-favicon-16.png">
     <title>Yolan'About</title>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../ystyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <main id="swup">
-        <div id="wht-container" class="inner-center1">
-            <div id="wht-center" class="inner-center2">
-                <div id="w" class="wh-title">
-                    <div class="wht-txt">
-                        <div>WHO</div><div>&nbsp;I AM</div>
-                    </div>
-                </div>
-                <div id="w" class="wh-titlebg"></div>
-                <div id="h" class="wh-title">
-                    <div class="wht-txt">
-                        <div>HOW</div><div>&nbsp;TO CONTACT ME</div>
-                    </div>
-                </div>
-                <div id="h" class="wh-titlebg"></div>
-                <div id="whtrpart" class="whtrpart-tr ytrpage-full"></div>
-                <div id="wh-hoverselect"></div>
-            </div>
+    <div id="container">
+        <nav class="pre-spawn"></nav>
+        <div id="content-container">
+            <main id="swup" class="transition-y" data-wheelz>
+                <a href="/../">home</a>
+            </main>
         </div>
-        <div id="wh-contents">
-            <div id="WHO" class="wh-container">
-                <div class="wh-content"></div>
-            </div>
-            <div id="HOW" class="wh-container">
-                <div class="wh-content"></div>
-            </div>
-        </div>
-    </main>
-    <div id="ytrpage" class="transition-ytrpage"></div>
-    <nav id="Y3"></nav>
+    </div>
+
 </body>
-
-<script src="../node_modules/parallax-js/dist/parallax.min.js"></script>
 <script src="../node_modules/swup/dist/swup.min.js"></script>
-<script src="../yscript.js"></script>
-
+<script src="../node_modules/@swup/scroll-plugin/dist/SwupScrollPlugin.min.js"></script>
+<script src="../node_modules/pagewheelz/dist/pagewheelz.min.js"></script>
+<script src="../node_modules/wheelz/dist/plugins/delayItems.min.js"></script>
+<script src="../script.js"></script>
 </html>
