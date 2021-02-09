@@ -2,7 +2,7 @@
     --y-white: rgb(245, 248, 250);
     --y-black: rgb(29, 31, 32);
 
-    --ynav-m-space: 20vw;
+    --ynav-m-space: 21vw;
     --ynav-padding: 10vh;
     --content-top: 25%;
 }
@@ -111,31 +111,35 @@ svg#y > g#main.pre-spawn path {
 /* Y MENU BUTTONS */
 #ym-txt-c {
     position: absolute;
+    width: 100%;
 }
 .ym-txt {
     position: absolute;
-    font-size: 28px;
+    font-size: clamp(18px, 3vw, 28px);
     font-weight: 800;
     text-decoration: none;
     color: var(--y-black);
     opacity: 1;
-    transition: 0.7s cubic-bezier(0.25, 0.6, 0, 1),
-                opacity 0.6s;
+    transition: 0s cubic-bezier(0.25, 0.6, 0, 1),
+                opacity 0.6s,
+                font-size 0s;
     user-select: none;
     transform: scalex(0.9);
     letter-spacing: 1px;
 }
 .ym-txt:first-child {
-    right: var(--ynav-m-space);
+    left: var(--ynav-m-space);
+    transform: translateX(-50%);
 }
 .ym-txt:last-child {
-    left: var(--ynav-m-space);
+    right: var(--ynav-m-space);
+    transform: translateX(50%);
 }
 
 #ym-txt-c.pre-spawn .ym-txt {
     opacity: 0;
-    right: 12.5vw;
     left: 12.5vw;
+    right: 12.5vw;
 }
 
 
@@ -176,7 +180,7 @@ main#swup {display: block;
 .acclist-span {
     display: inline-block;
     font-family: "Montserrat", sans-serif;
-    font-size: 45px;
+    font-size: clamp(24px, 3vw, 45px);
     font-weight: 800;
     color: var(--y-black);
     transform: scaleX(0.95);
