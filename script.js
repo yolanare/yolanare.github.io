@@ -8,9 +8,9 @@ const swup = new Swup({
 });
 
 var doc = document.documentElement,
-    isMobile = undefined;
+    isMini = undefined;
 
-function checkWinSize() { if(window.innerWidth > 727) { isMobile = false; } else { isMobile = true; }};
+function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
 
 function addClassAll(path, c) {
@@ -22,13 +22,38 @@ function removeClassAll(path, c) {
     if(elems) { elems.forEach(function(el) { el.classList.remove(c); }); }
 }
 
+var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/22599173)
+    settings = settings || {};
+    var lastPos, newPos, timer, delta, direction, delay = settings.delay || 50;
+    function clear() { lastPos = null; delta = 0; direction = true; }
+    clear();
+    return function(){
+        newPos = window.scrollY;
+        if(lastPos != null ) { delta = newPos -  lastPos; }
+        if(lastPos > newPos) { direction = false; }
+        lastPos = newPos;
+        clearTimeout(timer);
+        timer = setTimeout(clear, delay);
+        return [delta * 2.5, direction];
+    };
+})();
+
+var isScrolling;
+function scrollAccordion() {
+    var speed = checkScrollSpeed(), space = 0,
+        items = Object.values(doc.querySelector("*[scroll-accordion]").children);
+    if(speed[1]) { items.reverse(); }
+    items.forEach((item) => {
+        space += -speed[0] / 2;
+        item.style.transform = 'translate3d(0px, '+ space +'px, 0px)';
+    })
+    window.clearTimeout(isScrolling);
+	isScrolling = setTimeout(function() { items.forEach((item) => { item.style.transform = 'translate3d(0px, 0px, 0px)'; })
+	}, 125);
+}
 
 function init() {
-    var wh = new PageWheelz(document.querySelector('.project-list'), {
-        friction: 0.275,
-        acceleration: 0.025
-    });
-    delayItems(wh);
+    document.addEventListener('scroll', scrollAccordion)
 
     var nav = document.querySelector('nav');
 
