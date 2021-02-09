@@ -108,8 +108,10 @@ function init() {
 
     if(pathDir != 'home') {
         nav.style.height = 'var(--content-top)';
+        doc.querySelector('svg#y').style.width = '20vw';
     } else {
         nav.style.height = null;
+        doc.querySelector('svg#y').style.width = null;
     }
 }
 init();
