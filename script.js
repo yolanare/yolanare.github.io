@@ -45,11 +45,15 @@ function scrollAccordion() {
     if(speed[1]) { items.reverse(); }
     items.forEach((item) => {
         space += -speed[0] / 2;
+        item.style.transitionTimingFunction = null;
         item.style.transform = 'translate3d(0px, '+ space +'px, 0px)';
     })
     window.clearTimeout(isScrolling);
-	isScrolling = setTimeout(function() { items.forEach((item) => { item.style.transform = 'translate3d(0px, 0px, 0px)'; })
-	}, 125);
+	isScrolling = setTimeout(function() { items.forEach((item) => {
+        item.style.transitionTimingFunction = 'cubic-bezier(0.2, 0.7, 0, 1)';
+        item.style.transform = null;
+    })
+	}, 75);
 }
 
 function init() {

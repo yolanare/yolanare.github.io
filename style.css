@@ -1,5 +1,5 @@
 :root {
-    --y-white: rgb(245, 248, 250);
+    --y-white: rgb(240, 243, 245);
     --y-black: rgb(29, 31, 32);
 
     --ynav-m-space: 21vw;
@@ -121,7 +121,7 @@ svg#y > g#main.pre-spawn path {
     text-decoration: none;
     color: var(--y-black);
     opacity: 1;
-    transition: 0s cubic-bezier(0.25, 0.6, 0, 1),
+    transition: 0.7s cubic-bezier(0.25, 0.6, 0, 1),
                 opacity 0.6s,
                 font-size 0s;
     user-select: none;
@@ -139,8 +139,8 @@ svg#y > g#main.pre-spawn path {
 
 #ym-txt-c.pre-spawn .ym-txt {
     opacity: 0;
-    left: 12.5vw;
-    right: 12.5vw;
+    left: 30vw;
+    right: 30vw;
 }
 
 
@@ -158,33 +158,68 @@ main#swup {display: block;
     overflow: visible !important;
 }
 
+
+/*/ PROJECT LISTS /*/
 .acclist-item {
     width: 100%;
     margin: 0px;
-    transition: 0.6s cubic-bezier(0.2, 0.7, 0, 1);
+    transition: transform 0.6s cubic-bezier(0.5, 0.7, 0, 1);
+    user-select: none;
 }
-
-/*/ PROJECT LISTS /*/
 .acclist-in {
-    transform: skewY(-7.5deg) scale(1.01);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transform: skewY(-7.5deg);
+}
+.acclist-btn {
     display: flex;
     justify-content: center;
+    width: 100%;
     padding: 40px 0;
+    transform: scale(1.01);
     background-color: var(--y-black);
+    cursor: pointer;
 }
-.acclist-content {
+.acclist-btn:hover {
+    background-color: #000000;
+}
+.acclist-title {
     display: inline-block;
     padding: 10px 30px;
     background-color: var(--y-white);
     text-align: center;
 }
-.acclist-span {
+.acclist-t-span {
     display: inline-block;
     font-family: "Montserrat", sans-serif;
-    font-size: clamp(24px, 3vw, 45px);
+    font-size: clamp(24px, 3vw, 42px);
     font-weight: 800;
     color: var(--y-black);
     transform: scaleX(0.95);
     letter-spacing: 2px;
 }
+.acclist-item.special .acclist-btn {
+    background-color: var(--y-white);
+}
+.acclist-item.special .acclist-btn:hover {
+    background-color: #ffffff;
+}
+.acclist-item.special .acclist-title {
+    background-color: var(--y-black);
+}
+.acclist-item.special .acclist-t-span {
+    color: var(--y-white);
+}
+.acc-spacer {
+    margin-bottom: 20px;
+}
 
+
+.acclist-content {
+    position: relative;
+    top: 0;
+    width: 90%;
+    height: 200px;
+    background-color: var(--y-black);
+}
