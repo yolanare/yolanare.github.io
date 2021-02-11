@@ -59,12 +59,19 @@ svg#y > g[id] {
     cursor: pointer;
 }
 
-svg#y > g[id] polygon {
-    transition: fill 0.9s cubic-bezier(0.35, 0.9, 0, 1);
+svg#y > g[id] polygon,
+svg#y > g[id]:hover path {
+    transition: fill 0.9s cubic-bezier(0.35, 0.8, 0, 1);
+}
+svg#y > g[id]:hover polygon,
+svg#y > g[id]:hover path {
+    transition: fill 0.7s cubic-bezier(0.1, 0.7, 0, 1);
 }
 svg#y > g[id]:hover polygon {
     fill: var(--y-black) !important;
-    transition: fill 0.4s cubic-bezier(0.05, 0.8, 0, 1);
+}
+svg#y > g[id]:hover path {
+    fill: #ffffff !important;
 }
 
 
@@ -179,31 +186,49 @@ main#swup {display: block;
     padding: 40px 0;
     transform: scale(1.01);
     background-color: var(--y-black);
+    outline: solid 1px transparent;
+    transition-property: background-color;
     cursor: pointer;
 }
-.acclist-btn:hover {
-    background-color: #000000;
+.acclist-btn, .acclist-title {
+    outline: solid 1px transparent;
 }
 .acclist-title {
     display: inline-block;
     padding: 10px 30px;
-    background-color: var(--y-white);
+    transform: scale(1);
     text-align: center;
+    background-color: var(--y-white);
+    transition-property: background-color, transform;
 }
 .acclist-t-span {
     display: inline-block;
     font-family: "Montserrat", sans-serif;
     font-size: clamp(24px, 3vw, 42px);
     font-weight: 800;
+    letter-spacing: 2px;
     color: var(--y-black);
     transform: scaleX(0.95);
-    letter-spacing: 2px;
+    transition-property: color;
 }
+
+.acclist-btn,
+.acclist-btn .acclist-title,
+.acclist-btn .acclist-t-span {
+    transition: 0.7s cubic-bezier(0.4, 0.6, 0, 1);
+}
+.acclist-btn:hover,
+.acclist-btn:hover .acclist-title,
+.acclist-btn:hover .acclist-t-span {
+    transition: 0.6s cubic-bezier(0.1, 0.6, 0, 1);
+}
+.acclist-btn:hover .acclist-title {
+    transform: scale(1.125);
+    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+}
+
 .acclist-item.special .acclist-btn {
     background-color: var(--y-white);
-}
-.acclist-item.special .acclist-btn:hover {
-    background-color: #ffffff;
 }
 .acclist-item.special .acclist-title {
     background-color: var(--y-black);
@@ -211,10 +236,17 @@ main#swup {display: block;
 .acclist-item.special .acclist-t-span {
     color: var(--y-white);
 }
+.acclist-item.special .acclist-btn:hover,
+.acclist-item.special .acclist-btn:hover .acclist-title {
+    background-color: #ffffff;
+}
+.acclist-item.special .acclist-btn:hover .acclist-t-span {
+    color: var(--y-black);
+}
+
 .acc-spacer {
     margin-bottom: 20px;
 }
-
 
 .acclist-content {
     position: relative;
@@ -222,4 +254,5 @@ main#swup {display: block;
     width: 90%;
     height: 200px;
     background-color: var(--y-black);
+    background: linear-gradient(to bottom, var(--y-black) -5px, var(--y-white) 30px);
 }
