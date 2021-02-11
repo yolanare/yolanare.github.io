@@ -59,22 +59,6 @@ svg#y > g[id] {
     cursor: pointer;
 }
 
-svg#y > g[id] polygon,
-svg#y > g[id]:hover path {
-    transition: fill 0.9s cubic-bezier(0.35, 0.8, 0, 1);
-}
-svg#y > g[id]:hover polygon,
-svg#y > g[id]:hover path {
-    transition: fill 0.7s cubic-bezier(0.1, 0.7, 0, 1);
-}
-svg#y > g[id]:hover polygon {
-    fill: var(--y-black) !important;
-}
-svg#y > g[id]:hover path {
-    fill: #ffffff !important;
-}
-
-
 svg#y > g#float {
     transition: transform 0.7s cubic-bezier(0.4, 0.8, 0, 1);
 }
@@ -96,6 +80,20 @@ svg#y > g#main > g {
 svg#y > g[id] path {
     fill: var(--y-black);
     transition: fill 0.8s cubic-bezier(0.6, 0.7, 0, 1);
+}
+svg#y > g[id] polygon {
+    fill: var(--y-white);
+    transition: fill 0.4s 50ms ease-out;
+}
+svg#y > g[id]:hover polygon,
+svg#y > g[id]:hover path {
+    transition: fill 0.7s cubic-bezier(0.225, 0.7, 0, 1);
+}
+svg#y > g[id]:hover polygon {
+    fill: var(--y-black);
+}
+svg#y > g[id]:hover path {
+    fill: #ffffff;
 }
 
 nav.pre-spawn svg#y > g#float {
