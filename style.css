@@ -185,7 +185,7 @@ main#swup {display: block;
     transform: scale(1.01);
     background-color: var(--y-black);
     outline: solid 1px transparent;
-    transition-property: background-color;
+    transition-property: background-color !important;
     cursor: pointer;
 }
 .acclist-btn, .acclist-title {
@@ -197,7 +197,7 @@ main#swup {display: block;
     transform: scale(1);
     text-align: center;
     background-color: var(--y-white);
-    transition-property: background-color, transform;
+    transition-property: background-color, transform !important;
 }
 .acclist-t-span {
     display: inline-block;
@@ -207,7 +207,7 @@ main#swup {display: block;
     letter-spacing: 2px;
     color: var(--y-black);
     transform: scaleX(0.95);
-    transition-property: color;
+    transition-property: color !important;
 }
 
 .acclist-btn,
