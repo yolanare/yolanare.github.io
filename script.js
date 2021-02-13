@@ -74,14 +74,14 @@ function init() {
                 <svg id="y" viewBox="0 0 25 25">
                     <g id="float"> 
                         <g>
-                            <rect id="gravity_float" x="-2.5" y="0.2" style="fill:none;pointer-events:none;/*stroke:#00FF00;stroke-width:0.15;stroke-miterlimit:10;stroke-dasharray:1.0473;*/" width="22.6" height="22.6"/>
+                            <rect id="gravity_float" x="-2.5" y="0.2" style="fill:none;pointer-events:none;/*stroke:green;stroke-width:0.15;stroke-dasharray:1;*/" width="22.6" height="22.6"/>
                             <polygon points="6.3,3.3 14,9.2 9.4,10.3"/>
                             <path d="M8.8,6.5l2.9,2.2L10,9.1L8.8,6.5 M3.8,0.2l5,11.3l7.4-1.8L3.8,0.2L3.8,0.2z"/>
                         </g>
                     </g>
                     <g id="main" class="pre-spawn">
                         <g>
-                            <rect id="gravity_main" x="-4.6" y="-2.1" style="fill:none;pointer-events:none;/*stroke:#00FF00;stroke-width:0.15;stroke-miterlimit:10;stroke-dasharray:1.0473;*/" width="26.9" height="26.9"/>
+                            <rect id="gravity_main" x="-4.6" y="-2.1" style="fill:none;pointer-events:none;/*stroke:green;stroke-width:0.15;stroke-dasharray:1;*/" width="26.9" height="26.9"/>
                             <polygon points="9.9,11.8 18.8,3.8 12,21.4"/>
                             <path d="M16.3,7.4L15,10.8l-1,2.7l-1.7,4.4L11,12.2L16.3,7.4 M21.2,0.2L21.2,0.2L21.2,0.2z M21.2,0.2L8.8,11.5l2.9,13.4l4.1-10.7 l1-2.7L21.2,0.2L21.2,0.2z"/>
                         </g>
@@ -116,6 +116,30 @@ function init() {
     } else {
         nav.style.height = null;
         doc.querySelector('svg#y').style.width = null;
+    }
+
+    if(pathDir == 'projects') {
+        var allAccItems = doc.querySelectorAll('.acclist-item');
+
+        allAccItems.forEach((item) => {
+            function openAccItem() {
+                if(item.classList.contains('open')) {
+                } else {
+                    allAccItems.forEach((i) => {
+                        i.classList.remove('open');
+                        var ic = i.querySelector('.acclist-content'); if(ic) {
+                            doc.querySelector('*[accordion-content] #'+ i.id).appendChild(ic);
+                        }
+                    });
+                    item.classList.add('open');
+
+                    item.querySelector('.acclist-in').appendChild(doc.querySelector('*[accordion-content] #'+ item.id +' > .acclist-content'));
+                }
+            }
+
+
+            item.addEventListener('click', openAccItem);
+        })
     }
 }
 init();
