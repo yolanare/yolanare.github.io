@@ -168,7 +168,9 @@ main#swup {display: block;
 .acclist-item {
     width: 100%;
     margin: 0px;
+    transform: translate3d(0px, 0px, 0px);
     transition: transform 0.6s cubic-bezier(0.5, 0.7, 0, 1);
+    pointer-events: none;
     user-select: none;
 }
 .acclist-in {
@@ -176,6 +178,7 @@ main#swup {display: block;
     align-items: center;
     flex-direction: column;
     transform: skewY(-7.5deg);
+    pointer-events: all;
 }
 .acclist-btn {
     display: flex;
@@ -223,7 +226,7 @@ main#swup {display: block;
                 opacity 0.45s cubic-bezier(0.1, 0.5, 0, 1),
                 letter-spacing 0.35s cubic-bezier(0.2, 0.5, 0, 1);
 }
-.acclist-item:not(.special):not(.open) .acclist-btn:hover {
+.acclist-item:not(.special):not([state^="open"]) .acclist-btn:hover {
     opacity: 0.96;
 }
 .acclist-btn:hover .acclist-title {
@@ -231,14 +234,14 @@ main#swup {display: block;
     transition: 0.7s cubic-bezier(0.05, 0.7, 0, 1);
 }
 
-.acclist-item.open .acclist-btn {
+.acclist-item[state^="open"] .acclist-btn {
     background-color: var(--y-white);
 }
-.acclist-item.open .acclist-title {
+.acclist-item[state^="open"] .acclist-title {
     transform: scale(1);
     background-color: var(--y-black);
 }
-.acclist-item.open .acclist-t-span {
+.acclist-item[state^="open"] .acclist-t-span {
     letter-spacing: 10px;
     color: var(--y-white);
 }
@@ -247,8 +250,8 @@ main#swup {display: block;
 }
 
 .acclist-item.special .acclist-btn,
-.acclist-item.special.open .acclist-title,
-.acclist-item.special.open .acclist-btn:hover .acclist-title {
+.acclist-item.special[state^="open"] .acclist-title,
+.acclist-item.special[state^="open"] .acclist-btn:hover .acclist-title {
     background-color: var(--y-white);
 }
 .acclist-item.special .acclist-title {
@@ -259,11 +262,11 @@ main#swup {display: block;
 }
 .acclist-item.special .acclist-btn:hover,
 .acclist-item.special .acclist-btn:hover .acclist-title,
-.acclist-item.special.open .acclist-btn {
+.acclist-item.special[state^="open"] .acclist-btn {
     background-color: #ffffff;
 }
 .acclist-item.special .acclist-btn:hover .acclist-t-span,
-.acclist-item.special.open .acclist-t-span {
+.acclist-item.special[state^="open"] .acclist-t-span {
     color: var(--y-black);
 }
 
@@ -274,7 +277,12 @@ main#swup {display: block;
 .acclist-content {
     position: relative;
     top: 0;
-    width: 90%;
+    width: 100%;
     background-color: var(--y-black);
     background: linear-gradient(to bottom, var(--y-black) -10px, var(--y-white) 10px);
+    transition: 1s;
+}
+
+.acclist-item[state^="clos"] .acclist-content {
+    height: 0px !important;
 }

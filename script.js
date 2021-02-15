@@ -123,22 +123,53 @@ function init() {
 
         allAccItems.forEach((item) => {
             function openAccItem() {
-                if(item.classList.contains('open')) {
-                } else {
-                    allAccItems.forEach((i) => {
-                        i.classList.remove('open');
-                        var ic = i.querySelector('.acclist-content'); if(ic) {
-                            doc.querySelector('*[accordion-content] #'+ i.id).appendChild(ic);
-                        }
-                    });
-                    item.classList.add('open');
+                if(['closing', 'closed'].includes(item.getAttribute('state'))) {
+                    item.setAttribute('state', 'opening');
+                    var accCHidden = doc.querySelector('*[accordion-content] #'+ item.id +' > .acclist-content');
 
-                    item.querySelector('.acclist-in').appendChild(doc.querySelector('*[accordion-content] #'+ item.id +' > .acclist-content'));
+                    var otherAccItems = doc.querySelectorAll('.acclist-item:not(#'+ item.id +')');
+                    otherAccItems.forEach((itemOther) => {
+                        if(['opening', 'opened'].includes(itemOther.getAttribute('state'))) {
+                            itemOther.setAttribute('state', 'closing');
+                            setTimeout(() => {
+                                if(itemOther.getAttribute('state') == 'closing') {
+                                    itemOther.setAttribute('state', 'closed');
+                                    setTimeout(() => {
+                                        if(itemOther.getAttribute('state') == 'closed') {
+                                            itemOther.querySelector('.acclist-content').remove();
+                                        }
+                                    }, 200);
+                                }
+                            }, 1000);
+                        }
+                    })
+
+                    var accCIsAlready = item.querySelector('.acclist-content');
+                    if(accCIsAlready == null) {
+                        var accCReal = accCHidden.cloneNode(true);
+                        accCReal.style.transition = "0s";
+                        accCReal.style.height = "0px";
+                        item.querySelector('.acclist-in').appendChild(accCReal);
+                        setTimeout(() => {
+                            accCReal.style.transition = null;
+                            accCReal.style.height = accCHidden.offsetHeight +'px';
+                            setTimeout(() => {
+                                if(item.getAttribute('state') == 'opening') {
+                                    item.setAttribute('state', 'opened');
+                                }
+                            }, 1000);
+                        }, 1);
+                    } else {
+                        console.log('-- already exists')
+                    }
+                }
+                if(['opening', 'opened'].includes(item.getAttribute('state'))) {
+                    console.log('nope:', item.getAttribute('state'))
                 }
             }
 
-
-            item.addEventListener('click', openAccItem);
+            item.setAttribute('state', 'closed');
+            item.querySelector('.acclist-btn').addEventListener('click', openAccItem);
         })
     }
 }
