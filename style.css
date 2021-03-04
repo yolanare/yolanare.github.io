@@ -230,8 +230,8 @@ div[accordion-content] {
     transition: 0.7s cubic-bezier(0.4, 0.6, 0, 1),
                 opacity 0.7s cubic-bezier(0.3, 0.75, 0, 1.1);
 }
-.acclist-btn:hover,
-.acclist-btn:hover .acclist-t-span {
+.acclist-item:not([state^="closing"]) .acclist-btn:hover,
+.acclist-item:not([state^="closing"]) .acclist-btn:hover .acclist-t-span {
     transition: 0.6s cubic-bezier(0.1, 0.6, 0, 1),
                 opacity 0.45s cubic-bezier(0.1, 0.5, 0, 1),
                 letter-spacing 0.35s cubic-bezier(0.2, 0.5, 0, 1);
@@ -244,6 +244,8 @@ div[accordion-content] {
 }
 .acclist-btn:hover .acclist-title {
     transform: scale(1.12);
+}
+.acclist-item:not([state^="closing"]) .acclist-btn:hover .acclist-title {
     transition: /*bg-c*/ 0.8s cubic-bezier(0.15, 0.7, 0, 1),
                 /*trsfrm*/ 0.7s cubic-bezier(0.05, 0.7, 0, 1);
 }
@@ -261,6 +263,10 @@ div[accordion-content] {
 }
 .acclist-item:active .acclist-title {
     transform: scale(1);
+}
+.acclist-item[state^="open"]:active .acclist-title {
+    transform: scale(0.925);
+    transition: 0.6s cubic-bezier(0, 0.7, 0, 1);
 }
 
 .acclist-item.special .acclist-btn,

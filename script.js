@@ -123,6 +123,20 @@ function init() {
 
         allAccItems.forEach((item) => {
             function openAccItem() {
+                function closeAccItem(i) {
+                    i.setAttribute('state', 'closing');
+                    setTimeout(() => {
+                        if(i.getAttribute('state') == 'closing') {
+                            i.setAttribute('state', 'closed');
+                            setTimeout(() => {
+                                if(i.getAttribute('state') == 'closed') {
+                                    i.querySelector('.acclist-content').remove();
+                                }
+                            }, 200);
+                        }
+                    }, 1100);
+                }
+
                 if(['closing', 'closed'].includes(item.getAttribute('state'))) {
                     item.setAttribute('state', 'opening');
                     var accCHidden = doc.querySelector('*[accordion-content] #'+ item.id +' > .acclist-content');
@@ -131,17 +145,7 @@ function init() {
                     otherAccItems.forEach((itemOther) => {
                         if(['opening', 'opened'].includes(itemOther.getAttribute('state'))) {
                             setTimeout(() => {
-                                itemOther.setAttribute('state', 'closing');
-                                setTimeout(() => {
-                                    if(itemOther.getAttribute('state') == 'closing') {
-                                        itemOther.setAttribute('state', 'closed');
-                                        setTimeout(() => {
-                                            if(itemOther.getAttribute('state') == 'closed') {
-                                                itemOther.querySelector('.acclist-content').remove();
-                                            }
-                                        }, 200);
-                                    }
-                                }, 1100);
+                                closeAccItem(itemOther);
                             }, 1);
                         }
                     })
@@ -168,9 +172,9 @@ function init() {
                     //    console.log('-- already exists')
                     //}
                 }
-                //if(['opening', 'opened'].includes(item.getAttribute('state'))) {
-                //    console.log('nope:', item.getAttribute('state'))
-                //}
+                else if(['opening', 'opened'].includes(item.getAttribute('state'))) { // already opened
+                    closeAccItem(item);
+                }
             }
 
             item.setAttribute('state', 'closed');
