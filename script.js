@@ -130,17 +130,19 @@ function init() {
                     var otherAccItems = doc.querySelectorAll('.acclist-item:not(#'+ item.id +')');
                     otherAccItems.forEach((itemOther) => {
                         if(['opening', 'opened'].includes(itemOther.getAttribute('state'))) {
-                            itemOther.setAttribute('state', 'closing');
                             setTimeout(() => {
-                                if(itemOther.getAttribute('state') == 'closing') {
-                                    itemOther.setAttribute('state', 'closed');
-                                    setTimeout(() => {
-                                        if(itemOther.getAttribute('state') == 'closed') {
-                                            itemOther.querySelector('.acclist-content').remove();
-                                        }
-                                    }, 200);
-                                }
-                            }, 1000);
+                                itemOther.setAttribute('state', 'closing');
+                                setTimeout(() => {
+                                    if(itemOther.getAttribute('state') == 'closing') {
+                                        itemOther.setAttribute('state', 'closed');
+                                        setTimeout(() => {
+                                            if(itemOther.getAttribute('state') == 'closed') {
+                                                itemOther.querySelector('.acclist-content').remove();
+                                            }
+                                        }, 200);
+                                    }
+                                }, 1100);
+                            }, 1);
                         }
                     })
 
@@ -149,23 +151,26 @@ function init() {
                         var accCReal = accCHidden.cloneNode(true);
                         accCReal.style.transition = "0s";
                         accCReal.style.height = "0px";
+                        accCReal.style.transform = "translateY(75px)";
                         item.querySelector('.acclist-in').appendChild(accCReal);
                         setTimeout(() => {
                             accCReal.style.transition = null;
                             accCReal.style.height = accCHidden.offsetHeight +'px';
+                            accCReal.style.transform = null;
                             setTimeout(() => {
                                 if(item.getAttribute('state') == 'opening') {
                                     item.setAttribute('state', 'opened');
                                 }
-                            }, 1000);
+                            }, 1100);
                         }, 1);
-                    } else {
-                        console.log('-- already exists')
                     }
+                    //else {
+                    //    console.log('-- already exists')
+                    //}
                 }
-                if(['opening', 'opened'].includes(item.getAttribute('state'))) {
-                    console.log('nope:', item.getAttribute('state'))
-                }
+                //if(['opening', 'opened'].includes(item.getAttribute('state'))) {
+                //    console.log('nope:', item.getAttribute('state'))
+                //}
             }
 
             item.setAttribute('state', 'closed');

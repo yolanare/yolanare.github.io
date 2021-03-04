@@ -1,6 +1,7 @@
 :root {
-    --y-white: rgb(240, 243, 245);
-    --y-black: rgb(29, 31, 32);
+    --y-w: rgb(240, 243, 245);
+    --y-b: rgb(29, 31, 32);
+    --y-b2: rgb(38, 40, 42);
 
     --ynav-m-space: 21vw;
     --ynav-padding: 10vh;
@@ -9,7 +10,7 @@
 
 body {
     margin: 0;
-    background-color: var(--y-white);
+    background-color: var(--y-w);
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
     overflow-x: hidden;
@@ -78,11 +79,11 @@ svg#y > g#main > g {
 }
 
 svg#y > g[id] path {
-    fill: var(--y-black);
+    fill: var(--y-b);
     transition: fill 0.8s cubic-bezier(0.6, 0.7, 0, 1);
 }
 svg#y > g[id] polygon {
-    fill: var(--y-white);
+    fill: var(--y-w);
     transition: fill 0.4s 50ms ease-out;
 }
 svg#y > g[id]:hover polygon,
@@ -90,7 +91,7 @@ svg#y > g[id]:hover path {
     transition: fill 0.5s cubic-bezier(0.2, 0.7, 0, 1);
 }
 svg#y > g[id]:hover polygon {
-    fill: var(--y-black);
+    fill: var(--y-b);
 }
 svg#y > g[id]:hover path {
     fill: #ffffff;
@@ -111,7 +112,7 @@ svg#y > g#main.pre-spawn > g {
 
 nav.pre-spawn svg#y > g#float path,
 svg#y > g#main.pre-spawn path {
-    fill: var(--y-white) !important;
+    fill: var(--y-w) !important;
 }
 
 /* Y MENU BUTTONS */
@@ -124,7 +125,7 @@ svg#y > g#main.pre-spawn path {
     font-size: clamp(18px, 3vw, 28px);
     font-weight: 800;
     text-decoration: none;
-    color: var(--y-black);
+    color: var(--y-b);
     opacity: 1;
     transition: 0.7s cubic-bezier(0.25, 0.6, 0, 1),
                 opacity 0.6s,
@@ -165,6 +166,13 @@ main#swup {display: block;
 
 
 /*/ PROJECT LISTS /*/
+div[accordion-content] {
+    visibility: hidden;
+    position: fixed;
+    top: -100%;
+    overflow: hidden;
+    user-select: none;
+}
 .acclist-item {
     width: 100%;
     margin: 0px;
@@ -174,19 +182,21 @@ main#swup {display: block;
     user-select: none;
 }
 .acclist-in {
+    z-index: 10;
     display: flex;
     align-items: center;
     flex-direction: column;
-    transform: skewY(-7.5deg);
+    transform: skewY(-7.5deg) scale(1.01);
+    background-color: var(--y-w);
     pointer-events: all;
 }
 .acclist-btn {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 40px 0;
+    padding: 45px 0;
     transform: scale(1.01);
-    background-color: var(--y-black);
+    background-color: var(--y-b);
     outline: solid 1px transparent;
     transition-property: background-color, opacity !important;
     cursor: pointer;
@@ -199,16 +209,17 @@ main#swup {display: block;
     padding: 10px 30px;
     transform: scale(1);
     text-align: center;
-    background-color: var(--y-white);
+    white-space: nowrap;
+    background-color: var(--y-w);
     transition-property: background-color, transform !important;
 }
 .acclist-t-span {
     display: inline-block;
     font-family: "Montserrat", sans-serif;
-    font-size: clamp(24px, 3vw, 42px);
+    font-size: clamp(23px, 3vw, 42px);
     font-weight: 800;
     letter-spacing: 2px;
-    color: var(--y-black);
+    color: var(--y-b);
     transform: scaleX(0.95);
     transition-property: color, opacity, letter-spacing !important;
 }
@@ -220,30 +231,33 @@ main#swup {display: block;
                 opacity 0.7s cubic-bezier(0.3, 0.75, 0, 1.1);
 }
 .acclist-btn:hover,
-.acclist-btn:hover .acclist-title,
 .acclist-btn:hover .acclist-t-span {
     transition: 0.6s cubic-bezier(0.1, 0.6, 0, 1),
                 opacity 0.45s cubic-bezier(0.1, 0.5, 0, 1),
                 letter-spacing 0.35s cubic-bezier(0.2, 0.5, 0, 1);
 }
 .acclist-item:not(.special):not([state^="open"]) .acclist-btn:hover {
-    opacity: 0.96;
+    background-color: var(--y-b2);
+}
+.acclist-item.special:not([state^="open"]) .acclist-btn:hover {
+    opacity: 0.97;
 }
 .acclist-btn:hover .acclist-title {
     transform: scale(1.12);
-    transition: 0.7s cubic-bezier(0.05, 0.7, 0, 1);
+    transition: /*bg-c*/ 0.8s cubic-bezier(0.15, 0.7, 0, 1),
+                /*trsfrm*/ 0.7s cubic-bezier(0.05, 0.7, 0, 1);
 }
 
 .acclist-item[state^="open"] .acclist-btn {
-    background-color: var(--y-white);
+    background-color: var(--y-w);
 }
 .acclist-item[state^="open"] .acclist-title {
     transform: scale(1);
-    background-color: var(--y-black);
+    background-color: var(--y-b);
 }
 .acclist-item[state^="open"] .acclist-t-span {
     letter-spacing: 10px;
-    color: var(--y-white);
+    color: var(--y-w);
 }
 .acclist-item:active .acclist-title {
     transform: scale(1);
@@ -252,22 +266,20 @@ main#swup {display: block;
 .acclist-item.special .acclist-btn,
 .acclist-item.special[state^="open"] .acclist-title,
 .acclist-item.special[state^="open"] .acclist-btn:hover .acclist-title {
-    background-color: var(--y-white);
+    background-color: var(--y-b);
 }
 .acclist-item.special .acclist-title {
-    background-color: var(--y-black);
+    background-color: var(--y-b);
 }
 .acclist-item.special .acclist-t-span {
-    color: var(--y-white);
+    color: var(--y-w);
 }
-.acclist-item.special .acclist-btn:hover,
 .acclist-item.special .acclist-btn:hover .acclist-title,
 .acclist-item.special[state^="open"] .acclist-btn {
-    background-color: #ffffff;
+    background-color: var(--y-w);
 }
-.acclist-item.special .acclist-btn:hover .acclist-t-span,
-.acclist-item.special[state^="open"] .acclist-t-span {
-    color: var(--y-black);
+.acclist-item.special:not([state^="open"]) .acclist-btn:hover .acclist-t-span {
+    color: var(--y-b);
 }
 
 .acc-spacer {
@@ -278,11 +290,128 @@ main#swup {display: block;
     position: relative;
     top: 0;
     width: 100%;
-    background-color: var(--y-black);
-    background: linear-gradient(to bottom, var(--y-black) -10px, var(--y-white) 10px);
-    transition: 1s;
+    transition: 1.1s cubic-bezier(0.4, 0.6, 0, 1);
+    overflow: hidden;
 }
 
+.acclist-item[state^="open"] .acclist-content {
+    transform: translateY(0px);
+}
 .acclist-item[state^="clos"] .acclist-content {
+    transform: translateY(75px);
     height: 0px !important;
+}
+
+.al-grid {
+    display: grid;
+    width: 100%;
+    grid-gap: 0px;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.al-card {
+    position: relative;
+    grid-column: span 2;
+    transform: scaleY(1.01);
+    cursor: pointer;
+    user-select: none;
+}
+.al-card:nth-child(3n-1) {
+    transform: scale(1.01);
+}
+
+.thumbnail-c {
+    overflow: hidden;
+    width: 100%;
+    height: clamp(0px, 13vw, 250px);
+}
+.thumb {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+}
+
+.title-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.title {
+    position: absolute;
+    max-width: calc(100% - (clamp(20px, 2vw, 30px) * 2));
+    padding: clamp(8px, 1vw, 15px) clamp(20px, 2vw, 30px);
+    font-size: clamp(15px, 2vw, 27px);
+    white-space: nowrap;
+    background-color: var(--y-w);
+    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+    transition-property: transform, letter-spacing, max-width;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.al-card:hover .thumb {
+    transform: scale(1.125);
+    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+}
+.al-card:hover .title {
+    transform: scale(0.9);
+    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+}
+.al-card:active .thumb,
+.al-card.focus .thumb {
+    transform: scale(0.875);
+    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+}
+.al-card:active .title,
+.al-card.focus .title {
+    max-width: calc((100% - (30px * 2)) + 10%);
+    transform: scale(0.9);
+    letter-spacing: 3px;
+    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+}
+
+@media (min-width: 960px) {
+    .al-card {
+        transform: scaleY(1.01);
+    }
+    .al-card:nth-child(3n-1) {
+        transform: scale(1.01);
+    }
+}
+@media (max-width: 960px) {
+    .al-card {
+        grid-column: span 3;
+    }
+    .al-card {
+        transform: scale(1.01);
+    }
+    .thumbnail-c {
+        height: clamp(0px, 20vw, 225px);
+    }
+}
+@media (max-width: 728px) {
+    .acclist-btn {
+        padding: 30px 0;
+    }
+    .acclist-title {
+        padding: 7.5px 20px;
+    }
+    .acclist-item[state^="open"] .acclist-t-span {
+        letter-spacing: 5px;
+    }
+
+    .al-card {
+        grid-column: span 6;
+    }
+    .al-card {
+        transform: scaleY(1.01);
+    }
+    .thumbnail-c {
+        height: clamp(125px, 20vw, 200px);
+    }
 }
