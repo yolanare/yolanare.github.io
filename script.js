@@ -41,7 +41,7 @@ var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/2259
 var isScrolling;
 function scrollAccordion() {
     var speed = checkScrollSpeed(), space = 0,
-        items = Object.values(doc.querySelector("*[scroll-accordion]").children);
+        items = Object.values(doc.querySelector("*[accordion-scroll]").children);
     if(speed[1]) { items.reverse(); }
     items.forEach((item) => {
         space += -speed[0] / 2;
