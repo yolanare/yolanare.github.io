@@ -13,6 +13,51 @@ var doc = document.documentElement,
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
 
+// PROJECTS DESCRIPTIONS
+var projectsDesc = {
+    'fut_met' : {
+        year : "2017",
+        month : "06",
+        desc : `
+            <p>From what kind of place is it coming from?</p>
+            <h2>TEST test Test</h2>
+            <h3>TEST test Test</h3>
+            <p>TEST test TestTEST test TestTEST test TestTEST test TestTEST test TestTEST test TestTEST test Test<br>TEST test TestTEST test TestTEST test TestTEST test TestTEST test Test<br>TEST test TestTEST test Test<br>TEST test TestTEST test TestTEST test Test.</br></p>
+        `,
+    },
+    'destr_casque' : {
+        year : "2016",
+        month : "12",
+        desc : `
+            <p>Breaking it even more. Because why wouldn't I?</p>
+            <h2>FR: CONTEXTE</h2>
+            <p>Ce casque audio devenait vieux, il était temps d'en changer. Je voulais marquer <b>le coup</b> en le détruisant. Déjà par curiosité pour voir ce qu'il y avait dedans, et aussi pour honorer le bon temps que j'ai passé avec.</p>
+            <p>Cette image est la miniature de la vidéo sur YouTube que j'ai faite pour sa destruction. Je trouve qu'elle est plutôt bien réussie, en sachant qu'elle a été faite fin 2016.</p>
+        `,
+    },
+    'y_in_b' : {
+        year : "2018",
+        month : "09",
+        desc : `
+            <p>In front of the light</p>
+            <h2>YYYYYYYYYYY</h2>
+            <h3>YYYYYYYYYYY</h3>
+            <p>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</p>
+        `,
+    },
+    'stargazing_a' : {
+        year : "2018",
+        month : "10",
+        desc : `
+            <p>Who are you?</p>
+            <h2>STARGAZINGSTARGAZING</h2>
+            <h3>TEST STARGAZING Test</h3>
+            <p>TEST STARGAZINGSTARGAZINGSTARGAZING Test<br>TEST tSTARGAZINGSTARGAZING<br>TEST test TestTESMORE More mOrEMORE More mOrE.</br></p>
+        `,
+    },
+};
+
+
 function addClassAll(path, c) {
     var elems = document.querySelectorAll(path);
     if(elems) { elems.forEach(function(el) { el.classList.add(c); }); }
@@ -121,6 +166,50 @@ function init() {
     if(pathDir == 'projects') {
         var allAccItems = doc.querySelectorAll('.acclist-item');
 
+        function openProjectCardPopup() {
+            function closeProjectCardPopup() {
+                var allFocused = doc.querySelectorAll('div[accordion-scroll] .focus');
+                if(allFocused) { allFocused.forEach((f) => { f.classList.remove('focus'); })}
+                ppBG.style.opacity = '0';
+                projectPopup.style.pointerEvents= 'none';
+                projectPopup.classList.add('out');
+                setTimeout(() => {
+                    projectPopup.remove();
+                }, 1000);
+            }
+
+            var projectPopup = document.createElement('div');
+            projectPopup.classList.add('project-popup');
+            projectPopup.classList.add('pre');
+            doc.querySelector('div[project-popup]').appendChild(projectPopup);
+
+            projectPopup.innerHTML = `
+                <div class="pp-bg" style="opacity:0;"></div>
+                <div class="pp-popup-c">
+                    <section class="pp-project">
+                        <div class="pp-proj">
+                            <div class="pp-img" style="background:url('`+ this.querySelector('.thumb').getAttribute('src') +`');"></div>
+                        </div>
+                    </section>
+                    <section class="pp-desc">
+                        <div class="pp-title"><span>`+ this.querySelector('.p-title > span').innerText +`</span></div>
+                        `+ projectsDesc[this.id].desc +`
+                    </section>
+                </div>
+            `;
+
+            var ppBG = projectPopup.querySelector('.pp-bg');
+
+            this.classList.add('focus');
+            setTimeout(() => {
+                ppBG.style.opacity = null;
+                projectPopup.classList.remove('pre');
+            }, 10);
+            setTimeout(() => {
+                ppBG.addEventListener('click', () => { closeProjectCardPopup() });
+            }, 350); // security in case of multi-clicks
+        }
+
         allAccItems.forEach((item) => {
             function openAccItem() {
                 function closeAccItem(i) {
@@ -157,6 +246,9 @@ function init() {
                         accCReal.style.height = "0px";
                         accCReal.style.transform = "translateY(75px)";
                         item.querySelector('.acclist-in').appendChild(accCReal);
+                        item.querySelectorAll('.al-card').forEach((card) => {
+                            card.addEventListener('click', openProjectCardPopup);
+                        })
                         setTimeout(() => {
                             accCReal.style.transition = null;
                             accCReal.style.height = accCHidden.offsetHeight +'px';

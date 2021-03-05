@@ -29,6 +29,8 @@ html.is-animating .transition-y {
     position: absolute !important;
     width: 100%;
     height: 100%;
+    overflow-y: visible;
+    overflow-x: hidden;
 }
 
 nav {
@@ -338,7 +340,7 @@ div[accordion-content] {
     transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
 }
 
-.title-c {
+.p-title-c {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -347,12 +349,13 @@ div[accordion-content] {
     width: 100%;
     height: 100%;
 }
-.title {
+.p-title {
     position: absolute;
     max-width: calc(100% - (clamp(20px, 2vw, 30px) * 2));
     padding: clamp(8px, 1vw, 15px) clamp(20px, 2vw, 30px);
     font-size: clamp(15px, 2vw, 27px);
     white-space: nowrap;
+    color: var(--y-b);
     background-color: var(--y-w);
     transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
     transition-property: transform, letter-spacing, max-width;
@@ -364,7 +367,7 @@ div[accordion-content] {
     transform: scale(1.125);
     transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
 }
-.al-card:hover .title {
+.al-card:hover .p-title {
     transform: scale(0.9);
     transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
 }
@@ -373,12 +376,16 @@ div[accordion-content] {
     transform: scale(0.875);
     transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
 }
-.al-card:active .title,
-.al-card.focus .title {
+.al-card:active .p-title,
+.al-card.focus .p-title {
     max-width: calc((100% - (30px * 2)) + 10%);
     transform: scale(0.9);
     letter-spacing: 3px;
     transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+}
+.al-card.focus .p-title {
+    color: var(--y-w);
+    background-color: var(--y-b);
 }
 
 @media (min-width: 960px) {
@@ -420,4 +427,115 @@ div[accordion-content] {
     .thumbnail-c {
         height: clamp(125px, 20vw, 200px);
     }
+}
+
+/*- PROJECT POPUP -*/
+div[project-popup] {
+    position: fixed;
+    width: 0;
+    height: 0;
+}
+.project-popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+}
+.pp-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background-color: rgb(0, 0, 0);
+    transition: opacity 1s;
+}
+
+.pp-popup-c {
+    display: grid;
+    grid-template-columns: 56.5% auto;
+    grid-gap: 32.5px;
+    position: fixed;
+    width: 80%;
+    height: 80%;
+    transform: scale(1);
+    opacity: 1;
+    background-color: var(--y-w);
+    transition: 0.6s;
+    overflow: hidden;
+}
+
+.pp-proj {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.pp-project .pp-img {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    background-position: center !important;
+}
+
+.pp-popup-c section {
+    opacity: 1;
+    transition: 0.6s 0.2s;
+}
+.pp-popup-c section.pp-desc {
+    overflow-y: auto;
+    padding-right: 25px;
+    word-wrap: break-word;
+}
+
+.pp-title {
+    font-size: 42px;
+    text-transform: uppercase;
+    background-color: var(--y-b);
+}
+.pp-title span {
+    display: inline-block;
+    padding: 10px 30px;
+    letter-spacing: 5px;
+    font-weight: 800;
+    color: var(--y-w);
+}
+.pp-desc h2 {
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: 800;
+    margin: 1.25em 0 0.5em;
+}
+.pp-desc h3 {
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin: 0.75em 0;
+}
+.pp-desc p {
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    margin: 0.5em 0;
+}
+
+
+.project-popup.pre .pp-popup-c,
+.project-popup.out .pp-popup-c {
+    transform: scale(0.5);
+    opacity: 0;
+}
+.project-popup.pre section,
+.project-popup.out section {
+    opacity: 0;
+}
+.project-popup.pre section:first-child {
+    transform: translateX(-100px);
+}
+.project-popup.pre section:last-child {
+    transform: translateX(100px);
 }
