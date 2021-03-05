@@ -264,7 +264,7 @@ div[accordion-content] {
 .acclist-item:active .acclist-title {
     transform: scale(1);
 }
-.acclist-item[state^="open"]:active .acclist-title {
+.acclist-item[state^="open"] .acclist-btn:active .acclist-title {
     transform: scale(0.925);
     transition: 0.6s cubic-bezier(0, 0.7, 0, 1);
 }
