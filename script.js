@@ -8,7 +8,8 @@ const swup = new Swup({
 });
 
 var doc = document.documentElement,
-    isMini = undefined;
+    isMini = undefined,
+    container = document.getElementById('container');
 
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
@@ -29,7 +30,7 @@ var projectsDesc = {
         year : "2016",
         month : "12",
         desc : `
-            <p>Breaking it even more. Because why wouldn't I?</p>
+            <p>Breaking it even more. Why wouldn't I?</p>
             <h2>FR: CONTEXTE</h2>
             <p>Ce casque audio devenait vieux, il était temps d'en changer. Je voulais marquer <b>le coup</b> en le détruisant. Déjà par curiosité pour voir ce qu'il y avait dedans, et aussi pour honorer le bon temps que j'ai passé avec.</p>
             <p>Cette image est la miniature de la vidéo sur YouTube que j'ai faite pour sa destruction. Je trouve qu'elle est plutôt bien réussie, en sachant qu'elle a été faite fin 2016.</p>
@@ -73,7 +74,7 @@ var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/2259
     function clear() { lastPos = null; delta = 0; direction = true; }
     clear();
     return function(){
-        newPos = window.scrollY;
+        newPos = container.scrollTop;
         if(lastPos != null ) { delta = newPos -  lastPos; }
         if(lastPos > newPos) { direction = false; }
         lastPos = newPos;
@@ -86,7 +87,7 @@ var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/2259
 var isScrolling;
 function scrollAccordion() {
     var speed = checkScrollSpeed(), space = 0,
-        items = Object.values(doc.querySelector("*[accordion-scroll]").children);
+        items = Object.values(doc.querySelector("div[accordion-scroll]").children);
     if(speed[1]) { items.reverse(); }
     items.forEach((item) => {
         space += -speed[0] / 2;
@@ -102,7 +103,7 @@ function scrollAccordion() {
 }
 
 function init() {
-    document.addEventListener('scroll', scrollAccordion)
+    container.addEventListener('scroll', scrollAccordion)
 
     var nav = document.querySelector('nav');
 
