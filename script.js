@@ -254,7 +254,6 @@ function init() {
         allAccItems.forEach((item) => {
             function openAccItem() {
                 function finalState(i) {
-                    console.log(i.getAttribute('state'));
                     if(i.getAttribute('state') == 'opening') {
                         i.setAttribute('state', 'opened');
                     } else if(i.getAttribute('state') == 'closing') {
