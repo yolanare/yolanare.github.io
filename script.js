@@ -167,7 +167,7 @@ function init() {
     if(pathDir == 'projects') {
         var allAccItems = doc.querySelectorAll('.acclist-item');
 
-        function openProjectCardPopup() {
+        function openProjectCardPopup(ev) {
             this.classList.add('focus');
             
             function closeProjectCardPopup() {
@@ -176,6 +176,7 @@ function init() {
                 ppBG.style.opacity = '0';
                 projectPopup.style.pointerEvents= 'none';
                 projectPopup.classList.add('out');
+                hideCurClose(projectPopup);
                 setTimeout(() => {
                     projectPopup.remove();
                 }, 1000);
@@ -201,10 +202,39 @@ function init() {
                         </div>
                     </section>
                 </div>
+                <div class="pp-curclose">
+                    <svg viewBox="0 0 32 32">
+                        <line x1="26.3" y1="26.3" x2="5.7" y2="5.7"/>
+                        <line x1="5.7" y1="26.3" x2="26.3" y2="5.7"/>
+                    </svg>
+                </div>
             `;
 
             var ppBG = projectPopup.querySelector('.pp-bg');
 
+            // Cursor Close on BG hover
+            function moveCurClose(event) {
+                var cursorX = event.clientX,
+                    cursorY = event.clientY;
+                iconClose = projectPopup.querySelector('.pp-curclose');
+                iconClose.style.top = cursorY + 'px';
+                iconClose.style.left = cursorX + 'px';
+            }
+            function showCurClose(projectPopup) {
+                projectPopup.querySelector('.pp-curclose').classList.add("hover");
+            }
+            function hideCurClose(projectPopup) {
+                projectPopup.querySelector('.pp-curclose').classList.remove("hover");
+            }
+            moveCurClose(ev);
+            ppBG.addEventListener('mousemove', moveCurClose);
+            ppBG.addEventListener('mouseover', function() { showCurClose(projectPopup); });
+            ppBG.addEventListener('mouseout', function() { hideCurClose(projectPopup); });
+
+            projectPopup.addEventListener('mousemove', moveCurClose);
+            setTimeout(function() { projectPopup.removeEventListener('mousemove', moveCurClose); }, 800);
+
+            // ANIMATIONS
             setTimeout(() => {
                 ppBG.style.opacity = null;
                 projectPopup.classList.remove('pre');
