@@ -33,7 +33,7 @@ var projectsDesc = {
             <p>Breaking it even more. Why wouldn't I?</p>
             <h2>FR: CONTEXTE</h2>
             <p>Ce casque audio devenait vieux, il était temps d'en changer. Je voulais marquer <b>le coup</b> en le détruisant. Déjà par curiosité pour voir ce qu'il y avait dedans, et aussi pour honorer le bon temps que j'ai passé avec.</p>
-            <p>Cette image est la miniature de la vidéo sur YouTube que j'ai faite pour sa destruction. Je trouve qu'elle est plutôt bien réussie, en sachant qu'elle a été faite fin 2016.</p>
+            <p>Cette image est la miniature de la vidéo sur YouTube que j'ai faite pour sa destruction. Je trouve qu'elle est plutôt bien réussie, en sachant que c'était l'un de mes premiers projets graphiques.</p>
         `,
     },
     'y_in_b' : {
@@ -168,6 +168,8 @@ function init() {
         var allAccItems = doc.querySelectorAll('.acclist-item');
 
         function openProjectCardPopup() {
+            this.classList.add('focus');
+            
             function closeProjectCardPopup() {
                 var allFocused = doc.querySelectorAll('div[accordion-scroll] .focus');
                 if(allFocused) { allFocused.forEach((f) => { f.classList.remove('focus'); })}
@@ -201,7 +203,6 @@ function init() {
 
             var ppBG = projectPopup.querySelector('.pp-bg');
 
-            this.classList.add('focus');
             setTimeout(() => {
                 ppBG.style.opacity = null;
                 projectPopup.classList.remove('pre');
