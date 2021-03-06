@@ -233,7 +233,12 @@ function init() {
 
             projectPopup.addEventListener('mousemove', moveCurClose);
             setTimeout(function() { projectPopup.removeEventListener('mousemove', moveCurClose); }, 800);
-
+            
+            // CLOSE
+            setTimeout(() => {
+                ppBG.addEventListener('click', () => { closeProjectCardPopup() });
+            }, 350); // security in case of multi-clicks
+            
             // ANIMATIONS
             setTimeout(() => {
                 ppBG.style.opacity = null;
@@ -243,10 +248,7 @@ function init() {
                     ch += 0.15;
                     txt.style.transitionDelay = ch +'s';
                 })
-            }, 10);
-            setTimeout(() => {
-                ppBG.addEventListener('click', () => { closeProjectCardPopup() });
-            }, 350); // security in case of multi-clicks
+            }, 33);
         }
 
         allAccItems.forEach((item) => {
