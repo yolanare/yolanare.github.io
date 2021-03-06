@@ -196,7 +196,9 @@ function init() {
                     </section>
                     <section class="pp-desc">
                         <div class="pp-title"><span>`+ this.querySelector('.p-title > span').innerText +`</span></div>
-                        `+ projectsDesc[this.id].desc +`
+                        <div class="pp-desctxt">
+                            `+ projectsDesc[this.id].desc +`
+                        </div>
                     </section>
                 </div>
             `;
@@ -206,6 +208,11 @@ function init() {
             setTimeout(() => {
                 ppBG.style.opacity = null;
                 projectPopup.classList.remove('pre');
+                ch = 0.1;
+                projectPopup.querySelectorAll('section.pp-desc .pp-desctxt > *').forEach((txt) => {
+                    ch += 0.15;
+                    txt.style.transitionDelay = ch +'s';
+                })
             }, 10);
             setTimeout(() => {
                 ppBG.addEventListener('click', () => { closeProjectCardPopup() });
