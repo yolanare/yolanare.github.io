@@ -176,10 +176,10 @@ function init() {
                 ppBG.style.opacity = '0';
                 projectPopup.style.pointerEvents= 'none';
                 projectPopup.classList.add('out');
-                hideCurClose(projectPopup);
-                setTimeout(() => {
-                    projectPopup.remove();
-                }, 1000);
+                closeFake.classList.add("quit");
+                hideCurClose();
+                setTimeout(() => { closeFake.classList.add("hid"); }, 1);
+                setTimeout(() => { projectPopup.remove(); }, 1000);
             }
 
             var projectPopup = document.createElement('div');
@@ -190,17 +190,25 @@ function init() {
             projectPopup.innerHTML = `
                 <div class="pp-bg" style="opacity:0;"></div>
                 <div class="pp-popup-c">
-                    <section class="pp-project">
-                        <div class="pp-proj">
-                            <div class="pp-img" style="background:url('`+ this.querySelector('.thumb').getAttribute('src') +`');"></div>
-                        </div>
-                    </section>
-                    <section class="pp-desc">
-                        <div class="pp-title"><span>`+ this.querySelector('.p-title > span').innerText +`</span></div>
-                        <div class="pp-desctxt">
-                            `+ projectsDesc[this.id].desc +`
-                        </div>
-                    </section>
+                    <div class="pp-sectiongrid">
+                        <section class="pp-project">
+                            <div class="pp-proj">
+                                <div class="pp-img" style="background:url('`+ this.querySelector('.thumb').getAttribute('src') +`');"></div>
+                            </div>
+                        </section>
+                        <section class="pp-desc">
+                            <div class="pp-title"><span>`+ this.querySelector('.p-title > span').innerText +`</span></div>
+                            <div class="pp-desctxt">
+                                `+ projectsDesc[this.id].desc +`
+                            </div>
+                        </section>
+                    </div>
+                    <div class="pp-fakeclose">
+                        <svg viewBox="0 0 32 32">
+                            <line x1="26.3" y1="26.3" x2="5.7" y2="5.7"/>
+                            <line x1="5.7" y1="26.3" x2="26.3" y2="5.7"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="pp-curclose">
                     <svg viewBox="0 0 32 32">
@@ -210,26 +218,29 @@ function init() {
                 </div>
             `;
 
-            var ppBG = projectPopup.querySelector('.pp-bg');
+            var ppBG = projectPopup.querySelector('.pp-bg'),
+                closeFake = projectPopup.querySelector('.pp-fakeclose'),
+                closeCur = projectPopup.querySelector('.pp-curclose');
 
             // Cursor Close on BG hover
             function moveCurClose(event) {
                 var cursorX = event.clientX,
                     cursorY = event.clientY;
-                iconClose = projectPopup.querySelector('.pp-curclose');
-                iconClose.style.top = cursorY + 'px';
-                iconClose.style.left = cursorX + 'px';
+                closeCur.style.top = cursorY + 'px';
+                closeCur.style.left = cursorX + 'px';
             }
-            function showCurClose(projectPopup) {
-                projectPopup.querySelector('.pp-curclose').classList.add("hover");
+            function showCurClose() {
+                closeFake.classList.add("hid");
+                closeCur.classList.add("hover");
             }
-            function hideCurClose(projectPopup) {
-                projectPopup.querySelector('.pp-curclose').classList.remove("hover");
+            function hideCurClose() {
+                closeFake.classList.remove("hid");
+                closeCur.classList.remove("hover");
             }
             moveCurClose(ev);
             ppBG.addEventListener('mousemove', moveCurClose);
-            ppBG.addEventListener('mouseover', function() { showCurClose(projectPopup); });
-            ppBG.addEventListener('mouseout', function() { hideCurClose(projectPopup); });
+            ppBG.addEventListener('mouseover', showCurClose);
+            ppBG.addEventListener('mouseout', hideCurClose);
 
             projectPopup.addEventListener('mousemove', moveCurClose);
             setTimeout(function() { projectPopup.removeEventListener('mousemove', moveCurClose); }, 800);

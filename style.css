@@ -419,7 +419,7 @@ div[project-popup] {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.8;
+    opacity: 0.85;
     background-color: var(--y-b);
     transition: opacity 0.5s ease;
     cursor: none;
@@ -429,7 +429,6 @@ div[project-popup] {
 }
 
 .pp-popup-c {
-    display: grid;
     position: fixed;
     transform: scale(1);
     opacity: 1;
@@ -437,7 +436,6 @@ div[project-popup] {
     transition: transform 0.8s cubic-bezier(0.3, 0.8, 0, 1),
                 opacity 0.4s;
     transition-delay: 50ms;
-    overflow: hidden;
 }
 .project-popup.pre .pp-popup-c {
     transform: scale(0.6);
@@ -448,6 +446,13 @@ div[project-popup] {
     opacity: 0;
     transition: transform 1s cubic-bezier(0.2, 0.6, 0, 1),
                 opacity 0.25s;
+}
+
+.pp-sectiongrid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .pp-proj {
@@ -461,6 +466,7 @@ div[project-popup] {
     background-repeat: no-repeat !important;
     background-size: contain !important;
     background-position: center !important;
+    user-select: none;
 }
 
 .project-popup section.pp-desc {
@@ -506,7 +512,7 @@ div[project-popup] {
     display: inline-block;
     width: calc(100% - 30px * 2);
     padding: 10px 30px;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
     font-weight: 800;
     word-wrap: normal;
     color: var(--y-w);
@@ -529,8 +535,9 @@ div[project-popup] {
     margin: 0.5em 0;
 }
 
-/* CURSOR CLOSE CROSS */
-.pp-curclose {
+/* PROJECT POPUP CLOSE CROSS */
+.pp-curclose,
+.pp-fakeclose {
     position: fixed;
     /*top: 5vh;
     right: 5vh;
@@ -543,13 +550,14 @@ div[project-popup] {
     opacity: 0;
     transition: transform 0.6s cubic-bezier(0.2, 0.75, 0, 1),
                 stroke-width 0.5s cubic-bezier(0.1, 0.6, 0, 1),
-                opacity 0.5s;
+                opacity 0.4s;
     pointer-events: none;
 }
-.pp-curclose.hover {
-    stroke-width: 3.15;
+.pp-curclose.hover,
+.pp-fakeclose {
+    stroke-width: 3.3;
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.4);
+    transform: translate(-50%, -50%) scale(1.325);
     transition: transform 0.4s cubic-bezier(0.5, 0.7, 0, 1),
                 stroke-width 0.1s ease,
                 opacity 0s;
@@ -578,6 +586,31 @@ div[project-popup] {
                 stroke-width 0.1s !important;
 }
 
+@keyframes fakeClose-Spin {
+    0% { transform: rotateZ(-180deg) scale(0); opacity: 0; }
+    10% { transform: rotateZ(-180deg) scale(0); opacity: 0; }
+    17.5% { opacity: 0; }
+    100% { transform: rotateZ(0deg) scale(1); opacity: 1; }
+}
+.pp-fakeclose {
+    stroke-width: 3.75;
+    transform: translate(100%, 0%) scale(1);
+    top: 0;
+    right: -0.5vw;
+    transition: 0s;
+    transition-property: transform, opacity;
+}
+.pp-fakeclose.hid,
+.pp-fakeclose.quit {
+    transform: translate(100%, 0%) scale(0);
+    opacity: 0;
+    transition: 0.35s, 0.3s;
+}
+.pp-fakeclose:not(.hid) svg {
+    animation: fakeClose-Spin 0.8s cubic-bezier(0.3, 0.85, 0, 1) backwards;
+}
+
+
 /* PROJECT POPUPS MINI */
 @media (min-width: 1201px) /*large*/ {
     .project-popup.pre section.pp-project {
@@ -587,10 +620,12 @@ div[project-popup] {
         transform: translateY(-100%);
     }
     .pp-popup-c {
-        grid-template-columns: 56.5% auto;
-        grid-gap: 32.5px;
         width: 80%;
         height: 80%;
+    }
+    .pp-sectiongrid {
+        grid-template-columns: 56.5% auto;
+        grid-gap: 32.5px;
     }
 }
 @media (max-width: 1200px) /*tall*/ {
@@ -606,9 +641,11 @@ div[project-popup] {
         transform: translateX(-33%);
     }
     .pp-popup-c {
-        grid-template-rows: 33% auto;
         width: 87.5%;
         height: 85%;
+    }
+    .pp-sectiongrid {
+        grid-template-rows: 33% auto;
     }
     .pp-desctxt {
         margin: 0 0.75rem 2rem;
