@@ -9,6 +9,7 @@ const swup = new Swup({
 
 var doc = document.documentElement,
     isMini = undefined,
+    touchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement),
     container = document.getElementById('container');
 
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
@@ -80,7 +81,7 @@ var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/2259
         lastPos = newPos;
         clearTimeout(timer);
         timer = setTimeout(clear, delay);
-        return [delta * 2.5, direction];
+        return [delta * 2.75, direction];
     };
 })();
 
@@ -115,6 +116,7 @@ function init() {
     getPageID();
 
     if (nav.hasChildNodes() == false) { // NAVIGATION
+        nav.style.zIndex = '0';
         nav.innerHTML = `
             <div id="ymenu-c">
                 <svg id="y" viewBox="0 0 25 25">
@@ -147,13 +149,14 @@ function init() {
 
         setTimeout(() => {
             removePreSpawn('nav');
+            setTimeout(() => { removePreSpawn('svg#y > g#main'); }, 50);
             setTimeout(() => {
-                removePreSpawn('svg#y > g#main');
-            }, 50);
-            setTimeout(() => {
+                nav.style.zIndex = null;
                 removePreSpawn('#ym-txt-c');
             }, 225);
         }, 300);
+
+        nav.querySelector('svg#y').addEventListener('click', () => { swup.loadPage({ url: "/" }); })
     }
 
     if(pathDir != 'home') {
@@ -237,14 +240,17 @@ function init() {
                 closeFake.classList.remove("hid");
                 closeCur.classList.remove("hover");
             }
-            moveCurClose(ev);
-            ppBG.addEventListener('mousemove', moveCurClose);
-            ppBG.addEventListener('mouseover', showCurClose);
-            ppBG.addEventListener('mouseout', hideCurClose);
+            if(touchDevice == false) {
+                ppBG.style.cursor = "none";
 
-            projectPopup.addEventListener('mousemove', moveCurClose);
-            setTimeout(function() { projectPopup.removeEventListener('mousemove', moveCurClose); }, 800);
-            
+                moveCurClose(ev);
+                ppBG.addEventListener('mousemove', moveCurClose);
+                ppBG.addEventListener('mouseover', showCurClose);
+                ppBG.addEventListener('mouseout', hideCurClose);
+
+                projectPopup.addEventListener('mousemove', moveCurClose);
+                setTimeout(function() { projectPopup.removeEventListener('mousemove', moveCurClose); }, 800);
+            }
             // CLOSE
             setTimeout(() => {
                 ppBG.addEventListener('click', () => { closeProjectCardPopup() });

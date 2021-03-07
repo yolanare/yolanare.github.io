@@ -1,13 +1,20 @@
 :root {
-    --y-w: rgb(240, 243, 245);
+    --y-w: rgb(236, 239, 242);
+    --y-w2: rgb(250, 253, 255);
     --y-b: rgb(29, 31, 32);
-    --y-b2: rgb(38, 40, 42);
+    --y-b2: rgb(40, 42, 45);
 
     --ynav-m-space: 21vw;
     --ynav-padding: 10vh;
     --content-top: 25%;
 }
-
+::selection {
+    color: inherit;
+    background-color: rgba(128, 128, 128, 0.3);
+}
+html {
+    overflow: hidden;
+}
 body {
     margin: 0;
     background-color: var(--y-w);
@@ -30,10 +37,11 @@ html.is-animating .transition-y {
     width: 100%;
     height: 100%;
     overflow-y: visible;
-    overflow-x: hidden;
+    overflow-x: hidden; /*TODO need to find a workaround, it f*cks up swup scroll*/
 }
 
 nav {
+    z-index: 100;
     display: flex;
     align-items: center;
     position: absolute;
@@ -41,6 +49,7 @@ nav {
     height: calc(100% - (var(--ynav-padding) * 2));
     padding: var(--ynav-padding) 0;
     transition: height 0.7s cubic-bezier(0.4, 0.7, 0, 1);
+    pointer-events: none;
 }
 #ymenu-c {
     display: flex;
@@ -48,6 +57,9 @@ nav {
     justify-content: center;
     width: 100%;
     height: 100%;
+}
+#ymenu-c > * {
+    pointer-events: all;
 }
 svg#y {
     width: clamp(150px, 20vw, 400px);
@@ -93,10 +105,10 @@ svg#y > g[id]:hover path {
     transition: fill 0.5s cubic-bezier(0.2, 0.7, 0, 1);
 }
 svg#y > g[id]:hover polygon {
-    fill: var(--y-b);
+    fill: var(--y-w2);
 }
 svg#y > g[id]:hover path {
-    fill: #ffffff;
+    fill: var(--y-b2);
 }
 
 nav.pre-spawn svg#y > g#float {
@@ -168,6 +180,10 @@ main#swup {display: block;
 
 
 /*/ PROJECT LISTS /*/
+div[accordion-scroll] {
+    /*background-color: var(--y-b2);*/
+    transform: skewY(-7.5deg);
+}
 div[accordion-content] {
     visibility: hidden;
     position: fixed;
@@ -179,17 +195,30 @@ div[accordion-content] {
     width: 100%;
     margin: 0px;
     transform: translate3d(0px, 0px, 0px);
-    transition: transform 0.6s cubic-bezier(0.5, 0.7, 0, 1);
+    transition: transform 0.6s cubic-bezier(0.45, 0.7, 0, 1);
     pointer-events: none;
     user-select: none;
 }
+/* only if [accordion-scroll] has a custom bg-color (to hide it)
+.acclist-item:first-child::before,
+.acclist-item:last-child::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    background-color: var(--y-w);
+    height: 75px;
+    bottom: 100%;
+}
+.acclist-item:last-child::after {
+    top: 100%;
+}*/
 .acclist-in {
     z-index: 10;
     display: flex;
     align-items: center;
     flex-direction: column;
-    transform: skewY(-7.5deg) scale(1.01);
-    background-color: var(--y-w);
+    transform: scale(1.01);
+    background-color: var(--y-w2);
     pointer-events: all;
 }
 .acclist-btn {
@@ -253,7 +282,7 @@ div[accordion-content] {
 }
 
 .acclist-item[state^="open"] .acclist-btn {
-    background-color: var(--y-w);
+    background-color: var(--y-w2);
 }
 .acclist-item[state^="open"] .acclist-title {
     transform: scale(1);
@@ -261,7 +290,7 @@ div[accordion-content] {
 }
 .acclist-item[state^="open"] .acclist-t-span {
     letter-spacing: 10px;
-    color: var(--y-w);
+    color: var(--y-w2);
 }
 .acclist-item:active .acclist-title {
     transform: scale(1);
@@ -314,6 +343,7 @@ div[accordion-content] {
 .al-grid {
     display: grid;
     width: 100%;
+    padding-bottom: 45px;
     grid-gap: 0px;
     grid-template-columns: repeat(6, 1fr);
 }
@@ -399,6 +429,7 @@ div[accordion-content] {
 
 /*- PROJECT POPUP -*/
 div[project-popup] {
+    z-index: 150;
     position: fixed;
     width: 0;
     height: 0;
@@ -419,10 +450,9 @@ div[project-popup] {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.85;
+    opacity: 0.9;
     background-color: var(--y-b);
-    transition: opacity 0.5s ease;
-    cursor: none;
+    transition: opacity 0.45s ease;
 }
 .project-popup.out .pp-bg {
     transition: opacity 1s;
@@ -594,15 +624,15 @@ div[project-popup] {
 }
 .pp-fakeclose {
     stroke-width: 3.75;
-    transform: translate(100%, 0%) scale(1);
     top: 0;
     right: -0.5vw;
+    transform: translateX(100%) scale(1);
     transition: 0s;
     transition-property: transform, opacity;
 }
 .pp-fakeclose.hid,
 .pp-fakeclose.quit {
-    transform: translate(100%, 0%) scale(0);
+    transform: translateX(100%) scale(0);
     opacity: 0;
     transition: 0.35s, 0.3s;
 }
@@ -688,10 +718,22 @@ div[project-popup] {
     .thumbnail-c {
         height: clamp(0px, 20vw, 225px);
     }
+    .pp-fakeclose {
+        transform: translateY(-100%) scale(1);
+        top: -0.5vh;
+        right: 0;
+    }
+    .pp-fakeclose.hid,
+    .pp-fakeclose.quit {
+        transform: translateY(-100%) scale(0);
+    }
 }
 @media (max-width: 728px) {
     .acclist-btn {
         padding: 30px 0;
+    }
+    .al-grid {
+        padding-bottom: 30px;
     }
     .acclist-title {
         padding: 7.5px 20px;
@@ -711,6 +753,6 @@ div[project-popup] {
     }
 
     .pp-popup-c {
-        width: 92.5%;
+        width: 93.5%;
     }
 }
