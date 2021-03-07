@@ -240,7 +240,7 @@ function init() {
                 closeFake.classList.remove("hid");
                 closeCur.classList.remove("hover");
             }
-            if(touchDevice == false) {
+            if(touchDevice == false || isMini == false) {
                 ppBG.style.cursor = "none";
 
                 moveCurClose(ev);
