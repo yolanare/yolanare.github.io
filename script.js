@@ -15,16 +15,23 @@ var doc = document.documentElement,
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
 
-document.addEventListener("DOMContentLoaded", function() {
-    scrollbarMain = OverlayScrollbars(container, {
+var o1 = {}
+if(!isMini) {
+    o1 = {
         autoUpdate : true,
         autoUpdateInterval : 15,
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    scrollbarMain = OverlayScrollbars(container, {
+        o1,
         overflowBehavior : {
-            x : "hidden",
-            y : "scroll"
+            x : 'hidden',
+            y : 'scroll'
         },
         scrollbars : {
-            autoHide : "move",
+            autoHide : 'move',
             autoHideDelay : 700
         },
         callbacks : {
@@ -38,9 +45,11 @@ if(!!window.chrome) { document.querySelector('html').classList.add('isChr'); }
 
 // PROJECTS DESCRIPTIONS
 var projectsDesc = {
+// ARTWORKS
     'fut_met' : {
-        year : "2017",
-        month : "06",
+        type : 'img',
+        year : '2017',
+        month : '06',
         desc : `
             <p>From what kind of place is it coming from?</p>
             <h2>TEST test Test</h2>
@@ -49,8 +58,9 @@ var projectsDesc = {
         `,
     },
     'destr_casque' : {
-        year : "2016",
-        month : "12",
+        type : 'img',
+        year : '2016',
+        month : '12',
         desc : `
             <p>Breaking it even more. Why wouldn't I?</p>
             <h2>FR: CONTEXTE</h2>
@@ -59,8 +69,9 @@ var projectsDesc = {
         `,
     },
     'y_in_b' : {
-        year : "2018",
-        month : "09",
+        type : 'img',
+        year : '2018',
+        month : '09',
         desc : `
             <p>In front of the light</p>
             <h2>YYYYYYYYYYY</h2>
@@ -69,13 +80,30 @@ var projectsDesc = {
         `,
     },
     'stargazing_a' : {
-        year : "2018",
-        month : "10",
+        type : 'img',
+        year : '2018',
+        month : '10',
         desc : `
             <p>Who are you?</p>
             <h2>STARGAZINGSTARGAZING</h2>
             <h3>TEST STARGAZING Test</h3>
             <p>TEST STARGAZINGSTARGAZINGSTARGAZING Test<br>TEST tSTARGAZINGSTARGAZING<br>TEST test TestTESMORE More mOrEMORE More mOrE.</br></p>
+        `,
+    },
+// MOTION DESIGN
+    'i-rs-b' : {
+        type : 'vid',
+        url : 'XOnAthClcEI',
+        year : '2018',
+        month : '09',
+        desc : `
+            <p>Synthwave into the darkest place of space!</p>
+            <h2>STARGAZINGSTARGAZING</h2>
+            <h3>TEST STARGAZING Test</h3>
+            <p>TEST STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TES STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR </p>
+            <p>TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR </p>
+            <p>TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TE STAR TEST STAR  STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TES STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TESTEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR </p>
+            <p>TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TES STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TES STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TESST STAR TEST STAR TEST STAR TEST STAR </p>
         `,
     },
 };
@@ -109,7 +137,7 @@ var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/2259
 var isScrolling;
 function scrollAccordion() {
     var speed = checkScrollSpeed(), space = 0,
-        items = Object.values(doc.querySelector("div[accordion-scroll]").children);
+        items = Object.values(doc.querySelector('div[accordion-scroll]').children);
     if(speed[1]) { items.reverse(); }
     items.forEach((item) => {
         space += -speed[0] / 2;
@@ -175,7 +203,7 @@ function init() {
             }, 225);
         }, 300);
 
-        nav.querySelector('svg#y').addEventListener('click', () => { swup.loadPage({ url: "/" }); })
+        nav.querySelector('svg#y').addEventListener('click', () => { swup.loadPage({ url: '/' }); })
     }
 
     if(pathDir != 'home') {
@@ -191,18 +219,18 @@ function init() {
 
         function openProjectCardPopup(ev) {
             this.classList.add('focus');
-            scrollbarMain.options("overflowBehavior.y", "hidden")
+            scrollbarMain.options('overflowBehavior.y', 'hidden')
             
             function closeProjectCardPopup() {
-                scrollbarMain.options("overflowBehavior.y", "scroll");
+                scrollbarMain.options('overflowBehavior.y', 'scroll');
                 var allFocused = doc.querySelectorAll('div[accordion-scroll] .focus');
                 if(allFocused) { allFocused.forEach((f) => { f.classList.remove('focus'); })}
                 ppBG.style.opacity = '0';
                 projectPopup.style.pointerEvents= 'none';
                 projectPopup.classList.add('out');
-                closeFake.classList.add("quit");
+                closeFake.classList.add('quit');
                 hideCurClose();
-                setTimeout(() => { closeFake.classList.add("hid"); }, 1);
+                setTimeout(() => { closeFake.classList.add('hid'); }, 1);
                 setTimeout(() => { projectPopup.scrollbarPP.destroy(); projectPopup.remove(); }, 1000);
             }
 
@@ -211,14 +239,29 @@ function init() {
             projectPopup.classList.add('pre');
             doc.querySelector('div[project-popup]').appendChild(projectPopup);
 
+            var proj;
+            if(projectsDesc[this.id].type == 'img') {
+                proj = `
+                    <div class="pp-img" style="background:url('`+ this.querySelector('.thumb').getAttribute('src') +`');"></div>
+                `
+            } else if(projectsDesc[this.id].type == 'vid') {
+                proj = `
+                <div id="player-c">
+                    <div id="player">
+                        <iframe width="1280" height="720" src="https://www.youtube.com/embed/` + projectsDesc[this.id].url + `?rel=0&color=white" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                `
+            }
             projectPopup.innerHTML = `
                 <div class="pp-bg" style="opacity:0;"></div>
                 <div class="pp-popup-c">
                     <div class="pp-sectiongrid">
-                        <section class="pp-project">
-                            <div class="pp-proj">
-                                <div class="pp-img" style="background:url('`+ this.querySelector('.thumb').getAttribute('src') +`');"></div>
+                        <section class="pp-project" pp-type=`+ projectsDesc[this.id].type +`>
+                            <div class="pp-proj">`
+                                + proj +`
                             </div>
+                            <div class="pp-scaleup"></div>
                         </section>
                         <section class="pp-desc" scroll>
                             <div class="pp-title"><span>`+ this.querySelector('.p-title > span').innerText +`</span></div>
@@ -248,11 +291,11 @@ function init() {
 
             projectPopup.scrollbarPP = OverlayScrollbars(projectPopup.querySelector('section.pp-desc'), {
                 overflowBehavior : {
-                    x : "hidden",
-                    y : "scroll"
+                    x : 'hidden',
+                    y : 'scroll'
                 },
                 scrollbars : {
-                    autoHide : "leave",
+                    autoHide : 'leave',
                     autoHideDelay : 0
                 }
             });
@@ -265,15 +308,15 @@ function init() {
                 closeCur.style.left = cursorX + 'px';
             }
             function showCurClose() {
-                closeFake.classList.add("hid");
-                closeCur.classList.add("hover");
+                closeFake.classList.add('hid');
+                closeCur.classList.add('hover');
             }
             function hideCurClose() {
-                closeFake.classList.remove("hid");
-                closeCur.classList.remove("hover");
+                closeFake.classList.remove('hid');
+                closeCur.classList.remove('hover');
             }
             if(touchDevice == false || isMini == false) {
-                ppBG.style.cursor = "none";
+                ppBG.style.cursor = 'none';
 
                 moveCurClose(ev);
                 ppBG.addEventListener('mousemove', moveCurClose);
@@ -298,6 +341,12 @@ function init() {
                     txt.style.transitionDelay = ch +'s';
                 })
             }, 33);
+
+            // PROJECT SCALE UP
+            function projScaleUp() {
+                projectPopup.classList.toggle('pscaleup');
+            }
+            projectPopup.querySelector('.pp-scaleup').addEventListener('click', projScaleUp)
         }
 
         allAccItems.forEach((item) => {
@@ -329,9 +378,9 @@ function init() {
                         var accCReal = accCHidden.cloneNode(true);
                         accCReal.addEventListener('transitionend', (ev) => { if (ev.propertyName == 'height') { finalState(item); }}/*, {once:true}*/);
                         accCReal.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
-                        accCReal.style.transition = "0s";
-                        accCReal.style.height = "0px";
-                        accCReal.style.transform = "translateY(75px)";
+                        accCReal.style.transition = '0s';
+                        accCReal.style.height = '0px';
+                        accCReal.style.transform = 'translateY(75px)';
                         item.querySelector('.acclist-in').appendChild(accCReal);
                         item.querySelectorAll('.al-card').forEach((card) => {
                             card.addEventListener('click', openProjectCardPopup);
