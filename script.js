@@ -15,6 +15,27 @@ var doc = document.documentElement,
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
 
+document.addEventListener("DOMContentLoaded", function() {
+    scrollbarMain = OverlayScrollbars(container, {
+        autoUpdate : true,
+        autoUpdateInterval : 15,
+        overflowBehavior : {
+            x : "hidden",
+            y : "scroll"
+        },
+        scrollbars : {
+            autoHide : "move",
+            autoHideDelay : 700
+        },
+        callbacks : {
+            onScroll : scrollAccordion
+        }
+    });
+});
+
+if(!!window.chrome) { document.querySelector('html').classList.add('isChr'); }
+
+
 // PROJECTS DESCRIPTIONS
 var projectsDesc = {
     'fut_met' : {
@@ -44,7 +65,7 @@ var projectsDesc = {
             <p>In front of the light</p>
             <h2>YYYYYYYYYYY</h2>
             <h3>YYYYYYYYYYY</h3>
-            <p>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</p>
+            <p>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</p>
         `,
     },
     'stargazing_a' : {
@@ -75,7 +96,7 @@ var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/2259
     function clear() { lastPos = null; delta = 0; direction = true; }
     clear();
     return function(){
-        newPos = container.scrollTop;
+        newPos = scrollbarMain.scroll().position.y;
         if(lastPos != null ) { delta = newPos -  lastPos; }
         if(lastPos > newPos) { direction = false; }
         lastPos = newPos;
@@ -104,7 +125,7 @@ function scrollAccordion() {
 }
 
 function init() {
-    container.addEventListener('scroll', scrollAccordion)
+    // container.addEventListener('scroll', scrollAccordion)
 
     var nav = document.querySelector('nav');
 
@@ -122,14 +143,12 @@ function init() {
                 <svg id="y" viewBox="0 0 25 25">
                     <g id="float"> 
                         <g>
-                            <rect id="gravity_float" x="-2.5" y="0.2" style="fill:none;pointer-events:none;/*stroke:green;stroke-width:0.15;stroke-dasharray:1;*/" width="22.6" height="22.6"/>
                             <polygon points="6.3,3.3 14,9.2 9.4,10.3"/>
                             <path d="M8.8,6.5l2.9,2.2L10,9.1L8.8,6.5 M3.8,0.2l5,11.3l7.4-1.8L3.8,0.2L3.8,0.2z"/>
                         </g>
                     </g>
                     <g id="main" class="pre-spawn">
                         <g>
-                            <rect id="gravity_main" x="-4.6" y="-2.1" style="fill:none;pointer-events:none;/*stroke:green;stroke-width:0.15;stroke-dasharray:1;*/" width="26.9" height="26.9"/>
                             <polygon points="9.9,11.8 18.8,3.8 12,21.4"/>
                             <path d="M16.3,7.4L15,10.8l-1,2.7l-1.7,4.4L11,12.2L16.3,7.4 M21.2,0.2L21.2,0.2L21.2,0.2z M21.2,0.2L8.8,11.5l2.9,13.4l4.1-10.7 l1-2.7L21.2,0.2L21.2,0.2z"/>
                         </g>
@@ -172,8 +191,10 @@ function init() {
 
         function openProjectCardPopup(ev) {
             this.classList.add('focus');
+            scrollbarMain.options("overflowBehavior.y", "hidden")
             
             function closeProjectCardPopup() {
+                scrollbarMain.options("overflowBehavior.y", "scroll");
                 var allFocused = doc.querySelectorAll('div[accordion-scroll] .focus');
                 if(allFocused) { allFocused.forEach((f) => { f.classList.remove('focus'); })}
                 ppBG.style.opacity = '0';
@@ -182,7 +203,7 @@ function init() {
                 closeFake.classList.add("quit");
                 hideCurClose();
                 setTimeout(() => { closeFake.classList.add("hid"); }, 1);
-                setTimeout(() => { projectPopup.remove(); }, 1000);
+                setTimeout(() => { projectPopup.scrollbarPP.destroy(); projectPopup.remove(); }, 1000);
             }
 
             var projectPopup = document.createElement('div');
@@ -199,7 +220,7 @@ function init() {
                                 <div class="pp-img" style="background:url('`+ this.querySelector('.thumb').getAttribute('src') +`');"></div>
                             </div>
                         </section>
-                        <section class="pp-desc">
+                        <section class="pp-desc" scroll>
                             <div class="pp-title"><span>`+ this.querySelector('.p-title > span').innerText +`</span></div>
                             <div class="pp-desctxt">
                                 `+ projectsDesc[this.id].desc +`
@@ -224,6 +245,17 @@ function init() {
             var ppBG = projectPopup.querySelector('.pp-bg'),
                 closeFake = projectPopup.querySelector('.pp-fakeclose'),
                 closeCur = projectPopup.querySelector('.pp-curclose');
+
+            projectPopup.scrollbarPP = OverlayScrollbars(projectPopup.querySelector('section.pp-desc'), {
+                overflowBehavior : {
+                    x : "hidden",
+                    y : "scroll"
+                },
+                scrollbars : {
+                    autoHide : "leave",
+                    autoHideDelay : 0
+                }
+            });
 
             // Cursor Close on BG hover
             function moveCurClose(event) {

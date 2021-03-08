@@ -36,10 +36,45 @@ html.is-animating .transition-y {
     position: absolute !important;
     width: 100%;
     height: 100%;
+    background-color: var(--y-w);
     overflow-y: visible;
-    overflow-x: hidden; /*TODO need to find a workaround, it f*cks up swup scroll*/
+    overflow-x: hidden;
 }
 
+/*- OverlaySCROLLBARS -*/
+.os-scrollbar {
+    transform: scaleY(1.01);
+    padding: 0 !important;
+    mix-blend-mode: exclusion !important;
+    box-sizing: initial !important;
+    transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0, 1),
+                visibility 0.7s, top 0.3s, right 0.3s, bottom 0.3s, left 0.3s !important;
+}
+.os-scrollbar.os-scrollbar-auto-hidden {
+    transition: opacity 0.8s cubic-bezier(0.35, 0.7, 0, 1),
+                visibility 0.8s, top 0.3s, right 0.3s, bottom 0.3s, left 0.3s !important;
+}
+.os-scrollbar-track {
+    border-radius: 0 !important;
+    transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1) !important;
+}
+.os-scrollbar-handle {
+    border-radius: 0 !important;
+    background-color: rgba(255, 255, 255, 0.925) !important;
+    cursor: pointer !important;
+}
+.os-scrollbar.active .os-scrollbar-track {
+    background-color: rgba(236, 239, 242, 0.1) !important;
+}
+.os-scrollbar-handle:hover,
+.os-scrollbar-handle.active {
+    opacity: 0.85 !important;
+}
+.os-scrollbar-handle.active {
+    background-color: rgb(200, 200, 200) !important;
+}
+
+/*--/ NAV /--*/
 nav {
     z-index: 100;
     display: flex;
@@ -504,6 +539,7 @@ div[project-popup] {
     padding-right: 25px;
     word-wrap: break-word;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 .project-popup section.pp-project {
     transition: transform 0.8s cubic-bezier(0.35, 0.65, 0, 1),
@@ -533,6 +569,9 @@ div[project-popup] {
     opacity: 0;
 }
 
+.pp-desctxt {
+    padding-bottom: 2rem;
+}
 .pp-title {
     font-size: clamp(22px, 2.2vw, 42px);
     text-transform: uppercase;
@@ -678,7 +717,7 @@ div[project-popup] {
         grid-template-rows: 33% auto;
     }
     .pp-desctxt {
-        margin: 0 0.75rem 2rem;
+        margin: 0 0.75rem;
     }
     .pp-title span {
         letter-spacing: 3px;
@@ -701,6 +740,23 @@ div[project-popup] {
 
 /* DEVICE SIZE */
 @media (min-width: 961px) {
+    .os-scrollbar {
+        width: 12.5px !important;
+    }
+    .os-scrollbar-handle {
+        transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                    opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                    transform 0.375s cubic-bezier(0, 0.6, 0, 1),
+                    height 0.55s cubic-bezier(0.1, 0.7, 0, 1) !important;
+    }
+    html.isChr .os-scrollbar.active .os-scrollbar-handle {
+            transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                        opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                        transform 0s,
+                        height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
+    }
+    
+
     .al-card {
         transform: scaleY(1.01);
     }
@@ -729,6 +785,16 @@ div[project-popup] {
     }
 }
 @media (max-width: 728px) {
+    .os-scrollbar {
+        width: 5px !important;
+    }
+    .os-scrollbar-handle {
+        transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                    opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                    transform 50ms linear,
+                    height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
+    }
+
     .acclist-btn {
         padding: 30px 0;
     }
