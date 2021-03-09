@@ -44,6 +44,7 @@ var projectsDesc = {
 // ARTWORKS
     'sch_t_iv' : {
         type : 'img',
+        tag: "sch",
         year : '2020',
         month : '01',
         desc : `
@@ -52,6 +53,7 @@ var projectsDesc = {
     },
     'sch_t_pm' : {
         type : 'img',
+        tag: "sch",
         year : '2019',
         month : '10',
         desc : `
@@ -60,6 +62,7 @@ var projectsDesc = {
     },
     'stargazing_a' : {
         type : 'img',
+        tag: "perso",
         year : '2018',
         month : '10',
         desc : `
@@ -73,6 +76,7 @@ var projectsDesc = {
     },
     'y_in_b' : {
         type : 'img',
+        tag: "perso",
         year : '2018',
         month : '09',
         desc : `
@@ -86,6 +90,7 @@ var projectsDesc = {
     },
     'fut_met' : {
         type : 'img',
+        tag: "perso",
         year : '2017',
         month : '06',
         desc : `
@@ -99,6 +104,7 @@ var projectsDesc = {
     },
     'destr_casque' : {
         type : 'img',
+        tag: "fun",
         year : '2016',
         month : '12',
         desc : `
@@ -112,6 +118,7 @@ var projectsDesc = {
 // 3D RENDERS
     'sch_1_wc' : {
         type : 'vid',
+        tag: "sch",
         url : 'xgLIY_w6bkQ',
         format : '1:1',
         year : '2019',
@@ -124,6 +131,7 @@ var projectsDesc = {
 // MOTION DESIGN
     'i_rs_b' : {
         type : 'vid',
+        tag: "rs",
         url : 'XOnAthClcEI',
         format : '16:9',
         year : '2018',
@@ -140,6 +148,7 @@ var projectsDesc = {
     },
     'i_y2' : {
         type : 'vid',
+        tag: "perso",
         url : 'UkL4zVUw27Y',
         format : '16:9',
         year : '2017',
@@ -153,6 +162,7 @@ var projectsDesc = {
     },
     'i_inex' : {
         type : 'vid',
+        tag: "commission",
         url : '46MrLGy5Xb8',
         format : '16:9',
         year : '2017',
@@ -163,6 +173,7 @@ var projectsDesc = {
     },
     'i_yc' : {
         type : 'vid',
+        tag: "perso",
         url : 'PR0fVAGbHIQ',
         format : '16:9',
         year : '2017',
@@ -309,7 +320,7 @@ function init() {
             projectPopup.classList.add('pre');
             doc.querySelector('div[project-popup]').appendChild(projectPopup);
 
-            var proj;
+            var proj, pTag;
             if(projectsDesc[p.id].type == 'img') {
                 proj = `
                     <div class="pp-img" style="background:url('`+ p.querySelector('.thumb').getAttribute('src') +`');"></div>
@@ -329,6 +340,12 @@ function init() {
                 </div>
                 `
             }
+            if(projectsDesc[p.id].tag == 'perso') { pTag = 'Personnal Project';
+            } else if(projectsDesc[p.id].tag == 'sch') { pTag = 'School Project';
+            } else if(projectsDesc[p.id].tag == 'fun') { pTag = 'Fun';
+            } else if(projectsDesc[p.id].tag == 'commission') { pTag = 'Commission';
+            } else if(projectsDesc[p.id].tag == 'rs') { pTag = 'RetroSaturn';
+            }
             projectPopup.innerHTML = `
                 <div class="pp-bg" style="opacity:0;"></div>
                 <div class="pp-popup-c">
@@ -340,7 +357,13 @@ function init() {
                             <div class="pp-scaleup"></div>
                         </section>
                         <section class="pp-desc" scroll>
-                            <div class="pp-title"><span>`+ p.querySelector('.p-title > span').innerText +`</span></div>
+                            <div class="pp-title">
+                                <span id="big">`+ p.querySelector('.p-title > span').innerText +`</span>
+                                <div class="pp-t-plus">
+                                    <span id="date">`+ projectsDesc[p.id].year +`/`+ projectsDesc[p.id].month +`</span>
+                                    <span id="tag">`+ pTag +`</span>
+                                </div>
+                            </div>
                             <div class="pp-desctxt">
                                 `+ projectsDesc[p.id].desc +`
                             </div>
@@ -380,7 +403,7 @@ function init() {
                 // Load Higher Res Picture (https://stackoverflow.com/a/54123157)
                 function loadHighResImage(elem, highResUrl) {
                     let image = new Image();
-                    image.addEventListener('load', () => elem.style.backgroundImage = 'url("'+ highResUrl +'")');
+                    image.addEventListener('load', () => elem.src = highResUrl);
                     elem.style.backgroundImage = 'url("'+ highResUrl +'")';
                 };
                 loadHighResImage(projectPopup.querySelector('.pp-img'), '../src/projects/'+ item.id +'/'+ p.id +'.jpg');
