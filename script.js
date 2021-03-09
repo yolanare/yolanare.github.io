@@ -15,24 +15,19 @@ var doc = document.documentElement,
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
 
-var o1 = {}
-if(!isMini) {
-    o1 = {
-        autoUpdate : true,
-        autoUpdateInterval : 15,
-    }
-}
+var o1 = [null, 33]; if(!isMini) { o1 = [true, 15]; };
 
 document.addEventListener('DOMContentLoaded', function() {
     scrollbarMain = OverlayScrollbars(container, {
-        o1,
+        autoUpdate : o1[0],
+        autoUpdateInterval : o1[1],
         overflowBehavior : {
             x : 'hidden',
             y : 'scroll'
         },
         scrollbars : {
             autoHide : 'move',
-            autoHideDelay : 700
+            autoHideDelay : 800
         },
         callbacks : {
             onScroll : scrollAccordion
