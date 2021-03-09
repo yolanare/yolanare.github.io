@@ -354,6 +354,7 @@ function init() {
                 function finalState(i) {
                     if(i.getAttribute('state') == 'opening') {
                         i.setAttribute('state', 'opened');
+                        doc.querySelector('*[accordion-scroll] #'+ item.id +' .acclist-content').style.height = null;
                     } else if(i.getAttribute('state') == 'closing') {
                         i.setAttribute('state', 'closed');
                         i.querySelector('.acclist-content').remove();
@@ -367,9 +368,11 @@ function init() {
                         otherAccItems = doc.querySelectorAll('.acclist-item:not(#'+ item.id +')');
                     otherAccItems.forEach((itemOther) => {
                         if(['opening', 'opened'].includes(itemOther.getAttribute('state'))) {
+                            var iOtherC = itemOther.querySelector('.acclist-content');
+                            if(iOtherC) { iOtherC.style.height = doc.querySelector('*[accordion-content] #'+ itemOther.id +' > .acclist-content').offsetHeight +'px'; }
                             setTimeout(() => {
                                 itemOther.setAttribute('state', 'closing');
-                            }, 1);
+                            }, 10);
                         }
                     })
 
@@ -395,7 +398,8 @@ function init() {
                     //    console.log('-- already exists')
                     //}
                 } else if(['opening', 'opened'].includes(item.getAttribute('state'))) { // already opened
-                    item.setAttribute('state', 'closing');
+                    if(true) { doc.querySelector('*[accordion-scroll] #'+ item.id +' .acclist-content').style.height = doc.querySelector('*[accordion-content] #'+ item.id +' > .acclist-content').offsetHeight +'px'; }
+                    setTimeout(() => { item.setAttribute('state', 'closing'); }, 10);
                 }
             }
 
