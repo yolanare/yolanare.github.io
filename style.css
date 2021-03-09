@@ -826,10 +826,10 @@ section[pp-type="vid"] .pp-scaleup::after {
     .project-popup.pscaleup .pp-proj,
     .project-popup.pscaleup #player-c,
     .project-popup.pscaleup #player {
-        transition-delay: 50ms;
+        transition-delay: 25ms;
     }
     .project-popup:not(.pscaleup) .pp-desc {
-        transition-delay: 75ms;
+        transition-delay: 40ms;
     }
 }
 @media (max-width: 1200px) /*tall*/ {
