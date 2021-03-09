@@ -432,6 +432,8 @@ function init() {
                 ppBG.addEventListener('mouseover', showCurClose);
                 ppBG.addEventListener('mouseout', hideCurClose);
 
+                projectPopup.querySelector('.pp-scaleup').addEventListener('click', moveCurClose);
+
                 projectPopup.addEventListener('mousemove', moveCurClose);
                 setTimeout(function() { projectPopup.removeEventListener('mousemove', moveCurClose); }, 800);
             }
