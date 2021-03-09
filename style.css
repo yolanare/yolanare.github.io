@@ -43,7 +43,7 @@ html.is-animating .transition-y {
 
 /*- OverlaySCROLLBARS -*/
 .os-scrollbar {
-    transform: scaleY(1.01);
+    transform: scaleY(1.01) translateX(1px);
     padding: 0 !important;
     mix-blend-mode: exclusion !important;
     box-sizing: initial !important;
@@ -896,7 +896,7 @@ section[pp-type="vid"] .pp-scaleup::after {
 /* DEVICE SIZE */
 @media (min-width: 961px) {
     .os-scrollbar {
-        width: 12.5px !important;
+        width: 13.5px !important;
     }
     .os-scrollbar-handle {
         transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
@@ -941,7 +941,7 @@ section[pp-type="vid"] .pp-scaleup::after {
 }
 @media (max-width: 728px) {
     .os-scrollbar {
-        width: 5px !important;
+        width: 6px !important;
     }
     .os-scrollbar-handle {
         transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
