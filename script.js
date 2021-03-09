@@ -40,38 +40,22 @@ if(!!window.chrome) { document.querySelector('html').classList.add('isChr'); }
 
 // PROJECTS DESCRIPTIONS
 var projectsDesc = {
+
 // ARTWORKS
-    'fut_met' : {
+    'sch_t_iv' : {
         type : 'img',
-        year : '2017',
-        month : '06',
+        year : '2020',
+        month : '01',
         desc : `
-            <p>From what kind of place is it coming from?</p>
-            <h2>TEST test Test</h2>
-            <h3>TEST test Test</h3>
-            <p>TEST test TestTEST test TestTEST test TestTEST test TestTEST test TestTEST test TestTEST test Test<br>TEST test TestTEST test TestTEST test TestTEST test TestTEST test Test<br>TEST test TestTEST test Test<br>TEST test TestTEST test TestTEST test Test.</br></p>
+            <p>Look! Look!</p>
         `,
     },
-    'destr_casque' : {
+    'sch_t_pm' : {
         type : 'img',
-        year : '2016',
-        month : '12',
+        year : '2019',
+        month : '10',
         desc : `
-            <p>Breaking it even more. Why wouldn't I?</p>
-            <h2>FR: CONTEXTE</h2>
-            <p>Ce casque audio devenait vieux, il était temps d'en changer. Je voulais marquer <b>le coup</b> en le détruisant. Déjà par curiosité pour voir ce qu'il y avait dedans, et aussi pour honorer le bon temps que j'ai passé avec.</p>
-            <p>Cette image est la miniature de la vidéo sur YouTube que j'ai faite pour sa destruction. Je trouve qu'elle est plutôt bien réussie, en sachant que c'était l'un de mes premiers projets graphiques.</p>
-        `,
-    },
-    'y_in_b' : {
-        type : 'img',
-        year : '2018',
-        month : '09',
-        desc : `
-            <p>In front of the light</p>
-            <h2>YYYYYYYYYYY</h2>
-            <h3>YYYYYYYYYYY</h3>
-            <p>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY<br>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</p>
+            <p>What are we going to do with the dove?</p>
         `,
     },
     'stargazing_a' : {
@@ -80,13 +64,65 @@ var projectsDesc = {
         month : '10',
         desc : `
             <p>Who are you?</p>
-            <h2>STARGAZINGSTARGAZING</h2>
-            <h3>TEST STARGAZING Test</h3>
-            <p>TEST STARGAZINGSTARGAZINGSTARGAZING Test<br>TEST tSTARGAZINGSTARGAZING<br>TEST test TestTESMORE More mOrEMORE More mOrE.</br></p>
+            <h2>CONTEXTE</h2>
+            <p>"STARGAZING" est un projet de métrage avec la boîte de production de mon ami réalisateur. On a créé cette affiche initialement pour une campagne de financement participatif. Cependant, on a préféré se focaliser sur nos études et d'autres projet, donc il n'a pas encore abouti.</p>
+            <h2>LA PART ARTIFICIELLE</h2>
+            <p>Rien ne provient de la réalité ici. Tous les éléments ont étés assemblés par ordinateur sur Photoshop. La voiture est un modèle 3D tiré d'un jeu vidéo (Garry's Mod). L'herbe, la lumière et la brume ont été réalisés au pinceau.
+            <br>C'était principalement un travail d'incrustation.</p>
         `,
     },
+    'y_in_b' : {
+        type : 'img',
+        year : '2018',
+        month : '09',
+        desc : `
+            <p>Right in front of the only light</p>
+            <h2>CONTEXTE</h2>
+            <p>Je voulais m'atteler à la photographie, car j'avais un appareil photo avec une très bonne focale. Par manque de temps, je n'ai fait que ce cliché sur une étagère noire dans ma chambre avec un Y en carton et le flash de mon smartphone.</p>
+            <h2>LA PART ARTISTIQUE</h2>
+            <p>J'ai joué avec la lumière pour faire ressortir le plus de détails possibles. Le Y étant blanc, il contraste bien avec la scène qui est totalement plongée dans le noir. J'ai profité au passage de la texture de mon "sol" pour montrer la direction de la lumière.
+            <br>Pour finir, j'ai passé le cliché sur Photoshop pour nettoyer un peu le fond et donner plus de caractère aux détails du Y.</p>
+        `,
+    },
+    'fut_met' : {
+        type : 'img',
+        year : '2017',
+        month : '06',
+        desc : `
+            <p>From what kind of place is it coming from?</p>
+            <h2>CONTEXTE</h2>
+            <p>L'un de mes premiers projets graphiques et aussi l'un de mes préférés.
+            <br>L'idée d'une boule futuriste qui traverse l'espace me branchait bien à l'époque.</p>
+            <h2>RÉALISATION</h2>
+            <p>J'ai assemblé une sphère en 3D où j'ai appliqué des effets de destruction, je lui ai ajouté un cœur cyan et j'ai fait des particules. Pour donner une impression de vitesse à la météorite, j'ai rajouté des effets un peu 'magiques' et 'spatiaux', et du flou de mouvement.</p>
+        `,
+    },
+    'destr_casque' : {
+        type : 'img',
+        year : '2016',
+        month : '12',
+        desc : `
+            <p>Breaking it even more. Why wouldn't I?</p>
+            <h2>CONTEXTE</h2>
+            <p>Ce casque audio devenait vieux, il était temps d'en changer. Je voulais marquer <b>le coup</b> en le détruisant. Déjà par curiosité pour voir ce qu'il y avait à l'intérieur, et aussi pour honorer le bon temps passé avec.</p>
+            <p>Cette image est la miniature de la vidéo sur YouTube que j'ai faite pour sa destruction. C'était l'un de mes premiers projets graphiques.</p>
+        `,
+    },
+
+// 3D RENDERS
+    'sch_1_wc' : {
+        type : 'vid',
+        url : 'xgLIY_w6bkQ',
+        format : '1:1',
+        year : '2019',
+        month : '03-06',
+        desc : `
+            <p>It's like everything's the same!</p>
+        `,
+    },
+
 // MOTION DESIGN
-    'i-rs-b' : {
+    'i_rs_b' : {
         type : 'vid',
         url : 'XOnAthClcEI',
         format : '16:9',
@@ -94,14 +130,52 @@ var projectsDesc = {
         month : '09',
         desc : `
             <p>Synthwave into the darkest place of space!</p>
-            <h2>STARGAZINGSTARGAZING</h2>
-            <h3>TEST STARGAZING Test</h3>
-            <p>TEST STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TES STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR </p>
-            <p>TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR </p>
-            <p>TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TE STAR TEST STAR  STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TES STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TESTEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR </p>
-            <p>TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TES STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TES STAR TEST STAR TEST STAR TE STAR TEST STAR TEST STAR TE STAR TEST STAR TESST STAR TEST STAR TEST STAR TEST STAR </p>
+            <h2>CONTEXTE</h2>
+            <p>"RetroSaturn" étant la future boîte de production de mon ami, on a réalisé ce logo et on voulait l'essayer dans de l'animation.
+            <br>Cette animation ne nous servira surement jamais, car l'ambiance est trop sombre et pesante, et le logo est sujet à changer.</p>
+            <h2>LE BUT</h2>
+            <p>Le but était de réaliser une introduction, style Synthwave/années 80s avec le quadrillage typique, les néons, les étoiles, les gliOtherChs...
+            <br>J'ai même ajouté des effets sonores pour enrichir l'ambiance.</p>
         `,
     },
+    'i_y2' : {
+        type : 'vid',
+        url : 'UkL4zVUw27Y',
+        format : '16:9',
+        year : '2017',
+        month : '09',
+        desc : `
+            <p></p>
+            <h2>CONTEXTE</h2>
+            <p>J'y ai incorporé tout le savoir que je possédais. J'avais pour but de faire l'animation la plus aboutie possible, peu importe si je venais à ne jamais l'utiliser.</p>
+            <p>Cette introduction est très brutale, peut-être même trop à mon goût aujourd'hui, mais c'était le coût à payer pour faire le plus condensé que je pouvais.</p>
+        `,
+    },
+    'i_inex' : {
+        type : 'vid',
+        url : '46MrLGy5Xb8',
+        format : '16:9',
+        year : '2017',
+        month : '03',
+        desc : `
+            <p></p>
+        `,
+    },
+    'i_yc' : {
+        type : 'vid',
+        url : 'PR0fVAGbHIQ',
+        format : '16:9',
+        year : '2017',
+        month : '01',
+        desc : `
+            <p></p>
+            <h2>CONTEXTE</h2>
+            <p>Au collège, je faisais des vidéos sur YouTube avec un ami du nom de Clément. Donc j'ai fait une introduction pour nos vidéos.</p>
+            <h2>LONGUEUR</h2>
+            <p>C'est une longue introduction, car nos vidéos étaient rares et beaucoup montées. Donc il fallait marquer l'événement avec une introduction marquante.</p>
+        `,
+    },
+
 };
 
 
@@ -213,8 +287,8 @@ function init() {
     if(pathDir == 'projects') {
         var allAccItems = doc.querySelectorAll('.acclist-item');
 
-        function openProjectCardPopup(ev) {
-            this.classList.add('focus');
+        function openProjectCardPopup(ev, p, item) {
+            p.classList.add('focus');
             scrollbarMain.options('overflowBehavior.y', 'hidden')
             
             function closeProjectCardPopup() {
@@ -236,12 +310,12 @@ function init() {
             doc.querySelector('div[project-popup]').appendChild(projectPopup);
 
             var proj;
-            if(projectsDesc[this.id].type == 'img') {
+            if(projectsDesc[p.id].type == 'img') {
                 proj = `
-                    <div class="pp-img" style="background:url('`+ this.querySelector('.thumb').getAttribute('src') +`');"></div>
+                    <div class="pp-img" style="background:url('`+ p.querySelector('.thumb').getAttribute('src') +`');"></div>
                 `
-            } else if(projectsDesc[this.id].type == 'vid') {
-                var format = projectsDesc[this.id].format, f;
+            } else if(projectsDesc[p.id].type == 'vid') {
+                var format = projectsDesc[p.id].format, f;
 
                 if(format == '1:1' || format == 'fill') { f = '80.1vh'; }
                 else if(format == '16:9') { f = '56.25%'; }
@@ -250,7 +324,7 @@ function init() {
                 proj = `
                 <div id="player-c">
                     <div id="player" style="padding-bottom: `+ f +`;">
-                        <iframe width="1280" height="720" src="https://www.youtube.com/embed/`+ projectsDesc[this.id].url +`?rel=0&color=white&loop=1&playlist=`+ projectsDesc[this.id].url +`" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="1280" height="720" src="https://www.youtube.com/embed/`+ projectsDesc[p.id].url +`?rel=0&color=white&loop=1&playlist=`+ projectsDesc[p.id].url +`" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
                 `
@@ -259,16 +333,16 @@ function init() {
                 <div class="pp-bg" style="opacity:0;"></div>
                 <div class="pp-popup-c">
                     <div class="pp-sectiongrid">
-                        <section class="pp-project" pp-type=`+ projectsDesc[this.id].type +`>
+                        <section class="pp-project" pp-type=`+ projectsDesc[p.id].type +`>
                             <div class="pp-proj">`
                                 + proj +`
                             </div>
                             <div class="pp-scaleup"></div>
                         </section>
                         <section class="pp-desc" scroll>
-                            <div class="pp-title"><span>`+ this.querySelector('.p-title > span').innerText +`</span></div>
+                            <div class="pp-title"><span>`+ p.querySelector('.p-title > span').innerText +`</span></div>
                             <div class="pp-desctxt">
-                                `+ projectsDesc[this.id].desc +`
+                                `+ projectsDesc[p.id].desc +`
                             </div>
                         </section>
                     </div>
@@ -301,6 +375,16 @@ function init() {
                     autoHideDelay : 0
                 }
             });
+
+            if(projectsDesc[p.id].type == 'img') {
+                // Load Higher Res Picture (https://stackoverflow.com/a/54123157)
+                function loadHighResImage(elem, highResUrl) {
+                    let image = new Image();
+                    image.addEventListener('load', () => elem.style.backgroundImage = 'url("'+ highResUrl +'")');
+                    elem.style.backgroundImage = 'url("'+ highResUrl +'")';
+                };
+                loadHighResImage(projectPopup.querySelector('.pp-img'), '../src/projects/'+ item.id +'/'+ p.id +'.jpg');
+            }
 
             // Cursor Close on BG hover
             function moveCurClose(event) {
@@ -386,7 +470,7 @@ function init() {
                         accCReal.style.transform = 'translateY(75px)';
                         item.querySelector('.acclist-in').appendChild(accCReal);
                         item.querySelectorAll('.al-card').forEach((card) => {
-                            card.addEventListener('click', openProjectCardPopup);
+                            card.addEventListener('click', (ev) => { openProjectCardPopup(ev, card, item); });
                         })
                         setTimeout(() => {
                             accCReal.style.transition = null;
