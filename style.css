@@ -500,8 +500,10 @@ div[project-popup] {
     opacity: 1;
     background-color: var(--y-w);
     transition: transform 0.8s cubic-bezier(0.3, 0.8, 0, 1),
-                opacity 0.4s;
+                opacity 0.4s,
+                0.6s cubic-bezier(0.4, 0.6, 0, 1);
     transition-delay: 50ms;
+    transition-property: transform, opacity, width, height;
 }
 .project-popup.pre .pp-popup-c {
     transform: scale(0.6);
@@ -544,7 +546,8 @@ div[project-popup] {
     left: 0;
     padding-right: 25px;
     word-wrap: break-word;
-    transition-property: top, left, opacity; 
+    transition-property: top, left, opacity;
+    box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: hidden !important;
 }
@@ -770,7 +773,7 @@ section[pp-type="vid"] .pp-scaleup::after {
 }
 .project-popup.pscaleup section[pp-type="vid"] #player {
     transform: translateY(0%);
-    padding-bottom: 0%;
+    padding-bottom: 0% !important;
 }
 
 .pp-proj,
@@ -796,13 +799,20 @@ section[pp-type="vid"] .pp-scaleup::after {
         width: 80%;
         height: 80%;
     }
+    .project-popup.pscaleup .pp-popup-c {
+        width: 90%;
+        height: 95%;
+    }
     .pp-sectiongrid {
         grid-template-columns: 56.5% auto;
         grid-gap: 32.5px;
     }
+    section.pp-desc {
+        width: calc(((100 - 56.5) / 100 * 80vw) - 32.5px);
+    }
     .project-popup.pscaleup .pp-proj,
     .project-popup.pscaleup section[pp-type="img"] .pp-scaleup {
-        width: 80vw;
+        width: 90vw;
     }
     .project-popup.pscaleup section.pp-desc {
         left: 100%;
@@ -821,6 +831,9 @@ section[pp-type="vid"] .pp-scaleup::after {
     }
 }
 @media (max-width: 1200px) /*tall*/ {
+    section.pp-desc {
+        margin-top: -1px;
+    }
     .project-popup section.pp-project,
     .project-popup section.pp-desc .pp-title,
     .project-popup section.pp-desc .pp-desctxt > * {
@@ -874,7 +887,7 @@ section[pp-type="vid"] .pp-scaleup::after {
     }
     #player {
         transform: translateY(0);
-        padding-bottom: 0;
+        padding-bottom: 0 !important;
     }
 }
 

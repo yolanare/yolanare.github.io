@@ -94,6 +94,7 @@ var projectsDesc = {
     'i-rs-b' : {
         type : 'vid',
         url : 'XOnAthClcEI',
+        format : '16:9',
         year : '2018',
         month : '09',
         desc : `
@@ -245,10 +246,16 @@ function init() {
                     <div class="pp-img" style="background:url('`+ this.querySelector('.thumb').getAttribute('src') +`');"></div>
                 `
             } else if(projectsDesc[this.id].type == 'vid') {
+                var format = projectsDesc[this.id].format, f;
+
+                if(format == '1:1' || format == 'fill') { f = '80.1vh'; }
+                else if(format == '16:9') { f = '56.25%'; }
+                else { f = format == '1:1'; }
+
                 proj = `
                 <div id="player-c">
-                    <div id="player">
-                        <iframe width="1280" height="720" src="https://www.youtube.com/embed/` + projectsDesc[this.id].url + `?rel=0&color=white" frameborder="0" allowfullscreen></iframe>
+                    <div id="player" style="padding-bottom: `+ f +`;">
+                        <iframe width="1280" height="720" src="https://www.youtube.com/embed/`+ projectsDesc[this.id].url +`?rel=0&color=white&loop=1&playlist=`+ projectsDesc[this.id].url +`" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
                 `
@@ -343,9 +350,7 @@ function init() {
             }, 33);
 
             // PROJECT SCALE UP
-            function projScaleUp() {
-                projectPopup.classList.toggle('pscaleup');
-            }
+            function projScaleUp() { projectPopup.classList.toggle('pscaleup'); }
             projectPopup.querySelector('.pp-scaleup').addEventListener('click', projScaleUp)
         }
 
