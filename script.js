@@ -323,7 +323,7 @@ function init() {
             var proj, pTag;
             if(projectsDesc[p.id].type == 'img') {
                 proj = `
-                    <div class="pp-img" style="background:url('`+ p.querySelector('.thumb').getAttribute('src') +`');"></div>
+                    <div style="width:100%;height:100%;"><img class="pp-img" src="`+ p.querySelector('.thumb').getAttribute('src') +`"></img></div>
                 `
             } else if(projectsDesc[p.id].type == 'vid') {
                 var format = projectsDesc[p.id].format, f;
@@ -403,7 +403,7 @@ function init() {
                 // Load Higher Res Picture (https://stackoverflow.com/a/54123157)
                 function loadHighResImage(elem, highResUrl) {
                     let image = new Image();
-                    image.addEventListener('load', () => elem.style.backgroundImage = 'url("'+ highResUrl +'")')
+                    image.addEventListener('load', () => elem.src = highResUrl)
                     image.src = highResUrl;
                 };
                 loadHighResImage(projectPopup.querySelector('.pp-img'), '../src/projects/'+ item.id +'/'+ p.id +'.jpg');
