@@ -462,13 +462,15 @@ function init() {
         allAccItems.forEach((item) => {
             function openAccItem() {
                 function finalState(i) {
-                    if(i.getAttribute('state') == 'opening') {
-                        i.setAttribute('state', 'opened');
-                        doc.querySelector('*[accordion-scroll] #'+ item.id +' .acclist-content').style.height = null;
-                    } else if(i.getAttribute('state') == 'closing') {
-                        i.setAttribute('state', 'closed');
-                        i.querySelector('.acclist-content').remove();
-                    }
+                    setTimeout(() => {
+                        if(i.getAttribute('state') == 'opening') {
+                            i.setAttribute('state', 'opened');
+                            doc.querySelector('*[accordion-scroll] #'+ item.id +' .acclist-content').style.height = null;
+                        } else if(i.getAttribute('state') == 'closing') {
+                            i.setAttribute('state', 'closed');
+                            i.querySelector('.acclist-content').remove();
+                        }
+                    }, 10);
                 }
 
                 if(['closing', 'closed'].includes(item.getAttribute('state'))) {
@@ -482,14 +484,14 @@ function init() {
                             if(iOtherC) { iOtherC.style.height = doc.querySelector('*[accordion-content] #'+ itemOther.id +' > .acclist-content').offsetHeight +'px'; }
                             setTimeout(() => {
                                 itemOther.setAttribute('state', 'closing');
-                            }, 10);
+                            }, 15);
                         }
                     })
 
                     var itemc = item.querySelector('.acclist-content');
                     if(itemc == null) {
                         var accCReal = accCHidden.cloneNode(true);
-                        accCReal.addEventListener('transitionend', (ev) => { if (ev.propertyName == 'height') { finalState(item); }}/*, {once:true}*/);
+                        accCReal.addEventListener('transitionend', (ev) => { if (ev.propertyName == 'height') { finalState(item); }});
                         accCReal.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
                         accCReal.style.transition = '0s';
                         accCReal.style.height = '0px';
@@ -509,7 +511,7 @@ function init() {
                     //}
                 } else if(['opening', 'opened'].includes(item.getAttribute('state'))) { // already opened
                     if(true) { doc.querySelector('*[accordion-scroll] #'+ item.id +' .acclist-content').style.height = doc.querySelector('*[accordion-content] #'+ item.id +' > .acclist-content').offsetHeight +'px'; }
-                    setTimeout(() => { item.setAttribute('state', 'closing'); }, 10);
+                    setTimeout(() => { item.setAttribute('state', 'closing'); }, 15);
                 }
             }
 
