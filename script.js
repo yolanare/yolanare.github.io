@@ -62,7 +62,7 @@ var projectsDesc = {
     },
     'stargazing_a' : {
         type : 'img',
-        tag: "perso",
+        tag: "rs",
         year : '2018',
         month : '10',
         desc : `
@@ -116,6 +116,32 @@ var projectsDesc = {
     },
 
 // 3D RENDERS
+    'mc_factory92' : {
+        type : 'vid',
+        tag: "c",
+        url : 'jN7L44_-igk',
+        format : '1:1',
+        year : '2021',
+        month : '01',
+        desc : `
+        `,
+    },
+    'mc_cyber_district1' : {
+        type : 'img',
+        tag: "c",
+        year : '2019',
+        month : '08',
+        desc : `
+        `,
+    },
+    'mc_cyber_district2' : {
+        type : 'img',
+        tag: "c",
+        year : '2019',
+        month : '08',
+        desc : `
+        `,
+    },
     'sch_1_wc' : {
         type : 'vid',
         tag: "sch",
@@ -162,7 +188,7 @@ var projectsDesc = {
     },
     'i_inex' : {
         type : 'vid',
-        tag: "commission",
+        tag: "c",
         url : '46MrLGy5Xb8',
         format : '16:9',
         year : '2017',
@@ -344,7 +370,7 @@ function init() {
             if(projectsDesc[p.id].tag == 'perso') { pTag = 'Personnal Project';
             } else if(projectsDesc[p.id].tag == 'sch') { pTag = 'School Project';
             } else if(projectsDesc[p.id].tag == 'fun') { pTag = 'Fun';
-            } else if(projectsDesc[p.id].tag == 'commission') { pTag = 'Commission';
+            } else if(projectsDesc[p.id].tag == 'c') { pTag = 'Commission';
             } else if(projectsDesc[p.id].tag == 'rs') { pTag = 'RetroSaturn';
             }
             projectPopup.innerHTML = `
