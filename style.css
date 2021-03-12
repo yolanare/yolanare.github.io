@@ -25,11 +25,17 @@ body {
 
 .transition-y {
     opacity: 1;
-    transition: opacity 0.4s;
+    margin-top: 0;
+    transition: opacity 0.4s 0.1s ease,
+                margin-top 0.8s cubic-bezier(0.4, 0.7, 0, 1);
 }
 html.is-animating .transition-y {
     opacity: 0;
-    transition: opacity 0.4s;
+    transition: opacity 0.5s cubic-bezier(0.1, 0.7, 0, 1),
+                margin-top 0.5s cubic-bezier(0.45, 0.7, 0, 1);
+}
+html.is-animating.is-rendering .transition-y {
+    margin-top: calc( (10vw + 30vh) / 2 );
 }
 
 #container {
