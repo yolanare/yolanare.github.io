@@ -250,7 +250,7 @@ div[accordion-content] {
 .acclist-item:last-child::after {
     top: 100%;
 }*/
-.acclist-in {
+.acclist-in-c {
     z-index: 10;
     display: flex;
     align-items: center;
@@ -258,6 +258,15 @@ div[accordion-content] {
     transform: scale(1.01);
     background-color: var(--y-w2);
     pointer-events: all;
+}
+.acclist-in {
+    width: 100%;
+}
+.acclist-item:last-child > .acclist-in-c {
+    transform: scale(1.01) translate3d(0px, -1px, 0px);
+}
+.acclist-item:last-child .acclist-in {
+    overflow: hidden;
 }
 .acclist-btn {
     display: flex;
