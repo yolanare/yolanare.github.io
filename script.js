@@ -145,12 +145,12 @@ var projectsDesc = {
     'sch_1_wc' : {
         type : 'vid',
         tag: "sch",
-        url : 'xgLIY_w6bkQ',
+        url : 'Cg0DBZRAbqU',
         format : '1:1',
         year : '2019',
         month : '03-06',
         desc : `
-            <p>It's like everything's the same!</p>
+            <p>As the days passes, everything's staying the same...</p>
         `,
     },
 
