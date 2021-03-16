@@ -488,15 +488,12 @@ function init() {
         allAccItems.forEach((item) => {
             function openAccItem() {
                 function finalState(i) {
-                    setTimeout(() => {
                         if(i.getAttribute('state') == 'opening') {
                             i.setAttribute('state', 'opened');
-                            doc.querySelector('*[accordion-scroll] #'+ item.id +' .acclist-content').style.height = null;
                         } else if(i.getAttribute('state') == 'closing') {
                             i.setAttribute('state', 'closed');
                             i.querySelector('.acclist-content').remove();
                         }
-                    }, 10);
                 }
 
                 if(['closing', 'closed'].includes(item.getAttribute('state'))) {
@@ -506,11 +503,7 @@ function init() {
                         otherAccItems = doc.querySelectorAll('.acclist-item:not(#'+ item.id +')');
                     otherAccItems.forEach((itemOther) => {
                         if(['opening', 'opened'].includes(itemOther.getAttribute('state'))) {
-                            var iOtherC = itemOther.querySelector('.acclist-content');
-                            if(iOtherC) { iOtherC.style.height = doc.querySelector('*[accordion-content] #'+ itemOther.id +' > .acclist-content').offsetHeight +'px'; }
-                            setTimeout(() => {
-                                itemOther.setAttribute('state', 'closing');
-                            }, 15);
+                            itemOther.setAttribute('state', 'closing');
                         }
                     })
 
@@ -526,23 +519,30 @@ function init() {
                         item.querySelectorAll('.al-card').forEach((card) => {
                             card.addEventListener('click', (ev) => { openProjectCardPopup(ev, card, item); });
                         })
-                        setTimeout(() => {
-                            accCReal.style.transition = null;
-                            accCReal.style.height = accCHidden.offsetHeight +'px';
-                            accCReal.style.transform = null;
-                        }, 1);
+                        accCReal.style.transition = null;
+                        accCReal.style.transform = null;
+                        setTimeout(() => { accCReal.style.height = accCHidden.offsetHeight +'px'; }, 1);
                     }
                     //else {
                     //    console.log('-- already exists')
                     //}
                 } else if(['opening', 'opened'].includes(item.getAttribute('state'))) { // already opened
-                    if(true) { doc.querySelector('*[accordion-scroll] #'+ item.id +' .acclist-content').style.height = doc.querySelector('*[accordion-content] #'+ item.id +' > .acclist-content').offsetHeight +'px'; }
-                    setTimeout(() => { item.setAttribute('state', 'closing'); }, 15);
+                    item.setAttribute('state', 'closing');
                 }
+            }
+
+            function resizeAccC() {
+                doc.querySelectorAll('section.acclist-item[state^=open]').forEach((a) => {
+                    var accc = a.querySelector('.acclist-content');
+                    accc.style.transitionDuration = '0s';
+                    accc.style.height = doc.querySelector('*[accordion-content] #'+ a.id +' > .acclist-content').offsetHeight +'px';
+                    setTimeout(() => { accc.style.transitionDuration = null; }, 1);
+                })
             }
 
             item.setAttribute('state', 'closed');
             item.querySelector('.acclist-btn').addEventListener('click', openAccItem);
+            window.addEventListener('resize', resizeAccC)
         })
     }
 }
