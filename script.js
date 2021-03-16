@@ -15,7 +15,7 @@ var doc = document.documentElement,
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
 
-var o1 = [null, 33]; if(!isMini) { o1 = [true, 15]; };
+var o1 = [null, 33]; if(!isMini) { o1 = [true, 20]; };
 
 document.addEventListener('DOMContentLoaded', function() {
     scrollbarMain = OverlayScrollbars(container, {

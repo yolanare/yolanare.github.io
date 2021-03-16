@@ -31,7 +31,7 @@ body {
 }
 html.is-animating .transition-y {
     opacity: 0;
-    transition: opacity 0.5s cubic-bezier(0.1, 0.7, 0, 1),
+    transition: opacity 0.5s cubic-bezier(0.3, 0.7, 0, 1),
                 margin-top 0.5s cubic-bezier(0.45, 0.7, 0, 1);
 }
 html.is-animating.is-rendering .transition-y {
@@ -986,6 +986,13 @@ section[pp-type="vid"] .pp-scaleup::after {
     }
 }
 @media (max-width: 960px) {
+    .os-scrollbar-handle {
+        transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                    opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                    transform 0s,
+                    height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
+    }
+
     .al-card {
         grid-column: span 3;
     }
@@ -1016,12 +1023,6 @@ section[pp-type="vid"] .pp-scaleup::after {
     }
     .os-scrollbar {
         width: 6px !important;
-    }
-    .os-scrollbar-handle {
-        transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
-                    opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
-                    transform 50ms linear,
-                    height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
     }
 
     .acclist-title {
