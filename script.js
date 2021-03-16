@@ -44,6 +44,7 @@ var projectsDesc = {
 // ARTWORKS
     'sch_t_iv' : {
         type : 'img',
+        suType : 'img',
         tag: "sch",
         year : '2020',
         month : '01',
@@ -53,6 +54,7 @@ var projectsDesc = {
     },
     'sch_t_pm' : {
         type : 'img',
+        suType : 'img',
         tag: "sch",
         year : '2019',
         month : '10',
@@ -62,6 +64,7 @@ var projectsDesc = {
     },
     'stargazing_a' : {
         type : 'img',
+        suType : 'img',
         tag: "rs",
         year : '2018',
         month : '10',
@@ -76,6 +79,7 @@ var projectsDesc = {
     },
     'y_in_b' : {
         type : 'img',
+        suType : 'img',
         tag: "perso",
         year : '2018',
         month : '09',
@@ -90,6 +94,7 @@ var projectsDesc = {
     },
     'fut_met' : {
         type : 'img',
+        suType : 'img',
         tag: "perso",
         year : '2017',
         month : '06',
@@ -104,6 +109,7 @@ var projectsDesc = {
     },
     'destr_casque' : {
         type : 'img',
+        suType : 'img',
         tag: "fun",
         year : '2016',
         month : '12',
@@ -118,6 +124,7 @@ var projectsDesc = {
 // 3D RENDERS
     'mc_factory92' : {
         type : 'vid',
+        suType : 'interact',
         tag: "c",
         url : 'jN7L44_-igk',
         format : '1:1',
@@ -128,6 +135,7 @@ var projectsDesc = {
     },
     'mc_cyber_district1' : {
         type : 'img',
+        suType : 'img',
         tag: "c",
         year : '2019',
         month : '08',
@@ -136,6 +144,7 @@ var projectsDesc = {
     },
     'mc_cyber_district2' : {
         type : 'img',
+        suType : 'img',
         tag: "c",
         year : '2019',
         month : '08',
@@ -144,6 +153,7 @@ var projectsDesc = {
     },
     'sch_1_wc' : {
         type : 'vid',
+        suType : 'interact',
         tag: "sch",
         url : 'Cg0DBZRAbqU',
         format : '1:1',
@@ -157,6 +167,7 @@ var projectsDesc = {
 // MOTION DESIGN
     'i_rs_b' : {
         type : 'vid',
+        suType : 'interact',
         tag: "rs",
         url : 'XOnAthClcEI',
         format : '16:9',
@@ -174,6 +185,7 @@ var projectsDesc = {
     },
     'i_y2' : {
         type : 'vid',
+        suType : 'interact',
         tag: "perso",
         url : 'UkL4zVUw27Y',
         format : '16:9',
@@ -188,6 +200,7 @@ var projectsDesc = {
     },
     'i_inex' : {
         type : 'vid',
+        suType : 'interact',
         tag: "c",
         url : '46MrLGy5Xb8',
         format : '16:9',
@@ -199,6 +212,7 @@ var projectsDesc = {
     },
     'i_yc' : {
         type : 'vid',
+        suType : 'interact',
         tag: "perso",
         url : 'PR0fVAGbHIQ',
         format : '16:9',
@@ -210,6 +224,28 @@ var projectsDesc = {
             <p>Au collège, je faisais des vidéos sur YouTube avec un ami du nom de Clément. Donc j'ai fait une introduction pour nos vidéos.</p>
             <h2>LONGUEUR</h2>
             <p>C'est une longue introduction, car nos vidéos étaient rares et beaucoup montées. Donc il fallait marquer l'événement avec une introduction marquante.</p>
+        `,
+    },
+
+// POSTERS
+    'pdf_apc_hpi' : {
+        type : 'pdf',
+        suType : 'interact',
+        tag: "c",
+        url : '1J0SOaGtPElDcgNwxXx55vr_E_ah3cZDc',
+        year : '2019',
+        month : '11',
+        desc : `
+        `,
+    },
+    'pdf_apc_wvhp' : {
+        type : 'pdf',
+        suType : 'interact',
+        tag: "c",
+        url : '1bCm600IXEowAT_jnyQLQcYP05QcAATYr',
+        year : '2019',
+        month : '08',
+        desc : `
         `,
     },
 
@@ -346,7 +382,9 @@ function init() {
             projectPopup.classList.add('pre');
             doc.querySelector('div[project-popup]').appendChild(projectPopup);
 
-            var proj, pTag;
+            var proj, pTag, pTitle,
+            pSpan = p.querySelector('.p-title > span');
+
             if(projectsDesc[p.id].type == 'img') {
                 imgMiniSRC = p.querySelector('.thumb').getAttribute('src');
                 proj = `
@@ -366,6 +404,12 @@ function init() {
                     </div>
                 </div>
                 `
+            } else if(projectsDesc[p.id].type == 'pdf') {
+                proj = `
+                <div id="pdf-reader">
+                    <iframe class="pp-pdf" src="https://drive.google.com/file/d/`+ projectsDesc[p.id].url +`/preview" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+                `
             }
             if(projectsDesc[p.id].tag == 'perso') { pTag = 'Personnal Project';
             } else if(projectsDesc[p.id].tag == 'sch') { pTag = 'School Project';
@@ -373,11 +417,13 @@ function init() {
             } else if(projectsDesc[p.id].tag == 'c') { pTag = 'Commission';
             } else if(projectsDesc[p.id].tag == 'rs') { pTag = 'RetroSaturn';
             }
+            if(pSpan.hasAttribute('long-title')) { pTitle = pSpan.getAttribute('long-title');
+            } else { pTitle = pSpan.innerText; }
             projectPopup.innerHTML = `
                 <div class="pp-bg" style="opacity:0;"></div>
                 <div class="pp-popup-c">
                     <div class="pp-sectiongrid">
-                        <section class="pp-project" pp-type=`+ projectsDesc[p.id].type +`>
+                        <section class="pp-project" pp-suType=`+ projectsDesc[p.id].suType +`>
                             <div class="pp-proj">`
                                 + proj +`
                             </div>
@@ -385,7 +431,7 @@ function init() {
                         </section>
                         <section class="pp-desc" scroll>
                             <div class="pp-title">
-                                <span id="big">`+ p.querySelector('.p-title > span').innerText +`</span>
+                                <span id="big">`+ pTitle +`</span>
                                 <div class="pp-t-plus">
                                     <span id="date">`+ projectsDesc[p.id].year +`/`+ projectsDesc[p.id].month +`</span>
                                     <span id="tag">`+ pTag +`</span>
