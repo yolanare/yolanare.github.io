@@ -561,13 +561,14 @@ function init() {
                         accCReal.style.transition = '0s';
                         accCReal.style.height = '0px';
                         accCReal.style.transform = 'translateY(75px)';
+                        accCReal.style.transition = null;
                         item.querySelector('.acclist-in').appendChild(accCReal);
                         item.querySelectorAll('.al-card').forEach((card) => {
                             card.addEventListener('click', (ev) => { openProjectCardPopup(ev, card, item); });
                         })
-                        accCReal.style.transition = null;
-                        accCReal.style.transform = null;
-                        setTimeout(() => { accCReal.style.height = accCHidden.offsetHeight +'px'; }, 1);
+                        setTimeout(() => {
+                            accCReal.style.transform = null;
+                            accCReal.style.height = accCHidden.offsetHeight +'px'; }, 1);
                     }
                     //else {
                     //    console.log('-- already exists')
