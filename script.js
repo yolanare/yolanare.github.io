@@ -586,10 +586,14 @@ function init() {
                     setTimeout(() => { accc.style.transitionDuration = null; }, 1);
                 })
             }
+            function ppSUHeight() {
+                if(window.innerWidth <= 1200) { doc.style.setProperty('--pp-popup-c-h-su', Math.round(window.innerHeight * 0.8525) + 'px'); }
+            } ppSUHeight();
 
             item.setAttribute('state', 'closed');
             item.querySelector('.acclist-btn').addEventListener('click', openAccItem);
             window.addEventListener('resize', resizeAccC)
+            window.addEventListener('resize', ppSUHeight)
         })
     }
 }

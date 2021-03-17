@@ -892,7 +892,7 @@ section[pp-suType="interact"] .pp-scaleup::after {
 }
 @media (max-width: 1200px) /*tall*/ {
     :root {
-        --pp-popup-c-h-su: 85;
+        --pp-popup-c-h-su: 85.1vh;
     }
 
     section.pp-desc {
@@ -911,7 +911,7 @@ section[pp-suType="interact"] .pp-scaleup::after {
     }
     .pp-popup-c {
         width: 87.5%;
-        height: calc(var(--pp-popup-c-h-su) * 1%);
+        height: 85%;
     }
     .pp-sectiongrid {
         grid-template-rows: 33% auto;
@@ -946,7 +946,7 @@ section[pp-suType="interact"] .pp-scaleup::after {
 
     .project-popup.pscaleup .pp-proj,
     .project-popup.pscaleup section[pp-suType="img"] .pp-scaleup {
-        height: calc((var(--pp-popup-c-h-su) + 0.1) * 1vh);
+        height: var(--pp-popup-c-h-su);
     }
     .project-popup.pscaleup section.pp-desc {
         top: 100%;
