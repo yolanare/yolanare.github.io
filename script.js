@@ -261,6 +261,22 @@ function removeClassAll(path, c) {
     if(elems) { elems.forEach(function(el) { el.classList.remove(c); }); }
 }
 
+function resizeAccC() {
+    doc.querySelectorAll('section.acclist-item[state^=open]').forEach((a) => {
+        var accc = a.querySelector('.acclist-content');
+        accc.style.transitionDuration = '0s';
+        accc.style.height = doc.querySelector('*[accordion-content] #'+ a.id +' > .acclist-content').offsetHeight +'px';
+        setTimeout(() => { accc.style.transitionDuration = null; }, 1);
+    })
+}
+function ppSUHeight() {
+    if(window.innerWidth <= 1200) { doc.style.setProperty('--pp-popup-c-h-su', Math.round(window.innerHeight * 0.8525) + 'px'); }
+}
+function navTxtW() {
+    doc.style.setProperty('--navttxt-w', Math.round(container.offsetWidth / 4 + 100) + 'px');
+} navTxtW();
+window.addEventListener('resize', navTxtW);
+
 var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/22599173)
     settings = settings || {};
     var lastPos, newPos, timer, delta, direction, delay = settings.delay || 50;
@@ -306,6 +322,7 @@ function init() {
         return pathDir;
     }
     getPageID();
+    doc.setAttribute('page', pathDir);
 
     if (nav.hasChildNodes() == false) { // NAVIGATION
         nav.style.zIndex = '0';
@@ -326,8 +343,8 @@ function init() {
                     </g>
                 </svg>
                 <div id="ym-txt-c" class="pre-spawn">
-                    <a id="a" class="ym-txt" href="/about/">About</a>
-                    <a id="p" class="ym-txt" href="/projects/">Projects</a>
+                    <a id="a" class="ym-txt" href="/about/"><span>About</span></a>
+                    <a id="p" class="ym-txt" href="/projects/"><span>Projects</span></a>
                 </div>
             </div>
         `;
@@ -346,7 +363,7 @@ function init() {
             }, 225);
         }, 300);
 
-        nav.querySelector('svg#y').addEventListener('click', () => { swup.loadPage({ url: '/' }); })
+        nav.querySelectorAll('svg#y > g').forEach((g) => { g.addEventListener('click', () => { swup.loadPage({ url: '/' }); })})
     }
 
     if(pathDir != 'home') {
@@ -578,23 +595,16 @@ function init() {
                 }
             }
 
-            function resizeAccC() {
-                doc.querySelectorAll('section.acclist-item[state^=open]').forEach((a) => {
-                    var accc = a.querySelector('.acclist-content');
-                    accc.style.transitionDuration = '0s';
-                    accc.style.height = doc.querySelector('*[accordion-content] #'+ a.id +' > .acclist-content').offsetHeight +'px';
-                    setTimeout(() => { accc.style.transitionDuration = null; }, 1);
-                })
-            }
-            function ppSUHeight() {
-                if(window.innerWidth <= 1200) { doc.style.setProperty('--pp-popup-c-h-su', Math.round(window.innerHeight * 0.8525) + 'px'); }
-            } ppSUHeight();
-
             item.setAttribute('state', 'closed');
             item.querySelector('.acclist-btn').addEventListener('click', openAccItem);
-            window.addEventListener('resize', resizeAccC)
-            window.addEventListener('resize', ppSUHeight)
         })
+
+        ppSUHeight();
+        window.addEventListener('resize', resizeAccC);
+        window.addEventListener('resize', ppSUHeight);
+    } else {
+        window.removeEventListener('resize', resizeAccC)
+        window.removeEventListener('resize', ppSUHeight)
     }
 }
 init();
