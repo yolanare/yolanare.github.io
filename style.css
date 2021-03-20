@@ -862,6 +862,9 @@ section[pp-suType="interact"] .pp-scaleup::after {
     transform: translateY(0%);
     padding-bottom: 0% !important;
 }
+.project-popup.pscaleup section.pp-desc {
+    opacity: 0;
+}
 
 .pp-proj,
 #player-c,
@@ -872,8 +875,12 @@ section[pp-suType="interact"] .pp-scaleup::after {
     transition-timing-function: cubic-bezier(0.4, 0.6, 0, 1);
 }
 .pp-desc {
-    transition: all 0.7s cubic-bezier(0.4, 0.6, 0, 1), opacity 0.3s 0.1s;
+    transition: all 0.7s cubic-bezier(0.4, 0.6, 0, 1), opacity 0.25s 0.1s;
     transition-property: top, opacity, left;
+}
+.project-popup:not(.pscaleup) .pp-desc {
+    transition-duration: 0.7s, 0.3s;
+    transition-delay: 0s, 0.1s;
 }
 
 
@@ -912,12 +919,9 @@ section[pp-suType="interact"] .pp-scaleup::after {
         width: calc((var(--pp-popup-c-w-su) + 0.1) * 1vw);
     }
     .project-popup.pscaleup section.pp-desc {
-        left: 100%;
+        left: calc(100% + var(--pp-sgrid-gap));
     }
 
-    .project-popup.pscaleup section.pp-desc {
-        opacity: 0;
-    }
     .project-popup.pscaleup .pp-proj,
     .project-popup.pscaleup #player-c,
     .project-popup.pscaleup #player {
@@ -988,6 +992,14 @@ section[pp-suType="interact"] .pp-scaleup::after {
     .project-popup.pscaleup section.pp-desc {
         top: 100%;
         margin-top: 0;
+    }
+    .project-popup .pp-desc {
+        transition-duration: 0.7s, 0.5s;
+        transition-delay: 0s, 0s;
+    }
+    .project-popup:not(.pscaleup) .pp-desc {
+        transition-duration: 0.7s, 0.4s;
+        transition-delay: 0s, 0s;
     }
     
     #player-c {
