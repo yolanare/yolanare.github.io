@@ -573,19 +573,13 @@ function init() {
                     var itemc = item.querySelector('.acclist-content');
                     if(itemc == null) {
                         var accCReal = accCHidden.cloneNode(true);
+                        accCReal.style.height = accCHidden.offsetHeight +'px';
+                        accCReal.classList.add('clos');
                         accCReal.addEventListener('transitionend', (ev) => { if (ev.propertyName == 'height') { finalState(item); }});
                         accCReal.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
-                        accCReal.style.transition = '0s';
-                        accCReal.style.height = '0px';
-                        accCReal.style.transform = 'translateY(75px)';
-                        accCReal.style.transition = null;
+                        item.querySelectorAll('.al-card').forEach((card) => { card.addEventListener('click', (ev) => { openProjectCardPopup(ev, card, item); })});
                         item.querySelector('.acclist-in').appendChild(accCReal);
-                        item.querySelectorAll('.al-card').forEach((card) => {
-                            card.addEventListener('click', (ev) => { openProjectCardPopup(ev, card, item); });
-                        })
-                        setTimeout(() => {
-                            accCReal.style.transform = null;
-                            accCReal.style.height = accCHidden.offsetHeight +'px'; }, 1);
+                        setTimeout(() => { accCReal.classList.remove('clos'); }, 100);
                     }
                     //else {
                     //    console.log('-- already exists')

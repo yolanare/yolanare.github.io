@@ -421,9 +421,13 @@ div[accordion-content] {
 .acclist-item[state^="open"] .acclist-content {
     transform: translateY(0px);
 }
-.acclist-item[state^="clos"] .acclist-content {
+.acclist-item[state^="clos"] .acclist-content,
+.acclist-content.clos {
     height: 0px !important;
-    transform: translateY(75px);
+    transform: translateY(75px) !important;
+}
+.acclist-content.clos {
+    transition: 0s !important;
 }
 
 .al-grid {
