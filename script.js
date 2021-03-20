@@ -577,8 +577,8 @@ function init() {
                         accCReal.classList.add('clos');
                         accCReal.addEventListener('transitionend', (ev) => { if (ev.propertyName == 'height') { finalState(item); }});
                         accCReal.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
-                        item.querySelectorAll('.al-card').forEach((card) => { card.addEventListener('click', (ev) => { openProjectCardPopup(ev, card, item); })});
                         item.querySelector('.acclist-in').appendChild(accCReal);
+                        setTimeout(() => { item.querySelectorAll('.al-card').forEach((card) => { card.addEventListener('click', (ev) => { openProjectCardPopup(ev, card, item); })}); }, 1);
                         setTimeout(() => { accCReal.classList.remove('clos'); }, 100);
                     }
                     //else {
