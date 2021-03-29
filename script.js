@@ -450,8 +450,8 @@ function init() {
                         <section class="pp-desc" scroll>
                             <div class="pp-title">
                                 <span id="big">`+ pTitle +`</span>
-                                <div class="pp-t-plus">
-                                    <span id="date">`+ projectsDesc[p.id].year +`/`+ projectsDesc[p.id].month +`</span>
+                                <div class="pp-t-pills">
+                                    <span id="date">`+ projectsDesc[p.id].year +`.`+ projectsDesc[p.id].month +`</span>
                                     <span id="tag">`+ pTag +`</span>
                                 </div>
                             </div>
