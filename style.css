@@ -269,20 +269,20 @@ main#swup {display: block;
     z-index: 1;
     box-sizing: border-box;
     position: relative;
-    width: calc(100% - 100px * 2);
+    width: calc(100% - var(--pscs-txtmargin) * 2);
     padding: 17px 30px 12px;
     background-color: var(--y-b1);
     color: var(--y-w1);
 }
 #parcoursup-cs h3 {
     margin: 0;
-    font-size: 18px;
+    font-size: clamp(12px, 0.9vw, 18px);
     font-weight: 500;
     letter-spacing: 1px;
 }
 #parcoursup-cs h1 {
     margin: 0;
-    font-size: 45px;
+    font-size: clamp(30px, 2.25vw, 45px);
     font-weight: 800;
     letter-spacing: 2.5px;
 }
@@ -296,8 +296,8 @@ main#swup {display: block;
 }
 #pscs-txt {
     position: relative;
-    padding: 75px 100px 50px;
-    font-size: 21.5px;
+    padding: 75px var(--pscs-txtmargin) calc(var(--pscs-txtmargin) / 2);
+    font-size: clamp(18px, 1.35vw, 21.5px);
     font-weight: 600;
     letter-spacing: -0.15px;
     line-height: 1.35;
@@ -1071,6 +1071,10 @@ section[pp-suType="interact"] .pp-scaleup::after {
 
 /* DEVICES SIZES */
 @media (min-width: 961px) {
+    :root {
+        --pscs-txtmargin : 100px;
+    }
+
     .os-scrollbar {
         width: 13.5px !important;
     }
@@ -1096,11 +1100,22 @@ section[pp-suType="interact"] .pp-scaleup::after {
     }
 }
 @media (max-width: 960px) {
+    :root {
+        --pscs-txtmargin : 30px;
+    }
+
     .os-scrollbar-handle {
         transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
                     opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
                     transform 0s,
                     height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
+    }
+
+    #parcoursup-cs {
+        margin: 0;
+    }
+    #pscs-title {
+        padding: 13px 25px 8px;
     }
 
     .al-card {
