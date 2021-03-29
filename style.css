@@ -1,8 +1,11 @@
 :root {
-    --y-w: rgb(236, 239, 242);
+    --y-w1: rgb(236, 239, 242);
     --y-w2: rgb(250, 253, 255);
-    --y-b: rgb(29, 31, 32);
+    --y-b1: rgb(29, 31, 32);
     --y-b2: rgb(40, 42, 45);
+
+    --shearY-p: -6deg;
+    --shearY-a: 5deg;
 
     --ynav-m-space: 21vw;
     --ynav-padding: 10vh;
@@ -17,7 +20,7 @@ html {
 }
 body {
     margin: 0;
-    background-color: var(--y-w);
+    background-color: var(--y-w1);
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
     overflow-x: hidden;
@@ -25,24 +28,24 @@ body {
 
 .transition-y {
     opacity: 1;
-    margin-top: 0;
+    margin-top: calc((1.5vw + 5vh) / 2);
     transition: opacity 0.4s 0.1s ease,
                 margin-top 0.8s cubic-bezier(0.4, 0.7, 0, 1);
 }
 html.is-animating .transition-y {
     opacity: 0;
-    transition: opacity 0.5s cubic-bezier(0.3, 0.7, 0, 1),
-                margin-top 0.5s cubic-bezier(0.45, 0.7, 0, 1);
+    transition: opacity 0.4s cubic-bezier(0.4, 0.85, 0, 1),
+                margin-top 0.4s cubic-bezier(0.45, 0.7, 0, 1);
 }
 html.is-animating.is-rendering .transition-y {
-    margin-top: calc( (10vw + 30vh) / 2 );
+    margin-top: calc((10vw + 30vh) / 2);
 }
 
 #container {
     position: absolute !important;
     width: 100%;
     height: 100%;
-    background-color: var(--y-w);
+    background-color: var(--y-w1);
     overflow-y: visible;
     overflow-x: hidden;
 }
@@ -137,11 +140,11 @@ svg#y > g#main > g {
 }
 
 svg#y > g[id] path {
-    fill: var(--y-b);
+    fill: var(--y-b1);
     transition: fill 0.8s cubic-bezier(0.6, 0.7, 0, 1);
 }
 svg#y > g[id] polygon {
-    fill: var(--y-w);
+    fill: var(--y-w1);
     transition: fill 0.4s 50ms ease-out;
 }
 svg#y > g[id]:hover polygon,
@@ -170,7 +173,7 @@ svg#y > g#main.pre-spawn > g {
 
 nav.pre-spawn svg#y > g#float path,
 svg#y > g#main.pre-spawn path {
-    fill: var(--y-w) !important;
+    fill: var(--y-w1) !important;
 }
 
 /* Y MENU BUTTONS */
@@ -178,7 +181,7 @@ svg#y > g#main.pre-spawn path {
     display: flex;
     align-items: center;
     position: absolute;
-    width: 100%;
+    width: 33%;
     transition: transform 0.7s cubic-bezier(0.25, 0.6, 0, 1);
 }
 .ym-txt {
@@ -186,8 +189,8 @@ svg#y > g#main.pre-spawn path {
     font-size: clamp(16px, 3vw, 28px);
     font-weight: 800;
     text-decoration: none;
-    background-color: var(--y-b);
-    padding: clamp(10px, 2vw, 22px) clamp(12px, 2.5vw, 40px);
+    background-color: var(--y-b1);
+    padding: clamp(10px, 2vw, 20px) clamp(12px, 2.5vw, 40px);
     opacity: 1;
     transition: 0.8s cubic-bezier(0.25, 0.7, 0, 1),
                 opacity 0.6s,
@@ -196,16 +199,14 @@ svg#y > g#main.pre-spawn path {
     letter-spacing: 1px;
 }
 .ym-txt:first-child {
-    left: var(--ynav-m-space);
-    transform: translateX(-50%);
+    right: 100%;
 }
 .ym-txt:last-child {
-    right: var(--ynav-m-space);
-    transform: translateX(50%);
+    left: 100%;
 }
 .ym-txt > span {
-    color: var(--y-b);
-    background-color: var(--y-w);
+    color: var(--y-b1);
+    background-color: var(--y-w1);
     padding: clamp(0px, 2vw, 4px) clamp(10px, 2vw, 15px);
 }
 
@@ -221,7 +222,7 @@ svg#y > g#main.pre-spawn path {
     top: 0;
     height: 100%;
     width: var(--navttxt-w, 500px);
-    background-color: var(--y-b);
+    background-color: var(--y-b1);
 }
 .ym-txt:first-child::after {
     right: 99%;
@@ -234,10 +235,10 @@ html[page="home"] #ym-txt-c {
     transform: scale(1.15);
 }
 html[page="projects"] #ym-txt-c {
-    transform: skewY(-7.5deg);
+    transform: skewY(var(--shearY-p));
 }
-html[page="projects"] #ym-txt-c {
-    transform: skewY(-7.5deg);
+html[page="about"] #ym-txt-c {
+    transform: skewY(0deg);
 }
 
 
@@ -259,7 +260,7 @@ main#swup {display: block;
 /*/ PROJECT LISTS /*/
 div[accordion-scroll] {
     /*background-color: var(--y-b2);*/
-    transform: skewY(-7.5deg);
+    transform: skewY(var(--shearY-p));
 }
 div[accordion-content] {
     visibility: hidden;
@@ -282,7 +283,7 @@ div[accordion-content] {
     content: "";
     position: absolute;
     width: 100%;
-    background-color: var(--y-w);
+    background-color: var(--y-w1);
     height: 75px;
     bottom: 100%;
 }
@@ -313,7 +314,7 @@ div[accordion-content] {
     width: 100%;
     padding: var(--acc-btn-padding) 0;
     transform: scale(1.01);
-    background-color: var(--y-b);
+    background-color: var(--y-b1);
     outline: solid 1px transparent;
     transition-property: background-color, opacity !important;
     cursor: pointer;
@@ -327,7 +328,7 @@ div[accordion-content] {
     transform: scale(1);
     text-align: center;
     white-space: nowrap;
-    background-color: var(--y-w);
+    background-color: var(--y-w1);
     transition-property: background-color, transform !important;
 }
 .acclist-t-span {
@@ -336,7 +337,7 @@ div[accordion-content] {
     font-size: clamp(23px, 3vw, 42px);
     font-weight: 800;
     letter-spacing: 2px;
-    color: var(--y-b);
+    color: var(--y-b1);
     transform: scaleX(0.95);
     transition-property: color, opacity, letter-spacing !important;
 }
@@ -372,7 +373,7 @@ div[accordion-content] {
 }
 .acclist-item[state^="open"] .acclist-title {
     transform: scale(1);
-    background-color: var(--y-b);
+    background-color: var(--y-b1);
 }
 .acclist-item[state^="open"] .acclist-t-span {
     letter-spacing: 10px;
@@ -389,20 +390,20 @@ div[accordion-content] {
 .acclist-item.special .acclist-btn,
 .acclist-item.special[state^="open"] .acclist-title,
 .acclist-item.special[state^="open"] .acclist-btn:hover .acclist-title {
-    background-color: var(--y-b);
+    background-color: var(--y-b1);
 }
 .acclist-item.special .acclist-title {
-    background-color: var(--y-b);
+    background-color: var(--y-b1);
 }
 .acclist-item.special .acclist-t-span {
-    color: var(--y-w);
+    color: var(--y-w1);
 }
 .acclist-item.special .acclist-btn:hover .acclist-title,
 .acclist-item.special[state^="open"] .acclist-btn {
-    background-color: var(--y-w);
+    background-color: var(--y-w1);
 }
 .acclist-item.special:not([state^="open"]) .acclist-btn:hover .acclist-t-span {
-    color: var(--y-b);
+    color: var(--y-b1);
 }
 
 .acc-spacer {
@@ -476,8 +477,8 @@ div[accordion-content] {
     padding: clamp(8px, 1vw, 15px) clamp(20px, 2vw, 30px);
     font-size: clamp(15px, 2vw, 27px);
     white-space: nowrap;
-    color: var(--y-b);
-    background-color: var(--y-w);
+    color: var(--y-b1);
+    background-color: var(--y-w1);
     transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1),
                 color 1.2s cubic-bezier(0.2, 0.4, 0, 1),
                 background-color 1.5s cubic-bezier(0.3, 0.6, 0, 1),
@@ -510,8 +511,8 @@ div[accordion-content] {
     transition: 0.7s cubic-bezier(0.05, 0.7, 0, 1);
 }
 .al-card.focus .p-title, .p-title:focus {
-    color: var(--y-w);
-    background-color: var(--y-b);
+    color: var(--y-w1);
+    background-color: var(--y-b1);
     transition: 0.7s cubic-bezier(0.05, 0.7, 0, 1),
                 color 0.9s cubic-bezier(0.1, 0.25, 0, 1),
                 background-color 0.9s cubic-bezier(0.05, 0.5, 0, 1) !important;
@@ -542,7 +543,7 @@ div[project-popup] {
     width: 100%;
     height: 100%;
     opacity: 0.9;
-    background-color: var(--y-b);
+    background-color: var(--y-b1);
     transition: opacity 0.45s ease;
 }
 .project-popup.out .pp-bg {
@@ -553,7 +554,7 @@ div[project-popup] {
     position: fixed;
     transform: scale(1);
     opacity: 1;
-    background-color: var(--y-w);
+    background-color: var(--y-w1);
     transition: transform 0.8s cubic-bezier(0.3, 0.8, 0, 1),
                 opacity 0.4s,
                 0.6s cubic-bezier(0.4, 0.6, 0, 1);
@@ -640,7 +641,7 @@ div[project-popup] {
 }
 .pp-title {
     padding: 10px 30px 15px;
-    background-color: var(--y-b);
+    background-color: var(--y-b1);
 }
 .pp-t-plus {
     display: flex;
@@ -650,7 +651,7 @@ div[project-popup] {
     letter-spacing: 4px;
     font-weight: 700;
     word-wrap: normal;
-    color: var(--y-w);
+    color: var(--y-w1);
 }
 .pp-title > span#big {
     font-size: clamp(22px, 2.2vw, 42px);
@@ -659,7 +660,7 @@ div[project-popup] {
     padding-bottom: 5px;
     letter-spacing: 4px;
     font-weight: 800;
-    color: var(--y-w);
+    color: var(--y-w1);
 }
 .pp-t-plus span {
     padding: 3px 10px 2.5px;
@@ -668,12 +669,12 @@ div[project-popup] {
     font-weight: 600;
     line-height: 1;
     color: var(--y-b2);
-    background-color: var(--y-w);
+    background-color: var(--y-w1);
     transition: 0.7s cubic-bezier(0.3, 0.7, 0, 1);
     transition-property: color, background-color;
 }
 .pp-t-plus span:hover {
-    color: var(--y-b);
+    color: var(--y-b1);
     background-color: var(--y-w2);
 }
 
@@ -706,7 +707,7 @@ div[project-popup] {
     transform: translate(-50%, -50%) scale(0);
     width: clamp(25px, 4vw, 40px);
     height: clamp(25px, 4vw, 40px);
-    stroke: var(--y-w);
+    stroke: var(--y-w1);
     stroke-width: 0;
     opacity: 0;
     transition: transform 0.6s cubic-bezier(0.2, 0.75, 0, 1),
@@ -843,8 +844,8 @@ section[pp-suType="interact"] .pp-scaleup::after {
     padding: 10px 20px 10px 20px;
     font-size: clamp(14px, 1vw, 16px);
     opacity: 1;
-    background-color: var(--y-b);
-    color: var(--y-w);
+    background-color: var(--y-b1);
+    color: var(--y-w1);
     transition-property: opacity, background-color;
 }
 .project-popup.pscaleup section[pp-suType="img"] .pp-scaleup {

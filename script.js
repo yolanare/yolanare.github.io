@@ -15,6 +15,12 @@ var doc = document.documentElement,
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
 
+function getPageID() {
+    pathDir = ((window.location.pathname).replace(/\/[^/]*$/, '')).replace(/^\//, '');
+    if(window.location.pathname == '/' || window.location.pathname == '/index.html') { pathDir = 'home'; }
+    return pathDir;
+}
+
 var o1 = [null, 33]; if(!isMini) { o1 = [true, 20]; };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -273,7 +279,7 @@ function ppSUHeight() {
     if(window.innerWidth <= 1200) { doc.style.setProperty('--pp-popup-c-h-su', Math.round(window.innerHeight * 0.8525) + 'px'); }
 }
 function navTxtW() {
-    doc.style.setProperty('--navttxt-w', Math.round(container.offsetWidth / 4 + 100) + 'px');
+    doc.style.setProperty('--navttxt-w', Math.round(container.offsetWidth / 3) + 'px');
 } navTxtW();
 window.addEventListener('resize', navTxtW);
 
@@ -295,32 +301,27 @@ var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/2259
 
 var isScrolling;
 function scrollAccordion() {
-    var speed = checkScrollSpeed(), space = 0,
-        items = Object.values(doc.querySelector('div[accordion-scroll]').children);
-    if(speed[1]) { items.reverse(); }
-    items.forEach((item) => {
-        space += -speed[0] / 2;
-        item.style.transitionTimingFunction = null;
-        item.style.transform = 'translate3d(0px, '+ space +'px, 0px)';
-    })
-    window.clearTimeout(isScrolling);
-	isScrolling = setTimeout(function() { items.forEach((item) => {
-        item.style.transitionTimingFunction = 'cubic-bezier(0.2, 0.7, 0, 1)';
-        item.style.transform = null;
-    })
-	}, 75);
+    if(pathDir == 'projects') {
+        var speed = checkScrollSpeed(), space = 0,
+            items = Object.values(doc.querySelector('div[accordion-scroll]').children);
+        if(speed[1]) { items.reverse(); }
+        items.forEach((item) => {
+            space += -speed[0] / 2;
+            item.style.transitionTimingFunction = null;
+            item.style.transform = 'translate3d(0px, '+ space +'px, 0px)';
+        })
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(function() { items.forEach((item) => {
+            item.style.transitionTimingFunction = 'cubic-bezier(0.2, 0.7, 0, 1)';
+            item.style.transform = null;
+        })
+        }, 75);
+    }
 }
 
 function init() {
-    // container.addEventListener('scroll', scrollAccordion)
-
     var nav = document.querySelector('nav');
 
-    function getPageID() {
-        pathDir = ((window.location.pathname).replace(/\/[^/]*$/, '')).replace(/^\//, '');
-        if(window.location.pathname == '/' || window.location.pathname == '/index.html') { pathDir = 'home'; }
-        return pathDir;
-    }
     getPageID();
     doc.setAttribute('page', pathDir);
 
@@ -379,7 +380,7 @@ function init() {
 
         function openProjectCardPopup(ev, p, item) {
             p.classList.add('focus');
-            scrollbarMain.options('overflowBehavior.y', 'hidden')
+            scrollbarMain.options('overflowBehavior.y', 'hidden');
             
             function closeProjectCardPopup() {
                 scrollbarMain.options('overflowBehavior.y', 'scroll');
