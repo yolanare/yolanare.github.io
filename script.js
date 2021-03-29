@@ -267,6 +267,11 @@ function removeClassAll(path, c) {
     if(elems) { elems.forEach(function(el) { el.classList.remove(c); }); }
 }
 
+function navTxtW() {
+    doc.style.setProperty('--navttxt-w', Math.round(container.offsetWidth / 3) + 'px');
+} navTxtW();
+window.addEventListener('resize', navTxtW);
+
 function resizeAccC() {
     doc.querySelectorAll('section.acclist-item[state^=open]').forEach((a) => {
         var accc = a.querySelector('.acclist-content');
@@ -278,10 +283,6 @@ function resizeAccC() {
 function ppSUHeight() {
     if(window.innerWidth <= 1200) { doc.style.setProperty('--pp-popup-c-h-su', Math.round(window.innerHeight * 0.8525) + 'px'); }
 }
-function navTxtW() {
-    doc.style.setProperty('--navttxt-w', Math.round(container.offsetWidth / 3) + 'px');
-} navTxtW();
-window.addEventListener('resize', navTxtW);
 
 var checkScrollSpeed = (function(settings){ // (https://stackoverflow.com/a/22599173)
     settings = settings || {};
@@ -383,6 +384,7 @@ function init() {
             scrollbarMain.options('overflowBehavior.y', 'hidden');
             
             function closeProjectCardPopup() {
+                swup.off('animationOutStart', closeProjectCardPopupAuto);
                 scrollbarMain.options('overflowBehavior.y', 'scroll');
                 var allFocused = doc.querySelectorAll('div[accordion-scroll] .focus');
                 if(allFocused) { allFocused.forEach((f) => { f.classList.remove('focus'); })}
@@ -394,6 +396,7 @@ function init() {
                 setTimeout(() => { closeFake.classList.add('hid'); }, 1);
                 setTimeout(() => { projectPopup.scrollbarPP.destroy(); projectPopup.remove(); }, 1000);
             }
+            function closeProjectCardPopupAuto() { if(projectPopup) { closeProjectCardPopup(); }}
 
             var projectPopup = document.createElement('div');
             projectPopup.classList.add('project-popup');
@@ -530,7 +533,7 @@ function init() {
             }
             // CLOSE
             setTimeout(() => {
-                ppBG.addEventListener('click', () => { closeProjectCardPopup() });
+                ppBG.addEventListener('click', () => { closeProjectCardPopup(); });
             }, 350); // security in case of multi-clicks
             
             // ANIMATIONS
@@ -547,6 +550,8 @@ function init() {
             // PROJECT SCALE UP
             function projScaleUp() { projectPopup.classList.toggle('pscaleup'); }
             projectPopup.querySelector('.pp-scaleup').addEventListener('click', projScaleUp)
+
+            swup.on('animationOutStart', closeProjectCardPopupAuto);
         }
 
         allAccItems.forEach((item) => {
