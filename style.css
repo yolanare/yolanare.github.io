@@ -257,6 +257,62 @@ main#swup {display: block;
 }
 
 
+/*-/ ABOUT /-*/
+#parcoursup-cs {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    margin: 0 22%;
+}
+#pscs-title {
+    z-index: 1;
+    box-sizing: border-box;
+    position: relative;
+    width: calc(100% - 100px * 2);
+    padding: 17px 30px 12px;
+    background-color: var(--y-b1);
+    color: var(--y-w1);
+}
+#parcoursup-cs h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+#parcoursup-cs h1 {
+    margin: 0;
+    font-size: 45px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+}
+#pscs-txt-c {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: translateY(50%);
+}
+#pscs-txt {
+    position: relative;
+    padding: 75px 100px 50px;
+    font-size: 21.5px;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+    line-height: 1.35;
+    background-color: var(--y-w2);
+    color: var(--y-b1);
+}
+#pscs-txt-spacer {
+    position: relative;
+    width: 1px;
+    height: 15vw;
+    opacity: 0;
+}
+
+
+
 /*/ PROJECT LISTS /*/
 div[accordion-scroll] {
     /*background-color: var(--y-b2);*/
