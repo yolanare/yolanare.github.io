@@ -604,3 +604,7 @@ function init() {
 }
 init();
 swup.on('contentReplaced', init);
+
+swup.on('animationOutStart', function() {
+    doc.querySelector('.os-viewport').scrollTo({top: 0, behavior: 'smooth'});
+});
