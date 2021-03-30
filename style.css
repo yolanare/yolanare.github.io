@@ -161,7 +161,9 @@ svg#y > g[id]:hover polygon,
 svg#y > g[id]:hover path {
     transition: fill 0.5s cubic-bezier(0.2, 0.7, 0, 1);
 }
-svg#y > g[id]:hover polygon {
+svg#y > g[id]:hover polygon,
+html[page="about"] svg#y > g#float polygon,
+html[page="projects"] svg#y > g#main polygon {
     fill: var(--y-w2);
 }
 svg#y > g[id]:hover path {
@@ -181,6 +183,8 @@ svg#y > g#main.pre-spawn > g {
     transform: rotateZ(50deg);
 }
 
+nav.pre-spawn svg#y > g#float polygon,
+svg#y > g#main.pre-spawn polygon,
 nav.pre-spawn svg#y > g#float path,
 svg#y > g#main.pre-spawn path {
     fill: var(--y-w1) !important;
@@ -194,36 +198,33 @@ svg#y > g#main.pre-spawn path {
     width: 33%;
     transition: transform 0.7s cubic-bezier(0.25, 0.6, 0, 1);
 }
-.ym-txt {
-    position: absolute;
-    font-size: clamp(16px, 3vw, 28px);
-    font-weight: 800;
-    text-decoration: none;
-    background-color: var(--y-b1);
-    padding: clamp(10px, 2vw, 20px) clamp(12px, 2.5vw, 40px);
-    opacity: 1;
-    transition: 0.8s cubic-bezier(0.25, 0.7, 0, 1),
-                opacity 0.6s,
-                font-size 0s;
-    user-select: none;
-    letter-spacing: 1px;
-}
-.ym-txt:first-child {
-    right: 100%;
-}
-.ym-txt:last-child {
-    left: 100%;
-}
-.ym-txt > span {
-    color: var(--y-b1);
-    background-color: var(--y-w1);
-    padding: clamp(0px, 2vw, 4px) clamp(10px, 2vw, 15px);
-}
-
 #ym-txt-c.pre-spawn .ym-txt {
     opacity: 0;
     left: 30vw;
     right: 30vw;
+}
+.ym-txt {
+    position: absolute;
+    font-size: clamp(15px, 3vw, 26px);
+    font-weight: 800;
+    text-decoration: none;
+    background-color: var(--y-b1);
+    padding: clamp(10px, 2vw, 17.5px) clamp(12px, 2.5vw, 50px);
+    opacity: 1;
+    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1),
+                0.5s cubic-bezier(0.2, 0.6, 0, 1),
+                0.9s cubic-bezier(0.25, 0.75, 0, 1),
+                0.6s ease, 0s;
+    cursor: pointer;
+    user-select: none;
+}
+.ym-txt#a {
+    right: 100%;
+    transition-property: right, padding, background-color, opacity, font-size;
+}
+.ym-txt#p {
+    left: 100%;
+    transition-property: left, padding, background-color, opacity, font-size;
 }
 
 .ym-txt::after {
@@ -233,12 +234,72 @@ svg#y > g#main.pre-spawn path {
     height: 100%;
     width: var(--navttxt-w, 500px);
     background-color: var(--y-b1);
+    transition: background-color 0.9s cubic-bezier(0.25, 0.75, 0, 1);
 }
-.ym-txt:first-child::after {
-    right: 99%;
+.ym-txt#a::after {
+    right: 95%;
 }
-.ym-txt:last-child::after {
-    left: 99%;
+.ym-txt#p::after {
+    left: 95%;
+}
+
+.ym-txt > span {
+    display: block;
+    padding: clamp(0px, 2vw, 4px) clamp(10px, 2vw, 15px);
+    transform: scale(1);
+    letter-spacing: 1.5px;
+    color: var(--y-b1);
+    background-color: var(--y-w1);
+    transition: transform 0.5s cubic-bezier(0.2, 0.6, 0, 1),
+                color 0.8s cubic-bezier(0.25, 0.7, 0, 1),
+                background-color 0.8s cubic-bezier(0.25, 0.7, 0, 1);
+}
+
+html:not([page="about"]) .ym-txt#a:hover,
+html:not([page="projects"]) .ym-txt#p:hover {
+    padding: clamp(15px, 50vw, 25px) clamp(20px, 50vw, 25px);
+}
+html:not([page="about"]) .ym-txt#a:active,
+html:not([page="projects"]) .ym-txt#p:active {
+    padding: clamp(15px, 50vw, 25px) clamp(20px, 50vw, 30px);
+}
+.ym-txt#a:hover {
+    right: 93.5%;
+}
+.ym-txt#p:hover {
+    left: 93.5%;
+}
+html[page="about"] .ym-txt#a:hover {
+    right: 98%;
+}
+html[page="projects"] .ym-txt#p:hover {
+    left: 98%;
+}
+.ym-txt#a:active {
+    right: 90%;
+}
+.ym-txt#p:active {
+    left: 90%;
+}
+
+html:not([page="about"]) .ym-txt#a:active > span,
+html:not([page="projects"]) .ym-txt#p:active > span {
+    transform: scale(0.85);
+    transition: transform 0.3s cubic-bezier(0.1, 0.6, 0, 1),
+                color 0.8s cubic-bezier(0.25, 0.7, 0, 1),
+                background-color 0.8s cubic-bezier(0.25, 0.7, 0, 1);
+}
+
+html[page="about"] .ym-txt#a,
+html[page="about"] .ym-txt#a::after,
+html[page="projects"] .ym-txt#p,
+html[page="projects"] .ym-txt#p::after {
+    background-color: var(--y-w2);
+}
+html[page="about"] .ym-txt#a > span,
+html[page="projects"] .ym-txt#p > span {
+    color: var(--y-w1);
+    background-color: var(--y-b2);
 }
 
 html[page="home"] #ym-txt-c {
@@ -253,11 +314,17 @@ html[page="about"] #ym-txt-c {
 
 
 /*--/ CONTENT /--*/
+@keyframes c-opacity-in {
+    0% { opacity: 0; }
+    40% { opacity: 0; }
+    100% { opacity: 1; }
+}
 #content-container {
     position: absolute;
     width: 100%;
     top: calc(var(--content-top) + var(--ynav-padding) * 2);
     left: 0;
+    animation: c-opacity-in 1.2s cubic-bezier(0.35, 0.4, 0, 1);
 }
 
 main#swup {display: block;
