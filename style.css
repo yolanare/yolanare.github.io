@@ -3,13 +3,16 @@
     --y-w2: rgb(250, 253, 255);
     --y-b1: rgb(29, 31, 32);
     --y-b2: rgb(40, 42, 45);
+    --y-g1: rgb(204, 206, 208); /*rgba(128, 128, 128, 0.3) on --y-w1*/
 
     --shearY-p: -6deg;
     --shearY-a: 5deg;
 
+    --ymtxt-tr-pos: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+
     --ynav-m-space: 21vw;
     --ynav-padding: 10vh;
-    --content-top: 25%;
+    --content-top: clamp(150px, 3vw, 430px);
 }
 ::selection {
     color: inherit;
@@ -112,6 +115,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -126,67 +130,72 @@ svg#y {
 }
 
 /* (temporary) Y SPAWN ANIMATION */
-svg#y > g[id] {
-    transform: translate(0);
+svg#y g {
+    stroke-width: 0;
+}
+svg#y g[link] {
     cursor: pointer;
 }
+svg#y g[id] {
+    transform: translate(0);
+}
 
-svg#y > g#float {
+svg#y g#float {
     transition: transform 0.7s cubic-bezier(0.4, 0.8, 0, 1);
 }
-svg#y > g#main {
+svg#y g#main {
     transition: transform 0.65s cubic-bezier(0.5, 0.8, 0, 1);
 }
 
-svg#y > g[id] > g {
+svg#y g[id] > g {
     transform: rotateZ(0);
     transform-origin: center;
 }
-svg#y > g#float > g {
+svg#y g#float > g {
     transition: transform 0.7s 0.1s cubic-bezier(0.2, 0.7, 0, 1);
 }
-svg#y > g#main > g {
+svg#y g#main > g {
     transition: transform 0.3s cubic-bezier(0, 0.55, 0, 1);
 }
 
-svg#y > g[id] path {
+svg#y g[id] path {
     fill: var(--y-b1);
     transition: fill 0.8s cubic-bezier(0.6, 0.7, 0, 1);
 }
-svg#y > g[id] polygon {
+svg#y g[id] polygon {
     fill: var(--y-w1);
     transition: fill 0.4s 50ms ease-out;
 }
-svg#y > g[id]:hover polygon,
-svg#y > g[id]:hover path {
+svg#y g[id]:hover polygon,
+svg#y g[id]:hover path {
     transition: fill 0.5s cubic-bezier(0.2, 0.7, 0, 1);
 }
-svg#y > g[id]:hover polygon,
-html[page="about"] svg#y > g#float polygon,
-html[page="projects"] svg#y > g#main polygon {
+svg#y g[id]:hover polygon,
+html[page="about"] svg#y g#float polygon,
+html[page="projects"] svg#y g#main polygon {
     fill: var(--y-w2);
 }
-svg#y > g[id]:hover path {
+svg#y g[id]:hover path {
     fill: var(--y-b2);
 }
 
-nav.pre-spawn svg#y > g#float {
+nav.pre-spawn svg#y g#float {
     transform: translate(15px, 10px);
 }
-nav.pre-spawn svg#y > g#float > g {
+nav.pre-spawn svg#y g#float > g {
     transform: rotateZ(-25deg);
 }
-svg#y > g#main.pre-spawn {
+svg#y g#main.pre-spawn {
     transform: translate(11.5px, -20px);
 }
-svg#y > g#main.pre-spawn > g {
+svg#y g#main.pre-spawn > g {
     transform: rotateZ(50deg);
 }
 
-nav.pre-spawn svg#y > g#float polygon,
-svg#y > g#main.pre-spawn polygon,
-nav.pre-spawn svg#y > g#float path,
-svg#y > g#main.pre-spawn path {
+nav.pre-spawn svg#y g#float polygon,
+svg#y g#main.pre-spawn polygon,
+nav.pre-spawn svg#y g#float path,
+svg#y g#main.pre-spawn path {
     fill: var(--y-w1) !important;
 }
 
@@ -211,20 +220,13 @@ svg#y > g#main.pre-spawn path {
     background-color: var(--y-b1);
     padding: clamp(10px, 2vw, 17.5px) clamp(12px, 2.5vw, 50px);
     opacity: 1;
-    transition: 0.7s cubic-bezier(0.1, 0.7, 0, 1),
-                0.5s cubic-bezier(0.2, 0.6, 0, 1),
-                0.9s cubic-bezier(0.25, 0.75, 0, 1),
-                0.6s ease, 0s;
+    transition: right var(--ymtxt-tr-pos), left var(--ymtxt-tr-pos),
+                padding 0.5s cubic-bezier(0.2, 0.6, 0, 1),
+                background-color 0.8s cubic-bezier(0.35, 0.7, 0, 1),
+                opacity 0.6s ease,
+                font-size 0s;
     cursor: pointer;
     user-select: none;
-}
-.ym-txt#a {
-    right: 100%;
-    transition-property: right, padding, background-color, opacity, font-size;
-}
-.ym-txt#p {
-    left: 100%;
-    transition-property: left, padding, background-color, opacity, font-size;
 }
 
 .ym-txt::after {
@@ -232,9 +234,9 @@ svg#y > g#main.pre-spawn path {
     position: absolute;
     top: 0;
     height: 100%;
-    width: var(--navttxt-w, 500px);
+    width: 100vw;
     background-color: var(--y-b1);
-    transition: background-color 0.9s cubic-bezier(0.25, 0.75, 0, 1);
+    transition: background-color 0.8s cubic-bezier(0.35, 0.7, 0, 1);
 }
 .ym-txt#a::after {
     right: 95%;
@@ -263,25 +265,6 @@ html:not([page="about"]) .ym-txt#a:active,
 html:not([page="projects"]) .ym-txt#p:active {
     padding: clamp(15px, 50vw, 25px) clamp(20px, 50vw, 30px);
 }
-.ym-txt#a:hover {
-    right: 93.5%;
-}
-.ym-txt#p:hover {
-    left: 93.5%;
-}
-html[page="about"] .ym-txt#a:hover {
-    right: 98%;
-}
-html[page="projects"] .ym-txt#p:hover {
-    left: 98%;
-}
-.ym-txt#a:active {
-    right: 90%;
-}
-.ym-txt#p:active {
-    left: 90%;
-}
-
 html:not([page="about"]) .ym-txt#a:active > span,
 html:not([page="projects"]) .ym-txt#p:active > span {
     transform: scale(0.85);
@@ -310,6 +293,34 @@ html[page="projects"] #ym-txt-c {
 }
 html[page="about"] #ym-txt-c {
     transform: skewY(0deg);
+}
+
+/*- Y NAV BOOM -*/
+#ynav-boom,
+#ynav-boom-1 {
+    z-index: 0;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+#ynav-boom-1 {
+    z-index: -1;
+}
+.ynav-boom {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+#ynav-boom circle {
+    opacity: 0.75;
+    fill: var(--y-w2);
+}
+#ynav-boom-1 circle {
+    opacity: 0.05;
+    fill: var(--y-b2);
 }
 
 
@@ -1224,6 +1235,33 @@ section[pp-suType="interact"] .pp-scaleup::after {
                         transform 0s,
                         height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
     }
+
+
+    .ym-txt#a {
+        right: 100%;
+    }
+    .ym-txt#p {
+        left: 100%;
+    }
+    .ym-txt#a:hover {
+        right: 93.5%;
+    }
+    .ym-txt#p:hover {
+        left: 93.5%;
+    }
+    html[page="about"] .ym-txt#a:hover {
+        right: 98%;
+    }
+    html[page="projects"] .ym-txt#p:hover {
+        left: 98%;
+    }
+    .ym-txt#a:active {
+        right: 90%;
+    }
+    .ym-txt#p:active {
+        left: 90%;
+    }
+    
     
 
     .al-card {
@@ -1243,6 +1281,29 @@ section[pp-suType="interact"] .pp-scaleup::after {
                     opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
                     transform 0s,
                     height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
+    }
+
+    html[page="home"] #ymenu-c {
+        height: 50%;
+    }#ymenu-c {
+        height: 50%;
+        transition: height 0.8s cubic-bezier(0.7, 0.8, 0, 1);
+    }
+    #ym-txt-c {
+        width: 20vw;
+        height: 115%;
+        pointer-events: none;
+    }
+    #ym-txt-c > * {
+        pointer-events: all;
+    }
+    .ym-txt#a {
+        bottom: 100%;
+        left: 50%;
+    }
+    .ym-txt#p {
+        top: 100%;
+        right: 50%;
     }
 
     #parcoursup-cs {

@@ -267,11 +267,6 @@ function removeClassAll(path, c) {
     if(elems) { elems.forEach(function(el) { el.classList.remove(c); }); }
 }
 
-function navTxtW() {
-    doc.style.setProperty('--navttxt-w', Math.round(container.offsetWidth / 3) + 'px');
-} navTxtW();
-window.addEventListener('resize', navTxtW);
-
 function resizeAccC() {
     doc.querySelectorAll('section.acclist-item[state^=open]').forEach((a) => {
         var accc = a.querySelector('.acclist-content');
@@ -340,24 +335,28 @@ function init() {
         nav.innerHTML = `
             <div id="ymenu-c">
                 <svg id="y" viewBox="0 0 25 25">
-                    <g id="float"> 
-                        <g>
-                            <polygon points="6.3,3.3 14,9.2 9.4,10.3"/>
-                            <path d="M8.8,6.5l2.9,2.2L10,9.1L8.8,6.5 M3.8,0.2l5,11.3l7.4-1.8L3.8,0.2L3.8,0.2z"/>
+                    <g link="home">
+                        <g id="float"> 
+                            <g>
+                                <polygon points="6.3,3.3 14,9.2 9.4,10.3"/>
+                                <path d="M8.8,6.5l2.9,2.2L10,9.1L8.8,6.5 M3.8,0.2l5,11.3l7.4-1.8L3.8,0.2L3.8,0.2z"/>
+                            </g>
                         </g>
-                    </g>
-                    <g id="main" class="pre-spawn">
-                        <g>
-                            <polygon points="9.9,11.8 18.8,3.8 12,21.4"/>
-                            <path d="M16.3,7.4L15,10.8l-1,2.7l-1.7,4.4L11,12.2L16.3,7.4 M21.2,0.2L21.2,0.2L21.2,0.2z M21.2,0.2L8.8,11.5l2.9,13.4l4.1-10.7 l1-2.7L21.2,0.2L21.2,0.2z"/>
+                        <g id="main" class="pre-spawn">
+                            <g>
+                                <polygon points="9.9,11.8 18.8,3.8 12,21.4"/>
+                                <path d="M16.3,7.4L15,10.8l-1,2.7l-1.7,4.4L11,12.2L16.3,7.4 M21.2,0.2L21.2,0.2L21.2,0.2z M21.2,0.2L8.8,11.5l2.9,13.4l4.1-10.7 l1-2.7L21.2,0.2L21.2,0.2z"/>
+                            </g>
                         </g>
                     </g>
                 </svg>
                 <div id="ym-txt-c" class="pre-spawn">
-                    <a id="a" class="ym-txt" href="/about/"><span>About</span></a>
-                    <a id="p" class="ym-txt" href="/projects/"><span>Projects</span></a>
+                    <a id="a" class="ym-txt" link="about"><span>About</span></a>
+                    <a id="p" class="ym-txt" link="projects"><span>Projects</span></a>
                 </div>
             </div>
+            <div id="ynav-boom"></div>
+            <div id="ynav-boom-1"></div>
         `;
 
         //- SPAWN ANIMATION
@@ -367,14 +366,80 @@ function init() {
 
         setTimeout(() => {
             removePreSpawn('nav');
-            setTimeout(() => { removePreSpawn('svg#y > g#main'); }, 50);
+            setTimeout(() => { removePreSpawn('svg#y g#main'); }, 50);
             setTimeout(() => {
                 nav.style.zIndex = null;
                 removePreSpawn('#ym-txt-c');
             }, 225);
         }, 300);
 
-        nav.querySelectorAll('svg#y > g').forEach((g) => { g.addEventListener('click', () => { swup.loadPage({ url: '/' }); })})
+
+        function yNavBoom(ev, histbr, l) {
+            if(histbr == true) { ev = getPageID(); }
+            if(l == null) { l = nav.querySelector('*[link='+ ev +']'); }
+            var lLinkID = l.getAttribute('link'), lLink;
+
+            function boom(h) {
+                var pageW = doc.clientWidth,
+                    pageH = doc.clientHeight;
+
+                if(histbr == false) { // normal
+                    var curX = ev.clientX,
+                        curY = ev.clientY,
+                        bcX = (curX / 100),
+                        bcY = (curY / 100),
+                        bcRW = pageW - curX,
+                        bcRH = pageH - (pageH - curY);
+                    if(curX > (pageW / 2)) { bcRW = pageW - (pageW - curX); }
+                    if(curY < (pageH / 2)) { bcRH = pageH - curY; }
+                } else { // history browsing
+                    var bcEl = l,
+                        bcElRect = bcEl.getBoundingClientRect(),
+                        bcElX = bcElRect.left + (bcElRect.width / 2),
+                        bcElY = bcElRect.top + (bcElRect.height / 2),
+                        bcX = (Math.round(bcElX) / 100),
+                        bcY = (Math.round(bcElY) / 100),
+                        bcRW = pageW - (bcElX),
+                        bcRH = pageH - (pageH - bcElY);
+                    if(bcElX > (pageW / 2)) { bcRW = pageW - (pageW - bcElX); }
+                    if(bcElY < (pageH / 2)) { bcRH = pageH - (bcElY); }
+                }
+
+                var boom = document.createElement('div');
+                boom.classList.add('ynav-boom');
+                boom.innerHTML = `
+                <svg id="boom" viewBox="0 0 `+ (pageW / 100) +` `+ (pageH / 100) +`">
+                    <circle cx="`+ bcX +`" cy="`+ bcY +`" r="0"></circle>
+                </svg>
+                `;
+                var boomC = boom.querySelector('circle');
+                
+                if(h == '-1') { document.querySelector('#ynav-boom-1').appendChild(boom);
+                } else { document.querySelector('#ynav-boom').appendChild(boom); }
+
+                setTimeout(function() {
+                    boomC.style.transition = 'r 0.9s cubic-bezier(0.4, 0.7, 0, 1), opacity 1.1s ease-in-out';
+                    nlCR = (Math.round(((bcRW)**2 + (bcRH)**2)**(1/2)) / 100) + 0.1;
+                    boomC.setAttribute('r', nlCR);
+                    boomC.style.opacity = '0';
+                    setTimeout(function() {
+                        boom.remove();
+                    }, 1100);
+                }, 10);
+            }
+
+            if(doc.getAttribute('page') != lLinkID) {
+                doc.setAttribute('page', lLinkID);
+                if(lLinkID != 'home') { lLink = lLinkID + '/'; } else { lLink = ''; }
+                if(histbr == false) { swup.loadPage({ url: '/' + lLink }); }
+                boom(null);
+            } else {
+                if(lLinkID == 'home') { boom('-1'); }
+            }
+        }
+
+        nav.querySelectorAll('*[link]').forEach((l) => { l.addEventListener('click', function(ev) { yNavBoom(ev, false, l)})});
+        swup.on('popState', function() { yNavBoom(null, true, null); });
     }
 
     if(pathDir != 'home') {
