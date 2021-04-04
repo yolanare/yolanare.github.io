@@ -325,8 +325,8 @@ function scrollAccordion() {
 }
 
 function init() {
-    var nav = document.querySelector('nav'),
-        accScroll = doc.querySelector('div[accordion-scroll]');
+    var nav = document.querySelector('nav');
+    accScroll = doc.querySelector('div[accordion-scroll]');
 
     getPageID(); doc.setAttribute('page', pathDir); doc.setAttribute('page2', pathDir);
 
