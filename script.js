@@ -189,6 +189,17 @@ var projectsDesc = {
             <br>J'ai même ajouté des effets sonores pour enrichir l'ambiance.</p>
         `,
     },
+    'i_jfm' : {
+        type : 'vid',
+        suType : 'interact',
+        tag: "c",
+        url : 'Gyho58zddwg',
+        format : '16:9',
+        year : '2017',
+        month : '12',
+        desc : `
+        `,
+    },
     'i_y2' : {
         type : 'vid',
         suType : 'interact',
@@ -213,7 +224,6 @@ var projectsDesc = {
         year : '2017',
         month : '03',
         desc : `
-            <p></p>
         `,
     },
     'i_yc' : {
