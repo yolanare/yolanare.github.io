@@ -233,6 +233,154 @@ var projectsDesc = {
         `,
     },
 
+// BRANDINGS
+// -- YT
+    'b_l1_rs' : {
+        type : 'img',
+        imgExt : 'png',
+        suType : 'img',
+        tag: "rs",
+        year : '2018',
+        month : '06',
+        desc : `
+        `,
+    },
+    'b_l2_rs' : {
+        type : 'img',
+        imgExt : 'png',
+        suType : 'img',
+        tag: "rs",
+        year : '2019',
+        month : '01',
+        desc : `
+        `,
+    },
+    'b_b1_rs' : {
+        type : 'img',
+        suType : 'img',
+        tag: "rs",
+        year : '2018',
+        month : '09',
+        desc : `
+        `,
+    },
+    'b_l1_caloucath' : {
+        type : 'img',
+        imgExt : 'png',
+        suType : 'img',
+        tag: "c",
+        year : '2017',
+        month : '07',
+        desc : `
+        `,
+    },
+    'b_b1_caloucath' : {
+        type : 'img',
+        suType : 'img',
+        tag: "c",
+        year : '2017',
+        month : '05',
+        desc : `
+        `,
+    },
+    'b_b2_caloucath' : {
+        type : 'img',
+        suType : 'img',
+        tag: "c",
+        year : '2017',
+        month : '09',
+        desc : `
+        `,
+    },
+    'b_l1_ppm' : {
+        type : 'img',
+        imgExt : 'png',
+        suType : 'img',
+        tag: "c",
+        year : '2018',
+        month : '10',
+        desc : `
+        `,
+    },
+    'b_b1_ppm' : {
+        type : 'img',
+        suType : 'img',
+        tag: "c",
+        year : '2019',
+        month : '04',
+        desc : `
+        `,
+    },
+    'b_b1_mattmovie' : {
+        type : 'img',
+        suType : 'img',
+        tag: "c",
+        year : '2016',
+        month : '11',
+        desc : `
+        `,
+    },
+    'b_b2_mattmovie' : {
+        type : 'img',
+        suType : 'img',
+        tag: "c",
+        year : '2017',
+        month : '02',
+        desc : `
+        `,
+    },
+
+// -- STANDALONES
+    'b_l1_jethro' : {
+        type : 'img',
+        imgExt : 'png',
+        white : true,
+        suType : 'img',
+        tag: "c",
+        year : '2018',
+        month : '12',
+        desc : `
+        `,
+    },
+    'b_l1_wzr' : {
+        type : 'img',
+        imgExt : 'png',
+        suType : 'img',
+        tag: "c",
+        year : '2017',
+        month : '09',
+        desc : `
+        `,
+    },
+    'b_l1_nensho' : {
+        type : 'img',
+        imgExt : 'png',
+        suType : 'img',
+        tag: "c",
+        year : '2017',
+        month : '05',
+        desc : `
+        `,
+    },
+    'b_b1_rezartilo' : {
+        type : 'img',
+        suType : 'img',
+        tag: "c",
+        year : '2017',
+        month : '01',
+        desc : `
+        `,
+    },
+    'b_b1_killex' : {
+        type : 'img',
+        suType : 'img',
+        tag: "c",
+        year : '2016',
+        month : '03',
+        desc : `
+        `,
+    },
+
 // POSTERS
     'pdf_apc_hpi' : {
         type : 'pdf',
@@ -310,7 +458,9 @@ function scrollAccordion() {
                 k+=1;
                 if(pathDir != 'about') { space += -speed[0] / 2; } else { space += -speed[0] * 1.25 ; }
                 spaceMax = Math.min(Math.max(space, -350), 350);
-                if(i.getAttribute('level') != "1") { spaceMax /= 3; }
+                if(i.getAttribute('level') != "1") { spaceMax /= 4; }
+                if(['opening', 'opened'].includes(i.getAttribute('state'))) { spaceMax /= 2;
+                    if(i.getAttribute('level') != "1") { spaceMax /= 2; } }
                 i.style.transitionTimingFunction = null;
                 i.style.transform = 'translate3d(0px, '+ spaceMax +'px, 0px)';
                 i.setAttribute('order', k)
@@ -479,9 +629,11 @@ function init() {
             pSpan = p.querySelector('.p-title > span');
 
             if(projectsDesc[p.id].type == 'img') {
-                imgMiniSRC = p.querySelector('.thumb').getAttribute('src');
+                var imgMiniSRC = p.querySelector('.thumb').getAttribute('src'),
+                    w = '';
+                if(projectsDesc[p.id].white == true) { w = ' white'; }
                 proj = `
-                    <div style="width:100%;height:100%;"><img class="pp-img" src="`+ imgMiniSRC +`" style="background-image: url(`+ imgMiniSRC +`);"></img></div>
+                    <div style="width:100%;height:100%;"><img class="pp-img`+ w +`" src="`+ imgMiniSRC +`" style="background-image: url(`+ imgMiniSRC +`);"></img></div>
                 `
             } else if(projectsDesc[p.id].type == 'vid') {
                 var format = projectsDesc[p.id].format, f;
@@ -569,10 +721,13 @@ function init() {
                 // Load Higher Res Picture (https://stackoverflow.com/a/54123157)
                 function loadHighResImage(elem, highResUrl) {
                     let image = new Image();
-                    image.addEventListener('load', () => elem.src = highResUrl);
+                    image.addEventListener('load', function() {
+                        elem.src = highResUrl;
+                        setTimeout(() => { elem.style.backgroundImage = null; }, 50);
+                    });
                     image.src = highResUrl;
                 };
-                loadHighResImage(projectPopup.querySelector('.pp-img'), '../src/projects/'+ item.id +'/'+ p.id +'.jpg');
+                loadHighResImage(projectPopup.querySelector('.pp-img'), '../src/projects/'+ item.id +'/'+ p.id +'.'+ (projectsDesc[p.id].imgExt || 'jpg'));
             }
 
             // Cursor Close on BG hover
