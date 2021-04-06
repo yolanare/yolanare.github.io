@@ -344,6 +344,12 @@ main#swup {display: block;
     overflow: visible !important;
 }
 
+.margin-bott {
+    position: relative;
+    width: 1px;
+    height: calc((15vw + 15vh) / 2);
+    opacity: 0;
+}
 
 /*-/ ABOUT /-*/
 #parcoursup-cs {
@@ -392,13 +398,6 @@ main#swup {display: block;
     background-color: var(--y-w2);
     color: var(--y-b1);
 }
-#pscs-txt-spacer {
-    position: relative;
-    width: 1px;
-    height: 15vw;
-    opacity: 0;
-}
-
 
 
 /*/ PROJECT LISTS /*/
