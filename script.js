@@ -594,10 +594,10 @@ function init() {
 
     if(pathDir != 'home') {
         nav.style.height = 'var(--content-top)';
-        doc.querySelector('svg#y').style.width = '20vw';
+        doc.querySelector('svg#y').style.height = '135%';
     } else {
         nav.style.height = null;
-        doc.querySelector('svg#y').style.width = null;
+        doc.querySelector('svg#y').style.height = null;
     }
 
     if(pathDir == 'projects') {

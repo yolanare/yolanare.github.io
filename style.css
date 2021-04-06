@@ -108,7 +108,7 @@ nav {
     width: 100%;
     height: calc(100% - (var(--ynav-padding) * 2));
     padding: var(--ynav-padding) 0;
-    transition: height 0.7s cubic-bezier(0.4, 0.7, 0, 1);
+    transition: height 0.65s cubic-bezier(0.4, 0.75, 0, 1);
     pointer-events: none;
 }
 #ymenu-c {
@@ -125,7 +125,7 @@ nav {
 svg#y {
     width: clamp(150px, 20vw, 400px);
     height: 100%;
-    transition: width 0.7s cubic-bezier(0.3, 0.7, 0, 1);
+    transition: height 0.5s cubic-bezier(0.2, 0.7, 0, 1);
     overflow: visible;
 }
 
@@ -205,7 +205,8 @@ svg#y g#main.pre-spawn path {
     align-items: center;
     position: absolute;
     width: 33%;
-    transition: transform 0.7s cubic-bezier(0.25, 0.6, 0, 1);
+    transition: 0.7s cubic-bezier(0.25, 0.6, 0, 1);
+    transition-property: transform;
 }
 #ym-txt-c.pre-spawn .ym-txt {
     opacity: 0;
@@ -1366,8 +1367,13 @@ section[pp-suType="interact"] .pp-scaleup::after {
     }
     #ym-txt-c {
         width: 20vw;
-        height: 115%;
+        height: 185%;
+        transition-property: transform, height;
+        transition-duration: 0.7s, 0.6s;
         pointer-events: none;
+    }
+    html[page2="home"] #ym-txt-c {
+        height: 115%;
     }
     #ym-txt-c > * {
         pointer-events: all;
