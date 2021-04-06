@@ -975,6 +975,54 @@ div[project-popup] {
     margin: 0.5em 0;
 }
 
+.pp-btn-c {
+    margin: 20px 0;
+    text-align: center;
+    user-select: none;
+}
+.pp-btn {
+    display: block;
+    padding: 15px 30px;
+    background-color: var(--y-w2);
+    color: var(--y-w1);
+    fill: var(--y-w1);
+    transition: 0.25s ease;
+    transition-property: color, fill;
+}
+.pp-btn > span {
+    display: inline-flex;
+    align-items: center;
+    padding: 7.5px 25px;
+    font-size: clamp(20px, 1.65vw, 26px);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transform: scale(1);
+    background-color: var(--y-b2);
+    transition: 0.7s cubic-bezier(0.1, 0.75, 0, 1),
+                0.25s ease;
+    transition-property: transform, background-color;
+}
+.pp-btn:hover,
+.pp-btn:active {
+    color: var(--y-w2);
+    fill: var(--y-w2);
+}
+.pp-btn:hover > span {
+    transform: scale(1.075);
+    background-color: var(--y-b1);
+}
+.pp-btn:active > span {
+    transform: scale(0.95);
+    transition: 0.3s cubic-bezier(0.1, 0.7, 0, 1);
+}
+
+.pp-btn svg {
+    margin-left: 0.5rem;
+    height: clamp(24px, 2vw, 28px);
+}
+
+
 /* PROJECT POPUP CLOSE CROSS */
 .pp-curclose,
 .pp-fakeclose {
@@ -1238,6 +1286,11 @@ section[pp-suType="interact"] .pp-scaleup::after {
     }
     .pp-desctxt {
         margin: 0 0.75rem;
+    }
+    .pp-btn-c {
+        position: relative;
+        left: -0.75rem;
+        width: calc(100% + 1.5rem);
     }
     .pp-title {
         padding: 10px 15px 15px;
