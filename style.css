@@ -541,6 +541,10 @@ div[accordion-content] {
 .acclist-item[state^="open"] .acclist-btn.lv1:active .acclist-title {
     background-color: var(--y-b2);
 }
+.acclist-item[state^="open"] .acclist-btn.lv1:hover .acclist-title {
+    transform: scale(0.98);
+    transition-duration: 0.4s;
+}
 .acclist-item[state^="open"] .acclist-btn.lv1:active .acclist-title {
     transform: scale(0.925) !important;
 }
@@ -586,7 +590,11 @@ div[accordion-content] {
 .acclist-item[level="2"][state^="open"] .acclist-btn:active .acclist-title {
     background-color: var(--y-b1);
 }
-.acclist-item[level="2"][state^="open"] .acclist-btn.lv2:active .acclist-title {
+.acclist-item[level="2"][state^="open"] .acclist-btn:hover .acclist-title {
+    transform: scale(0.785);
+    transition-duration: 0.4s;
+}
+.acclist-item[level="2"][state^="open"] .acclist-btn:active .acclist-title {
     transform: scale(0.75) !important;
 }
 .acclist-item[level="2"][state^="open"] .acclist-t-span,
@@ -773,14 +781,13 @@ div[accordion-content] {
     padding: 40px 10px;
 }
 .acc-infotxt > span {
-    font-size: clamp(11px, 1.5vw, 23px);
+    font-size: clamp(13px, 1.5vw, 22px);
     font-weight: 700;
     letter-spacing: 1px;
     padding: 5px 20px 4px;
     background-color: var(--y-w1);
     color: var(--y-b2);
 }
-
 
 
 /*- PROJECT POPUP -*/
