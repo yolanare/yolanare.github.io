@@ -815,7 +815,7 @@ function init() {
                     if(itemc == null) {
                         var accCReal = accCHidden.cloneNode(true);
                         accCReal.style.height = accCHidden.offsetHeight +'px';
-                        if(itemLv == '2') { thisItem.closest('.acclist-content').style.height = doc.querySelector('*[accordion-content][level="1"] #'+ thisItem.closest('section[level="1"]').id +' > .acclist-content').offsetHeight + accCHidden.offsetHeight +'px'; }
+                        if(itemLv == '2') { setTimeout(() => { thisItem.closest('.acclist-content').style.height = doc.querySelector('*[accordion-content][level="1"] #'+ thisItem.closest('section[level="1"]').id +' > .acclist-content').offsetHeight + accCHidden.offsetHeight +'px'; }, 100); }
                         accCReal.classList.add('clos');
                         accCReal.addEventListener('transitionend', (ev) => { if (ev.propertyName == 'height') { finalState(thisItem); }});
                         accCReal.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
