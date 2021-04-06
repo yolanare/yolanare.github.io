@@ -983,6 +983,7 @@ div[project-popup] {
 .pp-btn {
     display: block;
     padding: 15px 30px;
+    text-decoration: none;
     background-color: var(--y-w2);
     color: var(--y-w1);
     fill: var(--y-w1);
@@ -996,7 +997,6 @@ div[project-popup] {
     font-size: clamp(20px, 1.65vw, 26px);
     font-weight: 700;
     letter-spacing: 1px;
-    text-decoration: none;
     transform: scale(1);
     background-color: var(--y-b2);
     transition: 0.7s cubic-bezier(0.1, 0.75, 0, 1),
