@@ -858,7 +858,7 @@ div[project-popup] {
     align-items: center;
     position: relative;
     top: -0.1%;
-    width: 100%;
+    width: calc(100% - var(--pp-sgrid-gap));
     height: 100.2%;
     transition-property: width, height;
 }
@@ -877,7 +877,7 @@ div[project-popup] {
     overflow-y: auto;
     top: 0;
     left: 0;
-    padding-right: 25px;
+    padding-right: var(--pp-sgrid-gap);
     word-wrap: break-word;
     box-sizing: border-box;
     overflow: hidden !important;
@@ -1147,7 +1147,7 @@ div[project-popup] {
     z-index: 10;
     position: absolute;
 }
-section[pp-suType="img"] .pp-scaleup {
+div[pp-suType="img"] .pp-scaleup {
     width: 100%;
     height: 100%;
     top: 0;
@@ -1155,37 +1155,65 @@ section[pp-suType="img"] .pp-scaleup {
     cursor: zoom-in;
     transition-property: width, height;
 }
-section[pp-suType="interact"] .pp-scaleup {
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    transform: translateY(0);
+div[pp-suType="interact"] .pp-scaleup {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(100% - var(--pp-sgrid-gap));
+    width: var(--pp-sgrid-gap);
+    height: 101%;
+    padding: 0 5px;
+    background-color: var(--y-b1);
+    fill: var(--y-w1);
+    transition-property: left, height, background-color, fill !important;
     cursor: pointer;
 }
-section[pp-suType="interact"] .pp-scaleup::after {
-    content: "Fullscreen";
-    position: absolute;
-    right: 0;
-    padding: 10px 20px 10px 20px;
-    font-size: clamp(14px, 1vw, 16px);
-    opacity: 1;
-    background-color: var(--y-b1);
-    color: var(--y-w1);
-    transition-property: opacity, background-color;
-}
-.project-popup.pscaleup section[pp-suType="img"] .pp-scaleup {
-    cursor: zoom-out;
-}
-.project-popup.pscaleup section[pp-suType="interact"] .pp-scaleup::after {
-    opacity: 0.65;
-    background-color: #000000;
+div[pp-suType="interact"] .pp-scaleup > svg {
+    width: 100%;
+    margin: 0 auto;
+    transform: rotateZ(0deg);
+    transition: transform 1.2s 0.2s cubic-bezier(0.3, 0.7, 0, 1),
+                width 0.3s cubic-bezier(0.075, 0.6, 0, 1),
+                margin 0.3s cubic-bezier(0.075, 0.6, 0, 1) !important;
 }
 
-.project-popup.pscaleup section[pp-suType="interact"] #player-c {
+.project-popup.pscaleup div[pp-suType="img"] .pp-scaleup {
+    cursor: zoom-out;
+}
+.project-popup.pscaleup div[pp-suType="interact"] .pp-scaleup {
+    height: 101% !important;
+    left: calc((var(--pp-popup-c-w-su) + 0.05) * 1vw - var(--pp-sgrid-gap));
+    fill: var(--y-g1);
+    background-color: var(--y-b2);
+}
+div[pp-suType="interact"] .pp-scaleup:hover {
+    background-color: var(--y-b2);
+    fill: var(--y-w2) !important;
+    transition: 0.7s cubic-bezier(0.4, 0.6, 0, 1),
+                0.7s cubic-bezier(0.4, 0.6, 0, 1),
+                0.6s cubic-bezier(0.05, 0.8, 0, 1),
+                0.6s cubic-bezier(0.05, 0.8, 0, 1);
+}
+div[pp-suType="interact"] .pp-scaleup:active > svg {
+    width: 80%;
+}
+.project-popup.pscaleup div[pp-suType="interact"] .pp-scaleup:hover {
+    background-color: var(--y-b1);
+}
+.project-popup.pscaleup div[pp-suType="interact"] .pp-scaleup > svg:first-child {
+    transform: rotateZ(180deg);
+}
+.project-popup.pscaleup div[pp-suType="interact"] .pp-scaleup > svg:last-child {
+    transform: rotateZ(-180deg);
+}
+
+.project-popup.pscaleup div[pp-suType="interact"] #player-c {
     height: 100.1%;
 }
-.project-popup.pscaleup section[pp-suType="interact"] #player {
+.project-popup.pscaleup div[pp-suType="interact"] #player {
     transform: translateY(0%);
     padding-bottom: 0% !important;
 }
@@ -1196,10 +1224,15 @@ section[pp-suType="interact"] .pp-scaleup::after {
 .pp-proj,
 #player-c,
 #player,
-.pp-scaleup,
-section[pp-suType="interact"] .pp-scaleup::after {
+.pp-scaleup {
     transition-duration: 0.7s;
     transition-timing-function: cubic-bezier(0.4, 0.6, 0, 1);
+}
+div[pp-suType="interact"] .pp-scaleup {
+    transition: 0.7s cubic-bezier(0.4, 0.6, 0, 1),
+                0.7s cubic-bezier(0.4, 0.6, 0, 1),
+                0.7s cubic-bezier(0.4, 0.6, 0, 1),
+                0.7s cubic-bezier(0.4, 0.6, 0, 1);
 }
 .pp-desc {
     transition: all 0.7s cubic-bezier(0.4, 0.6, 0, 1), opacity 0.25s 0.1s;
@@ -1217,7 +1250,7 @@ section[pp-suType="interact"] .pp-scaleup::after {
         --pp-popup-c-size: 80;
         --pp-popup-c-w-su: 90;
         --pp-sgrid: 56.5;
-        --pp-sgrid-gap: 32.5px;
+        --pp-sgrid-gap: 35px;
     }
 
     .project-popup.pre section.pp-project {
@@ -1242,8 +1275,8 @@ section[pp-suType="interact"] .pp-scaleup::after {
         width: calc(((100 - var(--pp-sgrid)) / 100 * (var(--pp-popup-c-size) * 1vw)) - var(--pp-sgrid-gap));
     }
     .project-popup.pscaleup .pp-proj,
-    .project-popup.pscaleup section[pp-suType="img"] .pp-scaleup {
-        width: calc((var(--pp-popup-c-w-su) + 0.1) * 1vw);
+    .project-popup.pscaleup div[pp-suType="img"] .pp-scaleup {
+        width: calc((var(--pp-popup-c-w-su) + 0.1) * 1vw - var(--pp-sgrid-gap));
     }
     .project-popup.pscaleup section.pp-desc {
         left: calc(100% + var(--pp-sgrid-gap));
@@ -1261,6 +1294,7 @@ section[pp-suType="interact"] .pp-scaleup::after {
 @media (max-width: 1200px) /*tall*/ {
     :root {
         --pp-popup-c-h-su: 85.1vh;
+        --pp-sgrid-gap: 25px;
     }
 
     section.pp-desc {
@@ -1318,7 +1352,7 @@ section[pp-suType="interact"] .pp-scaleup::after {
     }
 
     .project-popup.pscaleup .pp-proj,
-    .project-popup.pscaleup section[pp-suType="img"] .pp-scaleup {
+    .project-popup.pscaleup div[pp-suType="img"] .pp-scaleup {
         height: var(--pp-popup-c-h-su);
     }
     .project-popup.pscaleup section.pp-desc {

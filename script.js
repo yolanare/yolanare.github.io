@@ -647,7 +647,7 @@ function init() {
             projectPopup.classList.add('pre');
             doc.querySelector('div[project-popup]').appendChild(projectPopup);
 
-            var proj, pTag, pTitle, pWebLink = ``,
+            var proj, pTag, pTitle, formatSU, pWebLink = ``, suInteract = ``,
             pSpan = p.querySelector('.p-title > span');
 
             if(projectsDesc[p.id].type == 'img') {
@@ -658,11 +658,15 @@ function init() {
                     <div style="width:100%;height:100%;"><img class="pp-img`+ w +`" src="`+ imgMiniSRC +`" style="background-image: url(`+ imgMiniSRC +`);"></img></div>
                 `
             } else if(['vid', 'web'].includes(projectsDesc[p.id].type)) {
-                var format = projectsDesc[p.id].format, f, iframe;
+                var format = projectsDesc[p.id].format, formatU, iframe;
 
-                if(format == '1:1' || format == 'fill') { f = '80.1vh'; }
-                else if(format == '16:9') { f = '56.25%'; }
-                else { f = format == '1:1'; }
+                if(format == '1:1' || format == 'fill') { formatU = '80.1vh'; }
+                else {
+                    if(format == '16:9') { formatSU = '56.25';
+                    } else { formatSU = format; }
+                    formatU = formatSU + '%';
+                    formatSU = 'calc((var(--pp-popup-c-size) * 1vw * var(--pp-sgrid) / 100 - var(--pp-sgrid-gap)) * '+ formatSU +' / 100);'
+                }
 
                 if(projectsDesc[p.id].type == 'vid') {
                     iframe = `<iframe width="1280" height="720" src="https://www.youtube.com/embed/`+ projectsDesc[p.id].url +`?rel=0&color=white&loop=1&playlist=`+ projectsDesc[p.id].url +`" frameborder="0" allowfullscreen></iframe>`
@@ -680,7 +684,7 @@ function init() {
                 }
                 proj = `
                 <div id="player-c">
-                    <div id="player" style="padding-bottom: `+ f +`;">
+                    <div id="player" style="padding-bottom: `+ formatU +`;">
                     `+ iframe +`
                     </div>
                 </div>
@@ -698,17 +702,22 @@ function init() {
             } else if(projectsDesc[p.id].tag == 'c') { pTag = 'Commission';
             } else if(projectsDesc[p.id].tag == 'rs') { pTag = 'RetroSaturn';
             }
+            if(projectsDesc[p.id].suType == 'interact') {
+                suInteract = `
+                <svg viewBox="0 0 32 32"><polygon points="13.4,7.2 16,4.6 27.5,16 16.1,27.4 13.4,24.8 20.5,17.7 4.5,17.7 4.5,14.3 20.5,14.3"/></svg>
+                `;
+            }
             if(pSpan.hasAttribute('long-title')) { pTitle = pSpan.getAttribute('long-title');
             } else { pTitle = pSpan.innerText; }
             projectPopup.innerHTML = `
                 <div class="pp-bg" style="opacity:0;"></div>
-                <div class="pp-popup-c">
+                <div class="pp-popup-c" pp-suType=`+ projectsDesc[p.id].suType +`>
                     <div class="pp-sectiongrid">
-                        <section class="pp-project" pp-suType=`+ projectsDesc[p.id].suType +`>
+                        <section class="pp-project">
                             <div class="pp-proj">`
                                 + proj +`
                             </div>
-                            <div class="pp-scaleup"></div>
+                            <div class="pp-scaleup" style="height: `+ formatSU +`">`+ suInteract + suInteract +`</div>
                         </section>
                         <section class="pp-desc" scroll>
                             <div class="pp-title">
