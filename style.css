@@ -778,16 +778,17 @@ div[accordion-content] {
 
 
 .acc-infotxt {
-    text-align: center;
     padding: 40px 10px;
-}
-.acc-infotxt > span {
+    text-align: center;
     font-size: clamp(13px, 1.5vw, 22px);
     font-weight: 700;
     letter-spacing: 1px;
+    color: var(--y-b2);
+}
+.acc-infotxt > span {
+    margin-right: 1em;
     padding: 5px 20px 4px;
     background-color: var(--y-w1);
-    color: var(--y-b2);
 }
 
 
