@@ -1188,7 +1188,6 @@ div[pp-suType="interact"] .pp-scaleup > svg {
 }
 .project-popup.pscaleup div[pp-suType="interact"] .pp-scaleup {
     height: 101% !important;
-    left: calc((var(--pp-popup-c-w-su) + 0.05) * 1vw - var(--pp-sgrid-gap));
     fill: var(--y-g1);
     background-color: var(--y-b2);
 }
@@ -1285,6 +1284,9 @@ div[pp-suType="interact"] .pp-scaleup {
     .project-popup.pscaleup div[pp-suType="interact"] div[pp-suType="img"] .pp-scaleup {
         width: calc((var(--pp-popup-c-w-su) + 0.1) * 1vw - var(--pp-sgrid-gap));
     }
+    .project-popup.pscaleup div[pp-suType="interact"] .pp-scaleup {
+        left: calc((var(--pp-popup-c-w-su) + 0.05) * 1vw - var(--pp-sgrid-gap));
+    }
     .project-popup.pscaleup section.pp-desc {
         left: calc(100% + var(--pp-sgrid-gap));
     }
@@ -1301,7 +1303,7 @@ div[pp-suType="interact"] .pp-scaleup {
 @media (max-width: 1200px) /*tall*/ {
     :root {
         --pp-popup-c-h-su: 85.1vh;
-        --pp-sgrid-gap: 25px;
+        --pp-sgrid-gap: 27.5px;
     }
 
     section.pp-desc {
@@ -1358,9 +1360,21 @@ div[pp-suType="interact"] .pp-scaleup {
         letter-spacing: 0px;
     }
 
+    div[pp-suType="interact"] .pp-scaleup {
+        top: 0;
+        transform: translateY(0);
+        height: 100% !important;
+    }
     .project-popup.pscaleup .pp-proj,
-    .project-popup.pscaleup div[pp-suType="img"] .pp-scaleup {
-        height: var(--pp-popup-c-h-su);
+    .project-popup.pscaleup div[pp-suType] .pp-scaleup {
+        height: var(--pp-popup-c-h-su) !important;
+    }
+    div[pp-suType="interact"] .pp-scaleup > svg {
+        transform: rotateZ(-270deg);
+        transition-delay: 0s, 0s, 0s;
+    }
+    .project-popup.pscaleup div[pp-suType="interact"] .pp-scaleup > svg {
+        transform: rotateZ(-90deg) !important;
     }
     .project-popup.pscaleup section.pp-desc {
         top: 100%;
