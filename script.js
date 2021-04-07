@@ -22,7 +22,7 @@ function getPageID() {
     return pathDir;
 }
 
-var o1 = [null, 33]; if(!isMini) { o1 = [true, 20]; };
+var o1 = [null, 33]; if(!isMini) { o1 = [true, 33]; };
 
 document.addEventListener('DOMContentLoaded', function() {
     scrollbarMain = OverlayScrollbars(container, {
