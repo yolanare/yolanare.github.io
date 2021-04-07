@@ -749,17 +749,24 @@ function init() {
 
             var ppBG = projectPopup.querySelector('.pp-bg'),
                 closeFake = projectPopup.querySelector('.pp-fakeclose'),
-                closeCur = projectPopup.querySelector('.pp-curclose');
+                closeCur = projectPopup.querySelector('.pp-curclose'),
+                ppOScr;
 
+            if(isMini) {
+                ppOScr =  {
+                    autoHide : 'move',
+                    autoHideDelay : 800 }
+            } else {
+                ppOScr =  {
+                    autoHide : 'leave',
+                    autoHideDelay : 0 }
+            }
             projectPopup.scrollbarPP = OverlayScrollbars(projectPopup.querySelector('section.pp-desc'), {
                 overflowBehavior : {
                     x : 'hidden',
                     y : 'scroll'
                 },
-                scrollbars : {
-                    autoHide : 'leave',
-                    autoHideDelay : 0
-                }
+                scrollbars : ppOScr
             });
 
             if(projectsDesc[p.id].type == 'img') {
