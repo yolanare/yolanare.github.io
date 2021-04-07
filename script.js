@@ -51,11 +51,10 @@ var projectsDesc = {
     'sch_t_iv' : {
         type : 'img',
         suType : 'img',
-        tag: "sch",
+        tag: "perso",
         year : '2020',
         month : '01',
         desc : `
-            <p>Look! Look!</p>
         `,
     },
     'sch_t_pm' : {
