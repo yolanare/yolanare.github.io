@@ -55,60 +55,35 @@ var projectsDesc = {
         tag: "perso",
         year : '2020',
         month : '01',
-        link : '',
         subtitle : 'Looooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo ooo o o  o o o o o o o o o o   ooooo o o  ooooo ooo oo ok',
         desc : {
             fr : `
                 <p>freeeeeeeeench</p>
                 <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench</p>
+                <div class="pp-img"><div><img src="../src/projects/artworks/sch-t-pm/05 colombe Banksy.jpg"/></div></div>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench</p>
                 <p>freeeeeeeeench</p>
                 <p>freeeeeeeeench</p>
                 <p>freeeeeeeeench</p>
                 <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench</p>
+                <p>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench
+                <br>freeeeeeeeench</p>
             `,
             en : `
                 <p>engriiiiiiiiish</p>
@@ -642,9 +617,9 @@ function init() {
                 var boom = document.createElement('div');
                 boom.classList.add('ynav-boom');
                 boom.innerHTML = `
-                <svg id="boom" viewBox="0 0 `+ (pageW / 100) +` `+ (pageH / 100) +`">
-                    <circle cx="`+ bcX +`" cy="`+ bcY +`" r="0"></circle>
-                </svg>
+                    <svg id="boom" viewBox="0 0 `+ (pageW / 100) +` `+ (pageH / 100) +`">
+                        <circle cx="`+ bcX +`" cy="`+ bcY +`" r="0"></circle>
+                    </svg>
                 `;
                 var boomC = boom.querySelector('circle');
                 
@@ -718,7 +693,7 @@ function init() {
                 if(projectsDesc[p.id].white == true) { w = ' white'; }
                 proj = `
                     <div style="width:100%;height:100%;"><img class="pp-img`+ w +`" src="`+ imgMiniSRC +`" style="background-image: url(`+ imgMiniSRC +`);"></img></div>
-                `
+                `;
             } else if(['vid', 'web'].includes(projectsDesc[p.id].type)) {
                 var format = projectsDesc[p.id].format, formatU, iframe;
 
@@ -742,21 +717,21 @@ function init() {
                                     <path d="M14.5,17.5L14.5,17.5c-0.6-0.6-0.6-1.5,0-2.1l8.9-8.9l2.1,2.1l-8.9,8.9C16,18.1,15.1,18.1,14.5,17.5z M24.5,7.5h-7l0-3h10v10l-3,0V7.5z"/></svg>
                             </span></a>
                         </div>
-                    `
+                    `;
                 }
                 proj = `
-                <div id="player-c">
-                    <div id="player" style="padding-bottom: `+ formatU +`;">
-                    `+ iframe +`
+                    <div id="player-c">
+                        <div id="player" style="padding-bottom: `+ formatU +`;">
+                        `+ iframe +`
+                        </div>
                     </div>
-                </div>
-                `
+                `;
             } else if(projectsDesc[p.id].type == 'pdf') {
                 proj = `
-                <div id="pdf-reader">
-                    <iframe class="pp-pdf" src="https://drive.google.com/file/d/`+ projectsDesc[p.id].url +`/preview" width="100%" height="100%" frameborder="0"></iframe>
-                </div>
-                `
+                    <div id="pdf-reader">
+                        <iframe class="pp-pdf" src="https://drive.google.com/file/d/`+ projectsDesc[p.id].url +`/preview" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                `;
             }
             if(projectsDesc[p.id].tag == 'perso') { pTag = 'Personnal Project';
             } else if(projectsDesc[p.id].tag == 'sch') { pTag = 'School Project';
@@ -766,7 +741,7 @@ function init() {
             }
             if(projectsDesc[p.id].suType == 'interact') {
                 suInteract = `
-                <svg viewBox="0 0 32 32"><polygon points="13.4,7.2 16,4.6 27.5,16 16.1,27.4 13.4,24.8 20.5,17.7 4.5,17.7 4.5,14.3 20.5,14.3"/></svg>
+                    <svg viewBox="0 0 32 32"><polygon points="13.4,7.2 16,4.6 27.5,16 16.1,27.4 13.4,24.8 20.5,17.7 4.5,17.7 4.5,14.3 20.5,14.3"/></svg>
                 `;
             }
             if(pSpan.hasAttribute('long-title')) { pTitle = pSpan.getAttribute('long-title');
@@ -822,14 +797,39 @@ function init() {
             var ppBG = projectPopup.querySelector('.pp-bg'),
                 closeFake = projectPopup.querySelector('.pp-fakeclose'),
                 closeCur = projectPopup.querySelector('.pp-curclose'),
-                ppDesc = projectPopup.querySelector('.pp-desc'),
-                ppDesctxt = projectPopup.querySelector('.pp-desctxt'),
+                ppProj = projectPopup.querySelector('.pp-project'),
                 pplBtn = projectPopup.querySelectorAll('.pp-langswitcher > span'),
+                ppDesc = projectPopup.querySelector('.pp-desc'),
+                ppDesctxt = ppDesc.querySelector('.pp-desctxt'),
                 ppOScr;
 
+            function ppDImgViewCreate() {
+                var ppDImg = ppDesc.querySelectorAll('.pp-img');
+                if(ppDImg) {
+                    ppDImg.forEach(descimg => {
+                        descimg.addEventListener('click', function() {
+                            descimg.classList.add('focus');
+                            
+                            var imgView = document.createElement('div');
+                            imgView.classList.add('ppd-imgview');
+                            doc.querySelector('div[project-popup]').appendChild(imgView);
+                            imgView.innerHTML = `
+                                <div class="ppdiv-bg"></div>
+                                <img src="`+ descimg.querySelector('img').getAttribute('src') +`"/>
+                            `;
+
+                            imgView.addEventListener('click', function() {
+                                descimg.classList.remove('focus');
+                                imgView.classList.add('out');
+                                imgView.remove();
+                            })
+                        })
+                    });
+                }
+            }
             function ppDesctxtAnimateSpawn(ppDesctxtin) {
                 var ch = 0.1;
-                projectPopup.querySelectorAll('section.pp-desc .pp-desctxt > *:last-child > *').forEach((txt) => {
+                ppDesc.querySelectorAll('.pp-desctxt-in:last-child > *').forEach((txt) => {
                     ch += 0.15;
                     txt.style.transitionDelay = ch +'s';
                 })
@@ -846,7 +846,7 @@ function init() {
                 }
             }
             function ppDesctxtPrint() {
-                ppDesctxtAnimateOut(projectPopup.querySelectorAll('.pp-desctxt > .pp-desctxt-in'));
+                ppDesctxtAnimateOut(ppDesc.querySelectorAll('.pp-desctxt > .pp-desctxt-in'));
                 var ppDesctxtin = document.createElement('div');
                 ppDesctxtin.classList.add('pp-desctxt-in');
                 ppDesctxtin.classList.add('pre');
@@ -857,6 +857,7 @@ function init() {
                     } else {
                         ppDesctxtin.innerHTML = projectsDesc[p.id].desc.en;
                     }
+                    ppDImgViewCreate();
                     setTimeout(() => {
                         ppDesctxtAnimateSpawn(ppDesctxtin);
                     }, 33);
@@ -884,7 +885,7 @@ function init() {
                     autoHide : 'leave',
                     autoHideDelay : 0 }
             }
-            projectPopup.scrollbarPP = OverlayScrollbars(projectPopup.querySelector('section.pp-desc'), {
+            projectPopup.scrollbarPP = OverlayScrollbars(ppDesc, {
                 overflowBehavior : {
                     x : 'hidden',
                     y : 'scroll'
@@ -902,7 +903,7 @@ function init() {
                     });
                     image.src = highResUrl;
                 };
-                loadHighResImage(projectPopup.querySelector('.pp-img'), '../src/projects/'+ item.id +'/'+ p.id +'.'+ (projectsDesc[p.id].imgExt || 'jpg'));
+                loadHighResImage(ppProj.querySelector('.pp-img'), '../src/projects/'+ item.id +'/'+ p.id +'.'+ (projectsDesc[p.id].imgExt || 'jpg'));
             }
 
             // Cursor Close on BG hover
@@ -928,7 +929,7 @@ function init() {
                 ppBG.addEventListener('mouseover', showCurClose);
                 ppBG.addEventListener('mouseout', hideCurClose);
 
-                projectPopup.querySelector('.pp-scaleup').addEventListener('click', moveCurClose);
+                ppProj.querySelector('.pp-scaleup').addEventListener('click', moveCurClose);
 
                 projectPopup.addEventListener('mousemove', moveCurClose);
                 setTimeout(function() { projectPopup.removeEventListener('mousemove', moveCurClose); }, 800);
@@ -947,7 +948,7 @@ function init() {
 
             // PROJECT SCALE UP
             function projScaleUp() { projectPopup.classList.toggle('pscaleup'); }
-            projectPopup.querySelector('.pp-scaleup').addEventListener('click', projScaleUp)
+            ppProj.querySelector('.pp-scaleup').addEventListener('click', projScaleUp)
 
             swup.on('animationOutStart', closeProjectCardPopupAuto);
         }
