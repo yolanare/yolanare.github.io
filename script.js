@@ -831,7 +831,8 @@ function init() {
                 var ch = 0.1;
                 ppDesc.querySelectorAll('.pp-desctxt-in:last-child > *').forEach((txt) => {
                     ch += 0.15;
-                    txt.style.transitionDelay = ch +'s';
+                    if(txt.hasAttribute('class')) { console.log(ch +'s ' + ch +'s ' + '0s'); txt.style.transitionDelay = ch +'s, ' + ch +'s, ' + '0s';
+                    } else { txt.style.transitionDelay = ch +'s'; }
                 })
                 if(ppDesctxtin) { ppDesctxtin.classList.remove('pre'); }
             }
