@@ -10,7 +10,8 @@ const swup = new Swup({
 var doc = document.documentElement,
     isMini = undefined,
     touchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement),
-    container = document.getElementById('container');
+    container = document.getElementById('container'),
+    language = 'fr';
 
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
@@ -54,8 +55,70 @@ var projectsDesc = {
         tag: "perso",
         year : '2020',
         month : '01',
-        desc : `
-        `,
+        link : '',
+        subtitle : 'Looooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo ooo o o  o o o o o o o o o o   ooooo o o  ooooo ooo oo ok',
+        desc : {
+            fr : `
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+                <p>freeeeeeeeench</p>
+            `,
+            en : `
+                <p>engriiiiiiiiish</p>
+                <p>engriiiiiiiiish</p>
+                <p>engriiiiiiiiish</p>
+                <p>engriiiiiiiiish</p>
+                <p>engriiiiiiiiish</p>
+            `,
+        }
+        
     },
     'sch_t_pm' : {
         type : 'img',
@@ -719,17 +782,26 @@ function init() {
                             <div class="pp-scaleup" style="height: `+ formatSU +`">`+ suInteract + suInteract +`</div>
                         </section>
                         <section class="pp-desc" scroll>
-                            <div class="pp-title">
-                                <span id="big">`+ pTitle +`</span>
-                                <div class="pp-t-pills">
-                                    <span id="date">`+ projectsDesc[p.id].year +`.`+ projectsDesc[p.id].month +`</span>
-                                    <span id="tag">`+ pTag +`</span>
+                            <div class="pp-title-c">
+                                <div class="pp-title">
+                                    <span id="big">`+ pTitle +`</span>
+                                    <div class="pp-t-pills">
+                                        <span id="date">`+ projectsDesc[p.id].year +`.`+ projectsDesc[p.id].month +`</span>
+                                        <span id="tag">`+ pTag +`</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="pp-desctxt">
+                                <div class="pp-subt">
+                                    <span class="pp-subtitle">`+ projectsDesc[p.id].subtitle +`</span>
+                                    <div class="pp-langswitcher-c">
+                                        <div class="pp-langswitcher">
+                                            <span l="fr">FR</span><span l="en">EN</span>
+                                            <div class="pp-ls-bg"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 `+ pWebLink +`
-                                `+ projectsDesc[p.id].desc +`
                             </div>
+                            <div class="pp-desctxt"></div>
                         </section>
                     </div>
                     <div class="pp-fakeclose">
@@ -750,7 +822,58 @@ function init() {
             var ppBG = projectPopup.querySelector('.pp-bg'),
                 closeFake = projectPopup.querySelector('.pp-fakeclose'),
                 closeCur = projectPopup.querySelector('.pp-curclose'),
+                ppDesc = projectPopup.querySelector('.pp-desc'),
+                ppDesctxt = projectPopup.querySelector('.pp-desctxt'),
+                pplBtn = projectPopup.querySelectorAll('.pp-langswitcher > span'),
                 ppOScr;
+
+            function ppDesctxtAnimateSpawn(ppDesctxtin) {
+                var ch = 0.1;
+                projectPopup.querySelectorAll('section.pp-desc .pp-desctxt > *:last-child > *').forEach((txt) => {
+                    ch += 0.15;
+                    txt.style.transitionDelay = ch +'s';
+                })
+                if(ppDesctxtin) { ppDesctxtin.classList.remove('pre'); }
+            }
+            function ppDesctxtAnimateOut(descInAll) {
+                if(descInAll) {
+                    descInAll.forEach(descIn => {
+                        projectPopup.querySelector('.os-viewport').scrollTo({top: 0, behavior: 'smooth'});
+                        descIn.addEventListener('transitionend', () => { descIn.remove(); });
+                        descIn.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
+                        descIn.classList.add('out');
+                    });
+                }
+            }
+            function ppDesctxtPrint() {
+                ppDesctxtAnimateOut(projectPopup.querySelectorAll('.pp-desctxt > .pp-desctxt-in'));
+                var ppDesctxtin = document.createElement('div');
+                ppDesctxtin.classList.add('pp-desctxt-in');
+                ppDesctxtin.classList.add('pre');
+                ppDesctxt.appendChild(ppDesctxtin);
+                setTimeout(() => {
+                    if(language == 'fr') {
+                        ppDesctxtin.innerHTML = projectsDesc[p.id].desc.fr;
+                    } else {
+                        ppDesctxtin.innerHTML = projectsDesc[p.id].desc.en;
+                    }
+                    setTimeout(() => {
+                        ppDesctxtAnimateSpawn(ppDesctxtin);
+                    }, 33);
+                }, 1);
+            } ppDesctxtPrint();
+
+            pplBtn.forEach(lbtn => {
+                if(lbtn.getAttribute('l') == language) { lbtn.classList.add('focus'); }
+                lbtn.addEventListener('click', function() {
+                    pplBtn.forEach(l => { l.classList.toggle('focus'); });
+                    setTimeout(() => {
+                        language = projectPopup.querySelector('.pp-langswitcher > span.focus').getAttribute('l');
+                        ppDesctxtPrint();
+                    }, 1);
+                })
+            });
+
 
             if(isMini) {
                 ppOScr =  {
@@ -816,15 +939,11 @@ function init() {
             }, 350); // security in case of multi-clicks
             
             // ANIMATIONS
-            setTimeout(() => {
-                ppBG.style.opacity = null;
-                projectPopup.classList.remove('pre');
-                ch = 0.1;
-                projectPopup.querySelectorAll('section.pp-desc .pp-desctxt > *').forEach((txt) => {
-                    ch += 0.15;
-                    txt.style.transitionDelay = ch +'s';
-                })
-            }, 33);
+                setTimeout(() => {
+                    ppBG.style.opacity = null;
+                    ppDesctxtAnimateSpawn(null);
+                    projectPopup.classList.remove('pre');
+                }, 33);
 
             // PROJECT SCALE UP
             function projScaleUp() { projectPopup.classList.toggle('pscaleup'); }
@@ -869,7 +988,7 @@ function init() {
                         accCReal.style.height = accCHidden.offsetHeight +'px';
                         if(itemLv == '2') { setTimeout(() => { thisItem.closest('.acclist-content').style.height = doc.querySelector('*[accordion-content][level="1"] #'+ thisItem.closest('section[level="1"]').id +' > .acclist-content').offsetHeight + accCHidden.offsetHeight +'px'; }, 100); }
                         accCReal.classList.add('clos');
-                        accCReal.addEventListener('transitionend', (ev) => { if (ev.propertyName == 'height') { finalState(thisItem); }});
+                        accCReal.addEventListener('transitionend', (ev) => { if(ev.propertyName == 'height') { finalState(thisItem); }});
                         accCReal.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
                         thisItem.querySelector('.acclist-in').appendChild(accCReal);
                         

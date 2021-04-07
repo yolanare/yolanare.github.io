@@ -890,31 +890,46 @@ div[pp-suType="interact"] .pp-proj {
     transition: transform 0.8s cubic-bezier(0.35, 0.65, 0, 1),
                 opacity 0.5s;
 }
-.project-popup section.pp-desc .pp-title {
+.project-popup section.pp-desc .pp-title-c {
     transition: transform 0.8s 0.25s cubic-bezier(0.35, 0.7, 0, 1),
                 opacity 0.4s 0.25s;
 }
-.project-popup section.pp-desc .pp-desctxt > * {
+.project-popup section.pp-desc .pp-desctxt > * > * {
     transition: transform 0.75s cubic-bezier(0.35, 0.7, 0, 1),
                 opacity 0.5s;
 }
 .project-popup section.pp-project,
-.project-popup section.pp-desc .pp-title,
-.project-popup section.pp-desc .pp-desctxt > * {
+.project-popup section.pp-desc .pp-title-c,
+.project-popup section.pp-desc .pp-desctxt > * > * {
     transform: translate(0);
     opacity: 1;
     transition-delay: 0.2s;
 }
-.project-popup.pre section.pp-desc .pp-desctxt > * {
+div[project-popup] section.pp-desc .pp-desctxt > *.pre > * {
     transform: translateX(150px);
 }
 .project-popup.pre section.pp-project,
-.project-popup.pre section.pp-desc .pp-title,
-.project-popup.pre section.pp-desc .pp-desctxt > * {
+.project-popup.pre section.pp-desc .pp-title-c,
+div[project-popup] section.pp-desc .pp-desctxt > *.pre > * {
     opacity: 0;
+}
+.pp-desctxt-in {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
+    transform: translateY(35px) !important;
+    opacity: 0 !important;
+    transition: transform 0.7s cubic-bezier(0.3, 0.6, 0, 1),
+                opacity 0.4s 50ms ease;
+    transition-property: transform, opacity;
 }
 
 .pp-desctxt {
+    position: relative;
     padding-bottom: 2rem;
 }
 .pp-title {
@@ -960,6 +975,55 @@ div[pp-suType="interact"] .pp-proj {
     letter-spacing: 0.75px;
 }
 
+.pp-subt {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+.pp-langswitcher-c {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    background-color: var(--y-b1);
+    user-select: none;
+}
+.pp-langswitcher {
+    display: block;
+    position: relative;
+}
+.pp-langswitcher > span {
+    z-index: 2;
+    display: inline-block;
+    position: relative;
+    padding: 2.5px 5px;
+    font-size: clamp(13px, 0.975vw, 17px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--y-w1);
+    transition: color 0.2s;
+    cursor: pointer;
+}
+.pp-langswitcher > span.focus {
+    color: var(--y-b2);
+}
+.pp-ls-bg {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: var(--y-w1);
+    transition: left 0.5s cubic-bezier(0.2, 0.6, 0, 1);
+}
+.pp-langswitcher > span.focus:first-child ~ .pp-ls-bg {
+    left: 0;
+}
+.pp-langswitcher > span.focus:nth-child(2) ~ .pp-ls-bg {
+    left: 50%;
+}
+
+
+
 
 .pp-desc h2 {
     font-size: clamp(27px, 1.75vw, 30px);
@@ -972,11 +1036,16 @@ div[pp-suType="interact"] .pp-proj {
     letter-spacing: 1px;
     margin: 0.75em 0;
 }
-.pp-desc p {
+.pp-desc p,
+.pp-subtitle {
     font-size: clamp(16px, 1.05vw, 18px);
     letter-spacing: 0.5px;
     line-height: 1.3;
     margin: 0.5em 0;
+}
+.pp-subtitle {
+    line-height: 1.15;
+    margin-right: 0.5rem;
 }
 
 .pp-btn-c {
@@ -1259,7 +1328,7 @@ div[pp-suType="interact"] .pp-scaleup {
     .project-popup.pre section.pp-project {
         transform: translateX(-33%);
     }
-    .project-popup.pre section.pp-desc .pp-title {
+    .project-popup.pre section.pp-desc .pp-title-c {
         transform: translateY(-100%);
     }
     .pp-popup-c {
@@ -1314,14 +1383,14 @@ div[pp-suType="interact"] .pp-scaleup {
         margin-top: -1px;
     }
     .project-popup section.pp-project,
-    .project-popup section.pp-desc .pp-title,
+    .project-popup section.pp-desc .pp-title-c,
     .project-popup section.pp-desc .pp-desctxt > * {
         transition-delay: 0.3s;
     }
     .project-popup.pre section.pp-project {
         transform: translateY(-100%);
     }
-    .project-popup.pre section.pp-desc .pp-title {
+    .project-popup.pre section.pp-desc .pp-title-c {
         transform: translateX(-33%);
     }
     .pp-popup-c {
@@ -1331,8 +1400,10 @@ div[pp-suType="interact"] .pp-scaleup {
     .pp-sectiongrid {
         grid-template-rows: 33% auto;
     }
-    .pp-desctxt {
-        margin: 0 0.75rem;
+    .pp-desctxt,
+    .pp-subtitle {
+        margin-right: 0.75rem;
+        margin-left: 0.75rem;
     }
     .pp-btn-c {
         position: relative;
