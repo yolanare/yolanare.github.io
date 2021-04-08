@@ -858,10 +858,13 @@ function init() {
                 ppDesctxtin.classList.add('pre');
                 ppDesctxt.appendChild(ppDesctxtin);
                 setTimeout(() => {
+                    var d;
                     if(language == 'fr') {
-                        ppDesctxtin.innerHTML = projectsDesc[p.id].desc.fr;
+                        d = projectsDesc[p.id].desc.fr;
+                        if(!d || d == '') { ppDesctxtin.innerHTML = '<p class="no">Pas de description disponible.</p>'; } else { ppDesctxtin.innerHTML = d; }
                     } else {
-                        ppDesctxtin.innerHTML = projectsDesc[p.id].desc.en;
+                        d = projectsDesc[p.id].desc.en;
+                        if(!d || d == '') { ppDesctxtin.innerHTML = '<p class="no">No description available.</p>'; } else { ppDesctxtin.innerHTML = d; }
                     }
                     ppDImgViewCreate();
                     setTimeout(() => {

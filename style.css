@@ -1098,7 +1098,9 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
     transition: transform 0.3s cubic-bezier(0.05, 0.6, 0, 1),
                 color 0.2s;
 }
-.pp-langswitcher-c:hover .pp-ls-bg,
+.pp-langswitcher-c:hover .pp-ls-bg {
+    background-color: var(--y-w2);
+}
 .pp-langswitcher-c:active .pp-ls-bg {
     transform: rotateZ(0.01deg) scale(0.915);
 }
@@ -1127,6 +1129,11 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
 .pp-subtitle {
     line-height: 1.15;
     margin-right: 0.5rem;
+}
+.pp-desc .no {
+    margin: 1.5em 0;
+    font-weight: 600;
+    color: rgba(29, 31, 32, 0.3);
 }
 
 .pp-btn-c {
