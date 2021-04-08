@@ -22,7 +22,7 @@ function getPageID() {
     return pathDir;
 }
 
-var o1 = [null, 33]; if(!isMini) { o1 = [true, 33]; };
+var o1 = [null, 33], OScrHDelay = 200; if(!isMini) { o1 = [true, 33]; OScrHDelay = 800; };
 
 document.addEventListener('DOMContentLoaded', function() {
     scrollbarMain = OverlayScrollbars(container, {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         scrollbars : {
             autoHide : 'move',
-            autoHideDelay : 800
+            autoHideDelay : OScrHDelay
         },
         callbacks : {
             onScroll : scrollAccordion
@@ -63,7 +63,8 @@ var projectsDesc = {
                 <p>freeeeeeeeench
                 <br>freeeeeeeeench
                 <br>freeeeeeeeench</p>
-                <div class="pp-img"><div><img src="../src/projects/artworks/sch-t-pm/05 colombe Banksy.jpg"/></div></div>
+                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch-t-pm/05 colombe Banksy.jpg"/></div></div>
+                    <div class="pp-img-desc">desc desc desc!desc desc desc!desc desc desc!desc desc desc!desc desc desc!desc desc desc!</div></div>
                 <p>freeeeeeeeench</p>
                 <p>freeeeeeeeench
                 <br>freeeeeeeeench
@@ -810,18 +811,22 @@ function init() {
                         descimg.addEventListener('click', function() {
                             descimg.classList.add('focus');
                             
-                            var imgView = document.createElement('div');
+                            var imgView = document.createElement('div'),
+                                descimgImg = descimg.querySelector('img');
                             imgView.classList.add('ppd-imgview');
+                            imgView.classList.add('pre');
                             doc.querySelector('div[project-popup]').appendChild(imgView);
                             imgView.innerHTML = `
                                 <div class="ppdiv-bg"></div>
-                                <img src="`+ descimg.querySelector('img').getAttribute('src') +`"/>
+                                <div class="ppdiv-img-c"><img src="`+ descimgImg.getAttribute('src') +`"/></div>
                             `;
+                            setTimeout(() => { imgView.classList.remove('pre'); }, 1);
 
-                            imgView.addEventListener('click', function() {
+                            imgView.addEventListener('click', function(ev) {
                                 descimg.classList.remove('focus');
                                 imgView.classList.add('out');
-                                imgView.remove();
+                                descimgImg.addEventListener('transitionend', () => { imgView.remove(); });
+                                moveCurClose(ev);
                             })
                         })
                     });
@@ -831,7 +836,7 @@ function init() {
                 var ch = 0.1;
                 ppDesc.querySelectorAll('.pp-desctxt-in:last-child > *').forEach((txt) => {
                     ch += 0.15;
-                    if(txt.hasAttribute('class')) { console.log(ch +'s ' + ch +'s ' + '0s'); txt.style.transitionDelay = ch +'s, ' + ch +'s, ' + '0s';
+                    if(txt.hasAttribute('class')) { txt.style.transitionDelay = ch +'s, ' + ch +'s, ' + '0s';
                     } else { txt.style.transitionDelay = ch +'s'; }
                 })
                 if(ppDesctxtin) { ppDesctxtin.classList.remove('pre'); }
@@ -865,27 +870,17 @@ function init() {
                 }, 1);
             } ppDesctxtPrint();
 
-            pplBtn.forEach(lbtn => {
-                if(lbtn.getAttribute('l') == language) { lbtn.classList.add('focus'); }
-                lbtn.addEventListener('click', function() {
-                    pplBtn.forEach(l => { l.classList.toggle('focus'); });
-                    setTimeout(() => {
-                        language = projectPopup.querySelector('.pp-langswitcher > span.focus').getAttribute('l');
-                        ppDesctxtPrint();
-                    }, 1);
-                })
-            });
+            pplBtn.forEach(lbtn => { if(lbtn.getAttribute('l') == language) { lbtn.classList.add('focus'); } });
+            projectPopup.querySelector('.pp-langswitcher-c').addEventListener('click', function() {
+                pplBtn.forEach(l => { l.classList.toggle('focus'); });
+                setTimeout(() => {
+                    language = projectPopup.querySelector('.pp-langswitcher > span.focus').getAttribute('l');
+                    ppDesctxtPrint();
+                }, 1);
+            })
 
-
-            if(isMini) {
-                ppOScr =  {
-                    autoHide : 'move',
-                    autoHideDelay : 800 }
-            } else {
-                ppOScr =  {
-                    autoHide : 'leave',
-                    autoHideDelay : 0 }
-            }
+            if(isMini) { ppOScr =  { autoHide : 'move', autoHideDelay : OScrHDelay }
+            } else { ppOScr =  { autoHide : 'leave', autoHideDelay : 0 } }
             projectPopup.scrollbarPP = OverlayScrollbars(ppDesc, {
                 overflowBehavior : {
                     x : 'hidden',

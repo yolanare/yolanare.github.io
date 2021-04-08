@@ -799,7 +799,7 @@ div[project-popup] {
     width: 0;
     height: 0;
 }
-.project-popup {
+div[project-popup] > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -808,6 +808,8 @@ div[project-popup] {
     left: 50%;
     width: 0;
     height: 0;
+}
+.project-popup {
     cursor: default;
 }
 .pp-bg {
@@ -879,10 +881,10 @@ div[pp-suType="interact"] .pp-proj {
 .pp-desc .pp-img {
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     position: relative;
     width: 100%;
-    height: 25vh;
     margin: 1.5rem 0;
     padding: 20px;
     object-fit: contain;
@@ -890,14 +892,33 @@ div[pp-suType="interact"] .pp-proj {
     cursor: pointer;
     user-select: none;
 }
-.pp-desc .pp-img > div {
+.pp-desc .pp-img > div:first-child {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+.pp-desc .pp-img > div:first-child > div {
+    height: 100%;
+    margin: 0 auto;
+    line-height: 0;
     overflow: hidden;
 }
 .pp-desc .pp-img img {
-    height: calc(25vh - 40px);
+    max-width: 100%;
+    max-height: 33vh;
     object-fit: contain;
     transform: scale(1);
     transition: transform 0.6s cubic-bezier(0.1, 0.7, 0, 1);
+    pointer-events: none;
+}
+.pp-desc .pp-img-desc {
+    text-align: center;
+    font-size: clamp(13px, 1.15vw, 15px);
+    font-weight: 600;
+    letter-spacing: 0.25px;
+    margin-top: 0.75rem;
+    color: var(--y-b2);
+    transition: 0.5s ease;
 }
 .pp-desc .pp-img:hover {
     background-color: var(--y-g1);
@@ -912,6 +933,9 @@ div[pp-suType="interact"] .pp-proj {
 }
 .pp-desc .pp-img.focus {
     background-color: var(--y-b2);
+}
+.pp-desc .pp-img.focus .pp-img-desc {
+    color: var(--y-w1);
 }
 
 .project-popup section.pp-desc {
@@ -1023,6 +1047,7 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
     flex-shrink: 0;
     padding: 5px 10px;
     background-color: var(--y-b1);
+    cursor: pointer;
     user-select: none;
 }
 .pp-langswitcher {
@@ -1039,7 +1064,6 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
     line-height: 1;
     color: var(--y-w1);
     transition: color 0.2s;
-    cursor: pointer;
 }
 .pp-langswitcher > span.focus {
     color: var(--y-b2);
@@ -1051,14 +1075,35 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
     left: 0;
     width: 50%;
     height: 100%;
+    transform: rotateZ(0.01deg) scale(1);
     background-color: var(--y-w1);
-    transition: left 0.5s cubic-bezier(0.2, 0.6, 0, 1);
+    transition: left 0.5s cubic-bezier(0.2, 0.6, 0, 1),
+                transform 0.5s cubic-bezier(0.05, 0.6, 0, 1),
+                background-color 0.2s;
 }
 .pp-langswitcher > span.focus:first-child ~ .pp-ls-bg {
     left: 0;
 }
 .pp-langswitcher > span.focus:nth-child(2) ~ .pp-ls-bg {
     left: 50%;
+}
+
+.pp-langswitcher-c:hover span:not(.focus) {
+    color: var(--y-w2);
+}
+.pp-langswitcher-c:active span:not(.focus) {
+    color: var(--y-g1);
+}
+.pp-langswitcher-c:active span:not(.focus) {
+    transition: transform 0.3s cubic-bezier(0.05, 0.6, 0, 1),
+                color 0.2s;
+}
+.pp-langswitcher-c:hover .pp-ls-bg,
+.pp-langswitcher-c:active .pp-ls-bg {
+    transform: rotateZ(0.01deg) scale(0.915);
+}
+.pp-langswitcher-c:active .pp-ls-bg {
+    background-color: var(--y-g1);
 }
 
 .pp-desc h2 {
@@ -1093,11 +1138,11 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
     display: block;
     padding: 15px 30px;
     text-decoration: none;
-    background-color: var(--y-w2);
     color: var(--y-w1);
     fill: var(--y-w1);
-    transition: 0.25s ease;
-    transition-property: color, fill;
+    background-color: var(--y-w2);
+    transition: 0.25s ease, 0.7s cubic-bezier(0.3, 0.7, 0, 1);
+    transition-property: color, background-color, fill;
 }
 .pp-btn > span {
     display: inline-flex;
@@ -1116,6 +1161,7 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
 .pp-btn:active {
     color: var(--y-w2);
     fill: var(--y-w2);
+    background-color: var(--y-g1);
 }
 .pp-btn:hover > span {
     transform: scale(1.075);
@@ -1132,13 +1178,6 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
 }
 
 .ppd-imgview {
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    padding: 2.5vw;
     user-select: none;
 }
 .ppdiv-bg {
@@ -1148,15 +1187,46 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
     height: 100%;
     top: 0;
     left: 0;
-    opacity: 0.2;
-    background-color: var(--y-w1);
+    opacity: 0.75;
+    background-color: var(--y-b1);
+    transition: 0.45s;
 }
-.ppd-imgview > img {
+.ppdiv-img-c {
+    box-sizing: border-box;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding: 2.5% 5%;
+    cursor: pointer;
+}
+.ppd-imgview img {
     object-fit: contain;
     width: 100%;
     height: 100%;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0, 1),
+                opacity 0.4s;
+    pointer-events: none;
 }
-
+.ppd-imgview.pre img {
+    opacity: 0;
+    transform: scale(0.25) translateY(0);
+}
+.ppd-imgview.out {
+    pointer-events: none;
+}
+.ppd-imgview.out img {
+    opacity: 0;
+    transform: scale(1) translateY(100px);
+    transition: transform 0.6s cubic-bezier(0.2, 0.6, 0, 1),
+                opacity 0.3s;
+}
+.ppd-imgview.pre .ppdiv-bg,
+.ppd-imgview.out .ppdiv-bg {
+    opacity: 0;
+}
+.ppd-imgview.out .ppdiv-bg {
+    transition: 0.7s;
+}
 
 
 /* PROJECT POPUP CLOSE CROSS */
@@ -1465,7 +1535,7 @@ div[pp-suType="interact"] .pp-scaleup {
     }
     .pp-desctxt,
     .pp-subtitle {
-        margin-right: 0.75rem;
+        /*margin-right: 0.75rem;*/
         margin-left: 0.75rem;
     }
     .pp-btn-c {
