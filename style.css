@@ -10,6 +10,8 @@
 
     --ymtxt-tr-pos: 0.7s cubic-bezier(0.1, 0.7, 0, 1);
 
+    --m-b: calc((15vw + 15vh) / 2);;
+
     --ynav-m-space: 21vw;
     --ynav-padding: 10vh;
     --content-top: clamp(150px, 3vw, 430px);
@@ -348,7 +350,7 @@ main#swup {display: block;
 .margin-bott {
     position: relative;
     width: 1px;
-    height: calc((15vw + 15vh) / 2);
+    height: var(--m-b);
     opacity: 0;
 }
 
@@ -983,6 +985,7 @@ div[project-popup] section.pp-desc .pp-desctxt > *.pre > * {
     left: 0;
     width: 100%;
     height: auto;
+    padding-bottom: calc(var(--m-b) / 2);
 }
 div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
     transform: translateY(35px) !important;
