@@ -975,6 +975,7 @@ function init() {
             if(isMini) { ppOScr =  { autoHide : 'move', autoHideDelay : OScrHDelay }
             } else { ppOScr =  { autoHide : 'leave', autoHideDelay : 0 } }
             projectPopup.scrollbarPP = OverlayScrollbars(ppDesc, {
+                autoUpdate : o1[0],
                 overflowBehavior : {
                     x : 'hidden',
                     y : 'scroll'
