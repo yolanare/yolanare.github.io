@@ -914,7 +914,7 @@ function init() {
                                 <div class="ppdiv-bg"></div>
                                 <div class="ppdiv-img-c"><img src="`+ descimgImg.getAttribute('src') +`"/></div>
                             `;
-                            setTimeout(() => { imgView.classList.remove('pre'); }, 1);
+                            setTimeout(() => { imgView.classList.remove('pre'); }, 10);
 
                             imgView.addEventListener('click', function(ev) {
                                 descimg.classList.remove('focus');
