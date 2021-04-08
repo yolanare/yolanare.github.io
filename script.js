@@ -47,68 +47,104 @@ if(!!window.chrome) { document.querySelector('html').classList.add('isChr'); }
 
 // PROJECTS DESCRIPTIONS
 var projectsDesc = {
+// --- SAMPLES
+    desc_sample : {
+        desc : {
+            test : `
+                <h2>BigTitle</h2>
+
+                <h3>LilTitle</h3>
+
+                <p>Text</p>
+
+                <p>Paragraph
+                <br>Paragraph
+                <br>Paragraph</p>
+
+                <div class="pp-img"><div><div><img src="../src/projects/"/></div></div>
+                    <div class="pp-img-desc">Image</div></div>
+            `,
+        }
+    },
 
 // ARTWORKS
     'sch_t_iv' : {
         type : 'img', suType : 'img',
         year : '2020', month : '01', tag: 'perso',
-        subtitle : `Looooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo ooo o o  o o o o o o o o o o   ooooo o o  ooooo ooo oo ok`,
+        subtitle : ``,
         desc : {
             fr : `
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench</p>
-                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch-t-pm/05 colombe Banksy.jpg"/></div></div>
-                    <div class="pp-img-desc">desc desc desc!desc desc desc!desc desc desc!desc desc desc!desc desc desc!desc desc desc!</div></div>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench</p>
-                <p>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench</p>
-                <p>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench
-                <br>freeeeeeeeench</p>
+                <h2>EXPÉRIMENTATION</h2>
+                <p>Création d'une sensation de mouvement avec du contraste et des formes vectorielles en utilisant Adobe Illustrator.</p>
+                <h2>INTERPRÉTATION</h2>
+                <p>Les formes se croisent et s’empilent, elles alternent l’utilisation du noir et du blanc. Il n’y a aucune autre teinte.</p>
             `,
             en : `
-                <p>engriiiiiiiiish</p>
-                <p>engriiiiiiiiish</p>
-                <p>engriiiiiiiiish</p>
-                <p>engriiiiiiiiish</p>
-                <p>engriiiiiiiiish</p>
+                <h2>EXPERIMENTATION</h2>
+                <p>Creating an impression of movement with contrast and vectors using Adobe Illustrator.</p>
+                <h2>INTERPRETATION</h2>
+                <p>The shapes overlap and stack, alternating the use of black and white. There are no other shades.</p>
             `,
         }
-        
     },
     'sch_t_pm' : {
         type : 'img', suType : 'img',
         year : '2019', month : '10', tag: 'sch',
         subtitle : `What are we going to do with the dove?`,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>SUJET</h2>
+                <p>Le sujet consiste en l'incrustation d'une peinture sur un support mural afin de créer entre eux un lien spécifique.</p>
+                <h2>INSPIRATION</h2>
+                <p>L'œuvre “The Armoured Dove” de Banksy, un célèbre street-artiste britannique, m’a inspiré dans la réalisation de ce projet.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch_t_pm/05 colombe Banksy.jpg"/></div></div>
+                    <div class="pp-img-desc">"The Armored Dove", Banksy (2005)</div></div>
+                <p>Sa colombe a été peinte en 2005 sur un mur séparant Israël et la Palestine. Pour lui ce mur est une tentative absurde pour mettre fin au conflit. La colombe étant un symbole de pureté et de paix, Banksy l'a totalement exposée à la violence, un pointeur vise son cœur.</p>
+                <h2>L’ABANDONNÉE</h2>
+                <p>Dans mon projet, j’ai choisi de faire de même en l’abandonnant dans un lieu sale et délaissé.
+                <br>Je n’avais pas de lieu de ce genre donc j’ai peint la colombe à l’aquarelle sur une feuille, et je l’ai incrustée numériquement sur un mur.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch_t_pm/01 colombe originale.jpg"/></div></div>
+                    <div class="pp-img-desc">Colombe peinte à l'aquarelle</div></div>
+                <p>Puis j’ai incrusté une cage posée devant elle. Elle est coincée dans cet endroit. La position paniquée, le bec ouvert et les ailes écartées. Les couleurs sont très ternes et sombres afin de donner une impression de détresse.</p>
+            `,
+            en : `
+                <h2>TOPIC</h2>
+                <p>The aim is to create a specific link between a painting and a wall support.</p>
+                <h2>INSPIRATION</h2>
+                <p>The work "The Armoured Dove" by Banksy, a famous British street-artist, inspired me to make this project.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch_t_pm/05 colombe Banksy.jpg"/></div></div>
+                    <div class="pp-img-desc">"The Armored Dove", Banksy (2005)</div></div>
+                <p>His dove was painted in 2005 on a wall separating Israel and Palestine. For him, this wall is an absurd attempt to end the conflict. The dove being a symbol of purity and peace, Banksy has totally exposed it to violence, a pointer is aiming at its heart.</p>
+                <h2>THE FORSAKEN ONE</h2>
+                <p>In my project, I chose to do likewise by abandoning it in a dirty and neglected place.
+                <br>I didn't know where to find such a place so I painted the dove on paper and digitally overlaid it on a wall.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch_t_pm/01 colombe originale.jpg"/></div></div>
+                    <div class="pp-img-desc">Painted dove with watercolours</div></div>
+                <p>Then I put a cage in front of it. It is trapped in this place. The panicked pose, the beak open and the wings spread. The colours are very dull and dark to give an impression of despair.</p>
+            `,
         }
     },
     'stargazing_a' : {
         type : 'img', suType : 'img',
         year : '2018', month : '10', tag: 'rs',
-        subtitle : `Who are you?`,
+        subtitle : `Disrupting the stars when they sleep.`,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>"STARGAZING" est un projet de film avec la boîte de production de mon ami aspirant réalisateur. C’était initialement une affiche pour une campagne de financement participatif.</p>
+                <p>Cependant, on a préféré se focaliser sur nos études et d'autres projets, donc il n'a pas encore abouti.</p>
+                <h2>COMPOSITION</h2>
+                <p>La scène a été composée numériquement sur Photoshop : le ciel, la voiture, le personnage, le brouillard, la lumière et l’herbe sont tous sur des calques différents.</p>
+                <p>La lumière du véhicule éblouit et crée un halo autour du personnage, le mettant en valeur.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>"STARGAZING" is a movie idea with my aspiring filmmaker friend. It was originally a poster for a crowdfunding campaign.</p>
+                <p>However, we preferred to focus on our studies and other projects, so it hasn't yet happened.</p>
+                <h2>COMPOSITION</h2>
+                <p>The scenery was digitally composed in Photoshop: the sky, the car, the character, the fog, the light and the grass are all on different layers.</p>
+                <p>The lights of the vehicle dazzle and create a halo around the character, highlighting him.</p>
+            `,
         }
     },
     'y_in_b' : {
@@ -116,8 +152,16 @@ var projectsDesc = {
         year : '2018', month : '09', tag: "perso",
         subtitle : `Right in front of the only light`,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>JEU DE LUMIÈRE</h2>
+                <p>L’unique source de lumière permet un grand contraste avec la noirceur plate de l’arrière-plan et le relief des éléments de la scène.</p>
+                <p>J’ai disposé un Y en carton sur un support et avec le flash de mon smartphone j'ai fait apparaître le plus de détails possibles.</p>
+            `,
+            en : `
+                <h2>LIGHT PLAY</h2>
+                <p>The single light source provides a strong contrast between the flat blackness of the background and the sharpness of the scene elements.</p>
+                <p>I placed a Y-shaped cardboard statue on a surface and with the flash of my smartphone I tried to bring up as much details as possible.</p>
+            `,
         }
     },
     'fut_met' : {
@@ -125,8 +169,18 @@ var projectsDesc = {
         year : '2017', month : '06', tag: "perso",
         subtitle : `From what kind of place is it coming from?`,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>IMAGINATION</h2>
+                <p>Notre ignorance du fin fond de l’espace m’a donné envie d’imaginer une météorite venant d’une autre civilisation. Elle file à toute vitesse vers le spectateur depuis un endroit inconnu.</p>
+                <h2>CONTEXTE</h2>
+                <p>C’est l'un de mes premiers projets graphiques et aussi l'un de mes favoris.</p>
+            `,
+            en : `
+                <h2>IMAGINATION</h2>
+                <p>Our lack of knowledge of the far reaches of space made me want to imagine a meteorite coming from another civilization. It is rushing towards the viewer from an undiscovered place.</p>
+                <h2>CONTEXT</h2>
+                <p>This is one of my first graphic projects and also one of my favourites.</p>
+            `,
         }
     },
     'destr_casque' : {
@@ -134,8 +188,16 @@ var projectsDesc = {
         year : '2016', month : '12', tag: "fun",
         subtitle : `Breaking it even more. Why wouldn't I?`,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>Pour honorer le bon temps passé avec un casque audio de la marque Logitech qui était tombé en panne et que j'affectionnais tout particulièrement, j’ai décidé de me filmer le détruisant à coup de marteau.</p>
+                <p>J’ai publié cette vidéo sur YouTube dont j’ai fait la miniature ci-contre.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>To commemorate the good times spent with a Logitech headset that had broken down and that I was particularly fond of, I decided to film myself destroying it with a hammer.</p>
+                <p>I posted this video on YouTube and made the thumbnail shown here.</p>
+            `,
         }
     },
 
@@ -146,8 +208,20 @@ var projectsDesc = {
         url : 'jN7L44_-igk', format : '1:1',
         subtitle : ``,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>La structure est une construction faite sur Minecraft par un ami du nom de Browlin.
+                <br>J'ai réalisé la présentation.</p>
+                <h2>AMBIANCE</h2>
+                <p>L’ambiance d’usine plutôt orange rouille est contrastée par l’énergie bleue qui s’échappe des réacteurs.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>This structure is a Minecraft build made by a friend named Browlin.
+                <br>I only did the presentation.</p>
+                <h2>AMBIANCE</h2>
+                <p>The rather rusty orange factory atmosphere is contrasted by the blue energy escaping from the reactors.</p>
+            `,
         }
     },
     'mc_cyber_district1' : {
@@ -155,8 +229,20 @@ var projectsDesc = {
         year : '2019', month : '08', tag: "c",
         subtitle : ``,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>La structure est une construction faite sur Minecraft par la Pamplemousse (équipe de joueurs).
+                <br>J'ai réalisé la présentation avec un ami.</p>
+                <h2>UN QUARTIER LUMINEUX</h2>
+                <p>Les couleurs vives des faisceaux lumineux et des panneaux d'affichages se mélangent et se diffusent dans le ciel sombre.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>This structure is a Minecraft build made by the Pamplemousse (building team on the game).
+                <br>I and a friend did the presentation.</p>
+                <h2>A LUMINOUS DISTRICT</h2>
+                <p>The vibrant colours of the light beams and billboards blend and spread into the dark sky.</p>
+            `,
         }
     },
     'mc_cyber_district2' : {
@@ -164,8 +250,20 @@ var projectsDesc = {
         year : '2019', month : '08', tag: "c",
         subtitle : ``,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>La structure est une construction faite sur Minecraft par la Pamplemousse (équipe de joueurs).
+                <br>J'ai réalisé la présentation avec un ami.</p>
+                <h2>DENSITÉ</h2>
+                <p>Ce plan large a pour but de mettre en valeur le grand nombre de détails de cette structure.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>This structure is a Minecraft build made by the Pamplemousse (building team on the game).
+                <br>I and a friend did the presentation.</p>
+                <h2>DENSITY</h2>
+                <p>This wide shot's aim is to highlight the great number of details of this structure.</p>
+            `,
         }
     },
     'sch_1_wc' : {
@@ -174,8 +272,46 @@ var projectsDesc = {
         url : 'Cg0DBZRAbqU', format : '1:1',
         subtitle : `As the days passes, everything's staying the same...`,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>SUJET</h2>
+                <p>Le sujet était de représenter la ville sans évoquer ses plus gros clichés.</p>
+                <p>J’ai choisi de représenter son manque de personnalité en mettant en avant sa hauteur et sa répétitivité depuis le point de vue d’un piéton à travers le temps.</p>
+                <h2>CRÉATION</h2>
+                <p>En m’aidant du logiciel Cinema 4D, je l’ai entièrement créée en 3D.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/02 pts de vues 3D.jpg"/></div></div>
+                    <div class="pp-img-desc">Vues de la scène en 3D sur 4 axes différents</div></div>
+                
+                <p>Puis j’ai placé la caméra dans un carrefour.
+                <br>J’ai modifié beaucoup de paramètres pour donner une impression vertigineuse : le point de fuite est déplacé dans le croisement des bâtiments et le champ de vision est étiré.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/01 camera 3D.jpg"/></div></div>
+                    <div class="pp-img-desc">Paramètres de la caméra</div></div>
+                
+                <p>J’ai simulé le déroulement du cycle jour/nuit et j’ai fait le rendu des images en vidéo.</p>
+                <h2>POST-PRODUCTION</h2>
+                <p>Sur VEGAS Pro, j’ai ajouté de nombreux effets pour polir le timelapse : de la brume, du grain, et surtout des effets lumineux pour le soleil. Le lever et le coucher sont plus colorés. J’ai simulé l’éblouissement en ajustant le contraste et le vignettage.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/04 montage en gros.png"/></div></div>
+                    <div class="pp-img-desc">Montage des effets vidéos</div></div>
+            `,
+            en : `
+                <h2>TOPIC</h2>
+                <p>The aim was to represent the city without bringing up its biggest clichés.</p>
+                <p>I chose to depict its lack of character by emphasizing its height and repetitiveness from the point of view of a pedestrian across time.</p>
+                <h2>CREATION</h2>
+                <p>I created it entirely in 3D using Cinema 4D.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/02 pts de vues 3D.jpg"/></div></div>
+                    <div class="pp-img-desc">Scene overview on 4 different axes</div></div>
+                
+                <p>Then I placed the camera in an intersection.
+                <br>I adjusted a lot of the camera settings to give it a dizzying effect: the vanishing point is shifted in the crossing of the buildings in the sky and the field of view is stretched.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/01 camera 3D.jpg"/></div></div>
+                    <div class="pp-img-desc">Camera settings</div></div>
+                
+                <p>I added a day/night cycle and rendered the frames in a video.</p>
+                <h2>POST-PRODUCTION</h2>
+                <p>On VEGAS Pro, I added many effects to refine the timelapse: haze, grain, and especially light effects for the sun. The sunrise and sunset are more colorful. I tried to fake the sun glare by adjusting the contrast and other effects.</p>
+                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/04 montage en gros.png"/></div></div>
+                    <div class="pp-img-desc">Video effects</div></div>
+            `,
         }
     },
 
@@ -186,8 +322,24 @@ var projectsDesc = {
         url : 'XOnAthClcEI', format : '16:9',
         subtitle : `Synthwave into the darkest place of space!`,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>Cette animation a été réalisée pour essayer le logo de la future boîte de production d'un ami.</p>
+                <h2>AMBIANCE</h2>
+                <p>Le but était de réaliser une introduction, style Synthwave/années 80s avec le quadrillage typique, les néons, les étoiles, les glitchs...</p>
+                <p>J'ai ajouté des effets sonores pour amplifier l'ambiance.</p>
+                <p>
+                <br>Cependant, le rendu final est trop sombre et pesant.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>This animation was made to experiment with the logo of my friend's future film production company.</p>
+                <h2>AMBIANCE</h2>
+                <p>The goal was to take inspiration from the Synthwave/80s style with the typical grid, neons, stars, glitches...</p>
+                <p>I also added some sound effects to intensify the atmosphere.</p>
+                <p>
+                <br>But the final result is a little too dark and heavy.</p>
+            `,
         }
     },
     'i_jfm' : {
@@ -196,8 +348,14 @@ var projectsDesc = {
         url : 'Gyho58zddwg', format : '16:9',
         subtitle : ``,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>Un ami m'avait demandé lors de la réalisation d'une vidéo promotionnelle pour JordanneFM d'animer leur logo. Par la suite JordanneFM l'a utilisé pour ses émissions.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>While a friend was making a promotional video for JordanneFM, he asked me to animate their logo. Afterwards, JordanneFM used it for some of their videos.</p>
+            `,
         }
     },
     'i_y2' : {
