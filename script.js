@@ -191,9 +191,9 @@ var projectsDesc = {
             `,
             en : `
                 <h2>IMAGINATION</h2>
-                <p>Our lack of knowledge of the far reaches of space made me want to imagine a meteorite coming from another civilization. It is rushing towards the viewer from an undiscovered place.</p>
+                <p>Our lack of knowledge of the far reaches of space made me want to imagine a meteorite coming from another civilization. It is rushing towards the viewer from an unknown place.</p>
                 <h2>CONTEXT</h2>
-                <p>This is one of my first graphic projects and also one of my favourites.</p>
+                <p>This is one of my first graphic project and also one of my favourites.</p>
                 <h2>DISPLAY</h2>
                 <p>I was surprised to find out that an author named Pierre-Jérôme Delage had illustrated his article "Who do meteorites belong to?" (title translated) with my meteorite !</p>
                 `+ ppDescSamples('link', 'https://droitetsf.hypotheses.org/78', 'ACCESS ARTICLE') +`
