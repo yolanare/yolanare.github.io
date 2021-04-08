@@ -1561,8 +1561,7 @@ div[pp-suType="interact"] .pp-scaleup {
     }
     .pp-btn-c {
         position: relative;
-        left: -0.75rem;
-        width: calc(100% + 1.5rem);
+        width: 100%;
     }
     .pp-title {
         padding: 10px 15px 15px;
