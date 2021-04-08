@@ -46,6 +46,20 @@ if(!!window.chrome) { document.querySelector('html').classList.add('isChr'); }
 
 
 // PROJECTS DESCRIPTIONS
+function ppDescSamples(type, url, title) {
+    var el;
+    if(type == 'img') {
+        el = `<div class="pp-img"><div><div><img src="`+ url +`"/></div></div>
+                <div class="pp-img-desc">`+ title +`</div></div>`
+    } else if(type == 'link') {
+        el = `<div class="pp-btn-c"><a class="pp-btn" href="`+ url +`" target="_blank"><span>`+ title +`
+                <svg viewBox="0 0 32 32"><path d="M21.5,20.5v4h-14v-14h4c1.7,0,3-1.3,3-3l-10,0v20h20l0-10C22.8,17.5,21.5,18.8,21.5,20.5z"/><path d="M14.5,17.5L14.5,17.5c-0.6-0.6-0.6-1.5,0-2.1l8.9-8.9l2.1,2.1l-8.9,8.9C16,18.1,15.1,18.1,14.5,17.5z M24.5,7.5h-7l0-3h10v10l-3,0V7.5z"/>
+                </svg></span></a></div>`
+    }
+    return el;
+}
+var srcP = '../src/projects/';
+
 var projectsDesc = {
 // --- SAMPLES
     desc_sample : {
@@ -61,8 +75,9 @@ var projectsDesc = {
                 <br>Paragraph
                 <br>Paragraph</p>
 
-                <div class="pp-img"><div><div><img src="../src/projects/"/></div></div>
-                    <div class="pp-img-desc">Image</div></div>
+                ppDescSamples('img', 'src', 'Image')
+
+                ppDescSamples('link', 'somewhereontheweb', 'Link')
             `,
         }
     },
@@ -97,14 +112,12 @@ var projectsDesc = {
                 <p>Le sujet consiste en l'incrustation d'une peinture sur un support mural afin de créer entre eux un lien spécifique.</p>
                 <h2>INSPIRATION</h2>
                 <p>L'œuvre “The Armoured Dove” de Banksy, un célèbre street-artiste britannique, m’a inspiré dans la réalisation de ce projet.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch_t_pm/05 colombe Banksy.jpg"/></div></div>
-                    <div class="pp-img-desc">"The Armored Dove", Banksy (2005)</div></div>
+                `+ ppDescSamples('img', srcP + 'artworks/sch_t_pm/05 colombe Banksy.jpg', '"The Armored Dove", Banksy (2005)') +`
                 <p>Sa colombe a été peinte en 2005 sur un mur séparant Israël et la Palestine. Pour lui ce mur est une tentative absurde pour mettre fin au conflit. La colombe étant un symbole de pureté et de paix, Banksy l'a totalement exposée à la violence, un pointeur vise son cœur.</p>
                 <h2>L’ABANDONNÉE</h2>
                 <p>Dans mon projet, j’ai choisi de faire de même en l’abandonnant dans un lieu sale et délaissé.
                 <br>Je n’avais pas de lieu de ce genre donc j’ai peint la colombe à l’aquarelle sur une feuille, et je l’ai incrustée numériquement sur un mur.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch_t_pm/01 colombe originale.jpg"/></div></div>
-                    <div class="pp-img-desc">Colombe peinte à l'aquarelle</div></div>
+                `+ ppDescSamples('img', srcP + 'artworks/sch_t_pm/01 colombe originale.jpg', 'Colombe peinte à l\'aquarelle') +`
                 <p>Puis j’ai incrusté une cage posée devant elle. Elle est coincée dans cet endroit. La position paniquée, le bec ouvert et les ailes écartées. Les couleurs sont très ternes et sombres afin de donner une impression de détresse.</p>
             `,
             en : `
@@ -112,14 +125,12 @@ var projectsDesc = {
                 <p>The aim is to create a specific link between a painting and a wall support.</p>
                 <h2>INSPIRATION</h2>
                 <p>The work "The Armoured Dove" by Banksy, a famous British street-artist, inspired me to make this project.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch_t_pm/05 colombe Banksy.jpg"/></div></div>
-                    <div class="pp-img-desc">"The Armored Dove", Banksy (2005)</div></div>
+                `+ ppDescSamples('img', srcP + 'artworks/sch_t_pm/01 colombe originale.jpg', '"The Armored Dove", Banksy (2005)') +`
                 <p>His dove was painted in 2005 on a wall separating Israel and Palestine. For him, this wall is an absurd attempt to end the conflict. The dove being a symbol of purity and peace, Banksy has totally exposed it to violence, a pointer is aiming at its heart.</p>
                 <h2>THE FORSAKEN ONE</h2>
                 <p>In my project, I chose to do likewise by abandoning it in a dirty and neglected place.
                 <br>I didn't know where to find such a place so I painted the dove on paper and digitally overlaid it on a wall.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/artworks/sch_t_pm/01 colombe originale.jpg"/></div></div>
-                    <div class="pp-img-desc">Painted dove with watercolours</div></div>
+                `+ ppDescSamples('img', srcP + 'artworks/sch_t_pm/01 colombe originale.jpg', 'Painted dove with watercolours') +`
                 <p>Then I put a cage in front of it. It is trapped in this place. The panicked pose, the beak open and the wings spread. The colours are very dull and dark to give an impression of despair.</p>
             `,
         }
@@ -174,12 +185,18 @@ var projectsDesc = {
                 <p>Notre ignorance du fin fond de l’espace m’a donné envie d’imaginer une météorite venant d’une autre civilisation. Elle file à toute vitesse vers le spectateur depuis un endroit inconnu.</p>
                 <h2>CONTEXTE</h2>
                 <p>C’est l'un de mes premiers projets graphiques et aussi l'un de mes favoris.</p>
+                <h2>DIFFUSION</h2>
+                <p>J'ai eu la surprise de découvrir qu'un auteur du nom de Pierre-Jérôme Delage avait réutilisé ma météorite pour illustrer son article "À qui appartiennent les météorites ?" !</p>
+                `+ ppDescSamples('link', 'https://droitetsf.hypotheses.org/78', 'ACCÉDER À L\'ARTICLE') +`
             `,
             en : `
                 <h2>IMAGINATION</h2>
                 <p>Our lack of knowledge of the far reaches of space made me want to imagine a meteorite coming from another civilization. It is rushing towards the viewer from an undiscovered place.</p>
                 <h2>CONTEXT</h2>
                 <p>This is one of my first graphic projects and also one of my favourites.</p>
+                <h2>DISPLAY</h2>
+                <p>I was surprised to find out that an author named Pierre-Jérôme Delage had illustrated his article "Who do meteorites belong to?" (title translated) with my meteorite !</p>
+                `+ ppDescSamples('link', 'https://droitetsf.hypotheses.org/78', 'ACCESS ARTICLE') +`
             `,
         }
     },
@@ -278,19 +295,16 @@ var projectsDesc = {
                 <p>J’ai choisi de représenter son manque de personnalité en mettant en avant sa hauteur et sa répétitivité depuis le point de vue d’un piéton à travers le temps.</p>
                 <h2>CRÉATION</h2>
                 <p>En m’aidant du logiciel Cinema 4D, je l’ai entièrement créée en 3D.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/02 pts de vues 3D.jpg"/></div></div>
-                    <div class="pp-img-desc">Vues de la scène en 3D sur 4 axes différents</div></div>
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/02 pts de vues 3D.jpg', 'Vues de la scène en 3D sur 4 axes différents') +`
                 
                 <p>Puis j’ai placé la caméra dans un carrefour.
                 <br>J’ai modifié beaucoup de paramètres pour donner une impression vertigineuse : le point de fuite est déplacé dans le croisement des bâtiments et le champ de vision est étiré.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/01 camera 3D.jpg"/></div></div>
-                    <div class="pp-img-desc">Paramètres de la caméra</div></div>
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/01 camera 3D.jpg', 'Paramètres de la caméra') +`
                 
                 <p>J’ai simulé le déroulement du cycle jour/nuit et j’ai fait le rendu des images en vidéo.</p>
                 <h2>POST-PRODUCTION</h2>
                 <p>Sur VEGAS Pro, j’ai ajouté de nombreux effets pour polir le timelapse : de la brume, du grain, et surtout des effets lumineux pour le soleil. Le lever et le coucher sont plus colorés. J’ai simulé l’éblouissement en ajustant le contraste et le vignettage.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/04 montage en gros.png"/></div></div>
-                    <div class="pp-img-desc">Montage des effets vidéos</div></div>
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/04 montage en gros.png', 'Montage des effets vidéos') +`
             `,
             en : `
                 <h2>TOPIC</h2>
@@ -298,19 +312,16 @@ var projectsDesc = {
                 <p>I chose to depict its lack of character by emphasizing its height and repetitiveness from the point of view of a pedestrian across time.</p>
                 <h2>CREATION</h2>
                 <p>I created it entirely in 3D using Cinema 4D.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/02 pts de vues 3D.jpg"/></div></div>
-                    <div class="pp-img-desc">Scene overview on 4 different axes</div></div>
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/02 pts de vues 3D.jpg', 'Scene overview on 4 different axes') +`
                 
                 <p>Then I placed the camera in an intersection.
                 <br>I adjusted a lot of the camera settings to give it a dizzying effect: the vanishing point is shifted in the crossing of the buildings in the sky and the field of view is stretched.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/01 camera 3D.jpg"/></div></div>
-                    <div class="pp-img-desc">Camera settings</div></div>
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/01 camera 3D.jpg', 'Camera settings') +`
                 
                 <p>I added a day/night cycle and rendered the frames in a video.</p>
                 <h2>POST-PRODUCTION</h2>
                 <p>On VEGAS Pro, I added many effects to refine the timelapse: haze, grain, and especially light effects for the sun. The sunrise and sunset are more colorful. I tried to fake the sun glare by adjusting the contrast and other effects.</p>
-                <div class="pp-img"><div><div><img src="../src/projects/renders/sch_1_wc/04 montage en gros.png"/></div></div>
-                    <div class="pp-img-desc">Video effects</div></div>
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/04 montage en gros.png', 'Video effects') +`
             `,
         }
     },
