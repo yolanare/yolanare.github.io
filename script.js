@@ -50,12 +50,9 @@ var projectsDesc = {
 
 // ARTWORKS
     'sch_t_iv' : {
-        type : 'img',
-        suType : 'img',
-        tag: "perso",
-        year : '2020',
-        month : '01',
-        subtitle : 'Looooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo ooo o o  o o o o o o o o o o   ooooo o o  ooooo ooo oo ok',
+        type : 'img', suType : 'img',
+        year : '2020', month : '01', tag: 'perso',
+        subtitle : `Looooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo oooooooooooo ooooo ooo oooo ooo o o  o o o o o o o o o o   ooooo o o  ooooo ooo oo ok`,
         desc : {
             fr : `
                 <p>freeeeeeeeench</p>
@@ -97,371 +94,306 @@ var projectsDesc = {
         
     },
     'sch_t_pm' : {
-        type : 'img',
-        suType : 'img',
-        tag: "sch",
-        year : '2019',
-        month : '10',
-        desc : `
-            <p>What are we going to do with the dove?</p>
-        `,
+        type : 'img', suType : 'img',
+        year : '2019', month : '10', tag: 'sch',
+        subtitle : `What are we going to do with the dove?`,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'stargazing_a' : {
-        type : 'img',
-        suType : 'img',
-        tag: "rs",
-        year : '2018',
-        month : '10',
-        desc : `
-            <p>Who are you?</p>
-            <h2>CONTEXTE</h2>
-            <p>"STARGAZING" est un projet de métrage avec la boîte de production de mon ami réalisateur. On a créé cette affiche initialement pour une campagne de financement participatif. Cependant, on a préféré se focaliser sur nos études et d'autres projet, donc il n'a pas encore abouti.</p>
-            <h2>LA PART ARTIFICIELLE</h2>
-            <p>Rien ne provient de la réalité ici. Tous les éléments ont étés assemblés par ordinateur sur Photoshop. La voiture est un modèle 3D tiré d'un jeu vidéo (Garry's Mod). L'herbe, la lumière et la brume ont été réalisés au pinceau.
-            <br>C'était principalement un travail d'incrustation.</p>
-        `,
+        type : 'img', suType : 'img',
+        year : '2018', month : '10', tag: 'rs',
+        subtitle : `Who are you?`,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'y_in_b' : {
-        type : 'img',
-        suType : 'img',
-        tag: "perso",
-        year : '2018',
-        month : '09',
-        desc : `
-            <p>Right in front of the only light</p>
-            <h2>CONTEXTE</h2>
-            <p>Je voulais m'atteler à la photographie, car j'avais un appareil photo avec une très bonne focale. Par manque de temps, je n'ai fait que ce cliché sur une étagère noire dans ma chambre avec un Y en carton et le flash de mon smartphone.</p>
-            <h2>LA PART ARTISTIQUE</h2>
-            <p>J'ai joué avec la lumière pour faire ressortir le plus de détails possibles. Le Y étant blanc, il contraste bien avec la scène qui est totalement plongée dans le noir. J'ai profité au passage de la texture de mon "sol" pour montrer la direction de la lumière.
-            <br>Pour finir, j'ai passé le cliché sur Photoshop pour nettoyer un peu le fond et donner plus de caractère aux détails du Y.</p>
-        `,
+        type : 'img', suType : 'img',
+        year : '2018', month : '09', tag: "perso",
+        subtitle : `Right in front of the only light`,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'fut_met' : {
-        type : 'img',
-        suType : 'img',
-        tag: "perso",
-        year : '2017',
-        month : '06',
-        desc : `
-            <p>From what kind of place is it coming from?</p>
-            <h2>CONTEXTE</h2>
-            <p>L'un de mes premiers projets graphiques et aussi l'un de mes préférés.
-            <br>L'idée d'une boule futuriste qui traverse l'espace me branchait bien à l'époque.</p>
-            <h2>RÉALISATION</h2>
-            <p>J'ai assemblé une sphère en 3D où j'ai appliqué des effets de destruction, je lui ai ajouté un cœur cyan et j'ai fait des particules. Pour donner une impression de vitesse à la météorite, j'ai rajouté des effets un peu 'magiques' et 'spatiaux', et du flou de mouvement.</p>
-        `,
+        type : 'img', suType : 'img',
+        year : '2017', month : '06', tag: "perso",
+        subtitle : `From what kind of place is it coming from?`,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'destr_casque' : {
-        type : 'img',
-        suType : 'img',
-        tag: "fun",
-        year : '2016',
-        month : '12',
-        desc : `
-            <p>Breaking it even more. Why wouldn't I?</p>
-            <h2>CONTEXTE</h2>
-            <p>Ce casque audio devenait vieux, il était temps d'en changer. Je voulais marquer <b>le coup</b> en le détruisant. Déjà par curiosité pour voir ce qu'il y avait à l'intérieur, et aussi pour honorer le bon temps passé avec.</p>
-            <p>Cette image est la miniature de la vidéo sur YouTube que j'ai faite pour sa destruction. C'était l'un de mes premiers projets graphiques.</p>
-        `,
+        type : 'img', suType : 'img',
+        year : '2016', month : '12', tag: "fun",
+        subtitle : `Breaking it even more. Why wouldn't I?`,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
 
 // 3D RENDERS
     'mc_factory92' : {
-        type : 'vid',
-        suType : 'interact',
-        tag: "c",
-        url : 'jN7L44_-igk',
-        format : '1:1',
-        year : '2021',
-        month : '01',
-        desc : `
-        `,
+        type : 'vid', suType : 'interact',
+        year : '2021', month : '01', tag: "c",
+        url : 'jN7L44_-igk', format : '1:1',
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'mc_cyber_district1' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2019',
-        month : '08',
-        desc : `
-        `,
+        type : 'img', suType : 'img',
+        year : '2019', month : '08', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'mc_cyber_district2' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2019',
-        month : '08',
-        desc : `
-        `,
+        type : 'img', suType : 'img',
+        year : '2019', month : '08', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'sch_1_wc' : {
-        type : 'vid',
-        suType : 'interact',
-        tag: "sch",
-        url : 'Cg0DBZRAbqU',
-        format : '1:1',
-        year : '2019',
-        month : '03-06',
-        desc : `
-            <p>As the days passes, everything's staying the same...</p>
-        `,
+        type : 'vid', suType : 'interact',
+        year : '2019', month : '03-06', tag: "sch",
+        url : 'Cg0DBZRAbqU', format : '1:1',
+        subtitle : `As the days passes, everything's staying the same...`,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
 
 // MOTION DESIGN
     'i_rs_b' : {
-        type : 'vid',
-        suType : 'interact',
-        tag: "rs",
-        url : 'XOnAthClcEI',
-        format : '16:9',
-        year : '2018',
-        month : '09',
-        desc : `
-            <p>Synthwave into the darkest place of space!</p>
-            <h2>CONTEXTE</h2>
-            <p>"RetroSaturn" étant la future boîte de production de mon ami, on a réalisé ce logo et on voulait l'essayer dans de l'animation.
-            <br>Cette animation ne nous servira surement jamais, car l'ambiance est trop sombre et pesante, et le logo est sujet à changer.</p>
-            <h2>LE BUT</h2>
-            <p>Le but était de réaliser une introduction, style Synthwave/années 80s avec le quadrillage typique, les néons, les étoiles, les gliOtherChs...
-            <br>J'ai même ajouté des effets sonores pour enrichir l'ambiance.</p>
-        `,
+        type : 'vid', suType : 'interact',
+        year : '2018', month : '09', tag: "rs",
+        url : 'XOnAthClcEI', format : '16:9',
+        subtitle : `Synthwave into the darkest place of space!`,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'i_jfm' : {
-        type : 'vid',
-        suType : 'interact',
-        tag: "c",
-        url : 'Gyho58zddwg',
-        format : '16:9',
-        year : '2017',
-        month : '12',
-        desc : `
-        `,
+        type : 'vid', suType : 'interact',
+        year : '2017', month : '12', tag: "c",
+        url : 'Gyho58zddwg', format : '16:9',
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'i_y2' : {
-        type : 'vid',
-        suType : 'interact',
-        tag: "perso",
-        url : 'UkL4zVUw27Y',
-        format : '16:9',
-        year : '2017',
-        month : '09',
-        desc : `
-            <p></p>
-            <h2>CONTEXTE</h2>
-            <p>J'y ai incorporé tout le savoir que je possédais. J'avais pour but de faire l'animation la plus aboutie possible, peu importe si je venais à ne jamais l'utiliser.</p>
-            <p>Cette introduction est très brutale, peut-être même trop à mon goût aujourd'hui, mais c'était le coût à payer pour faire le plus condensé que je pouvais.</p>
-        `,
+        type : 'vid', suType : 'interact',
+        year : '2017', month : '09', tag: "perso",
+        url : 'UkL4zVUw27Y', format : '16:9',
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'i_inex' : {
-        type : 'vid',
-        suType : 'interact',
-        tag: "c",
-        url : '46MrLGy5Xb8',
-        format : '16:9',
-        year : '2017',
-        month : '03',
-        desc : `
-        `,
+        type : 'vid', suType : 'interact',
+        year : '2017', month : '03', tag: "c",
+        url : '46MrLGy5Xb8', format : '16:9',
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'i_yc' : {
-        type : 'vid',
-        suType : 'interact',
-        tag: "perso",
-        url : 'PR0fVAGbHIQ',
-        format : '16:9',
-        year : '2017',
-        month : '01',
-        desc : `
-            <p></p>
-            <h2>CONTEXTE</h2>
-            <p>Au collège, je faisais des vidéos sur YouTube avec un ami du nom de Clément. Donc j'ai fait une introduction pour nos vidéos.</p>
-            <h2>LONGUEUR</h2>
-            <p>C'est une longue introduction, car nos vidéos étaient rares et beaucoup montées. Donc il fallait marquer l'événement avec une introduction marquante.</p>
-        `,
+        type : 'vid', suType : 'interact',
+        year : '2017', month : '01', tag: "perso",
+        url : 'PR0fVAGbHIQ', format : '16:9',
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
 
 // BRANDINGS
 // -- YT
     'b_l1_rs' : {
-        type : 'img',
-        imgExt : 'png',
-        suType : 'img',
-        tag: "rs",
-        year : '2018',
-        month : '06',
-        desc : `
-        `,
+        type : 'img', suType : 'img', imgExt : 'png',
+        year : '2018', month : '06', tag: "rs",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_l2_rs' : {
-        type : 'img',
-        imgExt : 'png',
-        suType : 'img',
-        tag: "rs",
-        year : '2019',
-        month : '01',
-        desc : `
-        `,
+        type : 'img', suType : 'img', imgExt : 'png',
+        year : '2019', month : '01', tag: "rs",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_b1_rs' : {
-        type : 'img',
-        suType : 'img',
-        tag: "rs",
-        year : '2018',
-        month : '09',
+        type : 'img', suType : 'img',
+        year : '2018', month : '09', tag: "rs",
         desc : `
         `,
     },
     'b_l1_caloucath' : {
-        type : 'img',
-        imgExt : 'png',
-        suType : 'img',
-        tag: "c",
-        year : '2017',
-        month : '07',
-        desc : `
-        `,
+        type : 'img', suType : 'img', imgExt : 'png',
+        year : '2017', month : '07', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_b1_caloucath' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2017',
-        month : '05',
+        type : 'img', suType : 'img',
+        year : '2017', month : '05', tag: "c",
         desc : `
         `,
     },
     'b_b2_caloucath' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2017',
-        month : '09',
-        desc : `
-        `,
+        type : 'img', suType : 'img',
+        year : '2017', month : '09', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_l1_ppm' : {
-        type : 'img',
-        imgExt : 'png',
-        suType : 'img',
-        tag: "c",
-        year : '2018',
-        month : '10',
-        desc : `
-        `,
+        type : 'img', suType : 'img', imgExt : 'png',
+        year : '2018', month : '10', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_b1_ppm' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2019',
-        month : '04',
-        desc : `
-        `,
+        type : 'img', suType : 'img',
+        year : '2019', month : '04', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_b1_mattmovie' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2016',
-        month : '11',
+        type : 'img', suType : 'img',
+        year : '2016', month : '11', tag: "c",
         desc : `
         `,
     },
     'b_b2_mattmovie' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2017',
-        month : '02',
-        desc : `
-        `,
+        type : 'img', suType : 'img',
+        year : '2017', month : '02', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
 
 // -- STANDALONES
     'b_l1_jethro' : {
-        type : 'img',
-        imgExt : 'png',
-        white : true,
-        suType : 'img',
-        tag: "c",
-        year : '2018',
-        month : '12',
-        desc : `
-        `,
+        type : 'img', suType : 'img', imgExt : 'png', white : true,
+        year : '2018', month : '12', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_l1_wzr' : {
-        type : 'img',
-        imgExt : 'png',
-        suType : 'img',
-        tag: "c",
-        year : '2017',
-        month : '09',
-        desc : `
-        `,
+        type : 'img', suType : 'img', imgExt : 'png',
+        year : '2017', month : '09', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_l1_nensho' : {
-        type : 'img',
-        imgExt : 'png',
-        suType : 'img',
-        tag: "c",
-        year : '2017',
-        month : '05',
-        desc : `
-        `,
+        type : 'img', suType : 'img', imgExt : 'png',
+        year : '2017', month : '05', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_b1_rezartilo' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2017',
-        month : '01',
-        desc : `
-        `,
+        type : 'img', suType : 'img',
+        year : '2017', month : '01', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_b1_killex' : {
-        type : 'img',
-        suType : 'img',
-        tag: "c",
-        year : '2016',
-        month : '03',
-        desc : `
-        `,
+        type : 'img', suType : 'img',
+        year : '2016', month : '03', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
 
 // POSTERS
     'pdf_apc_hpi' : {
-        type : 'pdf',
-        suType : 'interact',
-        tag: "c",
+        type : 'pdf', suType : 'interact',
         url : '1J0SOaGtPElDcgNwxXx55vr_E_ah3cZDc',
-        year : '2019',
-        month : '11',
-        desc : `
-        `,
+        year : '2019', month : '11', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'pdf_apc_wvhp' : {
-        type : 'pdf',
-        suType : 'interact',
-        tag: "c",
+        type : 'pdf', suType : 'interact',
         url : '1bCm600IXEowAT_jnyQLQcYP05QcAATYr',
-        year : '2019',
-        month : '08',
-        desc : `
-        `,
+        year : '2019', month : '08', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
 
 // WEBSITES
     'w_vh' : {
-        type : 'web',
-        suType : 'interact',
-        tag: "c",
-        url : 'https://valentinhebert.com',
-        format : 'fill',
-        year : '2020.10-2021',
-        month : '01',
-        desc : `
-        `,
+        type : 'web', suType : 'interact',
+        url : 'https://valentinhebert.com', format : 'fill',
+        year : '2020.10-2021', month : '01', tag: "c",
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
 };
 
