@@ -811,15 +811,8 @@ function init() {
                     iframe = `<iframe width="1280" height="720" src="https://www.youtube.com/embed/`+ projectsDesc[p.id].url +`?rel=0&color=white&loop=1&playlist=`+ projectsDesc[p.id].url +`" frameborder="0" allowfullscreen></iframe>`
                 } else if(projectsDesc[p.id].type == 'web') {
                     iframe = `<iframe src="`+ projectsDesc[p.id].url +`" width="1920px" height="1080px" frameborder="0"></iframe>`
-                    pWebLink = `
-                        <div class="pp-btn-c">
-                            <a class="pp-btn" href="`+ projectsDesc[p.id].url +`" target="_blank"><span>
-                                ACCESS WEBSITE
-                                <svg viewBox="0 0 32 32"><path d="M21.5,20.5v4h-14v-14h4c1.7,0,3-1.3,3-3l-10,0v20h20l0-10C22.8,17.5,21.5,18.8,21.5,20.5z"/>
-                                    <path d="M14.5,17.5L14.5,17.5c-0.6-0.6-0.6-1.5,0-2.1l8.9-8.9l2.1,2.1l-8.9,8.9C16,18.1,15.1,18.1,14.5,17.5z M24.5,7.5h-7l0-3h10v10l-3,0V7.5z"/></svg>
-                            </span></a>
-                        </div>
-                    `;
+                    //var accessLang; if(language == 'fr') { accessLang = 'ACCÉDER AU SITE'; } else { accessLang = 'ACCESS WEBSITE'; }
+                    pWebLink = ppDescSamples('link', projectsDesc[p.id].url, 'WEBSITE');
                 }
                 proj = `
                     <div id="player-c">
