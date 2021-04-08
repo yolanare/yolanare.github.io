@@ -942,12 +942,12 @@ div[pp-suType="interact"] .pp-proj {
 }
 
 .project-popup section.pp-desc {
-    overflow-y: auto;
     top: 0;
     left: 0;
     padding-right: var(--pp-sgrid-gap);
     word-wrap: break-word;
     box-sizing: border-box;
+    overflow-y: auto;
     overflow: hidden !important;
 }
 .project-popup section.pp-project {
@@ -1495,10 +1495,11 @@ div[pp-suType="interact"] .pp-scaleup {
     }
     .pp-sectiongrid {
         grid-template-columns: calc(var(--pp-sgrid) * 1%) auto;
-        grid-gap: var(--pp-sgrid-gap);
+        /*grid-gap: var(--pp-sgrid-gap);*/
     }
     section.pp-desc {
-        width: calc(((100 - var(--pp-sgrid)) / 100 * (var(--pp-popup-c-size) * 1vw)) - var(--pp-sgrid-gap));
+        padding-left: var(--pp-sgrid-gap);
+        width: calc((100 - var(--pp-sgrid)) / 100 * (var(--pp-popup-c-size) * 1vw));
     }
     .project-popup.pscaleup .pp-proj,
     .project-popup.pscaleup div[pp-suType="img"] .pp-scaleup {
