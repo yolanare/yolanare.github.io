@@ -840,9 +840,8 @@ function init() {
             } else if(projectsDesc[p.id].tag == 'rs') { pTag = 'RetroSaturn';
             }
             if(projectsDesc[p.id].suType == 'interact') {
-                suInteract = `
-                    <svg viewBox="0 0 32 32"><polygon points="13.4,7.2 16,4.6 27.5,16 16.1,27.4 13.4,24.8 20.5,17.7 4.5,17.7 4.5,14.3 20.5,14.3"/></svg>
-                `;
+                var suInSVG = `<svg viewBox="0 0 32 32"><polygon points="13.4,7.2 16,4.6 27.5,16 16.1,27.4 13.4,24.8 20.5,17.7 4.5,17.7 4.5,14.3 20.5,14.3"/></svg>`;
+                suInteract = suInSVG + `<div><span>FULLSCREEN</span><span>CLOSE</span></div>` + suInSVG;
             }
             if(pSpan.hasAttribute('long-title')) { pTitle = pSpan.getAttribute('long-title');
             } else { pTitle = pSpan.innerText; }
@@ -854,7 +853,7 @@ function init() {
                             <div class="pp-proj">`
                                 + proj +`
                             </div>
-                            <div class="pp-scaleup" style="height: `+ formatSU +`">`+ suInteract + suInteract +`</div>
+                            <div class="pp-scaleup" style="height: `+ formatSU +`">`+ suInteract +`</div>
                         </section>
                         <section class="pp-desc" scroll>
                             <div class="pp-title-c">
