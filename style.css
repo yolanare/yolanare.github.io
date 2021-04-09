@@ -318,8 +318,8 @@ html[page="about"] #ym-txt-c {
     height: 100%;
 }
 #ynav-boom circle {
-    opacity: 0.75;
-    fill: var(--y-w2);
+    opacity: 0.5;
+    fill: var(--y-w1);
 }
 #ynav-boom-1 circle {
     opacity: 0.05;
