@@ -49,7 +49,7 @@ if(!!window.chrome) { document.querySelector('html').classList.add('isChr'); }
 function ppDescSamples(type, url, title) {
     var el;
     if(type == 'img') {
-        el = `<div class="pp-img"><div><div><img src="`+ url +`"/></div></div>
+        el = `<div class="pp-img"><div><div><img loading="eager" src="`+ url +`"/></div></div>
                 <div class="pp-img-desc">`+ title +`</div></div>`
     } else if(type == 'link') {
         el = `<div class="pp-btn-c"><a class="pp-btn" href="`+ url +`" target="_blank"><span>`+ title +`
