@@ -160,7 +160,7 @@ var projectsDesc = {
     },
     'y_in_b' : {
         type : 'img', suType : 'img',
-        year : '2018', month : '09', tag: "perso",
+        year : '2018', month : '09', tag: 'perso',
         subtitle : `Right in front of the only light`,
         desc : {
             fr : `
@@ -177,7 +177,7 @@ var projectsDesc = {
     },
     'fut_met' : {
         type : 'img', suType : 'img',
-        year : '2017', month : '06', tag: "perso",
+        year : '2017', month : '06', tag: 'perso',
         subtitle : `From what kind of place is it coming from?`,
         desc : {
             fr : `
@@ -202,7 +202,7 @@ var projectsDesc = {
     },
     'destr_casque' : {
         type : 'img', suType : 'img',
-        year : '2016', month : '12', tag: "fun",
+        year : '2016', month : '12', tag: 'fun',
         subtitle : `Breaking it even more. Why wouldn't I?`,
         desc : {
             fr : `
@@ -221,7 +221,7 @@ var projectsDesc = {
 // 3D RENDERS
     'mc_factory92' : {
         type : 'vid', suType : 'interact',
-        year : '2021', month : '01', tag: "c",
+        year : '2021', month : '01', tag: 'c',
         url : 'jN7L44_-igk', format : '1:1',
         subtitle : ``,
         desc : {
@@ -231,6 +231,8 @@ var projectsDesc = {
                 <br>J'ai réalisé la présentation.</p>
                 <h2>AMBIANCE</h2>
                 <p>L’ambiance d’usine plutôt orange rouille est contrastée par l’énergie bleue qui s’échappe des réacteurs.</p>
+                <h2>DIFFUSION</h2>
+                `+ ppDescSamples('link', 'https://twitter.com/Browlin__/status/1356267490083557376', 'PARTAGÉ SUR TWITTER') +`
             `,
             en : `
                 <h2>CONTEXT</h2>
@@ -238,12 +240,14 @@ var projectsDesc = {
                 <br>I only did the presentation.</p>
                 <h2>AMBIANCE</h2>
                 <p>The rather rusty orange factory atmosphere is contrasted by the blue energy escaping from the reactors.</p>
+                <h2>DISPLAY</h2>
+                `+ ppDescSamples('link', 'https://twitter.com/Browlin__/status/1356267490083557376', 'SHARED ON TWITTER') +`
             `,
         }
     },
     'mc_cyber_district1' : {
         type : 'img', suType : 'img',
-        year : '2019', month : '08', tag: "c",
+        year : '2019', month : '08', tag: 'ppm',
         subtitle : ``,
         desc : {
             fr : `
@@ -252,6 +256,8 @@ var projectsDesc = {
                 <br>J'ai réalisé la présentation avec un ami.</p>
                 <h2>UN QUARTIER LUMINEUX</h2>
                 <p>Les couleurs vives des faisceaux lumineux et des panneaux d'affichages se mélangent et se diffusent dans le ciel sombre.</p>
+                <h2>DIFFUSION</h2>
+                `+ ppDescSamples('link', 'https://twitter.com/PamplemousseBT/status/1167110044867072000', 'PARTAGÉ SUR TWITTER') +`
             `,
             en : `
                 <h2>CONTEXT</h2>
@@ -259,12 +265,14 @@ var projectsDesc = {
                 <br>I and a friend did the presentation.</p>
                 <h2>A LUMINOUS DISTRICT</h2>
                 <p>The vibrant colours of the light beams and billboards blend and spread into the dark sky.</p>
+                <h2>DISPLAY</h2>
+                `+ ppDescSamples('link', 'https://twitter.com/PamplemousseBT/status/1167110044867072000', 'SHARED ON TWITTER') +`
             `,
         }
     },
     'mc_cyber_district2' : {
         type : 'img', suType : 'img',
-        year : '2019', month : '08', tag: "c",
+        year : '2019', month : '08', tag: 'ppm',
         subtitle : ``,
         desc : {
             fr : `
@@ -273,6 +281,8 @@ var projectsDesc = {
                 <br>J'ai réalisé la présentation avec un ami.</p>
                 <h2>DENSITÉ</h2>
                 <p>Ce plan large a pour but de mettre en valeur le grand nombre de détails de cette structure.</p>
+                <h2>DIFFUSION</h2>
+                `+ ppDescSamples('link', 'https://twitter.com/PamplemousseBT/status/1167110044867072000', 'PARTAGÉ SUR TWITTER') +`
             `,
             en : `
                 <h2>CONTEXT</h2>
@@ -280,12 +290,14 @@ var projectsDesc = {
                 <br>I and a friend did the presentation.</p>
                 <h2>DENSITY</h2>
                 <p>This wide shot's aim is to highlight the great number of details of this structure.</p>
+                <h2>DISPLAY</h2>
+                `+ ppDescSamples('link', 'https://twitter.com/PamplemousseBT/status/1167110044867072000', 'SHARED ON TWITTER') +`
             `,
         }
     },
     'sch_1_wc' : {
         type : 'vid', suType : 'interact',
-        year : '2019', month : '03-06', tag: "sch",
+        year : '2019', month : '03-06', tag: 'sch',
         url : 'Cg0DBZRAbqU', format : '1:1',
         subtitle : `As the days passes, everything's staying the same...`,
         desc : {
@@ -329,7 +341,7 @@ var projectsDesc = {
 // MOTION DESIGN
     'i_rs_b' : {
         type : 'vid', suType : 'interact',
-        year : '2018', month : '09', tag: "rs",
+        year : '2018', month : '09', tag: 'rs',
         url : 'XOnAthClcEI', format : '16:9',
         subtitle : `Synthwave into the darkest place of space!`,
         desc : {
@@ -340,7 +352,7 @@ var projectsDesc = {
                 <p>Le but était de réaliser une introduction, style Synthwave/années 80s avec le quadrillage typique, les néons, les étoiles, les glitchs...</p>
                 <p>J'ai ajouté des effets sonores pour amplifier l'ambiance.</p>
                 <p>
-                <br>Cependant, le rendu final est trop sombre et pesant.</p>
+                <br>Cependant, le rendu final est un peu trop sombre et pesant.</p>
             `,
             en : `
                 <h2>CONTEXT</h2>
@@ -355,7 +367,7 @@ var projectsDesc = {
     },
     'i_jfm' : {
         type : 'vid', suType : 'interact',
-        year : '2017', month : '12', tag: "c",
+        year : '2017', month : '12', tag: 'c',
         url : 'Gyho58zddwg', format : '16:9',
         subtitle : ``,
         desc : {
@@ -371,7 +383,7 @@ var projectsDesc = {
     },
     'i_y2' : {
         type : 'vid', suType : 'interact',
-        year : '2017', month : '09', tag: "perso",
+        year : '2017', month : '09', tag: 'perso',
         url : 'UkL4zVUw27Y', format : '16:9',
         subtitle : ``,
         desc : {
@@ -381,7 +393,7 @@ var projectsDesc = {
     },
     'i_inex' : {
         type : 'vid', suType : 'interact',
-        year : '2017', month : '03', tag: "c",
+        year : '2017', month : '03', tag: 'c',
         url : '46MrLGy5Xb8', format : '16:9',
         subtitle : ``,
         desc : {
@@ -391,7 +403,7 @@ var projectsDesc = {
     },
     'i_yc' : {
         type : 'vid', suType : 'interact',
-        year : '2017', month : '01', tag: "perso",
+        year : '2017', month : '01', tag: 'perso',
         url : 'PR0fVAGbHIQ', format : '16:9',
         subtitle : ``,
         desc : {
@@ -404,16 +416,28 @@ var projectsDesc = {
 // -- YT
     'b_l1_rs' : {
         type : 'img', suType : 'img', imgExt : 'png',
-        year : '2018', month : '06', tag: "rs",
+        year : '2018', month : '06', tag: 'rs',
         subtitle : ``,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>"RETROSATURN" est la boîte de production de mon ami aspirant réalisateur.</p>
+                <h2>CONCEPTION</h2>
+                <p>Nous avons conçu ce logo ensemble afin d'obtenir quelque chose d'orienté années 80s.</p>
+                <p>Il y a énormément de détails, comme l’irrégularité des couleurs et intensités des néons, la texture et la dynamique du mot "SATURN", le grain...</p>
+            `,
+            en : `
+                <h2>CONTEXTE</h2>
+                <p>"RETROSATURN" is the company of my aspiring filmmaker friend.</p>
+                <h2>CONCEPTION</h2>
+                <p>We designed this logo together to get a 80s feel to it.</p>
+                <p>There are a lot of details, like the irregular color and intensity of the neon lights, the texture and dynamism of the word "SATURN", the grain...</p>
+            `,
         }
     },
     'b_l2_rs' : {
         type : 'img', suType : 'img', imgExt : 'png',
-        year : '2019', month : '01', tag: "rs",
+        year : '2019', month : '01', tag: 'rs',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -422,13 +446,13 @@ var projectsDesc = {
     },
     'b_b1_rs' : {
         type : 'img', suType : 'img',
-        year : '2018', month : '09', tag: "rs",
+        year : '2018', month : '09', tag: 'rs',
         desc : `
         `,
     },
     'b_l1_caloucath' : {
         type : 'img', suType : 'img', imgExt : 'png',
-        year : '2017', month : '07', tag: "c",
+        year : '2017', month : '07', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -437,13 +461,13 @@ var projectsDesc = {
     },
     'b_b1_caloucath' : {
         type : 'img', suType : 'img',
-        year : '2017', month : '05', tag: "c",
+        year : '2017', month : '05', tag: 'c',
         desc : `
         `,
     },
     'b_b2_caloucath' : {
         type : 'img', suType : 'img',
-        year : '2017', month : '09', tag: "c",
+        year : '2017', month : '09', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -452,7 +476,7 @@ var projectsDesc = {
     },
     'b_l1_ppm' : {
         type : 'img', suType : 'img', imgExt : 'png',
-        year : '2018', month : '10', tag: "c",
+        year : '2018', month : '10', tag: 'ppm',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -461,7 +485,7 @@ var projectsDesc = {
     },
     'b_b1_ppm' : {
         type : 'img', suType : 'img',
-        year : '2019', month : '04', tag: "c",
+        year : '2019', month : '04', tag: 'ppm',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -470,13 +494,13 @@ var projectsDesc = {
     },
     'b_b1_mattmovie' : {
         type : 'img', suType : 'img',
-        year : '2016', month : '11', tag: "c",
+        year : '2016', month : '11', tag: 'c',
         desc : `
         `,
     },
     'b_b2_mattmovie' : {
         type : 'img', suType : 'img',
-        year : '2017', month : '02', tag: "c",
+        year : '2017', month : '02', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -487,7 +511,7 @@ var projectsDesc = {
 // -- STANDALONES
     'b_l1_jethro' : {
         type : 'img', suType : 'img', imgExt : 'png', white : true,
-        year : '2018', month : '12', tag: "c",
+        year : '2018', month : '12', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -496,7 +520,7 @@ var projectsDesc = {
     },
     'b_l1_wzr' : {
         type : 'img', suType : 'img', imgExt : 'png',
-        year : '2017', month : '09', tag: "c",
+        year : '2017', month : '09', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -505,7 +529,7 @@ var projectsDesc = {
     },
     'b_l1_nensho' : {
         type : 'img', suType : 'img', imgExt : 'png',
-        year : '2017', month : '05', tag: "c",
+        year : '2017', month : '05', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -514,7 +538,7 @@ var projectsDesc = {
     },
     'b_b1_rezartilo' : {
         type : 'img', suType : 'img',
-        year : '2017', month : '01', tag: "c",
+        year : '2017', month : '01', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -523,7 +547,7 @@ var projectsDesc = {
     },
     'b_b1_killex' : {
         type : 'img', suType : 'img',
-        year : '2016', month : '03', tag: "c",
+        year : '2016', month : '03', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -535,7 +559,7 @@ var projectsDesc = {
     'pdf_apc_hpi' : {
         type : 'pdf', suType : 'interact',
         url : '1J0SOaGtPElDcgNwxXx55vr_E_ah3cZDc',
-        year : '2019', month : '11', tag: "c",
+        year : '2019', month : '11', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -545,7 +569,7 @@ var projectsDesc = {
     'pdf_apc_wvhp' : {
         type : 'pdf', suType : 'interact',
         url : '1bCm600IXEowAT_jnyQLQcYP05QcAATYr',
-        year : '2019', month : '08', tag: "c",
+        year : '2019', month : '08', tag: 'c',
         subtitle : ``,
         desc : {
             fr : ``,
@@ -557,11 +581,17 @@ var projectsDesc = {
     'w_vh' : {
         type : 'web', suType : 'interact',
         url : 'https://valentinhebert.com', format : 'fill',
-        year : '2020.10-2021', month : '01', tag: "c",
+        year : '2020.10-2021', month : '01', tag: 'c',
         subtitle : ``,
         desc : {
-            fr : ``,
-            en : ``,
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>Ce site Internet fait partie des tout premiers que j’ai créés.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>This website is one of the very first I have created.</p>
+            `,
         }
     },
 };
@@ -838,6 +868,7 @@ function init() {
             } else if(projectsDesc[p.id].tag == 'fun') { pTag = 'Fun';
             } else if(projectsDesc[p.id].tag == 'c') { pTag = 'Commission';
             } else if(projectsDesc[p.id].tag == 'rs') { pTag = 'RetroSaturn';
+            } else if(projectsDesc[p.id].tag == 'ppm') { pTag = 'PPM Commission';
             }
             if(projectsDesc[p.id].suType == 'interact') {
                 var suInSVG = `<svg viewBox="0 0 32 32"><polygon points="13.4,7.2 16,4.6 27.5,16 16.1,27.4 13.4,24.8 20.5,17.7 4.5,17.7 4.5,14.3 20.5,14.3"/></svg>`;
