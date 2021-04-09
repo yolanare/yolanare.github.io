@@ -447,8 +447,11 @@ var projectsDesc = {
     'b_b1_rs' : {
         type : 'img', suType : 'img',
         year : '2018', month : '09', tag: 'rs',
-        desc : `
-        `,
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_l1_caloucath' : {
         type : 'img', suType : 'img', imgExt : 'png',
@@ -462,8 +465,11 @@ var projectsDesc = {
     'b_b1_caloucath' : {
         type : 'img', suType : 'img',
         year : '2017', month : '05', tag: 'c',
-        desc : `
-        `,
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_b2_caloucath' : {
         type : 'img', suType : 'img',
@@ -495,8 +501,11 @@ var projectsDesc = {
     'b_b1_mattmovie' : {
         type : 'img', suType : 'img',
         year : '2016', month : '11', tag: 'c',
-        desc : `
-        `,
+        subtitle : ``,
+        desc : {
+            fr : ``,
+            en : ``,
+        }
     },
     'b_b2_mattmovie' : {
         type : 'img', suType : 'img',
