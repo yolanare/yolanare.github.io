@@ -304,7 +304,7 @@ var projectsDesc = {
                 <p>J’ai simulé le déroulement du cycle jour/nuit et j’ai fait le rendu des images en vidéo.</p>
                 <h2>POST-PRODUCTION</h2>
                 <p>Sur VEGAS Pro, j’ai ajouté de nombreux effets pour polir le timelapse : de la brume, du grain, et surtout des effets lumineux pour le soleil. Le lever et le coucher sont plus colorés. J’ai simulé l’éblouissement en ajustant le contraste et le vignettage.</p>
-                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/04 montage en gros.png', 'Montage des effets vidéos') +`
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/04 montage en gros.jpg', 'Montage des effets vidéos') +`
             `,
             en : `
                 <h2>TOPIC</h2>
@@ -321,7 +321,7 @@ var projectsDesc = {
                 <p>I added a day/night cycle and rendered the frames in a video.</p>
                 <h2>POST-PRODUCTION</h2>
                 <p>On VEGAS Pro, I added many effects to refine the timelapse: haze, grain, and especially light effects for the sun. The sunrise and sunset are more colorful. I tried to fake the sun glare by adjusting the contrast and other effects.</p>
-                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/04 montage en gros.png', 'Video effects') +`
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/04 montage en gros.jpg', 'Video effects') +`
             `,
         }
     },
