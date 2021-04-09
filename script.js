@@ -361,7 +361,7 @@ var projectsDesc = {
         desc : {
             fr : `
                 <h2>CONTEXTE</h2>
-                <p>Un ami m'avait demandé lors de la réalisation d'une vidéo promotionnelle pour JordanneFM d'animer leur logo. Par la suite JordanneFM l'a utilisé pour ses émissions.</p>
+                <p>Un ami m'avait demandé lors de la réalisation d'une vidéo promotionnelle pour JordanneFM d'animer leur logo. Par la suite, JordanneFM l'a utilisé pour ses émissions.</p>
             `,
             en : `
                 <h2>CONTEXT</h2>
