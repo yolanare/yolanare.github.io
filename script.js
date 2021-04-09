@@ -779,7 +779,12 @@ function init() {
                 setTimeout(() => { closeFake.classList.add('hid'); }, 1);
                 setTimeout(() => { projectPopup.scrollbarPP.destroy(); projectPopup.remove(); }, 1000);
             }
-            function closeProjectCardPopupAuto() { if(projectPopup) { closeProjectCardPopup(); }}
+            function closeProjectCardPopupAuto() {
+                if(projectPopup) { closeProjectCardPopup();
+                    var descimg = ppDesc.querySelector('.pp-img.focus');
+                    if(descimg) { closeppdImgView(null, descimg, descimg.querySelector('img'), doc.querySelector('div[project-popup]').querySelector('.ppd-imgview')); }
+                }
+            }
 
             var projectPopup = document.createElement('div');
             projectPopup.classList.add('project-popup');
@@ -898,6 +903,13 @@ function init() {
                 ppDesctxt = ppDesc.querySelector('.pp-desctxt'),
                 ppOScr;
 
+
+            function closeppdImgView(ev, descimg, descimgImg, imgView) {
+                imgView.classList.add('out');
+                descimg.classList.remove('focus');
+                descimgImg.addEventListener('transitionend', () => { imgView.remove(); });
+                if(ev != null) { moveCurClose(ev); }
+            }                
             function ppDImgViewCreate() {
                 var ppDImg = ppDesc.querySelectorAll('.pp-img');
                 if(ppDImg) {
@@ -916,12 +928,7 @@ function init() {
                             `;
                             setTimeout(() => { imgView.classList.remove('pre'); }, 10);
 
-                            imgView.addEventListener('click', function(ev) {
-                                descimg.classList.remove('focus');
-                                imgView.classList.add('out');
-                                descimgImg.addEventListener('transitionend', () => { imgView.remove(); });
-                                moveCurClose(ev);
-                            })
+                            imgView.addEventListener('click', function(ev) { closeppdImgView(ev, descimg, descimgImg, imgView); })
                         })
                     });
                 }
