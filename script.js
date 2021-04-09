@@ -841,7 +841,7 @@ function init() {
             }
             if(projectsDesc[p.id].suType == 'interact') {
                 var suInSVG = `<svg viewBox="0 0 32 32"><polygon points="13.4,7.2 16,4.6 27.5,16 16.1,27.4 13.4,24.8 20.5,17.7 4.5,17.7 4.5,14.3 20.5,14.3"/></svg>`;
-                suInteract = suInSVG + `<div><span>FULLSCREEN</span><span>CLOSE</span></div>` + suInSVG;
+                suInteract = suInSVG + `<div><span>MAXIMIZE</span><span>CLOSE</span></div>` + suInSVG;
             }
             if(pSpan.hasAttribute('long-title')) { pTitle = pSpan.getAttribute('long-title');
             } else { pTitle = pSpan.innerText; }

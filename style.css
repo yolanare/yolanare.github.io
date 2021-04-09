@@ -1417,9 +1417,9 @@ div[pp-suType="interact"] .pp-scaleup span {
     padding-right: 1px;
     position: relative;
     writing-mode: vertical-rl;
-    text-orientation: upright;
+    text-orientation:sideways;
     font-size: clamp(9px, 1.15vw, 14px);
-    letter-spacing: 0px;
+    letter-spacing: 2px;
     color: var(--y-g1);
     transition: opacity 0.4s 50ms ease;
 }
@@ -1839,10 +1839,4 @@ div[pp-suType="interact"] .pp-scaleup {
         width: 93.5%;
     }
 
-    div[pp-suType="interact"] .pp-scaleup span:first-child {
-        letter-spacing: -1.5px;
-    }
-    div[pp-suType="interact"] .pp-scaleup span:last-child {
-        letter-spacing: -0.75px;
-    }
 }
