@@ -939,7 +939,7 @@ function init() {
                     if(txt.hasAttribute('class')) { txt.style.transitionDelay = ch +'s, ' + ch +'s, ' + '0s';
                     } else { txt.style.transitionDelay = ch +'s'; }
                 })
-                if(ppDesctxtin) { ppDesctxtin.classList.remove('pre'); }
+                setTimeout(() => { if(ppDesctxtin) { ppDesctxtin.classList.remove('pre'); } }, 20);
             }
             function ppDesctxtAnimateOut(descInAll) {
                 if(descInAll) {
@@ -967,9 +967,7 @@ function init() {
                         if(!d || d == '') { ppDesctxtin.innerHTML = '<p class="no">No description available.</p>'; } else { ppDesctxtin.innerHTML = d; }
                     }
                     ppDImgViewCreate();
-                    setTimeout(() => {
-                        ppDesctxtAnimateSpawn(ppDesctxtin);
-                    }, 33);
+                    ppDesctxtAnimateSpawn(ppDesctxtin);
                 }, 1);
             } ppDesctxtPrint();
 
