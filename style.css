@@ -1264,7 +1264,7 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
 }
 .ppd-imgview.pre img {
     opacity: 0;
-    transform: scale(0.25) translateY(0);
+    transform: scale(0.6) translateY(0);
 }
 .ppd-imgview.out {
     pointer-events: none;
