@@ -792,12 +792,13 @@ function init() {
         swup.on('popState', function() { yNavBoom(null, true, null); });
     }
 
+    var navSvgY = nav.querySelector('svg#y');
     if(pathDir != 'home') {
-        nav.setAttribute('style', 'height: 290px; height: calc(clamp(150px, 3vw, 430px) * 1);') // var(--content-top) / hard coded bc of compatibility 
-        doc.querySelector('svg#y').style.height = '135%';
+        nav.setAttribute('style', 'height: 290px; height: calc(clamp(150px, 3vw, 430px) * 1);') // var(--content-top) / hard coded bc of compatibility
+        navSvgY.setAttribute('style', 'max-width: 150px; max-width: calc(clamp(9999px, 100vw, 9999px) * 1); height: 135%;');
     } else {
-        nav.style.height = null;
-        doc.querySelector('svg#y').style.height = null;
+        nav.setAttribute('style', '');
+        navSvgY.setAttribute('style', '');
     }
 
     if(pathDir == 'projects') {
