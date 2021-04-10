@@ -793,7 +793,7 @@ function init() {
     }
 
     if(pathDir != 'home') {
-        nav.style.height = 'var(--content-top)';
+        nav.setAttribute('style', 'height: 290px; height: calc(clamp(150px, 3vw, 430px) * 1);') // var(--content-top) / hard coded bc of compatibility 
         doc.querySelector('svg#y').style.height = '135%';
     } else {
         nav.style.height = null;

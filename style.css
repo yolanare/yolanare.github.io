@@ -14,7 +14,7 @@
 
     --ynav-m-space: 21vw;
     --ynav-padding: 10vh;
-    --content-top: clamp(150px, 3vw, 430px);
+    --content-top: clamp(150px, 3vw, 430px); /*not used bc of compatibility issues*/
 }
 ::selection {
     color: inherit;
@@ -343,8 +343,8 @@ html[page="about"] #ym-txt-c {
 #content-container {
     position: absolute;
     width: 100%;
-    top: calc(290px + var(--ynav-padding) * 2);
-    top: calc(var(--content-top) + var(--ynav-padding) * 2);
+    top: calc(290px + (10vh * 2));
+    top: calc(clamp(150px, 3vw, 430px) + (10vh * 2)); /*10vh = var(--ynav-padding) / for compatibility*/
     left: 0;
     animation: c-opacity-in 1.2s cubic-bezier(0.35, 0.4, 0, 1);
 }
@@ -1461,6 +1461,8 @@ div[pp-suType="interact"] .pp-scaleup span {
 }
 div[pp-suType="interact"] .pp-scaleup span:last-child {
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .project-popup div[pp-suType="interact"] .pp-scaleup span:first-child,
