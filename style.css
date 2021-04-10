@@ -126,7 +126,7 @@ nav {
     pointer-events: all;
 }
 svg#y {
-    width: 200px;
+    width: 150px;
     width: clamp(150px, 20vw, 400px);
     height: 100%;
     transition: height 0.5s cubic-bezier(0.2, 0.7, 0, 1);
