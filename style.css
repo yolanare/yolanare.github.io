@@ -1411,6 +1411,7 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
 .pp-scaleup {
     z-index: 10;
     position: absolute;
+    user-select: none;
 }
 div[pp-suType="img"] .pp-scaleup {
     width: 100%;
@@ -1461,6 +1462,7 @@ div[pp-suType="interact"] .pp-scaleup span {
     letter-spacing: 2px;
     color: var(--y-g1);
     transition: opacity 0.4s 50ms ease;
+    user-select: none;
 }
 div[pp-suType="interact"] .pp-scaleup span:last-child {
     position: absolute;
