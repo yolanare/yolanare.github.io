@@ -237,16 +237,17 @@ svg#y > g {
 }
 .ym-txt {
     position: absolute;
+    padding: 12px 28px;
+    padding: clamp(9px, 1.5vw, 15px) clamp(20px, 2.5vw, 35px);
     font-size: 18px;
     font-size: clamp(14px, 2vw, 22px);
     font-weight: 700;
     text-decoration: none;
+    transform: scale(1);
     background-color: var(--y-b1);
-    padding: 12px 28px;
-    padding: clamp(9px, 1.5vw, 15px) clamp(20px, 2.5vw, 35px);
     outline: 1px solid transparent;
     opacity: 1;
-    transition: padding var(--ymtxt-tr-pos-o), background-color var(--ymtxt-tr-bg),
+    transition: transform var(--ymtxt-tr-pos-o), background-color var(--ymtxt-tr-bg),
                 right var(--ymtxt-tr-pos-o), left var(--ymtxt-tr-pos-o), opacity 0.6s ease,
                 font-size 0s;
     cursor: pointer;
@@ -266,6 +267,7 @@ svg#y > g {
     height: 100%;
     width: 100vw;
     background-color: var(--y-b1);
+    outline: 1px solid transparent;
     transition: background-color var(--ymtxt-tr-bg);
 }
 .ym-txt#a::after {
@@ -283,6 +285,7 @@ svg#y > g {
     letter-spacing: 1px;
     color: var(--y-b1);
     background-color: var(--y-w1);
+    outline: 1px solid transparent;
     transition: transform var(--ymtxt-tr-pos-o),
                 color var(--ymtxt-tr-bg), background-color var(--ymtxt-tr-bg);
 }
@@ -336,15 +339,9 @@ html[page="projects"] .ym-txt#p::after {
 }
 .ym-txt:hover,
 .ym-txt:hover::after {
-    transition: padding var(--ymtxt-tr-pos), background-color var(--ymtxt-tr-bg),
+    transition: transform var(--ymtxt-tr-pos), background-color var(--ymtxt-tr-bg),
                 right var(--ymtxt-tr-pos), left var(--ymtxt-tr-pos), opacity 0.6s ease,
                 font-size 0s;
-}
-html:not([page="about"]) .ym-txt#a:hover,
-html:not([page="projects"]) .ym-txt#p:hover,
-html:not([page="about"]) .ym-txt#a:active,
-html:not([page="projects"]) .ym-txt#p:active {
-    padding: clamp(13px, 1.5vw, 22px) clamp(20px, 2.5vw, 35px);
 }
 html:not([page="about"]) .ym-txt#a:hover,
 html:not([page="about"]) .ym-txt#a:hover::after,
@@ -361,7 +358,7 @@ html[page="about"] .ym-txt#a:active::after,
 html[page="projects"] .ym-txt#p:active,
 html[page="projects"] .ym-txt#p:active::after {
     background-color: var(--y-g1);
-    transition: padding var(--ymtxt-tr-pos), background-color var(--ymtxt-tr-bg-a),
+    transition: transform var(--ymtxt-tr-pos), background-color var(--ymtxt-tr-bg-a),
                 right var(--ymtxt-tr-pos), left var(--ymtxt-tr-pos), opacity 0.6s ease,
                 font-size 0s;
 }
@@ -373,7 +370,6 @@ html[page="projects"] .ym-txt#p:active::after {
 }
 html:not([page="about"]) .ym-txt#a:hover > span,
 html:not([page="projects"]) .ym-txt#p:hover > span {
-    transform: scale(1.15);
     color: var(--y-b2);
     background-color: var(--y-w2);
     transition: transform var(--ymtxt-tr-pos),
@@ -386,7 +382,6 @@ html:not([page="projects"]) .ym-txt#p:active > span {
 }
 .ym-txt#a:active > span,
 .ym-txt#p:active > span {
-    transform: scale(0.95) !important;
     transition: transform 0.15s cubic-bezier(0, 0.6, 0, 1),
                 color var(--ymtxt-tr-bg-a), background-color var(--ymtxt-tr-bg-a);
 }
@@ -1824,6 +1819,31 @@ div[pp-suType="interact"] .pp-scaleup {
                         height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
     }
 
+
+    html:not([page="about"]) .ym-txt#a:hover,
+    html:not([page="projects"]) .ym-txt#p:hover,
+    html:not([page="about"]) .ym-txt#a:active,
+    html:not([page="projects"]) .ym-txt#p:active {
+        transform: scale(1.25);
+    }
+    html:not([page="about"]) .ym-txt#a:hover > span {
+        transform: scale(0.885) translateX(18.5%);
+    }
+    html:not([page="projects"]) .ym-txt#p:hover > span {
+        transform: scale(0.885) translateX(-18.5%);
+    }
+    html:not([page="about"]) .ym-txt#a:active > span {
+        transform: scale(0.75) translateX(18.5%) !important;
+    }
+    html:not([page="projects"]) .ym-txt#p:active > span {
+        transform: scale(0.75) translateX(-18.5%) !important;
+    }
+    .ym-txt#a:active > span,
+    .ym-txt#p:active > span {
+        transform: scale(0.935) !important;
+    }
+
+
     .ym-txt#a {
         right: 100%;
     }
@@ -1831,9 +1851,15 @@ div[pp-suType="interact"] .pp-scaleup {
         left: 100%;
     }
     .ym-txt#a:hover {
-        right: 93.5%;
+        right: 98%;
     }
     .ym-txt#p:hover {
+        left: 98%;
+    }
+    .ym-txt#a:active {
+        right: 93.5%;
+    }
+    .ym-txt#p:active {
         left: 93.5%;
     }
     html[page="about"] .ym-txt#a:hover,
@@ -1843,12 +1869,6 @@ div[pp-suType="interact"] .pp-scaleup {
     html[page="projects"] .ym-txt#p:hover,
     html[page="projects"] .ym-txt#p:active {
         left: 98%;
-    }
-    .ym-txt#a:active {
-        right: 90%;
-    }
-    .ym-txt#p:active {
-        left: 90%;
     }
     
     .al-card {
@@ -1872,7 +1892,8 @@ div[pp-suType="interact"] .pp-scaleup {
 
     html[page="home"] #ymenu-c {
         height: 50%;
-    }#ymenu-c {
+    }
+    #ymenu-c {
         height: 50%;
         transition: height 0.8s cubic-bezier(0.7, 0.8, 0, 1);
     }
@@ -1899,6 +1920,16 @@ div[pp-suType="interact"] .pp-scaleup {
     .ym-txt#p {
         top: 100%;
         right: 50%;
+    }
+
+    svg#y > g:active {
+        transform: scale(0.85);
+    }
+    .ym-txt#a:active > span,
+    .ym-txt#p:active > span {
+        transform: scale(0.875) !important;
+        transition: transform 0.15s cubic-bezier(0.1, 0.6, 0, 1),
+                    color var(--ymtxt-tr-bg), background-color var(--ymtxt-tr-bg) !important;
     }
 
     #parcoursup-cs {
@@ -1956,14 +1987,6 @@ div[pp-suType="interact"] .pp-scaleup {
     }
     .os-scrollbar {
         width: 6px !important;
-    }
-    
-    svg#y > g:active {
-        transform: scale(0.85);
-    }
-    .ym-txt#a:active > span,
-    .ym-txt#p:active > span {
-        transform: scale(0.9) !important;
     }
 
     .acclist-title {
