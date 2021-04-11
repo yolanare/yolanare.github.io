@@ -701,12 +701,13 @@ function init() {
                     </g>
                 </svg>
                 <div id="ym-txt-c" class="pre-spawn">
-                    <a id="a" class="ym-txt" link="about"><span>About</span></a>
-                    <a id="p" class="ym-txt" link="projects"><span>Projects</span></a>
+                    <div id="ym-txt-c2">
+                        <a id="a" class="ym-txt" link="about"><span>About</span></a>
+                        <a id="p" class="ym-txt" link="projects"><span>Projects</span></a>
+                    </div>
                 </div>
             </div>
             <div id="ynav-boom"></div>
-            <div id="ynav-boom-1"></div>
         `;
 
         //- SPAWN ANIMATION
@@ -762,19 +763,24 @@ function init() {
                         <circle cx="`+ bcX +`" cy="`+ bcY +`" r="0"></circle>
                     </svg>
                 `;
-                var boomC = boom.querySelector('circle');
+                var boomC = boom.querySelector('circle'),
+                    cTr;
                 
-                if(h == '-1') { document.querySelector('#ynav-boom-1').appendChild(boom);
-                } else { document.querySelector('#ynav-boom').appendChild(boom); }
+                if(h == '-c') { 
+                    var ynavbc = document.querySelector('#ynav-boom-c');
+                    if(!ynavbc) { ynavbc = document.createElement('div'); ynavbc.id = 'ynav-boom-c';
+                        document.querySelector('#content-container').parentNode.appendChild(ynavbc); }
+                    ynavbc.appendChild(boom); cTr = ['1.2s cubic-bezier(0.3, 0.7, 0, 1)', 1500];
+                } else { document.querySelector('#ynav-boom').appendChild(boom); cTr = ['1s cubic-bezier(0.4, 0.7, 0, 1)', 1300]; }
 
                 setTimeout(function() {
-                    boomC.style.transition = 'r 0.9s cubic-bezier(0.4, 0.7, 0, 1), opacity 1.1s ease-in-out';
+                    boomC.style.transition = 'r '+ cTr[0] +', opacity '+ cTr[1] +'ms ease-in-out';
                     nlCR = (Math.round(((bcRW)**2 + (bcRH)**2)**(1/2)) / 100) + 0.1;
                     boomC.setAttribute('r', nlCR);
                     boomC.style.opacity = '0';
                     setTimeout(function() {
                         boom.remove();
-                    }, 1100);
+                    }, cTr[1]);
                 }, 10);
             }
 
@@ -782,9 +788,9 @@ function init() {
                 doc.setAttribute('page', lLinkID);
                 if(lLinkID != 'home') { lLink = lLinkID + '/'; } else { lLink = ''; }
                 if(histbr == false) { swup.loadPage({ url: '/' + lLink }); }
-                boom(null);
+                boom('0');
             } else {
-                if(lLinkID == 'home') { boom('-1'); }
+                boom('-c');
             }
         }
 
@@ -795,7 +801,7 @@ function init() {
     var navSvgY = nav.querySelector('svg#y');
     if(pathDir != 'home') {
         nav.setAttribute('style', 'height: 290px; height: calc(clamp(150px, 3vw, 430px) * 1);') // var(--content-top) / hard coded bc of compatibility
-        navSvgY.setAttribute('style', 'max-width: 150px; max-width: calc(clamp(9999px, 100vw, 9999px) * 1); height: 135%;');
+        navSvgY.setAttribute('style', 'max-width: 150px; max-width: calc(clamp(9999px, 100vw, 9999px) * 1); height: 115%;');
     } else {
         nav.setAttribute('style', '');
         navSvgY.setAttribute('style', '');
