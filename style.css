@@ -8,7 +8,7 @@
     --shearY-p: -6deg;
     --shearY-a: 5deg;
 
-    --ymtxt-tr-pos: 0.6s cubic-bezier(0.1, 0.7, 0, 1);
+    --ymtxt-tr-pos: 0.5s cubic-bezier(0.1, 0.6, 0, 1);
     --ymtxt-tr-pos-o: 0.7s cubic-bezier(0.2, 0.6, 0, 1);
     --ymtxt-tr-bg: 0.8s cubic-bezier(0.35, 0.7, 0, 1);
     --ymtxt-tr-bg-a: 0.5s cubic-bezier(0.1, 0.6, 0, 1);
@@ -246,7 +246,7 @@ svg#y > g {
     padding: clamp(9px, 1.5vw, 15px) clamp(20px, 2.5vw, 35px);
     outline: 1px solid transparent;
     opacity: 1;
-    transition: background-color var(--ymtxt-tr-bg),
+    transition: padding var(--ymtxt-tr-pos-o), background-color var(--ymtxt-tr-bg),
                 right var(--ymtxt-tr-pos-o), left var(--ymtxt-tr-pos-o), opacity 0.6s ease,
                 font-size 0s;
     cursor: pointer;
@@ -292,6 +292,10 @@ svg#y > g {
     transform-origin: center;
     transition: 0.7s cubic-bezier(0.2, 0.7, 0, 1);
 }
+svg#y > g:hover {
+    transform: scale(1.05);
+    transition-duration: 0.4s;
+}
 svg#y > g:active {
     transform: scale(0.9);
     transition: 0.35s cubic-bezier(0.1, 0.7, 0, 1);
@@ -324,18 +328,44 @@ html[page="home"]:not([page2="home"]) svg#y > g polygon {
     fill: var(--y-b2) !important;
 }
 
+html[page="about"] .ym-txt#a,
+html[page="about"] .ym-txt#a::after,
+html[page="projects"] .ym-txt#p,
+html[page="projects"] .ym-txt#p::after {
+    background-color: var(--y-w2);
+}
 .ym-txt:hover,
 .ym-txt:hover::after {
-    transition: background-color var(--ymtxt-tr-bg),
+    transition: padding var(--ymtxt-tr-pos), background-color var(--ymtxt-tr-bg),
                 right var(--ymtxt-tr-pos), left var(--ymtxt-tr-pos), opacity 0.6s ease,
                 font-size 0s;
 }
 html:not([page="about"]) .ym-txt#a:hover,
+html:not([page="projects"]) .ym-txt#p:hover,
+html:not([page="about"]) .ym-txt#a:active,
+html:not([page="projects"]) .ym-txt#p:active {
+    padding: clamp(13px, 1.5vw, 22px) clamp(20px, 2.5vw, 35px);
+}
+html:not([page="about"]) .ym-txt#a:hover,
 html:not([page="about"]) .ym-txt#a:hover::after,
 html:not([page="projects"]) .ym-txt#p:hover,
-html:not([page="projects"]) .ym-txt#p:hover::after {
+html:not([page="projects"]) .ym-txt#p:hover::after,
+html:not([page="about"]) .ym-txt#a:active,
+html:not([page="about"]) .ym-txt#a:active::after,
+html:not([page="projects"]) .ym-txt#p:active,
+html:not([page="projects"]) .ym-txt#p:active::after {
     background-color: var(--y-b2);
 }
+html[page="about"] .ym-txt#a:active,
+html[page="about"] .ym-txt#a:active::after,
+html[page="projects"] .ym-txt#p:active,
+html[page="projects"] .ym-txt#p:active::after {
+    background-color: var(--y-g1);
+    transition: padding var(--ymtxt-tr-pos), background-color var(--ymtxt-tr-bg-a),
+                right var(--ymtxt-tr-pos), left var(--ymtxt-tr-pos), opacity 0.6s ease,
+                font-size 0s;
+}
+
 .ym-txt#a:hover > span,
 .ym-txt#p:hover > span {
     transition: transform var(--ymtxt-tr-pos-o),
@@ -343,15 +373,11 @@ html:not([page="projects"]) .ym-txt#p:hover::after {
 }
 html:not([page="about"]) .ym-txt#a:hover > span,
 html:not([page="projects"]) .ym-txt#p:hover > span {
-    transform: scale(1.075);
+    transform: scale(1.15);
     color: var(--y-b2);
     background-color: var(--y-w2);
     transition: transform var(--ymtxt-tr-pos),
                 color var(--ymtxt-tr-bg), background-color var(--ymtxt-tr-bg);
-}
-html[page="home"] .ym-txt#a:hover > span,
-html[page="home"] .ym-txt#p:hover > span {
-    transform: scale(1.1);
 }
 html:not([page="about"]) .ym-txt#a:active > span,
 html:not([page="projects"]) .ym-txt#p:active > span {
@@ -365,21 +391,6 @@ html:not([page="projects"]) .ym-txt#p:active > span {
                 color var(--ymtxt-tr-bg-a), background-color var(--ymtxt-tr-bg-a);
 }
 
-html[page="about"] .ym-txt#a,
-html[page="about"] .ym-txt#a::after,
-html[page="projects"] .ym-txt#p,
-html[page="projects"] .ym-txt#p::after {
-    background-color: var(--y-w2);
-}
-html[page="about"] .ym-txt#a:active,
-html[page="about"] .ym-txt#a:active::after,
-html[page="projects"] .ym-txt#p:active,
-html[page="projects"] .ym-txt#p:active::after {
-    background-color: var(--y-g1);
-    transition: background-color var(--ymtxt-tr-bg-a),
-                right var(--ymtxt-tr-pos), left var(--ymtxt-tr-pos), opacity 0.6s ease,
-                font-size 0s;
-}
 html[page="about"] .ym-txt#a > span,
 html[page="projects"] .ym-txt#p > span {
     color: var(--y-w1);
@@ -1825,10 +1836,12 @@ div[pp-suType="interact"] .pp-scaleup {
     .ym-txt#p:hover {
         left: 93.5%;
     }
-    html[page="about"] .ym-txt#a:hover {
+    html[page="about"] .ym-txt#a:hover,
+    html[page="about"] .ym-txt#a:active {
         right: 98%;
     }
-    html[page="projects"] .ym-txt#p:hover {
+    html[page="projects"] .ym-txt#p:hover,
+    html[page="projects"] .ym-txt#p:active {
         left: 98%;
     }
     .ym-txt#a:active {
