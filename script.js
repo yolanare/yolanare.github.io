@@ -352,7 +352,7 @@ var projectsDesc = {
                 <p>
                 <br>Nous avons réalisé des vidéos pour chaque maison de services ou autre dans lesquelles on intervenait afin qu'elles les diffusent sur leurs réseaux sociaux.</p>
                 <h2>PERSONNALISATION</h2>
-                <p>Les vidéos ont été personnalisées en fonction de nos interventions dans chaque lieux : en atelier individuel ou collectif, avec ou sans inscription.</p>
+                <p>Les vidéos ont été personnalisées en fonction de nos interventions dans chaque lieu : en atelier individuel ou collectif, avec ou sans inscription.</p>
                 <h2>MONTAGE</h2>
                 <p>C'est la première fois que je bossais sur un projet de ce genre en tant que "directeur" improvisé et monteur.</p>
                 <p>La voix-off que vous entendez dans cette vidéo est la mienne.</p>
