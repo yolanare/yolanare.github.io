@@ -339,6 +339,38 @@ var projectsDesc = {
     },
 
 // MOTION DESIGN
+    'pub_sc_lc' : {
+        type : 'vid', suType : 'interact',
+        year : '2021', month : '02-04', tag: 'sc',
+        url : 'OAaf_VFbEgs', format : '16:9',
+        subtitle : ``,
+        desc : {
+            fr : `
+                <h2>CONTEXTE</h2>
+                <p>Après avoir obtenu mon baccalauréat, je me suis porté volontaire dans une mission de Service Civique que l'association Unis-Cité proposait : "Les Connectés".</p>
+                <p>Elle consistait à parcourir tout le département du Cantal afin d'aller à la rencontre des personnes ayant besoin d'aide pour devenir autonomes avec les outils informatiques (clavier, souris, applications...).</p>
+                <p>
+                <br>Nous avons réalisé des vidéos pour chaque maison de services ou autre dans lesquelles on intervenait afin qu'elles les diffusent sur leurs réseaux sociaux.</p>
+                <h2>PERSONNALISATION</h2>
+                <p>Les vidéos ont été personnalisées en fonction de nos interventions dans chaque lieux : en atelier individuel ou collectif, avec ou sans inscription.</p>
+                <h2>MONTAGE</h2>
+                <p>C'est la première fois que je bossais sur un projet de ce genre en tant que "directeur" improvisé et monteur.</p>
+                <p>La voix-off que vous entendez dans cette vidéo est la mienne.</p>
+            `,
+            en : `
+                <h2>CONTEXT</h2>
+                <p>After obtaining my baccalauréat, I volunteered in "Les Connectés" (~ "The Connected"), a Service Civique mission of the association Unis-Cité.</p>
+                <p>It consisted in going across the Cantal department in France to meet people who needed help learning how to use computer tools (keyboard, mouse, applications...).</p>
+                <p>
+                <br>We made videos for each places in which we were intervening so that they could broadcast them on their social networks.</p>
+                <h2>PERSONALIZATION</h2>
+                <p>The videos were customised to fit our interventions in each place: as individual or group sessions, with or without registration.</p>
+                <h2>EDITING</h2>
+                <p>It was my first time working on a project of this kind as an improvised "director" and editor.</p>
+                <p>The voice-over you hear in this video is my voice.</p>
+            `,
+        }
+    },
     'i_rs_b' : {
         type : 'vid', suType : 'interact',
         year : '2018', month : '09', tag: 'rs',
@@ -880,10 +912,11 @@ function init() {
                 `;
             }
             if(projectsDesc[p.id].tag == 'perso') { pTag = 'Personnal Project';
-            } else if(projectsDesc[p.id].tag == 'sch') { pTag = 'School Project';
             } else if(projectsDesc[p.id].tag == 'fun') { pTag = 'Fun';
-            } else if(projectsDesc[p.id].tag == 'c') { pTag = 'Commission';
             } else if(projectsDesc[p.id].tag == 'rs') { pTag = 'RetroSaturn';
+            } else if(projectsDesc[p.id].tag == 'sch') { pTag = 'School Project';
+            } else if(projectsDesc[p.id].tag == 'sc') { pTag = 'Service Civique';
+            } else if(projectsDesc[p.id].tag == 'c') { pTag = 'Commission';
             } else if(projectsDesc[p.id].tag == 'ppm') { pTag = 'PPM Commission';
             }
             if(projectsDesc[p.id].suType == 'interact') {
