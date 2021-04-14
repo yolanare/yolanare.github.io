@@ -350,7 +350,7 @@ var projectsDesc = {
                 <p>Après avoir obtenu mon baccalauréat, je me suis porté volontaire dans une mission de Service Civique que l'association Unis-Cité proposait : "Les Connectés".</p>
                 <p>Elle consistait à parcourir tout le département du Cantal afin d'aller à la rencontre des personnes ayant besoin d'aide pour devenir autonomes avec les outils informatiques (clavier, souris, applications...).</p>
                 <p>
-                <br>Nous avons réalisé des vidéos pour chaque maison de services ou autre dans lesquelles on intervenait afin qu'elles les diffusent sur leurs réseaux sociaux.</p>
+                <br>Nous avons réalisé des vidéos pour chaque lieu public dans lesquels on intervenait afin qu'ils les diffusent sur leurs réseaux sociaux.</p>
                 <h2>PERSONNALISATION</h2>
                 <p>Les vidéos ont été personnalisées en fonction de nos interventions dans chaque lieu : en atelier individuel ou collectif, avec ou sans inscription.</p>
                 <h2>MONTAGE</h2>
