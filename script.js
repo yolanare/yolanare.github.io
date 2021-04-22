@@ -342,7 +342,7 @@ var projectsDesc = {
     'pub_sc_lc' : {
         type : 'vid', suType : 'interact',
         year : '2021', month : '02-04', tag: 'sc',
-        url : 'OAaf_VFbEgs', format : '16:9',
+        url : '66QpHMgmXLM', format : '16:9',
         subtitle : ``,
         desc : {
             fr : `
