@@ -569,6 +569,7 @@ div[accordion-content] {
     width: 100%;
     padding: var(--acc-btn-padding) 0;
     transform: scale(1.01);
+    text-decoration: none;
     background-color: var(--y-b1);
     outline: solid 1px transparent;
     transition-property: background-color, opacity !important;
@@ -680,7 +681,7 @@ div[accordion-content] {
 .acclist-item[state^="open"] .acclist-btn.lv1:active .acclist-title {
     transform: scale(0.925) !important;
 }
-.acclist-item[state^="clos"] .acclist-btn.lv1:active .acclist-title {
+.acclist-item[state^="clos"] .acclist-btn.lv1:hover:active .acclist-title {
     background-color: var(--y-g1) !important;
 }
 
@@ -739,7 +740,7 @@ div[accordion-content] {
 .acclist-item[level="2"][state^="open"] .acclist-btn:active .acclist-title {
     transform: scale(0.75) !important;
 }
-.acclist-item[level="2"][state^="clos"] .acclist-btn:active .acclist-title {
+.acclist-item[level="2"][state^="clos"] .acclist-btn:hover:active .acclist-title {
     background-color: var(--y-w1) !important;
 }
 .acclist-item[level="2"][state^="open"] .acclist-t-span,
