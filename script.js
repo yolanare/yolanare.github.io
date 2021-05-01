@@ -112,7 +112,7 @@ var projectsDesc = {
                 <p>Le sujet consiste en l'incrustation d'une peinture sur un support mural afin de créer entre eux un lien spécifique.</p>
                 <h2>INSPIRATION</h2>
                 <p>L'œuvre “The Armoured Dove” de Banksy, un célèbre street-artiste britannique, m’a inspiré dans la réalisation de ce projet.</p>
-                `+ ppDescSamples('img', srcP + 'artworks/sch_t_pm/05 colombe Banksy.jpg', '"The Armored Dove", Banksy (2005)') +`
+                `+ ppDescSamples('img', srcP + 'artworks/sch_t_pm/05 colombe Banksy.jpg', '"The Armoured Dove", Banksy (2005)') +`
                 <p>Sa colombe a été peinte en 2005 sur un mur séparant Israël et la Palestine. Pour lui ce mur est une tentative absurde pour mettre fin au conflit. La colombe étant un symbole de pureté et de paix, Banksy l'a totalement exposée à la violence. Un pointeur vise son cœur.</p>
                 <h2>L’ABANDONNÉE</h2>
                 <p>Dans mon projet, j’ai choisi de faire de même en l’abandonnant dans un lieu sale et délaissé.
@@ -125,7 +125,7 @@ var projectsDesc = {
                 <p>The aim is to create a specific link between a painting and a wall support.</p>
                 <h2>INSPIRATION</h2>
                 <p>The work "The Armoured Dove" by Banksy, a famous British street-artist, inspired me to make this project.</p>
-                `+ ppDescSamples('img', srcP + 'artworks/sch_t_pm/05 colombe Banksy.jpg', '"The Armored Dove", Banksy (2005)') +`
+                `+ ppDescSamples('img', srcP + 'artworks/sch_t_pm/05 colombe Banksy.jpg', '"The Armoured Dove", Banksy (2005)') +`
                 <p>His dove was painted in 2005 on a wall separating Israel and Palestine. For him, this wall is an absurd attempt to end the conflict. The dove being a symbol of purity and peace, Banksy has totally exposed it to violence. A pointer is aiming at its heart.</p>
                 <h2>THE FORSAKEN ONE</h2>
                 <p>In my project, I chose to do likewise by abandoning it in a dirty and neglected place.
