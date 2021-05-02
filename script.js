@@ -674,25 +674,29 @@ function openAccItem(h) {
     if(['closing', 'closed'].includes(thisItem.getAttribute('state'))) {
         thisItem.setAttribute('state', 'opening');
         if(!hash) { // ACC ITEM AUTO SCROLL-TO
-            if(thisItem.getBoundingClientRect().top < container.offsetHeight / 2 || !document.querySelector('[accordion-scroll] [state^="open"]')) { scrollbarMain.scrollStop().scroll(thisItem, 700, 'easeInOutCubic');
-            } else {
-                var thisItemPrev = thisItem.previousElementSibling;
 
-                const prevSiblings = (elem) => { // (https://attacomsian.com/blog)
-                    let sibs = [];
-                    while(elem = elem.previousElementSibling) { sibs.push(elem); }
-                    return sibs;
-                }; const sibs = prevSiblings(thisItem);
+            var thisItemPrev = thisItem.previousElementSibling,
+                accAngle = 1920 * Math.tan(6 * Math.PI / 180),
+                tItemAnchor, sibCsH = 0, sibb = [];
+            const prevSiblings = (elem) => { // (https://attacomsian.com/blog)
+                let sibs = [];
+                while(elem = elem.previousElementSibling) { sibs.push(elem); }
+                return sibs;
+            };
 
-                sibs.forEach(sib => {
-                    var sibC = sib.querySelector('.acclist-content'), ifSibC = 0;
-                    if(sibC) { 
-                        if(sib != thisItemPrev) { ifSibC = sib.querySelector('.lv1 + .acclist-content').offsetHeight; }
-                        scrollbarMain.scroll({y : scrollbarMain.scrollStop().scroll().position.y + ((thisItemPrev.querySelector('.acclist-btn').getBoundingClientRect().bottom - ifSibC) - (1920 * Math.tan(6 * Math.PI / 180)))}, 700, 'easeInOutCubic');
-                    }
-                });
-            }
+            if(thisItemPrev) {
+                tItemAnchor = thisItemPrev.querySelector('.acclist-btn').getBoundingClientRect().bottom;
 
+                if(!thisItemPrev.querySelector('.acclist-content')) {
+                    const sibs = prevSiblings(thisItem);
+                    sibs.forEach(sib => {
+                        var sibC = sib.querySelector('.acclist-content');
+                        if(sibC) { sibCsH += sibC.offsetHeight; sibb.push(sib) }
+                    });
+                }
+            } else { tItemAnchor = thisItem.querySelector('.acclist-btn').getBoundingClientRect().top; accAngle = 0; }
+
+            scrollbarMain.scrollStop().scroll({ y : scrollbarMain.scroll().position.y + ((tItemAnchor - sibCsH) - accAngle) }, 700, 'easeInOutCubic');
         }
         var accCHidden = document.querySelector('*[accordion-content][level="'+ itemLv +'"] [i-id="'+ iID(thisItem) +'"] > .acclist-content'),
             otherAccItems = document.querySelectorAll('.acclist-item:not([i-id="'+ iID(thisItem) +'"])');
