@@ -673,8 +673,8 @@ function openAccItem(h) {
 
     if(['closing', 'closed'].includes(thisItem.getAttribute('state'))) {
         thisItem.setAttribute('state', 'opening');
-        if(!hash) {
-            if(thisItem.getBoundingClientRect().top < container.offsetHeight / 2 || !document.querySelector('[accordion-scroll] [state="opened"]') ) { scrollbarMain.scroll(thisItem, 700, 'easeInOutCubic');
+        if(!hash) { // ACC ITEM AUTO SCROLL-TO
+            if(thisItem.getBoundingClientRect().top < container.offsetHeight / 2 || !document.querySelector('[accordion-scroll] [state^="open"]')) { scrollbarMain.scrollStop().scroll(thisItem, 700, 'easeInOutCubic');
             } else {
                 var thisItemPrev = thisItem.previousElementSibling;
 
@@ -688,7 +688,7 @@ function openAccItem(h) {
                     var sibC = sib.querySelector('.acclist-content'), ifSibC = 0;
                     if(sibC) { 
                         if(sib != thisItemPrev) { ifSibC = sib.querySelector('.lv1 + .acclist-content').offsetHeight; }
-                        scrollbarMain.scroll({y : scrollbarMain.scroll().position.y + ((thisItemPrev.querySelector('.acclist-btn').getBoundingClientRect().bottom - ifSibC) - (1920 * Math.tan(6 * Math.PI / 180)))}, 700, 'easeInOutCubic');
+                        scrollbarMain.scroll({y : scrollbarMain.scrollStop().scroll().position.y + ((thisItemPrev.querySelector('.acclist-btn').getBoundingClientRect().bottom - ifSibC) - (1920 * Math.tan(6 * Math.PI / 180)))}, 700, 'easeInOutCubic');
                     }
                 });
             }
