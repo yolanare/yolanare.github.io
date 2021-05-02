@@ -673,8 +673,27 @@ function openAccItem(h) {
 
     if(['closing', 'closed'].includes(thisItem.getAttribute('state'))) {
         thisItem.setAttribute('state', 'opening');
-        if(!hash) { if(thisItem.getBoundingClientRect().top < container.offsetHeight / 2 || !doc.querySelector('[accordion-scroll] [state="opened"]') ) { setTimeout(() => { scrollbarMain.scroll(thisItem, 700, 'easeInOutCubic'); }, 0); }} // scroll to item only when : is at top-half window OR when none is opened
+        if(!hash) {
+            if(thisItem.getBoundingClientRect().top < container.offsetHeight / 2 || !doc.querySelector('[accordion-scroll] [state="opened"]') ) { scrollbarMain.scroll(thisItem, 700, 'easeInOutCubic');
+            } else {
+                var thisItemPrev = thisItem.previousElementSibling;
 
+                const prevSiblings = (elem) => { // (https://attacomsian.com/blog)
+                    let sibs = [];
+                    while(elem = elem.previousElementSibling) { sibs.push(elem); }
+                    return sibs;
+                }; const sibs = prevSiblings(thisItem);
+
+                sibs.forEach(sib => {
+                    var sibC = sib.querySelector('.acclist-content'), ifSibC = 0;
+                    if(sibC) { 
+                        if(sib != thisItemPrev) { ifSibC = sib.querySelector('.lv1 + .acclist-content').offsetHeight; }
+                        scrollbarMain.scroll({y : scrollbarMain.scroll().position.y + ((thisItemPrev.querySelector('.acclist-btn').getBoundingClientRect().bottom - ifSibC) - (1920 * Math.tan(6 * Math.PI / 180)))}, 700, 'easeInOutCubic');
+                    }
+                });
+            }
+                
+        }
         var accCHidden = doc.querySelector('*[accordion-content][level="'+ itemLv +'"] [i-id="'+ iID(thisItem) +'"] > .acclist-content'),
             otherAccItems = doc.querySelectorAll('.acclist-item:not([i-id="'+ iID(thisItem) +'"])');
         otherAccItems.forEach((itemOther) => {
