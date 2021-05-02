@@ -11,7 +11,8 @@ var doc = document.documentElement,
     isMini = undefined,
     touchDevice = (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement),
     container = document.getElementById('container'),
-    language = 'fr';
+    language = 'en';
+if (/^fr\b/.test(navigator.language)) { language = 'fr'; }
 
 function checkWinSize() { if(window.innerWidth > 727) { isMini = false; } else { isMini = true; }};
 checkWinSize(); window.addEventListener('resize', checkWinSize);
