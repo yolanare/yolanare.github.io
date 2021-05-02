@@ -677,7 +677,7 @@ function openAccItem(h) {
         if(!hash) { // ACC ITEM AUTO SCROLL-TO
 
             var thisItemPrev = thisItem.previousElementSibling,
-                accAngle = 1920 * Math.tan(6 * Math.PI / 180),
+                accAngle = window.innerWidth * Math.tan(6 * Math.PI / 180),
                 tItemAnchor, sibCsH = 0, sibb = [];
             const prevSiblings = (elem) => { // (https://attacomsian.com/blog)
                 let sibs = [];
