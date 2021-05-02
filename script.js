@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-if(!!window.chrome) { document.querySelector('html').classList.add('isChr'); }
+if(!!window.chrome) { doc.querySelector('html').classList.add('isChr'); }
 
 
 // PROJECTS DESCRIPTIONS
@@ -639,11 +639,11 @@ var projectsDesc = {
 
 
 function addClassAll(path, c) {
-    var elems = document.querySelectorAll(path);
+    var elems = doc.querySelectorAll(path);
     if(elems) { elems.forEach(function(el) { el.classList.add(c); }); }
 }
 function removeClassAll(path, c) {
-    var elems = document.querySelectorAll(path);
+    var elems = doc.querySelectorAll(path);
     if(elems) { elems.forEach(function(el) { el.classList.remove(c); }); }
 }
 
@@ -692,7 +692,7 @@ function openAccItem(h) {
                     }
                 });
             }
-                
+
         }
         var accCHidden = doc.querySelector('*[accordion-content][level="'+ itemLv +'"] [i-id="'+ iID(thisItem) +'"] > .acclist-content'),
             otherAccItems = doc.querySelectorAll('.acclist-item:not([i-id="'+ iID(thisItem) +'"])');
@@ -1112,7 +1112,7 @@ function scrollAccordion() {
 }
 
 function init() {
-    var nav = document.querySelector('nav');
+    var nav = doc.querySelector('nav');
     accScroll = doc.querySelector('div[accordion-scroll]');
 
     getPageID(); doc.setAttribute('page', pathDir); doc.setAttribute('page2', pathDir);
@@ -1204,11 +1204,11 @@ function init() {
                     cTr;
                 
                 if(h == '-c') { 
-                    var ynavbc = document.querySelector('#ynav-boom-c');
+                    var ynavbc = doc.querySelector('#ynav-boom-c');
                     if(!ynavbc) { ynavbc = document.createElement('div'); ynavbc.id = 'ynav-boom-c';
-                        document.querySelector('#content-container').parentNode.appendChild(ynavbc); }
+                        doc.querySelector('#content-container').parentNode.appendChild(ynavbc); }
                     ynavbc.appendChild(boom); cTr = ['1.2s cubic-bezier(0.3, 0.7, 0, 1)', 1500];
-                } else { document.querySelector('#ynav-boom').appendChild(boom); cTr = ['1s cubic-bezier(0.4, 0.7, 0, 1)', 1300]; }
+                } else { doc.querySelector('#ynav-boom').appendChild(boom); cTr = ['1s cubic-bezier(0.4, 0.7, 0, 1)', 1300]; }
 
                 setTimeout(function() {
                     boomC.style.transition = 'r '+ cTr[0] +', opacity '+ cTr[1] +'ms ease-in-out';
