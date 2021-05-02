@@ -23,6 +23,13 @@ function getPageID() {
     return pathDir;
 }
 
+function cleanURL(s) {
+    s = s || null;
+    if(!s) { history.replaceState({}, '', window.location.pathname);
+    } else { history.replaceState({}, '', window.location.hash.split(s)[0]);
+    }
+}
+
 var o1 = [null, 33], OScrHDelay = 200; if(!isMini) { o1 = [true, 33]; OScrHDelay = 800; };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -737,17 +744,34 @@ function openAccItem(h) {
             thisItem.closest('.acclist-content').style.height = document.querySelector('*[accordion-content][level="1"] [i-id="'+ lv1ID +'"] > .acclist-content').offsetHeight +'px';
             if(thisItem.closest('[level="1"]').getAttribute('state') != 'closing') { history.replaceState({}, '', '#'+ lv1ID); }
         } else {
-            history.replaceState({}, '', window.location.pathname);
+            cleanURL();
         }
     }
 }
 function pHashOpenAccItem() {
     var urlHash = window.location.hash.substring(1);
     if(urlHash) {
-        var i = document.querySelector('[accordion-scroll] .acclist-item[i-id="' + urlHash +'"]'),
-            k = 800;
-        function open(item) {
-            setTimeout(() => { openAccItem(item); k = 400; }, k);
+        var urlHashAcc = urlHash.split('?')[0];
+        var urlHashP = urlHash.split('?')[1];
+        var i = document.querySelector('[accordion-scroll] .acclist-item[i-id="' + urlHashAcc +'"]'),
+            k = 900;
+        function open(item, p) {
+            p = p || false;
+            setTimeout(() => {
+                openAccItem(item);
+                k = 400;
+
+                // OPEN PROJECT
+                if(urlHashP && p) {
+                    if(document.querySelector('[accordion-content] [i-id] #'+ urlHashP)) { console.log('p incoming');
+                        setTimeout(() => {
+                            openProjectCardPopup("", document.querySelector('[accordion-scroll] [i-id] .al-card#'+ urlHashP), i);
+                        }, 900);
+                    } else {
+                        cleanURL('?');
+                    }
+                }
+            }, k);
         }
         function scrollToI(i, d) {
             var dd = 200; if(isMini) { dd = 400; }
@@ -756,26 +780,33 @@ function pHashOpenAccItem() {
                 scrollbarMain.scroll({y: i.querySelector('.acclist-btn').getBoundingClientRect().top}, 800, 'easeInOutCubic');
             }, dd + d);
         }
-        if(!i) {
-            open(document.querySelector('.acclist-item[i-id="' + iID(document.querySelector('[accordion-content][level="1"] [i-id="'+ urlHash +'"]').parentNode.closest('[i-id]')) +'"]'));
-            setTimeout(() => {
-                i = document.querySelector('[accordion-scroll] [i-id="' + urlHash +'"]');
-                open(i);
-                scrollToI(i, 0);
-            }, k);
-        } else {
-            open(i);
-            scrollToI(i, k);
-        }
 
-    }
+        // SCROLL TO ACC ITEM
+        if(urlHashAcc) {
+            if(document.querySelector('[accordion-scroll] [i-id="'+ urlHashAcc +'"]') || document.querySelector('[accordion-content][level="2"] [i-id="'+ urlHashAcc +'"]')) {
+                if(!i) { // lv2
+                    open(document.querySelector('.acclist-item[i-id="'+ iID(document.querySelector('[accordion-content][level="1"] [i-id="'+ urlHashAcc +'"]').parentNode.closest('[i-id]')) +'"]')); // opens lv1
+                    setTimeout(() => {
+                        i = document.querySelector('[accordion-scroll] [i-id="'+ urlHashAcc +'"]');
+                        open(i, true);
+                        scrollToI(i, 0);
+                    }, k);
+                } else { // normal
+                    open(i, true);
+                    scrollToI(i, k);
+                }
+            } else { cleanURL(); }
+        }
+    } else { cleanURL(); }
 }
 
 function openProjectCardPopup(ev, p, item) {
     p.classList.add('focus');
     scrollbarMain.options('overflowBehavior.y', 'hidden');
+    cleanURL('?'); history.replaceState({}, '', window.location.hash +'?'+ p.id);
     
     function closeProjectCardPopup() {
+        cleanURL('?');
         swup.off('animationOutStart', closeProjectCardPopupAuto);
         scrollbarMain.options('overflowBehavior.y', 'scroll');
         var allFocused = document.querySelectorAll('div[accordion-scroll] .focus');
