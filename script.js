@@ -749,7 +749,13 @@ function pHashOpenAccItem() {
         function open(item) {
             setTimeout(() => { openAccItem(item); k = 400; }, k);
         }
-        function scrollToI(i, d) { setTimeout(() => { scrollbarMain.scroll(i, 800, 'easeInOutCubic'); }, 200 + d); }
+        function scrollToI(i, d) {
+            var dd = 200; if(isMini) { dd = 400; }
+            setTimeout(() => {
+                if(isMini) { scrollbarMain.update(true); }
+                scrollbarMain.scroll({y: i.querySelector('.acclist-btn').getBoundingClientRect().top}, 800, 'easeInOutCubic');
+            }, dd + d);
+        }
         if(!i) {
             open(document.querySelector('.acclist-item[i-id="' + iID(document.querySelector('[accordion-content][level="1"] [i-id="'+ urlHash +'"]').parentNode.closest('[i-id]')) +'"]'));
             setTimeout(() => {
