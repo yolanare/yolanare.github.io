@@ -763,7 +763,7 @@ function pHashOpenAccItem() {
 
                 // OPEN PROJECT
                 if(urlHashP && p) {
-                    if(document.querySelector('[accordion-content] [i-id] #'+ urlHashP)) { console.log('p incoming');
+                    if(document.querySelector('[accordion-content] [i-id="' + urlHashAcc +'"] #'+ urlHashP)) {
                         setTimeout(() => {
                             openProjectCardPopup("", document.querySelector('[accordion-scroll] [i-id] .al-card#'+ urlHashP), i);
                         }, 900);
