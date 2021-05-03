@@ -1040,7 +1040,7 @@ function openProjectCardPopup(ev, p, item) {
             let image = new Image();
             image.addEventListener('load', function() {
                 elem.src = highResUrl;
-                setTimeout(() => { elem.style.backgroundImage = null; }, 50);
+                setTimeout(() => { elem.style.backgroundImage = null; }, 500);
             });
             image.src = highResUrl;
         };
