@@ -1527,10 +1527,10 @@ div[project-popup]  .pp-desctxt > .pp-desctxt-in.out {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 47.5px;
-    height: 47.5px;
-    width: clamp(30px, 4.5vw, 65px);
-    height: clamp(30px, 4.5vw, 65px);
+    width: 52.5px;
+    height: 52.5px;
+    width: clamp(40px, 4.5vw, 65px);
+    height: clamp(40px, 4.5vw, 65px);
 }
 #player::before, #pdf-reader::before { /*fill*/
     z-index: -2;
