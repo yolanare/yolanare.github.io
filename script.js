@@ -802,13 +802,18 @@ function pHashOpenAccItem() {
 
 function openProjectCardPopup(ev, p, item) {
     p.classList.add('focus');
-    scrollbarMain.options('overflowBehavior.y', 'hidden');
     cleanURL('?'); history.replaceState({}, '', window.location.hash +'?'+ p.id);
+
+    function setScrMain(pe, ah) {
+        scrollbarMain.getElements('scrollbarVertical.handle').style.pointerEvents = pe;
+        scrollbarMain.options('scrollbars.autoHide', ah);
+    }
+    setScrMain('none', 'scroll');
 
     function closeProjectCardPopup() {
         cleanURL('?');
         swup.off('animationOutStart', closeProjectCardPopupAuto);
-        scrollbarMain.options('overflowBehavior.y', 'scroll');
+        setScrMain(null, 'move');
         var allFocused = document.querySelectorAll('div[accordion-scroll] .focus');
         if(allFocused) { allFocused.forEach((f) => { f.classList.remove('focus'); })}
         ppBG.style.opacity = '0';
