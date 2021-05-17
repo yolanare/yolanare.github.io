@@ -805,8 +805,11 @@ function openProjectCardPopup(ev, p, item) {
     cleanURL('?'); history.replaceState({}, '', window.location.hash +'?'+ p.id);
 
     function setScrMain(pe, ah) {
+        var viewport = scrollbarMain.getElements('viewport'), ahD = OScrHDelay;
+        if(pe) { viewport.classList.add('disabled'); ahD = 0; } else { viewport.classList.remove('disabled'); }
         scrollbarMain.getElements('scrollbarVertical.handle').style.pointerEvents = pe;
         scrollbarMain.options('scrollbars.autoHide', ah);
+        scrollbarMain.options('scrollbars.autoHideDelay', ahD);
     }
     setScrMain('none', 'scroll');
 

@@ -103,6 +103,9 @@ html.is-changing .os-scrollbar {
 .os-scrollbar-handle.active {
     background-color: rgb(200, 200, 200) !important;
 }
+.os-viewport.disabled {
+    overflow: hidden !important;
+}
 
 
 /*--/ NAV /--*/
