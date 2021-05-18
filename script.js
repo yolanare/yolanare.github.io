@@ -816,7 +816,7 @@ function openProjectCardPopup(ev, p, item) {
     function closeProjectCardPopup() {
         cleanURL('?');
         swup.off('animationOutStart', closeProjectCardPopupAuto);
-        setScrMain(null, 'move');
+        if(document.querySelectorAll('div[project-popup] > .project-popup').length <= 1) { setScrMain(null, 'move'); }
         var allFocused = document.querySelectorAll('div[accordion-scroll] .focus');
         if(allFocused) { allFocused.forEach((f) => { f.classList.remove('focus'); })}
         ppBG.style.opacity = '0';
