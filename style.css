@@ -25,6 +25,8 @@
 }
 html {
     overflow: hidden;
+    font-size: 9px;
+    font-size: clamp(6px, 0.575vw, 10px);
 }
 body {
     margin: 0;
@@ -48,6 +50,15 @@ html.is-animating .transition-y {
 }
 html.is-animating.is-rendering .transition-y {
     margin-top: calc((10vw + 30vh) / 2);
+}
+
+.transition-op {
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+html.is-animating .transition-op {
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0.85, 0, 1);
 }
 
 #container {
@@ -132,14 +143,41 @@ nav {
     pointer-events: all;
 }
 svg#y {
+    position: relative;
+    top: 0;
     max-width: 225px;
     max-width: calc(clamp(9999px, 100vw, 9999px) * 1);
     width: 225px;
     width: clamp(150px, 20vw, 400px);
     height: 100%;
     transition: height 0.5s cubic-bezier(0.2, 0.7, 0, 1);
-    transition-property: max-width, height;
+    transition-property: top, max-width, width, height;
     overflow: visible;
+}
+html:not([page2="home"]) svg#y {
+    max-width: 150px;
+    max-width: calc(clamp(9999px, 100vw, 9999px) * 1);
+    height: 115%;
+}
+
+@media (min-width: 961px) {
+    html[page2="about"]:not([page="projects"]) svg#y {
+        top: 27.5rem;
+        max-width: 150px;
+        max-width: calc(clamp(9999px, 100vw, 9999px) * 1);
+        height: 500%;
+        width: clamp(150px, 25vw, 450px);
+        transition-duration: 0.6s, 0.8s, 0.8s, 0.7s;
+    }
+
+    html.to-homepage svg#y {
+        transition-duration: 0.5s, 0.8s, 0.8s, 0.5s;
+    }
+}
+@media (min-width: 1400px) {
+    html[page2="about"]:not([page="projects"]) svg#y {
+        top: 18.5rem;
+    }
 }
 
 /* (temporary) Y SPAWN ANIMATION */
@@ -448,10 +486,15 @@ div[id^='ynav-boom'] {
     animation: c-opacity-in 1.2s cubic-bezier(0.35, 0.4, 0, 1);
 }
 
-main#swup {display: block;
+main#swup {
+    display: block;
     position: relative !important;
     width: 100%;
     overflow: visible !important;
+}
+html[page="about"] main#swup.transition-op,
+html[page2="about"] main#swup.transition-op {
+    z-index: 10;
 }
 
 .margin-bott {
@@ -462,6 +505,231 @@ main#swup {display: block;
 }
 
 /*-/ ABOUT /-*/
+.about-c {
+    z-index: 0;
+    position: relative;
+    user-select: none;
+}
+.about-c#who {
+    min-height: calc(100vh - ((1.5vw + 5vh) / 2) - (clamp(150px, 3vw, 430px) + (10vh * 2)));
+}
+.about-c#who > .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.about-c#who .txt {
+    position: relative;
+    display: inline-block;
+    width: 46.5%;
+    color: var(--y-b1);
+    opacity: 1;
+}
+.about-c#who .txt > span {
+    display: inline-block;
+    width: 100%;
+}
+.about-c#who .txt:first-child {
+    font-size: 9.5rem;
+    font-weight: 800;
+    text-align: left;
+    white-space: nowrap;
+}
+.about-c#who .txt:last-child {
+    font-size: 7rem;
+    font-weight: 600;
+    text-align: right;
+    letter-spacing: -1px;
+}
+
+/*social*/
+.about-c#social {
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 19rem 0 0;
+    overflow: hidden;
+}
+.about-c#social .title {
+    transform: skewY(var(--shearY-p));
+    padding: 1rem 1em;
+    font-size: 5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0px;
+    color: var(--y-w1);
+    background-color: var(--y-b1);
+}
+
+.about-c#social .social-links {
+    margin-top: 6rem;
+    transform: skewY(var(--shearY-p));
+    font-size: 2.5rem;
+}
+
+.about-c#social .social-links > [id] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 46rem;
+    height: 46rem;
+    padding: 3.5rem;
+    text-decoration: none;
+    background-color: var(--y-w1);
+    cursor: pointer;
+}
+.about-c#social .social-links > [id] > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: var(--y-b1);
+    transition: background-color 0.9s cubic-bezier(0.15, 0.7, 0, 1);
+}
+
+.about-c#social .social-links .txt {
+    padding: 0.2em 1em;
+    font-size: 1.3em;
+    font-weight: 800;
+    color: var(--y-b1);
+    background-color: var(--y-w1);
+    transition: transform 0.7s cubic-bezier(0.1, 0.7, 0, 1),
+                background-color 0.8s cubic-bezier(0.2, 0.6, 0, 1),
+                color 0.8s cubic-bezier(0.4, 0.6, 0, 1);
+}
+
+.about-c#social .link {
+    width: 100%;
+    text-align: center;
+}
+.about-c#social .link > .icon {
+    margin-bottom: 0.75em;
+}
+.about-c#social .link .icon > div {
+    display: inline-block;
+    width: 5.5rem;
+    height: 5.5rem;
+    padding: 1.1em;
+    border-radius: 50%;
+    fill: var(--y-b1);
+    background-color: var(--y-w1);
+    transition: 0.8s cubic-bezier(0.2, 0.6, 0, 1);
+    transition-property: fill, background-color;
+    overflow: visible;
+}
+.about-c#social #twitter .link svg {
+    transition: transform 0.7s cubic-bezier(0.1, 0.7, 0, 1);
+}
+.about-c#social .link svg > * {
+    transform: skewY(calc(0deg - var(--shearY-p)));
+}
+
+.about-c#social .username {
+    color: var(--y-w1);
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 0px;
+    transition: letter-spacing 0.5s cubic-bezier(0.1, 0.7, 0, 1),
+                color 0.8s cubic-bezier(0.2, 0.6, 0, 1);
+}
+
+.about-c#social #twitter:hover > div {
+    background-color: #1d9bf0;
+    transition: background-color 0.6s cubic-bezier(0.1, 0.8, 0, 1);
+}
+.about-c#social #twitter:hover .txt {
+    transform: scale(1.06);
+    transition: transform 0.3s cubic-bezier(0.1, 0.7, 0, 1);
+}
+.about-c#social #twitter:hover .link svg {
+    transform: scale(1.15);
+}
+.about-c#social #twitter:hover .username {
+    letter-spacing: 2px;
+}
+
+.about-c#social #twitter:active .txt  {
+    background-color: var(--y-g1);
+}
+.about-c#social #twitter:active .txt,
+.about-c#social #twitter:active .link svg {
+    transform: scale(1);
+    transition: transform 0.2s cubic-bezier(0.05, 0.6, 0, 1),
+                background-color 0.6s cubic-bezier(0.1, 0.6, 0, 1),
+                color 0.4s cubic-bezier(0.1, 0.7, 0, 1);
+}
+.about-c#social #twitter:active .link .icon > div {
+    background-color: var(--y-g1);
+    transition: background-color 0.6s cubic-bezier(0.1, 0.6, 0, 1),
+                fill 0.5s cubic-bezier(0.1, 0.7, 0, 1);
+}
+.about-c#social #twitter:active .txt,
+.about-c#social #twitter:active .link .icon > div {
+    color: #1d9bf0;
+    fill: #1d9bf0;
+}
+.about-c#social #twitter:active .username {
+    letter-spacing: 0px;
+    color: var(--y-g1);
+    transition: letter-spacing 0.2s cubic-bezier(0.05, 0.6, 0, 1),
+                color 0.6s cubic-bezier(0.1, 0.6, 0, 1);
+}
+
+
+/* bg circles */
+@keyframes aShapes-shine {
+    0% { opacity: 0.9; }
+    100% { opacity: 0.375; }
+}
+@keyframes aSb-up {
+    0% { top: 15rem; }
+    100% { top: 0; }
+}
+@keyframes aSt-down {
+    0% { top: -100rem; }
+    100% { top: 7rem; }
+}
+.a-top {
+    position: absolute;
+    top: 7rem;
+    left: 0;
+    width: 100%;
+    height: 0;
+    animation: aSt-down 0.65s cubic-bezier(0.3, 0.8, 0, 1) backwards,
+               aShapes-shine 1.75s 0.3s ease-in-out backwards alternate infinite;
+}
+.a-top > svg {
+    position: absolute;
+    bottom: 0;
+    fill: var(--y-w2);
+}
+
+.a-bowl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.a-bowl > svg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    fill: var(--y-w2);
+    overflow: visible;
+    animation: aSb-up 1s cubic-bezier(0.4, 0.75, 0, 1) backwards;
+}
+
+
+/*- about/parcoursup-cs -*/
 #parcoursup-cs {
     display: flex;
     align-items: center;
@@ -2063,6 +2331,9 @@ noscript .ERROR {
     :root {
         --pscs-txtmargin : 30px;
     }
+    html {
+        font-size: 6px;
+    }
 
     .os-scrollbar-handle {
         transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
@@ -2113,6 +2384,25 @@ noscript .ERROR {
                     color var(--ymtxt-tr-bg), background-color var(--ymtxt-tr-bg) !important;
     }
 
+    /*about*/
+    .about-c#who > .wrapper {
+        flex-direction: column;
+    }
+    .about-c#who .txt {
+        width: 95%;
+        text-align: center !important;
+    }
+    .about-c#who .txt:first-child {
+        font-size: 7.5rem;
+        margin-top: 0.8em;
+    }
+    .about-c#who .txt:last-child {
+        font-size: 5rem;
+        margin-top: 1em;
+        line-height: 1.4;
+    }
+
+    /*about/pscs*/
     #parcoursup-cs {
         margin: 0;
     }

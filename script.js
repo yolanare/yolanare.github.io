@@ -1134,7 +1134,7 @@ var checkScrollSpeed = (function(){ // (https://stackoverflow.com/a/22599173)
 
 var isScrolling, accScroll = document.querySelector('div[accordion-scroll]');
 function scrollAccordion() {
-    if(pathDir != 'home') {
+    if(pathDir == 'projects') {
         var speed = checkScrollSpeed(), space = 0,
             items = [Object.values(accScroll.querySelectorAll('.acc-s[level="1"]')), Object.values(accScroll.querySelectorAll('.acc-s:not([level="1"])'))];
 
@@ -1288,10 +1288,10 @@ function init() {
     var navSvgY = nav.querySelector('svg#y');
     if(pathDir != 'home') {
         nav.setAttribute('style', 'height: 290px; height: calc(clamp(150px, 3vw, 430px) * 1);') // var(--content-top) / hard coded bc of compatibility
-        navSvgY.setAttribute('style', 'max-width: 150px; max-width: calc(clamp(9999px, 100vw, 9999px) * 1); height: 115%;');
+        //navSvgY.setAttribute('style', 'max-width: 150px; max-width: calc(clamp(9999px, 100vw, 9999px) * 1); height: 115%;');
     } else {
         nav.setAttribute('style', '');
-        navSvgY.setAttribute('style', '');
+        //navSvgY.setAttribute('style', '');
     }
 
     if(pathDir == 'projects') {
