@@ -804,6 +804,13 @@ function openProjectCardPopup(ev, p, item) {
     p.classList.add('focus');
     cleanURL('?'); history.replaceState({}, '', window.location.hash +'?'+ p.id);
 
+    if(!container.querySelector("#content-container ~ [project-popup]")) {
+        // creates project popup container if not already ready
+        var ppContainer = document.createElement('div');
+        ppContainer.setAttribute('project-popup', '');
+        container.querySelector('#content-container').parentElement.appendChild(ppContainer);
+    }
+
     function setScrMain(pe, ah) {
         var viewport = scrollbarMain.getElements('viewport'), ahD = OScrHDelay;
         if(pe) { viewport.classList.add('disabled'); ahD = 0; } else { viewport.classList.remove('disabled'); }
@@ -1285,7 +1292,7 @@ function init() {
         swup.on('popState', function() { yNavBoom(null, true, null); });
     }
 
-    var navSvgY = nav.querySelector('svg#y');
+    //var navSvgY = nav.querySelector('svg#y');
     if(pathDir != 'home') {
         nav.setAttribute('style', 'height: 290px; height: calc(clamp(150px, 3vw, 430px) * 1);') // var(--content-top) / hard coded bc of compatibility
         //navSvgY.setAttribute('style', 'max-width: 150px; max-width: calc(clamp(9999px, 100vw, 9999px) * 1); height: 115%;');
