@@ -2245,28 +2245,7 @@ noscript .ERROR {
 }
 
 /* DEVICES SIZES */
-@media (min-width: 961px) {
-    :root {
-        --pscs-txtmargin : 100px;
-    }
-
-    .os-scrollbar {
-        width: 13.5px !important;
-    }
-    .os-scrollbar-handle {
-        transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
-                    opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
-                    transform 0.375s cubic-bezier(0, 0.6, 0, 1),
-                    height 0.55s cubic-bezier(0.1, 0.7, 0, 1) !important;
-    }
-    html.isChr .os-scrollbar.active .os-scrollbar-handle {
-            transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
-                        opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
-                        transform 0s,
-                        height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
-    }
-
-
+@media (pointer: fine) { /* not touch device */
     html:not([page="about"]) .ym-txt#a:hover,
     html:not([page="projects"]) .ym-txt#p:hover,
     html:not([page="about"]) .ym-txt#a:active,
@@ -2288,6 +2267,27 @@ noscript .ERROR {
     .ym-txt#a:active > span,
     .ym-txt#p:active > span {
         transform: scale(0.935) !important;
+    }
+}
+@media (min-width: 961px) {
+    :root {
+        --pscs-txtmargin : 100px;
+    }
+
+    .os-scrollbar {
+        width: 13.5px !important;
+    }
+    .os-scrollbar-handle {
+        transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                    opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                    transform 0.375s cubic-bezier(0, 0.6, 0, 1),
+                    height 0.55s cubic-bezier(0.1, 0.7, 0, 1) !important;
+    }
+    html.isChr .os-scrollbar.active .os-scrollbar-handle {
+            transition: background-color 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                        opacity 0.8s cubic-bezier(0.15, 0.8, 0, 1),
+                        transform 0s,
+                        height 0.4s cubic-bezier(0, 0.6, 0, 1) !important;
     }
 
 
