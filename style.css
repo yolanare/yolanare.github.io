@@ -748,15 +748,14 @@ html[page2="about"] main#swup.transition-op {
 }
 #parcoursup-cs h3 {
     margin: 0;
-    font-size: 15px;
-    font-size: clamp(12px, 0.9vw, 18px);
+    font-size: 1.8rem;
     font-weight: 500;
     letter-spacing: 1px;
 }
 #parcoursup-cs h1 {
     margin: 0;
-    font-size: 38px;
-    font-size: clamp(30px, 2.25vw, 45px);
+    font-size: 3.875rem;
+    font-size: clamp(3.5rem, 2.25vw, 4.25rem);
     font-weight: 800;
     letter-spacing: 2.5px;
 }
@@ -771,8 +770,7 @@ html[page2="about"] main#swup.transition-op {
 #pscs-txt {
     position: relative;
     padding: 75px var(--pscs-txtmargin) calc(var(--pscs-txtmargin) / 2);
-    font-size: 20px;
-    font-size: clamp(18px, 1.35vw, 21.5px);
+    font-size: 2.15rem;
     font-weight: 600;
     letter-spacing: -0.15px;
     line-height: 1.35;
