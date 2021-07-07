@@ -12,9 +12,9 @@
 //});
 
 
-var doc = document.documentElement,
-    touchDevice = (navigator.maxTouchPoints || "ontouchstart" in document.documentElement), // check if is Touch Screen
-    language = (/^fr\b/.test(navigator.language)) ? "fr" : "en"; // check language (FR or else EN)
+const doc = document.documentElement,
+    touchDevice = (navigator.maxTouchPoints || "ontouchstart" in document.documentElement); // check if is Touch Screen
+var language = (/^fr\b/.test(navigator.language)) ? "fr" : "en"; // check language (FR or else EN)
 
 // check if screen is small
 function checkWinSize() { isMini = (window.innerWidth > 727); };
@@ -22,7 +22,7 @@ checkWinSize(); window.addEventListener("resize", checkWinSize);
 
 
 ///- Data -/
-var projectsMenuData = {
+const projectsMenuData = {
     "artworks" : {
         title: "ARTWORKS",
         icon : '<path d="M21.5,7.3c1.8,0,3.2,1.5,3.2,3.2s-1.5,3.2-3.2,3.2s-3.2-1.5-3.2-3.2S19.7,7.3,21.5,7.3 M11.6,12l2.9,8.5c0,0,3.6-4.1,3.6-4.1l4.8,8.8c-1.9,1.4-4.3,2.3-6.9,2.3c-5.8,0-10.7-4.3-11.4-10C4.6,17.5,11.6,12,11.6,12 M17.9,6.7c0.7-0.6,1.6-1.1,2.6-1.3l0,0c-1.4-0.6-2.9-0.9-4.5-0.9l0,0C10,4.5,5,9.1,4.5,15l2.4-1.9c1.2-3.8,4.8-6.6,9.1-6.6C16.7,6.5,17.3,6.6,17.9,6.7L17.9,6.7z M25.3,14.1c0.1,0.6,0.2,1.2,0.2,1.9c0,2.2-0.8,4.3-2.1,6l1,1.9c1.9-2.1,3.1-4.8,3.1-7.9c0-1.6-0.3-3.1-0.9-4.5l0,0C26.4,12.5,26,13.4,25.3,14.1L25.3,14.1z"/>',
@@ -109,8 +109,7 @@ function addEvTrEnd(elem, func, o) {
 } trEndAlready = [];
 
 ///- OverlayScrollbar - MAIN -/
-var o1 = [null, 33],
-    OScrHDelay = 200;
+var o1 = [null, 33], OScrHDelay = 200;
 if(!isMini) { o1 = [true, 33]; OScrHDelay = 800; };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -143,13 +142,13 @@ document.addEventListener("DOMContentLoaded", function() {
 if(getPageID() == "new") {
 
     //- Projects Menu -
-    var pMenu = document.querySelector(".p-menu:not(.dummy)"),
+    const pMenu = document.querySelector(".p-menu:not(.dummy)"),
         pMenuDummy = document.querySelector(".p-menu.dummy"),
         pMenuItems = pMenu.querySelectorAll(".p-item");
 
     pMenuItems.forEach(item => {
         // Icons & Titles
-        var p = item.getAttribute("p"),
+        const p = item.getAttribute("p"),
             icon = '<svg viewBox="0 0 32 32">'+ projectsMenuData[p].icon +'</svg>';
         if(item.parentElement.className != "min") { item.innerHTML = '<div>'+ icon + '<span class="title">'+ projectsMenuData[p].title +'</span></div>';
         } else { item.innerHTML = '<div>'+ icon +'</div>'; }
@@ -189,7 +188,7 @@ if(getPageID() == "new") {
 
 
     //- Home Guide -
-    var guide = document.querySelector(".guide"),
+    const guide = document.querySelector(".guide"),
         scrDtxt = document.querySelector("section.home #scroll_down");
 
     //function HGScrRatio(minPos, restPos, endPos, sPos, trackH) { // old method
@@ -218,7 +217,7 @@ if(getPageID() == "new") {
             stracky -= 20; // a bit before to make sure there's no gap
             step = "to about";
 
-            var h = ((sposy / stracky) * 100).toFixed(2), h_clip = clamp(h / 2, 0, 50);
+            const h = ((sposy / stracky) * 100).toFixed(2), h_clip = clamp(h / 2, 0, 50);
             guide.style.clipPath = "polygon(0 "+ h_clip +"%, 0 0, 100% 0, 100% "+ h_clip +"%, 50% 100%)";
             guide.style.width = h +"%";
             guide.style.height = h +"%";
@@ -236,7 +235,7 @@ if(getPageID() == "new") {
             sposy -= stracky;
             step = "to projects";
 
-            var a = HGScrRatio(100, 15, 85, sposy, stracky),
+            const a = HGScrRatio(100, 15, 85, sposy, stracky),
                 a_clip = HGScrRatio(50, 50, 100, sposy, stracky) * 1.175;
             guide.style.clipPath = "polygon(0 "+ a_clip +"%, 0 0, 100% 0, 100% "+ a_clip +"%, 50% 100%)";
             guide.style.width = a +"%";
@@ -249,7 +248,7 @@ if(getPageID() == "new") {
             sposy -= stracky * 2;
             step = "to social";
 
-            var s = HGScrRatio(85, 45, 40, sposy, stracky);
+            const s = HGScrRatio(85, 45, 40, sposy, stracky);
             guide.style.width = "40vw";
             guide.style.height = "40vw";
             guide.style.top = "calc("+ (parseFloat(HGScrRatio(0, 100, 100, sposy, stracky)) + 10) +"% + "+ stracky * 2 +"px)";
