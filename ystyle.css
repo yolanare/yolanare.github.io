@@ -215,9 +215,9 @@ body {
     /*scroll-snap-align: start;*/
 }
 
-/*section.projects {
+section.projects {
     background-color: rgba(0, 0, 0, 0.05) !important;
-}*/
+}
 section:last-child {
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
@@ -291,7 +291,12 @@ section.about > span:not(:first-child) > b {
 }
 
 
-/*-/ PROJECTS MENU /-*/
+/*-/ PROJECTS /-*/
+section.projects {
+    overflow: hidden;
+}
+
+/*- PROJECTS MENU -*/
 .dummy {
     opacity: 0 !important;
     transition: none !important;
@@ -300,14 +305,12 @@ section.about > span:not(:first-child) > b {
 .p-menu {
     display: flex;
     justify-content: center;
-    /*top: calc((100% - var(--pm-box-size)) / 2);*/
     width: 100%;
     height: var(--pm-box-size);
     font-size: 5em;
     line-height: 1;
     transition: var(--tr);
     pointer-events: none;
-    overflow: hidden;
 }
 .p-menu .pm-title-c {
     position: absolute;
@@ -332,6 +335,11 @@ section.about > span:not(:first-child) > b {
     transition: var(--tr);
 }
 
+.menu-items-c {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 .p-menu .menu-items {
     top: calc(var(--pmn-box-half-t-offset) * 2);
     width: 100%;
@@ -385,9 +393,6 @@ section.about > span:not(:first-child) > b {
     overflow: hidden;
     transition: var(--tr);
     pointer-events: all;
-}
-.p-menu #top div:not(.min) > .p-item {
-    flex-shrink: 0;
 }
 
 .p-menu :not(.min) > .p-item:first-child,
@@ -454,7 +459,22 @@ section.about > span:not(:first-child) > b {
 .p-menu.top-bar {
     width: 100%;
     height: var(--pmn-item-height);
+}
+.p-menu.top-bar:not([class*=" snap"]) {
+    position: fixed !important;
     top: 0 !important;
+}
+.p-menu.top-bar.snapTop {
+    position: absolute !important;
+    top: 0 !important;
+}
+.p-menu.top-bar.snapBottom {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 0 !important;
+}
+.p-menu.top-bar.tr {
+    position: fixed !important;
 }
 .p-menu.top-bar .pm-bg {
     top: 0; /*calc(var(--pmn-box-half-t-offset) + var(--pmn-item-height));*/
@@ -463,7 +483,7 @@ section.about > span:not(:first-child) > b {
 }
 .p-menu.top-bar .pm-title-c {
     top: calc(0px - var(--pmn-box-half-t-offset) * 2);
-    color: var(--y-g1);
+    opacity: 0;
 }
 .p-menu.top-bar .pm-title {
     color: var(--y-w1);

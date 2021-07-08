@@ -55,7 +55,6 @@ const projectsMenuData = {
 }
 
 
-
 ///- Tools -/
 function m(val1, val2) { // average of 2 numbers
     function copyToClipboard(text) {
@@ -106,7 +105,7 @@ function addEvTrEnd(elem, func, o) {
         trEndAlready.push(elem);
         elem.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
     }
-} trEndAlready = [];
+} var trEndAlready = [];
 
 ///- OverlayScrollbar - MAIN -/
 var o1 = [null, 33], OScrHDelay = 200;
@@ -130,6 +129,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+function scrollGuideAndProjects() {
+    HomeGuide();
+    pMenuScrollPosUpdate();
+}
+
 
 ///- CONTENT SCRIPTS -/
 //function init() {
@@ -142,9 +146,23 @@ document.addEventListener("DOMContentLoaded", function() {
 if(getPageID() == "new") {
 
     //- Projects Menu -
-    const pMenu = document.querySelector(".p-menu:not(.dummy)"),
-        pMenuDummy = document.querySelector(".p-menu.dummy"),
+    var pMenu = document.querySelector("nav.p-menu"),
+        pMenuDummy = document.querySelector("fakenav.p-menu.dummy"),
+        pMenuTopDummy = document.querySelector("faketopnav.p-menu.dummy"),
         pMenuItems = pMenu.querySelectorAll(".p-item");
+
+    function pMenuScrollPosUpdate() {
+        //console.log('call');
+        // the goal is to make the menu follow the scroll
+        // maybe going to migrate the whole animation in here
+        // because it seems it's going to be quite tricky
+        // but I can vaguely see how this could work
+        // kinda
+
+        // im scared
+        // i think i'm going to work on that at the end bc it works as is
+        // it just doesn't like scrolling while the animation is going
+    }
 
     pMenuItems.forEach(item => {
         // Icons & Titles
@@ -155,35 +173,83 @@ if(getPageID() == "new") {
 
         // Interactions
         function projectLink() {
-            if(this.classList.contains("focus") && pMenu.classList.contains("top-bar")) { // --- return to normal
-                pMenu.style.top = pMenuDummy.getBoundingClientRect().top +"px";
-                
-                function trEnd1() {
-                    if(!pMenu.classList.contains("top-bar")) {
-                        pMenu.style.top = null,
-                        pMenu.style.position = null;
-                    }
-                }
-                addEvTrEnd(pMenu, trEnd1, true);
-                
-                pMenu.classList.remove("top-bar");
-                pMenuItems.forEach(i => { i.classList.remove("focus"); });
-            } else { // --- top bar
-                if(!pMenu.classList.contains("top-bar")) { // if already top bar
-                    pMenu.style.top = pMenuDummy.getBoundingClientRect().top +"px";
-                    pMenu.style.position = "fixed";
-                }
+            // normal : always / top-bar : when in focus
+            if(!pMenu.classList.contains("top-bar") || (pMenu.classList.contains("top-bar") && this.parentElement.classList.contains("focus"))) { // will move
+                scrollbarMain.options("callbacks.onScroll", scrollGuideAndProjects);
+                addEvTrEnd(pMenu, function() { scrollbarMain.options("callbacks.onScroll", HomeGuide); });
+            }
+            
 
+            if(this.parentElement.classList.contains("focus") && pMenu.classList.contains("top-bar")) { // --- return to normal
+                if(pMenu.classList.contains("snapTop" || "snapBottom")) {
+                    pMenu.setAttribute("style", "top: calc((100% - var(--pm-box-size)) / 2);");
+                } else {
+                    pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenu.getBoundingClientRect().top).toFixed(3) +"px !important;");
+                    setTimeout(() => {
+                        pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenuDummy.getBoundingClientRect().top).toFixed(3) +"px !important;");
+                    }, 1);
+                }
+                setTimeout(() => {
+                    addEvTrEnd(pMenu, function() { pMenu.setAttribute("style", ""); });
+                }, 1);
+                
+
+                setTimeout(() => {
+                    pMenu.classList.remove("top-bar");
+                    pMenuItems.forEach(i => { i.classList.remove("focus"); });
+                }, 1);
+
+            } else { // --- top bar
+                if(!pMenu.classList.contains("top-bar")) { // if not already top bar
+                    pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenuDummy.getBoundingClientRect().top).toFixed(3) +"px !important;");
+                    setTimeout(() => {
+                        if(pMenu.classList.contains("snapTop" || "snapBottom")) {
+                            pMenu.setAttribute("style", "position: fixed !important; top: "+ (document.querySelector("section.projects").getBoundingClientRect().top).toFixed(3) +"px !important;");
+                        } else { pMenu.setAttribute("style", "position: fixed !important; top: 0px !important;"); }
+                        addEvTrEnd(pMenu, function() {
+                            pMenu.setAttribute("style", "");
+                            pMenu.style.transition = "var(--tr), top 0s";
+                        });
+                    }, 1);
+                }
                 setTimeout(() => {
                     pMenu.classList.add("top-bar");
                     pMenuItems.forEach(i => { i.classList.remove("focus"); });
                     pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); });
-                }, 1); 
+                }, 1);
             }
-            
         }
+        item.childNodes[0].addEventListener('click', projectLink)
+    });
 
-        item.addEventListener('click', projectLink)
+    // Top Bar Section Snapping
+    document.addEventListener("DOMContentLoaded", function() {
+        var sSocialH = document.querySelector("#page-content > section.social").offsetHeight,
+            snapBOptions = {
+                root: scrollbarMain.getElements().viewport,
+                threshold: ((sSocialH - pMenuTopDummy.offsetHeight) / sSocialH).toFixed(3)
+            };
+
+        const pmSnapTop = new IntersectionObserver(function(entries) {
+            entries.forEach(section => {
+                if(section.isIntersecting) { pMenu.classList.add("snapTop");
+                } else if(section.boundingClientRect.y < sSocialH - 30) { pMenu.classList.remove("snapTop"); }
+            });
+        });
+        const pmSnapBottom = new IntersectionObserver(function(entries) {
+            entries.forEach(section => {
+                if(section.isIntersecting) { pMenu.classList.add("snapBottom");
+                } else { pMenu.classList.remove("snapBottom"); }
+            });
+        }, snapBOptions);
+
+        const allHomeSections = document.querySelectorAll("#page-content > section[class]");
+        var countHS = 0, pSIndex;
+        allHomeSections.forEach(section => { // top and bottom sections of Projects are -1 & +1 of pSIndex
+            if(section.classList.contains("projects")) { pSIndex = countHS; } countHS += 1;
+        });
+        pmSnapTop.observe(allHomeSections[pSIndex-1]); // about intersection
+        pmSnapBottom.observe(allHomeSections[pSIndex+1]); // social intersection
     });
 
 
@@ -194,12 +260,12 @@ if(getPageID() == "new") {
     //function HGScrRatio(minPos, restPos, endPos, sPos, trackH) { // old method
     //    var sign = 1, initPos = minPos;
     //    if(endPos < minPos) { var sign = -1, hold = minPos, minPos = endPos, endPos = hold; } // can reverse
-    //    return ( clamp((  initPos + ((sPos / trackH).toFixed(2) * (restPos * trackH) / trackH) * sign  ), minPos, endPos) ).toFixed(2); // don't try to make sens of that, it works ; (  x + ((a / b) * (z * b) / b) * s  )
+    //    return ( clamp((  initPos + ((sPos / trackH).toFixed(2) * (restPos * trackH) / trackH) * sign  ), minPos, endPos) ).toFixed(2); // there are some logic in here that I'm too lazy to explain ; (  x + ((a / b) * (z * b) / b) * s  )
     //}
     function HGScrRatio(minPos, restPos, endPos, sPos, trackH) {
         var sign = 1, initPos = minPos;
         if(endPos < minPos) { var sign = -1, hold = minPos, minPos = endPos, endPos = hold; } // can reverse
-        return clamp((  parseFloat(((sPos * restPos) / (trackH * sign)).toFixed(2)) + initPos  ), minPos, endPos); // simplified of old method : (  (a * z) / (b * s) + x  )
+        return clamp((  parseFloat(((sPos * restPos) / (trackH * sign)).toFixed(2)) + initPos  ), minPos, endPos); // simplified of old method : (  (a * z) / (b * s) + x  ) // don't try to make sens of that, it works
     }
 
     function HomeGuide() {
@@ -225,13 +291,13 @@ if(getPageID() == "new") {
 
             guide.style.borderRadius = "0%";
 
-        }/* else if(sposy < stracky + 100) { // in about
+        /*} else if(sposy < stracky + 100) { // in about
             guide.style.clipPath = "polygon(0 50%, 0 0, 100% 0, 100% 50%, 50% 100%)";
             guide.style.width = "100%";
             guide.style.height ="100%";
-            guide.style.top = "100%";
+            guide.style.top = "100%";*/
 
-        }*/ else if(sposy < stracky * 2.5) { // from about to projects
+        } else if(sposy < stracky * 2.5) { // from about to projects
             sposy -= stracky;
             step = "to projects";
 
