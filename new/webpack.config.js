@@ -1,5 +1,6 @@
 const path = require('path');
 const extract = require('mini-css-extract-plugin')
+const { SourceMapDevToolPlugin } = require("webpack");
 // const sass = require('sass')
 
 module.exports = {
@@ -41,8 +42,12 @@ module.exports = {
                 {
                 filename: 'bundle.css',
             }
-        )
+        ),
+        new SourceMapDevToolPlugin({
+            filename: "[file].map"
+        }),
     ],
+    devtool: 'eval-cheap-source-map',
     devServer: {
         hot: true,
         port: 8080,
