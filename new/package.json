@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "webpack-dev-server",
-    "dev0": "webpack-dev-server --open",
+    "dev-o": "webpack-dev-server --open",
     "build": "webpack --watch"
   },
   "keywords": [],
