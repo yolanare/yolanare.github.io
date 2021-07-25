@@ -38,7 +38,7 @@ Scrollbar.init(scrollMainElem, {
 });
 
 var ScrollMain = Scrollbar.get(scrollMainElem),
-    snapScrollOffset = (ScrollMain.getSize().container.height / 6).toFixed(2), // when to snap (at sixth of section)
+    snapScrollOffset = (ScrollMain.getSize().container.height / 3).toFixed(2), // when to snap (at third of section)
     isScrolling; // thx https://vanillajstoolkit.com/helpers/scrollstop/
 
 ScrollMain.track.xAxis.element.remove();
@@ -61,7 +61,7 @@ ScrollMain.addListener(() => { //- Main Scroll Effects -
                 }
             }
         })
-    }, ((scrollMainElem.getAttribute("style")).includes("user-select: none;")) ? 500 : 66); // delay before considering scroll is stopped when holding or not the scrollbar thumb
+    }, ((scrollMainElem.getAttribute("style")).includes("user-select: none;")) ? 500 : 100); // delay before considering scroll is stopped when holding or not the scrollbar thumb
 });
 
 
