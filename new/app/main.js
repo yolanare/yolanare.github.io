@@ -357,7 +357,7 @@ function HomeGuide() {
         var sposy = ScrollMainOS.scroll().position.y,
             stracky = ScrollMainOS.scroll().trackLength.y;
     }
-    //var step = 0;
+    var step = 0;
 
     if(sposy > 30) {
         scrDtxt.classList.add("hide");
