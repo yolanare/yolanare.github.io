@@ -25,6 +25,8 @@ checkWinSize(); window.addEventListener("resize", checkWinSize);
 //- Scroll -
 if(!isTouchDevice) { // PC
     //- Smooth Scrollbar -
+    var isOverScroll;
+
     Scrollbar.use(OverscrollPlugin);
     var ScrollMain = Scrollbar.init(scrollMainElem, {
         syncCallbacks: true,
@@ -34,10 +36,15 @@ if(!isTouchDevice) { // PC
             overscroll: {
                 effect : "bounce",
                 damping : 0.135,
-                maxOverscroll : 500/*,
+                maxOverscroll : 500,
                 onScroll({x, y}) {
-                    console.log(x, y) //TODO when overscroll y : make overlay bg-w2 opacity up (brighten page)
-                }*/
+                    document.querySelector("#content-overscroll-overlay").style.opacity = (Math.abs(y / 750)).toFixed(3);
+
+                    window.clearTimeout(isOverScroll);
+                    isOverScroll = setTimeout(function() { // Overscroll Stop trigger
+                        document.querySelector("#content-overscroll-overlay").style.opacity = null;
+                    }, 200);
+                }
             }
         }
     });
