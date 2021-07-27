@@ -4,13 +4,15 @@
 import './style.scss';
 import Scrollbar from 'smooth-scrollbar';
 import OverscrollPlugin from '../node_modules/smooth-scrollbar/plugins/overscroll';
+import '../node_modules/overlayscrollbars/css/OverlayScrollbars.css';
+import '../node_modules/overlayscrollbars/js/OverlayScrollbars.js';
 
 
 const doc = document.documentElement,
-    touchDevice = (navigator.maxTouchPoints || "ontouchstart" in document.documentElement), // check if is Touch Screen
-    isChrome = (!!window.chrome), // check if browser is chrome
+    isTouchDevice = window.matchMedia("(pointer: coarse)").matches, // check if is Touch Screen (https://stackoverflow.com/a/52855084)
+    isChrome = (!!window.chrome), // check if browser is chromium based
     allHomeSections = document.querySelectorAll("#page-content > section[class]"),
-    allHomeSectionsToSnap = Array.from(allHomeSections).slice(1, allHomeSections.length); // all of them but the first one
+    allHomeSectionsToSnap = Array.from(allHomeSections).slice(1, -1); // all of them but the first & last one
 var language = (/^fr\b/.test(navigator.language)) ? "fr" : "en", // check language (FR or else EN)
     isMini, // boolean that depends on size of viewport (check if screen is small)
     scrollMainElem = document.querySelector("[scroll-main]");
@@ -20,49 +22,101 @@ function checkWinSize() { isMini = (window.innerWidth > 727); };
 checkWinSize(); window.addEventListener("resize", checkWinSize);
 
 
-//- Smooth Scroll -
-Scrollbar.use(OverscrollPlugin);
-Scrollbar.init(scrollMainElem, {
-    syncCallbacks: true,
-    damping : (isChrome) ? 0.12 : 0.14,
-    plugins: {
-        overscroll: {
-            effect : "bounce",
-            damping : 0.135,
-            maxOverscroll : 500/*,
-            onScroll({x, y}) {
-                console.log(x, y)
-            }*/
+//- Scroll -
+if(!isTouchDevice) { // PC
+    //- Smooth Scrollbar -
+    Scrollbar.use(OverscrollPlugin);
+    var ScrollMain = Scrollbar.init(scrollMainElem, {
+        syncCallbacks: true,
+        damping : (isChrome) ? 0.12 : 0.14,
+        alwaysShowTracks : true,
+        plugins: {
+            overscroll: {
+                effect : "bounce",
+                damping : 0.135,
+                maxOverscroll : 500/*,
+                onScroll({x, y}) {
+                    console.log(x, y) //TODO when overscroll y : make overlay bg-w2 opacity up (brighten page)
+                }*/
+            }
         }
-      }
-});
+    });
 
-var ScrollMain = Scrollbar.get(scrollMainElem),
-    snapScrollOffset = (ScrollMain.getSize().container.height / 3).toFixed(2), // when to snap (at third of section)
-    isScrolling; // thx https://vanillajstoolkit.com/helpers/scrollstop/
+    ScrollMain.track.xAxis.element.remove(); // no scroll x
 
-ScrollMain.track.xAxis.element.remove();
+    ScrollMain.addListener(() => { //- Main Scroll Effects -
+        //- Things
+        HomeGuide();
 
-ScrollMain.addListener(() => { //- Main Scroll Effects -
-    //- Things
-    HomeGuide();
+        // prevents overscrolling left & right (might find a different workaround ? well it works so "don't worry about it" as we say)
+        ScrollMain.scrollLeft = 1;
+        scrollMainElem.style.left = "1px";
 
-    ScrollMain.scrollLeft = 1; // might find a workaround ? well it works, it prevents overscroll left & right
-
-    //- Scroll Snapping
-    
-    window.clearTimeout(isScrolling);
-    isScrolling = setTimeout(function() {
-        allHomeSectionsToSnap.forEach(section => {
-            var sectionTop = section.getBoundingClientRect().top;
+        //- Scroll Snapping
+        ScrollSnap(function(section, sectionTop) {
             if(ScrollMain.isVisible(section)) {
                 if(sectionTop > -snapScrollOffset && sectionTop < snapScrollOffset) { // before && after top of section (with offset)
                     ScrollMain.setMomentum(0, sectionTop);
                 }
             }
+        }, (scrollMainElem.getAttribute("style").includes("user-select: none;")) ? 500 : 100) // when holding or not the scrollbar thumb
+    });
+
+} else { // if isTouchDevice then no smooth scrolling because native scroll smoothing is better for touch
+    //- Overlay Scrollbar -
+    var ScrollMainOS;
+    document.addEventListener("DOMContentLoaded", function() {
+        ScrollMainOS = OverlayScrollbars(scrollMainElem, {
+            autoUpdate : null,
+            autoUpdateInterval : 33,
+            overflowBehavior : {
+                x : 'hidden',
+                y : 'scroll'
+            },
+            scrollbars : {
+                autoHide : 'scroll',
+                autoHideDelay : 100,
+                dragScrolling : false,
+                clickScrolling : false,
+                touchSupport : true
+            },
+            callbacks : {
+                onScroll : onscrollEffects
+            }
+        });
+    });
+    scrollMainElem.style.height = "100vh";
+
+    function onscrollEffects() {
+        HomeGuide();
+
+        //- Custom Scroll Snapping // maybe not on touch devices ? keeping that in case
+        //ScrollSnap(function(section, sectionTop) {
+        //    var sectionRect = section.getBoundingClientRect();
+        //    if(sectionRect.top < scrollMainElem.offsetHeight && sectionRect.top > -sectionRect.height) { // is visible ?
+        //        if(sectionTop > -snapScrollOffset && sectionTop < snapScrollOffset) { // same as above
+        //            ScrollMainOS.scroll(section, 600, 'easeOutQuint');
+        //        }
+        //    }
+        //}, 300)
+    }
+}
+
+//- Scroll Snapping Function
+var snapScrollOffset = (!isTouchDevice) ? (ScrollMain.getSize().container.height / 3).toFixed(2) : (scrollMainElem.offsetHeight / 3).toFixed(2), // when to snap (at third of section)
+    isScrolling; // thx https://vanillajstoolkit.com/helpers/scrollstop/
+
+if(!scrollMainElem.getAttribute("style")) { scrollMainElem.setAttribute("style", ""); } // so it can check even if empty for delay down ther
+
+function ScrollSnap(snap, delay) {
+    window.clearTimeout(isScrolling);
+    isScrolling = setTimeout(function() {
+        allHomeSectionsToSnap.forEach(section => {
+            var sectionTop = section.getBoundingClientRect().top;
+            snap(section, sectionTop);
         })
-    }, ((scrollMainElem.getAttribute("style")).includes("user-select: none;")) ? 500 : 100); // delay before considering scroll is stopped when holding or not the scrollbar thumb
-});
+    }, delay); // delay before considering scroll is stopped
+}
 
 
 ///- Data -/
@@ -296,8 +350,14 @@ function HGScrRatio(minPos, restPos, endPos, sPos, trackH) {
 }
 
 function HomeGuide() {
-    var sposy = ScrollMain.scrollTop, stracky = ScrollMain.getSize().container.height,
-        step = 0;
+    if(!isTouchDevice) { // pc
+        var sposy = ScrollMain.scrollTop,
+            stracky = ScrollMain.getSize().container.height;
+    } else { // touch
+        var sposy = ScrollMainOS.scroll().position.y,
+            stracky = ScrollMainOS.scroll().trackLength.y;
+    }
+    //var step = 0;
 
     if(sposy > 30) {
         scrDtxt.classList.add("hide");

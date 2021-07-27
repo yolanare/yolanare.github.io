@@ -69,6 +69,27 @@ fcv = center (v columns)
 .ovrfy_hid { overflow-y: hidden; }
 
 
+/*- Overlay Scrollbar -*/ // touch device only btw so lighter css
+.os-scrollbar {
+    box-sizing: initial !important;
+    width: 3px !important;
+    padding: 0 !important;
+    mix-blend-mode: exclusion !important;
+    background-color: transparent !important;
+    pointer-events: none !important;
+}
+.os-scrollbar-track {
+    right: 3px !important;
+    width: inherit !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+}
+.os-scrollbar-handle {
+    width: inherit !important;
+    border-radius: 0 !important;
+    background-color: var(--y-w2) !important;
+}
+
 /*- Smooth-Scrollbar -*/
 .scroll-content {
     height: 100vh;
@@ -76,18 +97,29 @@ fcv = center (v columns)
 
 html { // for higher specificity
     .scrollbar-track { // hidden
-        width: 8px;
+        right: 0;
+        width: 0.6rem;
         background-color: transparent;
         opacity: 0.75;
         mix-blend-mode: exclusion;
-        transition: width 0.7s cubic-bezier(0.2, 0.6, 0, 1),
+        transition: width 0.6s cubic-bezier(0.3, 0.6, 0, 1),
+                    padding-right 0.5s cubic-bezier(0.25, 0.6, 0, 1),
                     background-color 0.6s ease,
-                    opacity 0.5s 0.3s ease-out;
+                    opacity 0.2s ease-out;
+        transition-delay: 0s, 0.1s, 0s, 0.1s;
     }
     .scrollbar-track.show,
     .scrollbar-track:hover,
     .scrollbar-track:active { // show
         opacity: 1;
+    }
+    .scrollbar-track.show { // show
+        padding-right: 0.5rem;
+        transition-delay: 0s, 0s, 0s, 0.1s;
+    }
+    .scrollbar-track:hover,
+    .scrollbar-track:active { // show
+        padding-right: 0;
     }
 
     .scrollbar-thumb { // hidden
@@ -96,8 +128,8 @@ html { // for higher specificity
         border-radius: 0;
         background-color: transparent;
         opacity: 0.92;
-        transition: left 0.7s 0.3s cubic-bezier(0.5, 0.8, 0, 1),
-                    background-color 0.6s 0.3s ease,
+        transition: left 0.7s 0.1s cubic-bezier(0.5, 0.8, 0, 1),
+                    background-color 0.6s 0.1s ease,
                     opacity 0.6s cubic-bezier(0.25, 0.6, 0, 1);
         cursor: pointer;
     }
@@ -113,9 +145,10 @@ html { // for higher specificity
 
     .scrollbar-track:hover,
     .scrollbar-track:active {
-        width: 15px;
-        background-color: rgba(250, 253, 255, 0.2); // --y-w2
+        width: 2.2rem;
+        background-color: rgba(250, 253, 255, 0.15); // --y-w2
         transition: width 0.5s cubic-bezier(0.15, 0.6, 0, 1),
+                    padding-right 0.5s cubic-bezier(0.3, 0.6, 0, 1),
                     background-color 0.3s ease,
                     opacity 0.3s ease;
     }
@@ -125,15 +158,15 @@ html { // for higher specificity
         &::before,
         &::after {
             opacity: 1;
-            transition: opacity 0.4s ease,
-                        top    0.4s cubic-bezier(0.2, 0.7, 0, 1),
-                        bottom 0.4s cubic-bezier(0.2, 0.7, 0, 1);
+            transition: opacity 0.2s ease,
+                        top    0.2s cubic-bezier(0.05, 0.7, 0, 1),
+                        bottom 0.2s cubic-bezier(0.05, 0.7, 0, 1);
         }
         &::before {
-            top: 12.5%;
+            top: 15%;
         }
         &::after {
-            bottom: 12.5%;
+            bottom: 15%;
         }
     }
     .scrollbar-thumb:hover {
@@ -147,14 +180,14 @@ html { // for higher specificity
         &::before,
         &::after {
             transition: opacity 0.3s ease,
-                        top    0.4s cubic-bezier(0.15, 0.7, 0, 1),
-                        bottom 0.4s cubic-bezier(0.15, 0.7, 0, 1);
+                        top    0.2s cubic-bezier(0.05, 0.7, 0, 1),
+                        bottom 0.2s cubic-bezier(0.05, 0.7, 0, 1);
         }
         &::before {
-            top: 18%;
+            top: 20%;
         }
         &::after {
-            bottom: 18%;
+            bottom: 20%;
         }
     }
     .scrollbar-thumb::before,
@@ -163,14 +196,14 @@ html { // for higher specificity
         position: absolute;
         width: 100%;
         height: 0%;
-        font-size: 21px;
+        font-size: 2rem;
         text-align: center;
         line-height: 0;
         color: var(--y-b1);
         opacity: 0;
         transition: opacity 0.2s ease,
-                    top    0.5s cubic-bezier(0.6, 0.3, 0, 1),
-                    bottom 0.5s cubic-bezier(0.6, 0.3, 0, 1);
+                    top    0.5s cubic-bezier(0.65, 0.3, 0, 1),
+                    bottom 0.5s cubic-bezier(0.65, 0.3, 0, 1);
     }
     .scrollbar-thumb::before {
         top: 45%;
@@ -258,7 +291,6 @@ body {
     overflow-x: hidden;
 }
 #page-content {
-    left: 1px; // offset because of overscroll left & right (don't worry about it)
     overflow-x: hidden;
     overflow-x: visible;
 }
@@ -601,8 +633,4 @@ section.projects {
 
 /*- VIEWPORT SIZES -*/
 @media (max-width: 727px) {
-    /*- Smooth Scrollbar -*/
-    html .scrollbar-track {
-        width: 5px;
-    }
 }
