@@ -47,7 +47,7 @@ module.exports = {
             filename: "[file].map"
         }),
     ],
-    devtool: 'eval-cheap-source-map',
+    devtool: 'eval-source-map',
     devServer: {
         hot: true,
         port: 8080,
