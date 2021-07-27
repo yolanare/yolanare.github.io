@@ -25,20 +25,21 @@ checkWinSize(); window.addEventListener("resize", checkWinSize);
 //- Scroll -
 if(!isTouchDevice) { // PC
     //- Smooth Scrollbar -
-    var isOverScroll;
+    var isOverScroll,
+        scrollDamping = 0.14; //(isChrome) ? 0.12 : 0.14;
 
     Scrollbar.use(OverscrollPlugin);
     var ScrollMain = Scrollbar.init(scrollMainElem, {
         syncCallbacks: true,
-        damping : (isChrome) ? 0.12 : 0.14,
+        damping : scrollDamping,
         alwaysShowTracks : true,
         plugins: {
             overscroll: {
                 effect : "bounce",
-                damping : 0.135,
+                damping : scrollDamping,
                 maxOverscroll : 500,
                 onScroll({x, y}) {
-                    document.querySelector("#content-overscroll-overlay").style.opacity = (Math.abs(y / 750)).toFixed(3);
+                    document.querySelector("#content-overscroll-overlay").style.opacity = (Math.abs(y / 888)).toFixed(3);
 
                     window.clearTimeout(isOverScroll);
                     isOverScroll = setTimeout(function() { // Overscroll Stop trigger
