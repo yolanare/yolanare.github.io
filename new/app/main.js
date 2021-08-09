@@ -56,7 +56,7 @@ if(!isTouchDevice) { // PC
         //- Things
         HomeGuide();
 
-        // prevents overscrolling left & right (might find a different workaround ? well it works so "don't worry about it" as we say)
+        // prevents overscrolling left & right (might find a different workaround ? well it works so as we say, "don't worry about it")
         ScrollMain.scrollLeft = 1;
         scrollMainElem.style.left = "1px";
 
@@ -212,28 +212,6 @@ function addEvTrEnd(elem, func, o) {
         elem.childNodes.forEach((el) => { el.addEventListener('transitionend', (ev) => { ev.stopPropagation(); })});
     }
 } var trEndAlready = [];
-
-///- OverlayScrollbar - MAIN -/
-/*var o1 = [null, 33], OScrHDelay = 200;
-if(!isMini) { o1 = [true, 33]; OScrHDelay = 800; };
-
-document.addEventListener("DOMContentLoaded", function() {
-    scrollbarMain = OverlayScrollbars(document.querySelector("[scroll-main]"), {
-        autoUpdate : o1[0],
-        autoUpdateInterval : o1[1],
-        overflowBehavior : {
-            x : "hidden",
-            y : "scroll"
-        },
-        scrollbars : {
-            autoHide : "move",
-            autoHideDelay : OScrHDelay
-        },
-        callbacks : {
-            onScroll : HomeGuide
-        }
-    });
-});*/
 
 
 ///- CONTENT SCRIPTS -/
