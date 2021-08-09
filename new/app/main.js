@@ -39,7 +39,7 @@ if(!isTouchDevice) { // PC
                 damping : scrollDamping,
                 maxOverscroll : 500,
                 onScroll({x, y}) {
-                    document.querySelector("#content-overscroll-overlay").style.opacity = (Math.abs(y / 888)).toFixed(3);
+                    document.querySelector("#content-overscroll-overlay").style.opacity = (Math.abs(y / 888)).toFixed(2);
 
                     window.clearTimeout(isOverScroll);
                     isOverScroll = setTimeout(function() { // Overscroll Stop trigger
