@@ -58,7 +58,7 @@ if(!isTouchDevice) { // PC
 
         // prevents overscrolling left & right (might find a different workaround ? well it works so as we say, "don't worry about it")
         ScrollMain.scrollLeft = 1;
-        scrollMainElem.style.left = "1px";
+        scrollMainElem.style.paddingLeft = "1px";
 
         //- Scroll Snapping
         ScrollSnap(function(section, sectionTop) {
