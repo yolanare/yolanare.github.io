@@ -223,15 +223,13 @@ function RemoveLoadingScreen() {
     document.querySelector("loading-screen").classList.remove("on");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => { // to make sure the loading screen goes off at some point
-        if(!FontsLoaded) { RemoveLoadingScreen(); }
-    }, 5000); // 5 seconds seems alright
+window.addEventListener("load", () => {
+    if(!FontsLoaded) { RemoveLoadingScreen(); } // to be sure the loading screen goes off at some point :)
 });
 
-document.fonts.onloadingdone = () => {
-    FontsLoaded = true;
+document.fonts.onloadingdone = () => { // fonts are not too fast and not too long to load, seems good
     RemoveLoadingScreen();
+    FontsLoaded = true;
 };
 
 
