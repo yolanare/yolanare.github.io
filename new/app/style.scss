@@ -286,18 +286,24 @@ body {
     overflow-x: hidden;
 }
 
-#content-overscroll-overlay {
+
+#content-overscroll-overlay, loading-screen {
     z-index: 9999;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-color: var(--y-w1);
     opacity: 0;
     transition: opacity 3s cubic-bezier(0.05, 0.8, 0, 1);
     pointer-events: none;
     user-select: none;
+}
+loading-screen {
+    transition: opacity 2s cubic-bezier(0.25, 0.7, 0, 1);
+
+    &.on {
+        opacity: 1;
+        pointer-events: all;
+    }
 }
 
 #content-wrapper {

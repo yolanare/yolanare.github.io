@@ -215,6 +215,26 @@ function addEvTrEnd(elem, func, o) {
 
 
 ///- CONTENT SCRIPTS -/
+
+//- Loading Screen for Necessary Things to Load Only -
+var FontsLoaded = false;
+
+function RemoveLoadingScreen() {
+    document.querySelector("loading-screen").classList.remove("on");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => { // to make sure the loading screen goes off at some point
+        if(!FontsLoaded) { RemoveLoadingScreen(); }
+    }, 5000); // 5 seconds seems alright
+});
+
+document.fonts.onloadingdone = () => {
+    FontsLoaded = true;
+    RemoveLoadingScreen();
+};
+
+
 //- Projects Menu -
 var pMenu = document.querySelector("nav.p-menu"),
     pMenuDummy = document.querySelector("fakenav.p-menu.dummy"),
