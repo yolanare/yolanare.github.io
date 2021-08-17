@@ -2,24 +2,29 @@
 
 //- Setup -
 import './style.scss';
+import * as projects from './projects.js';
 import Scrollbar from 'smooth-scrollbar';
 import OverscrollPlugin from '../node_modules/smooth-scrollbar/plugins/overscroll';
 import '../node_modules/overlayscrollbars/css/OverlayScrollbars.css';
 import '../node_modules/overlayscrollbars/js/OverlayScrollbars.js';
 
-
 const doc = document.documentElement,
     isTouchDevice = window.matchMedia("(pointer: coarse)").matches, // check if is Touch Screen (https://stackoverflow.com/a/52855084)
     isChrome = (!!window.chrome), // check if browser is chromium based
-    allHomeSections = document.querySelectorAll("#page-content > section[class]"),
-    allHomeSectionsToSnap = Array.from(allHomeSections).slice(1, -1); // all of them but the first & last one
+    allHomeSections = document.querySelectorAll("#page-content section.part"),
+    allHomeSectionsToSnap = Array.from(allHomeSections).slice(1, -1),
+    sectionProjects = document.querySelector("section.part#projects"); // all of them but the first & last one
 var language = (/^fr\b/.test(navigator.language)) ? "fr" : "en", // check language (FR or else EN)
     isMini, // boolean that depends on size of viewport (check if screen is small)
-    scrollMainElem = document.querySelector("[scroll-main]");
+    scrollMainElem = document.querySelector("[scroll-main]"),
+    projectsTopBar = false;
 
 // isMini
 function checkWinSize() { isMini = (window.innerWidth > 727); };
 checkWinSize(); window.addEventListener("resize", checkWinSize);
+
+
+if(isChrome) { doc.classList.add("isChr"); }
 
 
 //- Scroll -
@@ -30,11 +35,12 @@ if(!isTouchDevice) { // PC
 
     Scrollbar.use(OverscrollPlugin);
     var ScrollMain = Scrollbar.init(scrollMainElem, {
-        syncCallbacks: true,
+        syncCallbacks : true,
+        renderByPixels : true,
         damping : scrollDamping,
         alwaysShowTracks : true,
-        plugins: {
-            overscroll: {
+        plugins : {
+            overscroll : {
                 effect : "bounce",
                 damping : scrollDamping,
                 maxOverscroll : 500,
@@ -52,9 +58,12 @@ if(!isTouchDevice) { // PC
 
     ScrollMain.track.xAxis.element.remove(); // no scroll x
 
-    ScrollMain.addListener(() => { //- Main Scroll Effects -
+    ScrollMain.addListener(({ offset }) => { //- Main Scroll Effects -
         //- Things
         HomeGuide();
+        if(projectsTopBar) {
+            pMenuScrollPosUpdate(offset);
+        }
 
         // prevents overscrolling left & right (might find a different workaround ? well it works so as we say, "don't worry about it")
         ScrollMain.scrollLeft = 1;
@@ -127,40 +136,6 @@ function ScrollSnap(snap, delay) {
 }
 
 
-///- Data -/
-const projectsMenuData = {
-    "artworks" : {
-        title: "ARTWORKS",
-        icon : '<path d="M21.5,7.3c1.8,0,3.2,1.5,3.2,3.2s-1.5,3.2-3.2,3.2s-3.2-1.5-3.2-3.2S19.7,7.3,21.5,7.3 M11.6,12l2.9,8.5c0,0,3.6-4.1,3.6-4.1l4.8,8.8c-1.9,1.4-4.3,2.3-6.9,2.3c-5.8,0-10.7-4.3-11.4-10C4.6,17.5,11.6,12,11.6,12 M17.9,6.7c0.7-0.6,1.6-1.1,2.6-1.3l0,0c-1.4-0.6-2.9-0.9-4.5-0.9l0,0C10,4.5,5,9.1,4.5,15l2.4-1.9c1.2-3.8,4.8-6.6,9.1-6.6C16.7,6.5,17.3,6.6,17.9,6.7L17.9,6.7z M25.3,14.1c0.1,0.6,0.2,1.2,0.2,1.9c0,2.2-0.8,4.3-2.1,6l1,1.9c1.9-2.1,3.1-4.8,3.1-7.9c0-1.6-0.3-3.1-0.9-4.5l0,0C26.4,12.5,26,13.4,25.3,14.1L25.3,14.1z"/>',
-    },
-    "renders" : {
-        path: "3d-renders",
-        title: "3D RENDERS",
-        icon : '<path d="M26.2,15.6c2.9,1.1,4.9,2.7,4.9,4.8c0,4.1-7.8,6.3-15.1,6.3c-7.3,0-15.1-2.2-15.1-6.3c0-2.1,2-3.7,4.9-4.8l0,2.5c-1.7,0.7-2.6,1.6-2.6,2.3c0,1.6,5,4,12.8,4c7.8,0,12.8-2.4,12.8-4c0-0.7-0.9-1.6-2.6-2.3L26.2,15.6z M17.2,15.1v6.4l6.7-3.9v-6.4L17.2,15.1z M8.1,17.6l6.7,3.9v-6.4l-6.7-3.9V17.6z M9.3,9.2l6.7,3.9l6.7-3.9L16,5.3L9.3,9.2z"/>',
-    },
-    "motion-design" : {
-        title: "MOTION DESIGN",
-        icon : '<path d="M2.1,20.4c1.5,2.6,4.4,4.4,7.6,4.4c1.1,0,2.1-0.2,3.1-0.6c-1-1.1-1.8-2.4-2.3-3.8L2.1,20.4z M10.5,11.6c0.5-1.4,1.3-2.7,2.3-3.8c-1-0.4-2-0.6-3.1-0.6c-3.3,0-6.1,1.8-7.6,4.4L10.5,11.6z M9.9,17.9H2.8c-1,0-1.9-0.8-1.9-1.9v0c0-1,0.8-1.9,1.9-1.9h7.1c1,0,1.9,0.8,1.9,1.9v0C11.7,17,10.9,17.9,9.9,17.9z M31.1,16c0,4.9-4,8.8-8.8,8.8s-8.8-4-8.8-8.8s4-8.8,8.8-8.8S31.1,11.1,31.1,16z M19.6,20.4l7.7-4.4l-7.7-4.4V20.4z"/>',
-    },
-    "brandings" : {
-        title: "BRANDINGS",
-        icon : '<path d="M15.3,23.4l-5,3.5c-0.9,0.6-2.2-0.2-1.8-1.3l1.8-5.8c0.1-0.5,0-1-0.4-1.3L5,14.7c-0.9-0.7-0.4-2.1,0.7-2.2l6.1-0.1c0.5,0,0.9-0.3,1.1-0.8l2-5.7c0.4-1.1,1.9-1.1,2.3,0l2,5.7c0.2,0.5,0.6,0.8,1.1,0.8l6.1,0.1c1.1,0,1.6,1.5,0.7,2.2l-4.8,3.7c-0.4,0.3-0.6,0.8-0.4,1.3l1.8,5.8c0.3,1.1-0.9,2-1.8,1.3l-5-3.5C16.3,23.1,15.7,23.1,15.3,23.4z"/>',
-    },
-    "posters" : {
-        title: "POSTERS",
-        icon : '<path d="M6.2,23L6,25.6c0,1,0.8,1.9,1.9,1.9H21c-0.3-0.5-0.5-1.2-0.5-1.9l0.1-2.6L6.2,23z M24,27.5c1,0,1.9-0.8,1.9-1.9V8.5l0.2-4H9.7l-0.1,4l0,12.9l12.7,0l-0.1,4.2C22.1,26.7,22.9,27.5,24,27.5z M21.4,17.6H14v-1.8h7.4V17.6z M21.4,13.9H14v-1.8h7.4V13.9zM21.4,10.2H14V8.3h7.4V10.2z"/>',
-    },
-    "websites" : {
-        title: "WEBSITES",
-        icon : '<path d="M16,6.5c5.2,0,9.5,4.3,9.5,9.5s-4.3,9.5-9.5,9.5S6.5,21.2,6.5,16S10.8,6.5,16,6.5 M16,4.5C9.6,4.5,4.5,9.6,4.5,16S9.6,27.5,16,27.5S27.5,22.4,27.5,16S22.4,4.5,16,4.5L16,4.5z"/><path d="M16,6.5c0.9,0,3.1,3.3,3.1,9.5s-2.2,9.5-3.1,9.5c-0.9,0-3.1-3.3-3.1-9.5S15.1,6.5,16,6.5 M16,4.5c-2.8,0-5.1,5.1-5.1,11.5s2.3,11.5,5.1,11.5s5.1-5.1,5.1-11.5S18.8,4.5,16,4.5L16,4.5z"/><path d="M16,12.9c6.2,0,9.5,2.2,9.5,3.1c0,0.9-3.3,3.1-9.5,3.1S6.5,16.9,6.5,16C6.5,15.1,9.8,12.9,16,12.9 M16,10.9c-6.4,0-11.5,2.3-11.5,5.1s5.1,5.1,11.5,5.1s11.5-2.3,11.5-5.1S22.4,10.9,16,10.9L16,10.9z"/>',
-    },
-    "other" : {
-        title: "OTHER FUNKY STUFF",
-        icon : '<path d="M22.4,7.9l1.3,2.3L20,12.4l-9.5,2.5L22.4,7.9 M23,5.6L4.5,16.5L5,17.7l20.8-6.3l0.2-0.6L23,5.6L23,5.6z"/><path d="M24.8,12.8l0.7,2.5l-4.4,1.2l-10.2,0L24.8,12.8 M26,10.8L4.5,16.5L5,17.7l21.4-0.7l1.2-0.5L26,10.8L26,10.8z"/><path d="M27.5,26.4h-23v-9.8h23V26.4z M22.6,23.8H25v-4.8h-2.3V23.8z M18.3,23.8h2.3v-4.8h-2.3V23.8zM13.9,23.8h2.3v-4.8h-2.3V23.8z M9,19.3c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1s2.1-1,2.1-2.1C11.2,20.3,10.2,19.3,9,19.3z"/>'
-    }
-}
-
-
 ///- Tools -/
 function m(val1, val2) { // average of 2 numbers
     function copyToClipboard(text) {
@@ -185,6 +160,12 @@ function m(val1, val2) { // average of 2 numbers
 }
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
+function float(str) { return parseFloat(str.toFixed(2)) }
+
+// thx (https://stackoverflow.com/a/9705160)
+function toDegrees(a) { return a * (180 / Math.PI); }
+function toRadians(a) { return a * (Math.PI / 180); }
 
 function getPageID() {
     pathDir = ((window.location.pathname).replace(/\/[^/]*$/, '')).replace(/^\//, '');
@@ -233,84 +214,165 @@ document.fonts.onloadingdone = () => { // fonts are not too fast and not too lon
 };
 
 
+//- Reusable Functions -
+function directionalBgFill(ev) {
+    const elRect = this.getBoundingClientRect(),
+        elW2 = elRect.width / 2,
+        elH2 = elRect.height / 2,
+        curX = float(ev.clientX - elRect.left - elW2),
+        curY = float(ev.clientY - elRect.top - elH2),
+
+        // Pythagoras + offset (5px) to be sure to fill the whole element
+        r = float(Math.sqrt(elH2**2 + elW2**2) + 5),
+        effectSize = r * 2, // the effect will be the size of the circumcircle (diameter)
+        rSign = r * ((curX < 0) ? -1 : 1), // optimization (doing it once for originX|Y below) / reversing the angle depending on the side of the element
+
+        // angle from the cursor position (edge of element) to the center
+        a = float(Math.atan(curY / curX)),
+        angle = float(a + Math.PI / 2 + ((curX >= 0) ? Math.PI : 0)), // angle in radians for '.fill'
+        //angleDeg = float(toDegrees(a) + 90 + ((curX >= 0) ? 180 : 0)), // angle in degrees for '.fill'
+
+        // Finding the coordinates for '.fill' to scale up from on the circumcircle of the element (which is supposed to be a rectangle == two right triangles)
+        originX = float(elW2 + rSign * Math.cos(a)),
+        originY = float(elH2 + rSign * Math.sin(a));
+
+
+    this.querySelector(".directionalBgEffect").setAttribute("style", "top: "+ originY +"px; left: "+ originX +"px; transform: translateX(-50%) rotateZ("+ angle +"rad);");
+    this.querySelector(".directionalBgEffect > .fill").setAttribute("style", "width: "+ effectSize +"px;" + ((ev.type == "mouseout") ? "" : " height: "+ effectSize +"px;"));
+
+    //console.log("- - - - - - -", ev.type, r, '\n',
+    //    {aDeg, curX, curY, a},
+    //    {iWidth : float(elRect.width), iHeight : elRect.height},
+    //    {elW2, curX, elH2, curY},
+    //    //{evX : ev.clientX, iLeft : float(elRect.left), iWidth : float(elRect.width), elW2},
+    //    //{evY : ev.clientY, iTop : elRect.top, iHeight : elRect.height, elH2},
+    //    {originX, originY}
+    //);
+}
+
+
 //- Projects Menu -
 var pMenu = document.querySelector("nav.p-menu"),
     pMenuDummy = document.querySelector("fakenav.p-menu.dummy"),
     pMenuTopDummy = document.querySelector("faketopnav.p-menu.dummy"),
-    pMenuItems = pMenu.querySelectorAll(".p-item");
+    pMenuItemsC = pMenu.querySelector(".menu-items > .pm-i-c");
 
-function pMenuScrollPosUpdate({ offset }) {
-    console.log('call', offset.y);
-
+function pMenuScrollPosUpdate(offset) {
     pMenu.style.top = offset.y + 'px';
-
-    // TODO this is the next thing on the list aie aie aie aie aie...
-
-    // the goal is to make the menu follow the scroll
-    // will have to migrate the whole animation in here
-    // because it seems like it's going to be quite tricky
-    // but I can vaguely see how this could work
-    // kinda
-
-    // im scared
 }
 
-pMenuItems.forEach(item => {
-    // Icons & Titles
-    const p = item.getAttribute("p"),
-        icon = '<svg viewBox="0 0 32 32">'+ projectsMenuData[p].icon +'</svg>';
-    if(item.parentElement.className != "min") { item.innerHTML = '<div>'+ icon + '<span class="title">'+ projectsMenuData[p].title +'</span></div>';
-    } else { item.innerHTML = '<div>'+ icon +'</div>'; }
-
-    // Interactions
-    function projectLink() {
-        // normal : always / top-bar : when in focus
-        if(!pMenu.classList.contains("top-bar") || (pMenu.classList.contains("top-bar") && this.parentElement.classList.contains("focus"))) { // will move
-            ScrollMain.addListener(pMenuScrollPosUpdate); addEvTrEnd(pMenu, function() { ScrollMain.removeListener(pMenuScrollPosUpdate); });
-            
+//- Create Menu
+(function projectsMenuCreate() {
+    var topFirstTwo = '', bottomRest = '', topHidden = '',
+        k = 0;
+    Object.keys(projects.menuData).forEach(proj => {
+        if(k <= 1) {
+            topFirstTwo += '<div p="'+ proj +'" class="p-item"></div>';
+        } else {
+            bottomRest += '<div p="'+ proj +'" class="p-item"></div>';
         }
+        k += 1;
+    })
+    topHidden = bottomRest;
 
-        if(this.parentElement.classList.contains("focus") && pMenu.classList.contains("top-bar")) { // --- return to normal
-            if(pMenu.classList.contains("snapTop" || "snapBottom")) {
-                pMenu.setAttribute("style", "top: calc((100% - var(--pm-box-size)) / 2);");
-            } else {
-                pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenu.getBoundingClientRect().top).toFixed(3) +"px !important;");
-                setTimeout(() => {
-                    pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenuDummy.getBoundingClientRect().top).toFixed(3) +"px !important;");
-                }, 1);
-            }
-            setTimeout(() => {
+    // Creation
+    pMenuItemsC.innerHTML = `
+        <div id="top">
+            <div>
+                `+ topFirstTwo +`
+                <div class="min">
+                    `+ topHidden +`
+                </div>
+            </div>
+        </div>
+        <div id="bottom">
+            `+ bottomRest +`
+        </div>
+    `;
+
+    var pMenuItems = pMenu.querySelectorAll(".p-item");
+
+    //- project menu items interaction -
+    pMenuItems.forEach(item => {
+        // Icons & Titles
+        const p = item.getAttribute("p"),
+            icon = '<svg viewBox="0 0 32 32">'+ projects.menuData[p].icon +'</svg>';
+        if(item.parentElement.className != "min") { item.innerHTML = '<div>'+ icon + '<span class="title">'+ projects.menuData[p].title +'</span></div>';
+        } else { item.innerHTML = '<div>'+ icon +'</div>'; }
+
+        // Interactions
+        function projectLink() {
+            // during the transition : position fixed -> if intersecting go for top of projects section || else go for top of viewport
+            // at the end of transition : if intersecting position absolute || else stay position fixed at top of viewport
+
+            const isThisFocus = this.parentElement.classList.contains("focus");
+
+            pMenuItems.forEach(i => { i.classList.remove("focus"); });
+
+            if(isThisFocus && pMenu.classList.contains("top-bar")) { // --- return to normal
+                projectsTopBar = false;
+                pMenu.style.top = null;
                 pMenu.classList.remove("top-bar");
-                pMenuItems.forEach(i => { i.classList.remove("focus"); });
-                addEvTrEnd(pMenu, function() { pMenu.setAttribute("style", ""); });
-            }, 1);
 
-        } else { // --- top bar
-            if(!pMenu.classList.contains("top-bar")) { // if not already top bar
-                pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenuDummy.getBoundingClientRect().top).toFixed(3) +"px !important;");
+            } else { // --- top bar || project category selected
+                if(!pMenu.classList.contains("top-bar")) { // becomes top bar
+                    projectsTopBar = true;
+                    pMenu.classList.add("top-bar");
+                }
+                pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); }); // focus project category button
+                loadProjectsList(p);
+            }
+
+            /*
+            // normal : always / top-bar : when in focus
+            if(!pMenu.classList.contains("top-bar") || (pMenu.classList.contains("top-bar") && this.parentElement.classList.contains("focus"))) { // will move
+                ScrollMain.addListener(pMenuScrollPosUpdate); addEvTrEnd(pMenu, function() { ScrollMain.removeListener(pMenuScrollPosUpdate); });
+                
+            }
+
+            if(this.parentElement.classList.contains("focus") && pMenu.classList.contains("top-bar")) { // --- return to normal
+                if(pMenu.classList.contains("snapTop" || "snapBottom")) {
+                    pMenu.setAttribute("style", "top: calc((100% - var(--pm-box-size)) / 2);");
+                } else {
+                    pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenu.getBoundingClientRect().top).toFixed(3) +"px !important;");
+                    setTimeout(() => {
+                        pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenuDummy.getBoundingClientRect().top).toFixed(3) +"px !important;");
+                    }, 1);
+                }
                 setTimeout(() => {
-                    if(pMenu.classList.contains("snapTop" || "snapBottom")) {
-                        pMenu.setAttribute("style", "position: fixed !important; top: "+ (document.querySelector("section.projects").getBoundingClientRect().top).toFixed(3) +"px !important;");
-                    } else { pMenu.setAttribute("style", "position: fixed !important; top: 0px !important;"); }
-                    addEvTrEnd(pMenu, function() {
-                        pMenu.setAttribute("style", "");
-                        pMenu.style.transition = "var(--tr), top 0s";
-                    });
+                    pMenu.classList.remove("top-bar");
+                    pMenuItems.forEach(i => { i.classList.remove("focus"); });
+                    addEvTrEnd(pMenu, function() { pMenu.setAttribute("style", ""); });
+                }, 1);
+
+            } else { // --- top bar
+                if(!pMenu.classList.contains("top-bar")) { // if not already top bar
+                    pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenuDummy.getBoundingClientRect().top).toFixed(3) +"px !important;");
+                    setTimeout(() => {
+                        if(pMenu.classList.contains("snapTop" || "snapBottom")) {
+                            pMenu.setAttribute("style", "position: fixed !important; top: "+ (document.querySelector("section.part#projects").getBoundingClientRect().top).toFixed(3) +"px !important;");
+                        } else { pMenu.setAttribute("style", "position: fixed !important; top: 0px !important;"); }
+                        addEvTrEnd(pMenu, function() {
+                            pMenu.setAttribute("style", "");
+                            pMenu.style.transition = "var(--tr), top 0s";
+                        });
+                    }, 1);
+                }
+                setTimeout(() => {
+                    pMenu.classList.add("top-bar");
+                    pMenuItems.forEach(i => { i.classList.remove("focus"); });
+                    pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); });
                 }, 1);
             }
-            setTimeout(() => {
-                pMenu.classList.add("top-bar");
-                pMenuItems.forEach(i => { i.classList.remove("focus"); });
-                pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); });
-            }, 1);
+            */
         }
-    }
-    item.childNodes[0].addEventListener('click', projectLink)
-});
+        item.childNodes[0].addEventListener("click", projectLink);
+    });
+}());
 
 // Top Bar Section Snapping
 document.addEventListener("DOMContentLoaded", function() {
-    var sSocialH = document.querySelector("#page-content > section.social").offsetHeight,
+    var sSocialH = document.querySelector("#page-content section#social").offsetHeight,
         snapBOptions = {
             threshold: ((sSocialH - pMenuTopDummy.offsetHeight) / sSocialH).toFixed(3)
         };
@@ -328,19 +390,144 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }, snapBOptions);
 
-    const allHomeSections = document.querySelectorAll("#page-content > section[class]");
     var countHS = 0, pSIndex;
     allHomeSections.forEach(section => { // top and bottom sections of Projects are -1 & +1 of pSIndex
-        if(section.classList.contains("projects")) { pSIndex = countHS; } countHS += 1;
+        if(section.id == "projects") { pSIndex = countHS; } countHS += 1;
     });
-    pmSnapTop.observe(allHomeSections[pSIndex-1]); // about intersection
-    pmSnapBottom.observe(allHomeSections[pSIndex+1]); // social intersection
+    pmSnapTop.observe(allHomeSections[pSIndex-1]); // "about" intersection
+    pmSnapBottom.observe(allHomeSections[pSIndex+1]); // "social" intersection
 });
+
+
+//- Projects List -
+
+//-- Loading All the Thumbnails Right Away because f*ck it it's not that much (it helps with the experience bc no wait wait for the pic pic to load load) --
+var l_itemsLoaded, l_itemsTotalNb;
+(function loadAllPThumbnails() {
+    var picLoader = sectionProjects.querySelector("pictureloader"),
+        pIndex = 0,
+        pCategories = [];
+
+    Object.keys(projects.data).forEach(p => { pCategories.push(p) }); // to recognize categories
+
+    (function loadThemAll() { // load every thumbnail in a category, then go to the next category
+        // delaying and separating by category helps performance
+        setTimeout(() => {
+
+            var p = pCategories[pIndex],
+                items = '';
+            l_itemsLoaded = 0;
+            l_itemsTotalNb = 0;
+
+            Object.keys(projects.data[p]).forEach(item => {
+                items += `
+                    <img src="/src/projects/`+ p +`/mini/`+ item +`.`+ (projects.data[p][item].imgExt || "jpg") +`">
+                `;
+                l_itemsTotalNb += 1;
+            });
+            picLoader.innerHTML = items;
+
+            picLoader.querySelectorAll("img").forEach(item => {
+                item.addEventListener('load', () => {
+                    l_itemsLoaded += 1;
+                    if(l_itemsLoaded >= l_itemsTotalNb) {
+                        loadThemAll();
+                    }
+                });
+            })
+            
+            pIndex += 1;
+            if(pIndex >= pCategories.length) {
+                picLoader.remove();
+            }
+
+        }, 100);
+    })();
+})();
+
+
+//-- Create the Projects List --
+function loadProjectsList(p) {
+    var items = '', itemsDum = '',
+        itemsData = projects.data[p];
+
+    Object.keys(itemsData).forEach(item => {
+        var itemData = itemsData[item];
+        items += `
+            <div class="project-item" p="`+ item +`">
+                <div class="directionalBgEffect"><div class="fill"></div></div>
+                <div class="thumbnail-c">
+                    <img src="/src/projects/`+ p +`/mini/`+ item +`.`+ (itemData.imgExt || "jpg") +`">
+                </div>
+                <div class="sub fc">
+                    <div class="title"><span class="b1 t">`+ ((itemData.titleMini) ? itemData.titleMini : itemData.title) +`</span></div>
+                </div>
+                <div class="button-overlay"></div>
+            </div>
+        `; // `+ ((itemData.title.length > 16) ? "long " : "") +`
+        itemsDum += `
+            <div class="project-item">
+            </div>
+        `;
+    });
+
+    var itemsDummy = `
+        <div class="projects-list dummy">
+            `+ itemsDum +`
+        </div>
+    `;
+
+    sectionProjects.querySelector(".projects-list").innerHTML = items;
+    sectionProjects.querySelectorAll(".project-item").forEach(item => {
+        item.addEventListener("click", (ev) => { openProjectPopup(ev, item) })
+        item.addEventListener("mouseenter", directionalBgFill)
+        item.addEventListener("mouseout", directionalBgFill)
+
+        fitty(".project-item[p="+ item.getAttribute("p") +"] .sub .title span", {
+            minSize : 10,
+            maxSize : 35,
+        });
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function openProjectPopup(ev, item) {
+    console.log('pp', ev, item);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 //- Home Guide -
 const guide = document.querySelector(".guide"),
-    scrDtxt = document.querySelector("section.home #scroll_down");
+    scrDtxt = document.querySelector("section.part#home #scroll_down");
 
 //function HGScrRatio(minPos, restPos, endPos, sPos, trackH) { // old method
 //    var sign = 1, initPos = minPos;

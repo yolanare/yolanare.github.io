@@ -36,7 +36,7 @@
     <main id="content-wrapper" class="p_a wmh100" scroll-main>
         <div id="page-content" class="p_a wmh100">
             
-            <section class="home fcv p_a__in">
+            <section id="home" class="part fcv p_a__in">
                 <svg id="y-logo" viewBox="0 0 25 25">
                     <path d="M8.8,6.5l2.9,2.2L10,9.1L8.8,6.5 M3.8,0.2l5,11.3l3.9-1l2.1-1.9L3.8,0.2L3.8,0.2z"/>
                     <path d="M16.3,7.4L15,10.8l-1,2.7l-1.7,4.4L11,12.2L16.3,7.4 M21.2,0.2L21.2,0.2L21.2,0.2z M21.2,0.2L8.8,11.5l2.9,13.4l4.1-10.7l1-2.7L21.2,0.2L21.2,0.2z"/>
@@ -45,11 +45,13 @@
                 <span id="big-name" class="c_w2">Yolan’Art</span>
                 <span id="scroll_down" class="fc_h c_w2">Hello hello, scroll down :)</span>
             </section>
-            <section class="about fcv">
+            <section id="about" class="part fcv">
                 <span>I'm Yolan’ !</span>
                 <span>I'm learning<br><b>graphic design</b><br>and I do <b>funky stuff</b><br>in my free time</span>
             </section>
-            <section id="p" class="projects fc">
+            <section id="projects" class="part fc">
+
+                <pictureloader class="dummy"></pictureloader>
 
                 <fakenav class="dummy p-menu p_a p_r__in">
                     <div class="pm-title-c"><span class="pm-title">Dummy Dum Dumb</span></div>
@@ -60,43 +62,25 @@
                     <div class="menu-items"></div>
                 </faketopnav>
 
+
+                <div class="projects-content">
+                    <div class="projects-list-wrapper">
+                        <div class="projects-list"><!-- js --></div>
+                    </div>
+                    <section id="social" class="part">
+        
+                    </section>
+                </div>
+
                 <nav class="p-menu p_a p_r__in">
                     <div class="pm-bg bg_b1"></div>
                     <div class="pm-title-c"><span class="pm-title b1 t">Here you can find my works</span></div>
                     <div class="menu-items-c fc_h p_r p_r__in">
                         <div class="menu-items w1">
-                            <div class="pm-i-c fcv">
-
-                                <div id="top">
-                                    <div>
-                                        <div p="artworks" class="p-item">
-                                        </div><div p="renders" class="p-item"></div>
-
-                                        <div class="min">
-                                            <div p="motion-design" class="p-item"></div>
-                                            <div p="brandings" class="p-item"></div>
-                                            <div p="posters" class="p-item"></div>
-                                            <div p="websites" class="p-item"></div>
-                                            <div p="other" class="p-item"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="bottom">
-                                    <div p="motion-design" class="p-item">
-                                    </div><div p="brandings" class="p-item">
-                                    </div><div p="posters" class="p-item">
-                                    </div><div p="websites" class="p-item">
-                                    </div><div p="other" class="p-item"></div>
-                                </div>
-
-                            </div>
+                            <div class="pm-i-c fcv"><!-- js --></div>
                         </div>
                     </div>
                 </nav>
-            </section>
-            <section class="social">
-
             </section>
 
         </div>
@@ -104,6 +88,7 @@
     <div id="content-overscroll-overlay"></div>
     <loading-screen class="on"></loading-screen>
 
+    <script src="./node_modules/fitty/dist/fitty.min.js"></script>
     <script type="text/javascript" src="./dist/bundle.js" type="text/javascript"></script>
 </body>
 
