@@ -448,9 +448,11 @@ var l_itemsLoaded, l_itemsTotalNb;
 
 //-- Create the Projects List --
 function loadProjectsList(p) {
-    var items = '', itemsDum = '',
-        itemsData = projects.data[p];
+    var items = '',
+        itemsData = projects.data[p],
+        pList = sectionProjects.querySelector(".projects-list");
 
+    // Getting every item as buttons
     Object.keys(itemsData).forEach(item => {
         var itemData = itemsData[item];
         items += `
@@ -465,29 +467,44 @@ function loadProjectsList(p) {
                 <div class="button-overlay"></div>
             </div>
         `; // `+ ((itemData.title.length > 16) ? "long " : "") +`
-        itemsDum += `
-            <div class="project-item">
-            </div>
-        `;
     });
 
-    var itemsDummy = `
-        <div class="projects-list dummy">
-            `+ itemsDum +`
-        </div>
-    `;
+    // Creating the List
+    var pListCNew = document.createElement("div");
+    pListCNew.setAttribute("class", "p-list-c tr-in");
+    pListCNew.innerHTML = items;
+    pList.appendChild(pListCNew);
 
-    sectionProjects.querySelector(".projects-list").innerHTML = items;
-    sectionProjects.querySelectorAll(".project-item").forEach(item => {
-        item.addEventListener("click", (ev) => { openProjectPopup(ev, item) })
-        item.addEventListener("mouseenter", directionalBgFill)
-        item.addEventListener("mouseout", directionalBgFill)
+    // Interaction Events
+    pListCNew.querySelectorAll(".project-item").forEach(item => {
+        item.addEventListener("click", (ev) => { openProjectPopup(ev, item) });
+        item.addEventListener("mouseenter", directionalBgFill);
+        item.addEventListener("mouseout", directionalBgFill);
 
+        // Title Auto Size Fit
         fitty(".project-item[p="+ item.getAttribute("p") +"] .sub .title span", {
             minSize : 10,
             maxSize : 35,
         });
+    });
+
+    var pListCHeightNew = pListCNew.offsetHeight; // TODO
+
+    // Removing every other (if ever there are) projects lists
+    pList.querySelectorAll(".p-list-c:not(:last-child)").forEach(pl => {
+        setTimeout(() => {
+            pl.classList.add("tr-out");
+            addEvTrEnd(pl, () => { pl.remove(); });
+        }, 75);
     })
+
+    // New Projects List Entrance
+    pListCNew.style.transform = "translateY("+ (pListCNew.offsetWidth * Math.tan(7 * deg2rad)) / 2 +"px) skewY(-7deg)";
+    setTimeout(() => {
+        pListCNew.classList.remove("tr-in");
+        setTimeout(() => { pListCNew.style.transform = null; }, 1);
+    }, 250);
+
 }
 
 
