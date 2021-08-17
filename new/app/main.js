@@ -7,6 +7,7 @@ import Scrollbar from 'smooth-scrollbar';
 import OverscrollPlugin from '../node_modules/smooth-scrollbar/plugins/overscroll';
 import '../node_modules/overlayscrollbars/css/OverlayScrollbars.css';
 import '../node_modules/overlayscrollbars/js/OverlayScrollbars.js';
+import fitty from 'fitty';
 
 const doc = document.documentElement,
     isTouchDevice = window.matchMedia("(pointer: coarse)").matches, // check if is Touch Screen (https://stackoverflow.com/a/52855084)
