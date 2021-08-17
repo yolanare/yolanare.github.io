@@ -164,9 +164,8 @@ const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 function float(str) { return parseFloat(str.toFixed(2)) }
 
-// thx (https://stackoverflow.com/a/9705160)
-function toDegrees(a) { return a * (180 / Math.PI); }
-function toRadians(a) { return a * (Math.PI / 180); }
+// thx (https://stackoverflow.com/a/4715382)
+const deg2rad = Math.PI/180, rad2deg = 180/Math.PI;
 
 function getPageID() {
     pathDir = ((window.location.pathname).replace(/\/[^/]*$/, '')).replace(/^\//, '');
@@ -185,7 +184,7 @@ function removeClassAll(path, c) {
 
 function addEvTrEnd(elem, func, o) {
     var isNotAlready = true,
-        o = o ? o : true;
+        o = o ? o : true; // once?
     elem.addEventListener('transitionend', () => { func(); }, { once : o });
 
     trEndAlready.forEach(e => { isNotAlready &= (e == elem) ? false : true; });
