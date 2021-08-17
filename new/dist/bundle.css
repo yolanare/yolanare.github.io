@@ -537,6 +537,7 @@ pictureloader > img {
 
 /*- PROJECTS MENU -*/
 .dummy {
+  position: absolute;
   opacity: 0 !important;
   transition: none !important;
   pointer-events: none !important;
@@ -820,9 +821,12 @@ pictureloader > img {
 }
 
 .projects-list-wrapper {
+  box-sizing: border-box;
   position: relative;
   width: 100%;
   min-height: 100%;
+  padding: 5% 7.5%;
+  padding-top: calc(5% + var(--pmn-item-height) * 5);
 }
 
 .projects-list {
@@ -831,15 +835,10 @@ pictureloader > img {
   --pi-tr-dur1: 0.6s;
   --pi-tr-tf1: cubic-bezier(0.35, 0.8, 0, 1);
   box-sizing: border-box;
-  display: grid;
   position: relative;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 2.65rem;
-  padding: 5% 7.5%;
-  margin-top: calc(var(--pmn-item-height) * 5);
 }
-.projects-list > .project-item {
+.projects-list .project-item {
   box-sizing: border-box;
   grid-column: 1 span;
   position: relative;
@@ -850,7 +849,7 @@ pictureloader > img {
   user-select: none;
   overflow: hidden;
 }
-.projects-list > .project-item .thumbnail-c {
+.projects-list .project-item .thumbnail-c {
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -858,14 +857,14 @@ pictureloader > img {
   mix-blend-mode: lighten;
   /*that's genius : exclusion || lighten*/
 }
-.projects-list > .project-item .thumbnail-c img {
+.projects-list .project-item .thumbnail-c img {
   object-fit: cover;
   height: 100%;
   width: 100%;
   transform: rotateZ(-0.1deg) scale(1.1);
   transition: var(--pi-tr-dur1) var(--pi-tr-tf1);
 }
-.projects-list > .project-item .sub {
+.projects-list .project-item .sub {
   box-sizing: border-box;
   position: absolute;
   left: 50%;
@@ -879,7 +878,7 @@ pictureloader > img {
   text-align: center;
   line-height: 0;
 }
-.projects-list > .project-item .sub .title {
+.projects-list .project-item .sub .title {
   position: relative;
   top: 1.5em;
   width: 100%;
@@ -888,7 +887,7 @@ pictureloader > img {
   transition-property: top, opacity;
   transition-delay: 0.2s, 0s;
 }
-.projects-list > .project-item .sub .title span {
+.projects-list .project-item .sub .title span {
   position: relative;
   text-align: center;
   line-height: 1.15;
@@ -896,17 +895,17 @@ pictureloader > img {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
-html:not(.isChr) .projects-list > .project-item .sub .title span {
+html:not(.isChr) .projects-list .project-item .sub .title span {
   display: initial !important;
 }
-.projects-list > .project-item .directionalBgEffect {
+.projects-list .project-item .directionalBgEffect {
   position: absolute;
   width: 0;
   height: 0;
   pointer-events: none;
   transition: 0s;
 }
-.projects-list > .project-item .directionalBgEffect .fill {
+.projects-list .project-item .directionalBgEffect .fill {
   position: absolute;
   width: 50vw;
   height: 0;
@@ -917,7 +916,7 @@ html:not(.isChr) .projects-list > .project-item .sub .title span {
   transition: 0.65s cubic-bezier(0.6, 0.7, 0, 1);
   transition-property: width, height;
 }
-.projects-list > .project-item .directionalBgEffect.debug {
+.projects-list .project-item .directionalBgEffect.debug {
   z-index: 99999;
   width: 5px;
   height: 5px;
@@ -929,12 +928,12 @@ html:not(.isChr) .projects-list > .project-item .sub .title span {
   border-radius: 0%;
   transition: 0s, transform 0s;
 }
-.projects-list > .project-item .directionalBgEffect.debug .fill {
+.projects-list .project-item .directionalBgEffect.debug .fill {
   opacity: 0.5;
   background-color: blue;
   outline: solid 2px lime;
 }
-.projects-list > .project-item .directionalBgEffect.debug::after {
+.projects-list .project-item .directionalBgEffect.debug::after {
   content: "^";
   position: absolute;
   transform: translate(-50%);
@@ -944,26 +943,49 @@ html:not(.isChr) .projects-list > .project-item .sub .title span {
   font-weight: 400;
   color: red;
 }
-.projects-list > .project-item:hover {
+.projects-list .project-item:hover {
   --pi-tr-dur1: 0.6s;
   --pi-tr-tf1: cubic-bezier(0.3, 0.7, 0, 1);
   padding: var(--pi-mh);
   padding-bottom: 0;
 }
-.projects-list > .project-item:hover .thumbnail-c {
+.projects-list .project-item:hover .thumbnail-c {
   height: 66%;
   height: calc(100% * (2 / 3));
 }
-.projects-list > .project-item:hover .thumbnail-c img {
+.projects-list .project-item:hover .thumbnail-c img {
   transform: rotateZ(-0.1deg) scale(1);
 }
-.projects-list > .project-item:hover .sub .title {
+.projects-list .project-item:hover .sub .title {
   top: 0;
   opacity: 1;
   transition-delay: 0s;
 }
-.projects-list > .project-item:hover .directionalBgEffect .fill {
+.projects-list .project-item:hover .directionalBgEffect .fill {
   transition: 0.65s cubic-bezier(0.4, 0.6, 0, 1);
+}
+.projects-list .p-list-c {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2.65rem;
+  position: absolute;
+  width: 100%;
+  top: 0rem;
+  transform: translateY(0) skewX(0);
+  transition: top 0.65s 0.125s cubic-bezier(0.6, 0.85, 0, 1), transform 1s 0.125s cubic-bezier(0.5, 0.6, 0, 1), opacity 0.7s 0.15s ease;
+}
+.projects-list .p-list-c.tr-in, .projects-list .p-list-c.tr-out {
+  opacity: 0;
+}
+.projects-list .p-list-c.tr-in {
+  top: 25rem;
+  transition: 0s;
+}
+.projects-list .p-list-c.tr-out {
+  top: -20rem;
+  transform: skewY(0deg);
+  transition: top 0.7s cubic-bezier(0.95, 0.5, 0, 1), transform 0.7s cubic-bezier(0.95, 0.5, 0, 1), opacity 0.35s ease;
+  pointer-events: none;
 }
 
 .button-overlay {
