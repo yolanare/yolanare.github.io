@@ -503,7 +503,7 @@ function loadProjectsList(p) {
     setTimeout(() => {
         pListCNew.classList.remove("tr-in");
         setTimeout(() => { pListCNew.style.transform = null; }, 1);
-    }, 250);
+    }, 200);
 
 }
 

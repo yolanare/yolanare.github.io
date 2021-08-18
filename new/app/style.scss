@@ -663,7 +663,7 @@ pictureloader > img {
     width: 100%;
     min-height: 100%;
     padding: 5% 7.5%;
-    padding-top: calc(5% + var(--pmn-item-height) * 5); // height of top bar
+    padding-top: calc(var(--pmn-item-height) * 2 * 5); // height of top bar
 }
 .projects-list {
     --pi-h: 27.5rem;
@@ -676,16 +676,55 @@ pictureloader > img {
     position: relative;
     width: 100%;
 
+    .p-list-c {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 2.65rem;
+        position: absolute;
+        width: 100%;
+        top: 0rem;
+        transform: translateY(0) skewX(0.01deg);
+        transition: top 0.7s 0.1s cubic-bezier(0.5, 0.85, 0, 1),
+                    transform 0.8s 0.3s cubic-bezier(0.1, 0.7, 0, 1),
+                    opacity 0.55s 0.125s ease;
+
+        &.tr-in, &.tr-out {
+            opacity: 0;
+        }
+        &.tr-in {
+            top: 30rem;
+            transition: 0s;
+
+            .project-item:nth-child(2n+1) {
+                margin-bottom: 10rem;
+            }
+        }
+        &.tr-out {
+            top: -40rem;
+            transform: skewY(0.01deg);
+            transition: top 0.8s cubic-bezier(0.8, 0.4, 0, 1),
+                        transform 0.8s cubic-bezier(0.8, 0.4, 0, 1),
+                        opacity 0.3s ease;
+            pointer-events: none;
+        }
+    }
+
     .project-item {
         box-sizing: border-box;
         grid-column: 1 span;
         position: relative;
         height: var(--pi-h);
-        transition: padding var(--pi-tr-dur1) var(--pi-tr-tf1);
+        margin-bottom: 0;
+        transition: padding var(--pi-tr-dur1) var(--pi-tr-tf1),
+                    margin-bottom 0.9s 0.2s cubic-bezier(0.4, 0.7, 0, 1);
         transform: rotateZ(0.1deg); // aa
         cursor: pointer;
         user-select: none;
         overflow: hidden;
+
+        > * {
+            pointer-events: none;
+        }
 
         .thumbnail-c {
             overflow: hidden;
@@ -760,36 +799,6 @@ pictureloader > img {
                 transition: 0.65s cubic-bezier(0.6, 0.7, 0, 1);
                 transition-property: width, height;
             }
-
-            &.debug {
-                z-index: 99999;
-                width: 5px;
-                height: 5px;
-                transform: translate(-50%, -50%);
-                transform-origin: top;
-                opacity: 0.75;
-                background-color: red;
-                outline: solid 2px white;
-                border-radius: 0%;
-                transition: 0s, transform 0s;
-
-                .fill {
-                    opacity: 0.5;
-                    background-color: blue;
-                    outline: solid 2px lime;
-                }
-
-                &::after {
-                    content: "^";
-                    position: absolute;
-                    transform: translate(-50%);
-                    text-align: center;
-                    line-height: 0.75em;
-                    font-size: 3em;
-                    font-weight: 400;
-                    color: red;
-                }
-            }
         }
 
         &:hover {
@@ -820,34 +829,65 @@ pictureloader > img {
                 }
             }
         }
-    }
 
-    .p-list-c {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 2.65rem;
-        position: absolute;
-        width: 100%;
-        top: 0rem;
-        transform: translateY(0) skewX(0);
-        transition: top 0.65s 0.125s cubic-bezier(0.6, 0.85, 0, 1),
-                    transform 1s 0.125s cubic-bezier(0.5, 0.6, 0, 1),
-                    opacity 0.7s 0.15s ease;
+        &.debug {
+            --dbfill-bounds: #00c899;
+            z-index: 10;
+            overflow: visible;
+            outline: solid 2px var(--dbfill-bounds);
 
-        &.tr-in, &.tr-out {
-            opacity: 0;
-        }
-        &.tr-in {
-            top: 25rem;
-            transition: 0s;
-        }
-        &.tr-out {
-            top: -20rem;
-            transform: skewY(0deg);
-            transition: top 0.7s cubic-bezier(0.95, 0.5, 0, 1),
-                        transform 0.7s cubic-bezier(0.95, 0.5, 0, 1),
-                        opacity 0.35s ease;
-            pointer-events: none;
+            &:not(:hover) .sub .title {
+                opacity: 0;
+            }
+
+            .directionalBgEffect {
+                z-index: 99999;
+                /*width: 5px;*/
+                /*height: 5px;*/
+                transform: translate(-50%, -50%);
+                transform-origin: top;
+                background-color: red;
+                /*outline: solid 0px white;*/
+                /*border-radius: 50%;*/
+                transition: 0s;
+
+                .fill {
+                    opacity: 0.3;
+                    background-color: #264dfb;
+                    outline: solid 2px red;
+                }
+
+                &::after { // point
+                    content: "^";
+                    position: absolute;
+                    transform: translate(-50%);
+                    text-align: center;
+                    line-height: 0.65em;
+                    font-size: 3.5em;
+                    font-weight: 600;
+                    color: red;
+                    text-shadow: 2px 1px 1px white, -2px 1px 1px white;
+                }
+            }
+            &::before { // circle
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(1.15);
+                width: 100%;
+                height: calc((100vw - 7.5vw * 2 - 2.65rem * 2) / 3);
+                border-radius: 9999px;
+                background-color: transparent;
+                outline: dashed 2px var(--dbfill-bounds);
+                pointer-events: none;
+            }
+
+            &.tr {
+                .directionalBgEffect {
+                    transition: 300ms;
+                }
+            }
         }
     }
 }
