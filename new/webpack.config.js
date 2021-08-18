@@ -4,6 +4,7 @@ const { SourceMapDevToolPlugin } = require("webpack");
 // const sass = require('sass')
 
 module.exports = {
+    watch: true,
     mode: 'development',
     entry: './app/main.js',
     output: {
@@ -50,6 +51,7 @@ module.exports = {
     devtool: 'eval-source-map',
     devServer: {
         hot: true,
+        inline: true,
         port: 8080,
         host: '0.0.0.0',
         openPage: 'http://localhost:8080'
