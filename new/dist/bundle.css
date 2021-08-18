@@ -968,7 +968,7 @@ html:not(.isChr) .projects-list .project-item .sub .title span {
   transition: 0.65s cubic-bezier(0.4, 0.6, 0, 1);
 }
 .projects-list .project-item.debug {
-  --dbfill-bounds: #00c899;
+  --dbfill-bounds: #00b187;
   z-index: 10;
   overflow: visible;
   outline: solid 2px var(--dbfill-bounds);
@@ -986,34 +986,63 @@ html:not(.isChr) .projects-list .project-item .sub .title span {
   /*outline: solid 0px white;*/
   /*border-radius: 50%;*/
   transition: 0s;
+  pointer-events: none;
 }
 .projects-list .project-item.debug .directionalBgEffect .fill {
   opacity: 0.3;
   background-color: #264dfb;
   outline: solid 2px red;
 }
+.projects-list .project-item.debug .directionalBgEffect::before {
+  content: "";
+  z-index: 10;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: calc(100vw / 3);
+  bottom: 0;
+  opacity: 0.85;
+  background-color: transparent;
+  border-left: dashed 2px red;
+  pointer-events: none;
+}
 .projects-list .project-item.debug .directionalBgEffect::after {
   content: "^";
   position: absolute;
   transform: translate(-50%);
   text-align: center;
-  line-height: 0.65em;
+  line-height: 0.75em;
   font-size: 3.5em;
   font-weight: 600;
   color: red;
-  text-shadow: 2px 1px 1px white, -2px 1px 1px white;
+  text-shadow: 1px 1px 0px black, -1px -1px 0px black, -1px 1px 0px black, 1px -1px 0px black;
+  pointer-events: none;
 }
 .projects-list .project-item.debug::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1.15);
+  transform: translate(-50%, -50%) scale(1.145);
   width: 100%;
   height: calc((100vw - 7.5vw * 2 - 2.65rem * 2) / 3);
   border-radius: 9999px;
   background-color: transparent;
   outline: dashed 2px var(--dbfill-bounds);
+  pointer-events: none;
+}
+.projects-list .project-item.debug::after {
+  content: "+";
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--dbfill-bounds);
+  font-size: 3.5rem;
+  text-shadow: 2px 2px 0px black, -2px -2px 0px black, -2px 2px 0px black, 2px -2px 0px black;
+  font-weight: 400;
   pointer-events: none;
 }
 .projects-list .project-item.debug.tr .directionalBgEffect {
