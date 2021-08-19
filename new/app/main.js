@@ -248,7 +248,7 @@ function directionalBgFill(ev) {
     //    //{evY : ev.clientY, iTop : elRect.top, iHeight : elRect.height, elH2},
     //    {originX, originY}
     //);
-}
+};
 
 
 //- Projects Menu -
@@ -271,7 +271,7 @@ function pMenuScrollPosUpdate(offset) {
         } else {
             bottomRest += '<div p="'+ proj +'" class="p-item"></div>';
         }
-        k += 1;
+        ++k;
     })
     topHidden = bottomRest;
 
@@ -392,7 +392,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var countHS = 0, pSIndex;
     allHomeSections.forEach(section => { // top and bottom sections of Projects are -1 & +1 of pSIndex
-        if(section.id == "projects") { pSIndex = countHS; } countHS += 1;
+        if(section.id == "projects") { pSIndex = countHS; } ++countHS;
     });
     pmSnapTop.observe(allHomeSections[pSIndex-1]); // "about" intersection
     pmSnapBottom.observe(allHomeSections[pSIndex+1]); // "social" intersection
@@ -423,20 +423,20 @@ var l_itemsLoaded, l_itemsTotalNb;
                 items += `
                     <img src="/src/projects/`+ p +`/mini/`+ item +`.`+ (projects.data[p][item].imgExt || "jpg") +`">
                 `;
-                l_itemsTotalNb += 1;
+                ++l_itemsTotalNb;
             });
             picLoader.innerHTML = items;
 
             picLoader.querySelectorAll("img").forEach(item => {
                 item.addEventListener('load', () => {
-                    l_itemsLoaded += 1;
+                    ++l_itemsLoaded;
                     if(l_itemsLoaded >= l_itemsTotalNb) {
                         loadThemAll();
                     }
                 });
             })
             
-            pIndex += 1;
+            ++pIndex;
             if(pIndex >= pCategories.length) {
                 picLoader.remove();
             }
