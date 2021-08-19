@@ -710,17 +710,27 @@ pictureloader > img {
     }
 
     .project-item {
-        box-sizing: border-box;
         grid-column: 1 span;
-        position: relative;
-        height: var(--pi-h);
         margin-bottom: 0;
-        transition: padding var(--pi-tr-dur1) var(--pi-tr-tf1),
-                    margin-bottom 0.9s 0.2s cubic-bezier(0.4, 0.7, 0, 1);
+        transition: margin-bottom 0.9s 0.2s cubic-bezier(0.4, 0.7, 0, 1);
         transform: rotateZ(0.1deg); // aa
         cursor: pointer;
         user-select: none;
-        overflow: hidden;
+
+        &, .pi-c {
+            box-sizing: border-box;
+            position: relative;
+            height: var(--pi-h);
+            overflow: hidden;
+        }
+
+        .pi-c {
+            padding: 0;
+            transform: rotateZ(0.1deg) scale(1);
+            transition: padding var(--pi-tr-dur1) var(--pi-tr-tf1),
+                        transform 0.7s cubic-bezier(0.15, 0.8, 0, 1),
+                        opacity 1s cubic-bezier(0.2, 0.7, 0, 1);
+        }
 
         > * {
             pointer-events: none;
@@ -805,8 +815,10 @@ pictureloader > img {
             --pi-tr-dur1: 0.6s;
             --pi-tr-tf1: cubic-bezier(0.3, 0.7, 0, 1);
 
-            padding: var(--pi-mh);
-            padding-bottom: 0;
+            .pi-c {
+                padding: var(--pi-mh);
+                padding-bottom: 0;
+            }
 
             .thumbnail-c {
                 height: 66%;
@@ -827,6 +839,21 @@ pictureloader > img {
                 .fill {
                     transition: 0.65s cubic-bezier(0.4, 0.6, 0, 1);
                 }
+            }
+        }
+
+        &:active, &.focus {
+            .pi-c {
+                opacity: 0.35;
+                transform: rotateZ(0.1deg) scale(0.9);
+                transition: padding var(--pi-tr-dur1) var(--pi-tr-tf1),
+                            transform 0.7s cubic-bezier(0.05, 0.9, 0, 1),
+                            opacity 0.7s cubic-bezier(0.15, 0.7, 0, 1);
+            }
+        }
+        &.focus {
+            .pi-c {
+                opacity: 0;
             }
         }
 

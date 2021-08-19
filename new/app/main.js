@@ -457,14 +457,16 @@ function loadProjectsList(p) {
         var itemData = itemsData[item];
         items += `
             <div class="project-item" p="`+ item +`">
-                <div class="directionalBgEffect"><div class="fill"></div></div>
-                <div class="thumbnail-c">
-                    <img src="/src/projects/`+ p +`/mini/`+ item +`.`+ (itemData.imgExt || "jpg") +`">
+                <div class="pi-c">
+                    <div class="directionalBgEffect"><div class="fill"></div></div>
+                    <div class="thumbnail-c">
+                        <img src="/src/projects/`+ p +`/mini/`+ item +`.`+ (itemData.imgExt || "jpg") +`">
+                    </div>
+                    <div class="sub fc">
+                        <div class="title"><span class="b1 t">`+ ((itemData.titleMini) ? itemData.titleMini : itemData.title) +`</span></div>
+                    </div>
+                    <div class="button-overlay"></div>
                 </div>
-                <div class="sub fc">
-                    <div class="title"><span class="b1 t">`+ ((itemData.titleMini) ? itemData.titleMini : itemData.title) +`</span></div>
-                </div>
-                <div class="button-overlay"></div>
             </div>
         `; // `+ ((itemData.title.length > 16) ? "long " : "") +`
     });
@@ -508,26 +510,9 @@ function loadProjectsList(p) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function openProjectPopup(ev, item) {
     console.log('pp', ev, item);
+    //item.classList.add('focus');
 }
 
 
