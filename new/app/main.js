@@ -14,11 +14,12 @@ const doc = document.documentElement,
     isChrome = (!!window.chrome), // check if browser is chromium based
     allHomeSections = document.querySelectorAll("#page-content section.part"),
     allHomeSectionsToSnap = Array.from(allHomeSections).slice(1, -1),
-    sectionProjects = document.querySelector("section.part#projects"); // all of them but the first & last one
+    sectionProjects = document.querySelector("section#projects"), // projects section
+    sectionPS = document.querySelector("section#parts-ps"); // section of projects & social
 var language = (/^fr\b/.test(navigator.language)) ? "fr" : "en", // check language (FR or else EN)
     isMini, // boolean that depends on size of viewport (check if screen is small)
     scrollMainElem = document.querySelector("[scroll-main]"),
-    projectsTopBar = false;
+    isPMenuTopBar = false;
 
 // isMini
 function checkWinSize() { isMini = (window.innerWidth > 727); };
@@ -62,8 +63,8 @@ if(!isTouchDevice) { // PC
     ScrollMain.addListener(({ offset }) => { //- Main Scroll Effects -
         //- Things
         HomeGuide();
-        if(projectsTopBar) {
-            pMenuScrollPosUpdate(offset);
+        if(isPMenuTopBar) {
+            menuProjectsSticky(offset);
         }
 
         // prevents overscrolling left & right (might find a different workaround ? well it works so as we say, "don't worry about it")
@@ -253,16 +254,36 @@ function directionalBgFill(ev) {
 
 //- Projects Menu -
 var pMenu = document.querySelector("nav.p-menu"),
-    pMenuDummy = document.querySelector("fakenav.p-menu.dummy"),
-    pMenuTopDummy = document.querySelector("faketopnav.p-menu.dummy"),
     pMenuItemsC = pMenu.querySelector(".menu-items > .pm-i-c");
 
-function pMenuScrollPosUpdate(offset) {
-    pMenu.style.top = offset.y + 'px';
+
+function menuProjectsSticky(offset) {
+    const vpTop = offset.y,
+          spPosTop = sectionProjects.getBoundingClientRect().top + vpTop,
+          spPosBottom = sectionProjects.getBoundingClientRect().bottom + vpTop - pMenu.offsetHeight;
+
+    if(pMenu.getAttribute("transition") == "true") {
+        pMenu.style.position = "fixed";
+        if(vpTop < spPosTop) { // outside of sp from top
+            // Fixed at top of sp
+            pMenu.style.top = spPosTop + "px";
+        } else {
+            if(vpTop < spPosBottom) { // inside of sp
+                // Fixed at top of viewport
+                pMenu.style.top = vpTop + "px";
+            }
+            else { // outside of sp, bottom
+                // Fixed at bottom of sp
+                pMenu.style.top = (spPosBottom - pMenu.OffsetHeight) + "px";
+            }
+        }
+    }
 }
 
-//- Create Menu
+
+//- Menu
 (function projectsMenuCreate() {
+    // Menu Creation
     var topFirstTwo = '', bottomRest = '', topHidden = '',
         k = 0;
     Object.keys(projects.menuData).forEach(proj => {
@@ -275,7 +296,6 @@ function pMenuScrollPosUpdate(offset) {
     })
     topHidden = bottomRest;
 
-    // Creation
     pMenuItemsC.innerHTML = `
         <div id="top">
             <div>
@@ -292,7 +312,7 @@ function pMenuScrollPosUpdate(offset) {
 
     var pMenuItems = pMenu.querySelectorAll(".p-item");
 
-    //- project menu items interaction -
+    //- Project Menu Buttons -
     pMenuItems.forEach(item => {
         // Icons & Titles
         const p = item.getAttribute("p"),
@@ -307,96 +327,27 @@ function pMenuScrollPosUpdate(offset) {
 
             const isThisFocus = this.parentElement.classList.contains("focus");
 
-            pMenuItems.forEach(i => { i.classList.remove("focus"); });
+            pMenuItems.forEach(i => { i.classList.remove("focus"); }); // will always remove focus, its fine bc later we focus 'this' if needed
 
             if(isThisFocus && pMenu.classList.contains("top-bar")) { // --- return to normal
-                projectsTopBar = false;
-                pMenu.style.top = null;
+                isPMenuTopBar = false;
                 pMenu.classList.remove("top-bar");
+                removeProjectsList(true);
 
             } else { // --- top bar || project category selected
                 if(!pMenu.classList.contains("top-bar")) { // becomes top bar
-                    projectsTopBar = true;
+                    isPMenuTopBar = true;
+                    pMenu.setAttribute("transition", "true");
                     pMenu.classList.add("top-bar");
+                    menuProjectsSticky(ScrollMain.offset)
                 }
-                pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); }); // focus project category button
+                pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); }); // focus this project category button
                 loadProjectsList(p);
             }
-
-            /*
-            // normal : always / top-bar : when in focus
-            if(!pMenu.classList.contains("top-bar") || (pMenu.classList.contains("top-bar") && this.parentElement.classList.contains("focus"))) { // will move
-                ScrollMain.addListener(pMenuScrollPosUpdate); addEvTrEnd(pMenu, function() { ScrollMain.removeListener(pMenuScrollPosUpdate); });
-                
-            }
-
-            if(this.parentElement.classList.contains("focus") && pMenu.classList.contains("top-bar")) { // --- return to normal
-                if(pMenu.classList.contains("snapTop" || "snapBottom")) {
-                    pMenu.setAttribute("style", "top: calc((100% - var(--pm-box-size)) / 2);");
-                } else {
-                    pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenu.getBoundingClientRect().top).toFixed(3) +"px !important;");
-                    setTimeout(() => {
-                        pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenuDummy.getBoundingClientRect().top).toFixed(3) +"px !important;");
-                    }, 1);
-                }
-                setTimeout(() => {
-                    pMenu.classList.remove("top-bar");
-                    pMenuItems.forEach(i => { i.classList.remove("focus"); });
-                    addEvTrEnd(pMenu, function() { pMenu.setAttribute("style", ""); });
-                }, 1);
-
-            } else { // --- top bar
-                if(!pMenu.classList.contains("top-bar")) { // if not already top bar
-                    pMenu.setAttribute("style", "position: fixed !important; top: "+ (pMenuDummy.getBoundingClientRect().top).toFixed(3) +"px !important;");
-                    setTimeout(() => {
-                        if(pMenu.classList.contains("snapTop" || "snapBottom")) {
-                            pMenu.setAttribute("style", "position: fixed !important; top: "+ (document.querySelector("section.part#projects").getBoundingClientRect().top).toFixed(3) +"px !important;");
-                        } else { pMenu.setAttribute("style", "position: fixed !important; top: 0px !important;"); }
-                        addEvTrEnd(pMenu, function() {
-                            pMenu.setAttribute("style", "");
-                            pMenu.style.transition = "var(--tr), top 0s";
-                        });
-                    }, 1);
-                }
-                setTimeout(() => {
-                    pMenu.classList.add("top-bar");
-                    pMenuItems.forEach(i => { i.classList.remove("focus"); });
-                    pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); });
-                }, 1);
-            }
-            */
         }
         item.childNodes[0].addEventListener("click", projectLink);
     });
 }());
-
-// Top Bar Section Snapping
-document.addEventListener("DOMContentLoaded", function() {
-    var sSocialH = document.querySelector("#page-content section#social").offsetHeight,
-        snapBOptions = {
-            threshold: ((sSocialH - pMenuTopDummy.offsetHeight) / sSocialH).toFixed(3)
-        };
-
-    const pmSnapTop = new IntersectionObserver(function(entries) {
-        entries.forEach(section => {
-            if(section.isIntersecting) { pMenu.classList.add("snapTop");
-            } else if(section.boundingClientRect.y < sSocialH - 30) { pMenu.classList.remove("snapTop"); }
-        });
-    });
-    const pmSnapBottom = new IntersectionObserver(function(entries) {
-        entries.forEach(section => {
-            if(section.isIntersecting) { pMenu.classList.add("snapBottom");
-            } else { pMenu.classList.remove("snapBottom"); }
-        });
-    }, snapBOptions);
-
-    var countHS = 0, pSIndex;
-    allHomeSections.forEach(section => { // top and bottom sections of Projects are -1 & +1 of pSIndex
-        if(section.id == "projects") { pSIndex = countHS; } ++countHS;
-    });
-    pmSnapTop.observe(allHomeSections[pSIndex-1]); // "about" intersection
-    pmSnapBottom.observe(allHomeSections[pSIndex+1]); // "social" intersection
-});
 
 
 //- Projects List -
@@ -404,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //-- Loading All the Thumbnails Right Away because f*ck it it's not that much (it helps with the experience bc no wait wait for the pic pic to load load) --
 var l_itemsLoaded, l_itemsTotalNb;
 (function loadAllPThumbnails() {
-    var picLoader = sectionProjects.querySelector("pictureloader"),
+    var picLoader = sectionPS.querySelector("pictureloader"),
         pIndex = 0,
         pCategories = [];
 
@@ -474,12 +425,20 @@ function loadProjectsList(p) {
     // Creating the List
     var pListCNew = document.createElement("div");
     pListCNew.setAttribute("class", "p-list-c tr-in");
-    pListCNew.innerHTML = items;
+    pListCNew.innerHTML = items; // adding items in container
     pList.appendChild(pListCNew);
 
-    // Interaction Events
+    // Section Height
+    const pListCHeightNew = pListCNew.offsetHeight, // need the height as final
+          itemsNb = Object.keys(itemsData).length;
+    pList.parentNode.style.height = "calc("+ pListCHeightNew + "px - (10rem * "+ (Math.floor(itemsNb / 3) + ((itemsNb % 3 > 0) ? 1 : 0)) +")";
+
+    // Removing every other (if ever there are) projects lists
+    removeProjectsList(false);
+
+    // Project Buttons Interaction Events
     pListCNew.querySelectorAll(".project-item").forEach(item => {
-        item.addEventListener("click", (ev) => { openProjectPopup(ev, item) });
+        item.addEventListener("click", (ev) => { openProjectPopup(ev, item, p) });
         item.addEventListener("mouseenter", directionalBgFill);
         item.addEventListener("mouseout", directionalBgFill);
 
@@ -490,28 +449,32 @@ function loadProjectsList(p) {
         });
     });
 
-    var pListCHeightNew = pListCNew.offsetHeight; // TODO
-
-    // Removing every other (if ever there are) projects lists
-    pList.querySelectorAll(".p-list-c:not(:last-child)").forEach(pl => {
-        setTimeout(() => {
-            pl.classList.add("tr-out");
-            addEvTrEnd(pl, () => { pl.remove(); });
-        }, 75);
-    })
-
     // New Projects List Entrance
-    pListCNew.style.transform = "translateY("+ (pListCNew.offsetWidth * Math.tan(7 * deg2rad)) / 2 +"px) skewY(-7deg)";
+    const pListCNewSkewInvert = pListCNew.offsetWidth * Math.tan(7 * deg2rad); // getting the additional height due to css transform skewY
+    pListCNew.style.transform = "translateY("+ pListCNewSkewInvert / 2 +"px) skewY(-7deg)";
     setTimeout(() => {
         pListCNew.classList.remove("tr-in");
         setTimeout(() => { pListCNew.style.transform = null; }, 1);
     }, 200);
-
 }
 
 
-function openProjectPopup(ev, item) {
-    console.log('pp', ev, item);
+//-- Remove Projects List --
+function removeProjectsList(r) {
+    // r = true : remove (return to normal, pMenu no longer top-bar)
+    if(r) { sectionProjects.querySelector(".projects-list").parentNode.style.height = null; }
+    sectionProjects.querySelectorAll(".p-list-c" + ((r) ? "" : ":not(:last-child)")).forEach(pl => {
+        setTimeout(() => {
+            pl.classList.add("tr-out");
+            addEvTrEnd(pl, () => { pl.remove(); });
+        }, (r) ? 0 : 75);
+    })
+}
+
+
+//- Open Project Popup -
+function openProjectPopup(ev, item, pCategory) {
+    console.log('pp', ev, item, pCategory);
     //item.classList.add('focus');
 }
 
