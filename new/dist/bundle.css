@@ -450,7 +450,8 @@ loading-screen.on {
   background-color: var(--y-w1);
 }
 
-section.part {
+section.part,
+section#parts-ps {
   position: relative;
   width: 100%;
   height: 100vh;
@@ -458,8 +459,8 @@ section.part {
 }
 
 section#projects,
-section.part:last-child {
-  outline: dashed 1px rgba(0, 0, 0, 0.1) !important;
+section#social {
+  outline: dotted 5px rgba(0, 0, 0, 0.15) !important;
 }
 
 section#home {
@@ -813,20 +814,21 @@ pictureloader > img {
   transition-delay: 0.6s;
 }
 
-/*- PROJECTS LIST -*/
-.projects-content {
+/*- PROJECTS x SOCIAL SECTIONS -*/
+.wrapper-ps {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.projects-list-wrapper {
+/*- PROJECTS LIST -*/
+section#projects {
   box-sizing: border-box;
   position: relative;
   width: 100%;
+  height: 100vh;
   min-height: 100%;
-  padding: 5% 7.5%;
-  padding-top: calc(var(--pmn-item-height) * 2 * 5);
+  transition: height 1s ease;
 }
 
 .projects-list {
@@ -834,17 +836,19 @@ pictureloader > img {
   --pi-mh: 1rem;
   --pi-tr-dur1: 0.6s;
   --pi-tr-tf1: cubic-bezier(0.35, 0.8, 0, 1);
-  box-sizing: border-box;
   position: relative;
   width: 100%;
 }
 .projects-list .p-list-c {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2.65rem;
   position: absolute;
   width: 100%;
   top: 0rem;
+  padding: 5% 7.5%;
+  padding-top: calc(var(--pmn-item-height) * 2 * 5);
   transform: translateY(0) skewX(0.01deg);
   transition: top 0.7s 0.1s cubic-bezier(0.5, 0.85, 0, 1), transform 0.8s 0.3s cubic-bezier(0.1, 0.7, 0, 1), opacity 0.55s 0.125s ease;
 }
@@ -855,7 +859,8 @@ pictureloader > img {
   top: 30rem;
   transition: 0s;
 }
-.projects-list .p-list-c.tr-in .project-item:nth-child(2n+1) {
+.projects-list .p-list-c.tr-in .project-item:nth-child(2n+1),
+.projects-list .p-list-c.tr-in .project-item:last-child {
   margin-bottom: 10rem;
 }
 .projects-list .p-list-c.tr-out {
@@ -865,16 +870,23 @@ pictureloader > img {
   pointer-events: none;
 }
 .projects-list .project-item {
-  box-sizing: border-box;
   grid-column: 1 span;
-  position: relative;
-  height: var(--pi-h);
   margin-bottom: 0;
-  transition: padding var(--pi-tr-dur1) var(--pi-tr-tf1), margin-bottom 0.9s 0.2s cubic-bezier(0.4, 0.7, 0, 1);
+  transition: margin-bottom 0.9s 0.2s cubic-bezier(0.4, 0.7, 0, 1);
   transform: rotateZ(0.1deg);
   cursor: pointer;
   user-select: none;
+}
+.projects-list .project-item, .projects-list .project-item .pi-c {
+  box-sizing: border-box;
+  position: relative;
+  height: var(--pi-h);
   overflow: hidden;
+}
+.projects-list .project-item .pi-c {
+  padding: 0;
+  transform: rotateZ(0.1deg) scale(1);
+  transition: padding var(--pi-tr-dur1) var(--pi-tr-tf1), transform 0.7s cubic-bezier(0.15, 0.8, 0, 1), opacity 1s cubic-bezier(0.2, 0.7, 0, 1);
 }
 .projects-list .project-item > * {
   pointer-events: none;
@@ -949,6 +961,8 @@ html:not(.isChr) .projects-list .project-item .sub .title span {
 .projects-list .project-item:hover {
   --pi-tr-dur1: 0.6s;
   --pi-tr-tf1: cubic-bezier(0.3, 0.7, 0, 1);
+}
+.projects-list .project-item:hover .pi-c {
   padding: var(--pi-mh);
   padding-bottom: 0;
 }
@@ -966,6 +980,14 @@ html:not(.isChr) .projects-list .project-item .sub .title span {
 }
 .projects-list .project-item:hover .directionalBgEffect .fill {
   transition: 0.65s cubic-bezier(0.4, 0.6, 0, 1);
+}
+.projects-list .project-item:active .pi-c, .projects-list .project-item.focus .pi-c {
+  opacity: 0.35;
+  transform: rotateZ(0.1deg) scale(0.9);
+  transition: padding var(--pi-tr-dur1) var(--pi-tr-tf1), transform 0.7s cubic-bezier(0.05, 0.9, 0, 1), opacity 0.7s cubic-bezier(0.15, 0.7, 0, 1);
+}
+.projects-list .project-item.focus .pi-c {
+  opacity: 0;
 }
 .projects-list .project-item.debug {
   --dbfill-bounds: #00b187;
