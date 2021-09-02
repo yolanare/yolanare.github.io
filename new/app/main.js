@@ -13,7 +13,7 @@ const doc = document.documentElement,
     isTouchDevice = window.matchMedia("(pointer: coarse)").matches, // check if is Touch Screen (https://stackoverflow.com/a/52855084)
     isChrome = (!!window.chrome), // check if browser is chromium based
     allHomeSections = document.querySelectorAll("#page-content section.part"),
-    allHomeSectionsToSnap = Array.from(allHomeSections).slice(1, -1),
+    allHomeSectionsToSnap = Array.from(allHomeSections).slice(1), //, -1
     sectionProjects = document.querySelector("section#projects"), // projects section
     sectionPS = document.querySelector("section#parts-ps"); // section of projects & social
 var language = (/^fr\b/.test(navigator.language)) ? "fr" : "en", // check language (FR or else EN)
@@ -110,28 +110,45 @@ if(!isTouchDevice) { // PC
         HomeGuide();
 
         //- Custom Scroll Snapping // maybe not on touch devices ? keeping that in case
-        //ScrollSnap(function(section, sectionTop) {
-        //    var sectionRect = section.getBoundingClientRect();
-        //    if(sectionRect.top < scrollMainElem.offsetHeight && sectionRect.top > -sectionRect.height) { // is visible ?
-        //        if(sectionTop > -snapScrollOffset && sectionTop < snapScrollOffset) { // same as above
-        //            ScrollMainOS.scroll(section, 600, 'easeOutQuint');
-        //        }
-        //    }
-        //}, 300)
+//        ScrollSnap(function(section, sectionTop) {
+//            var sectionRect = section.getBoundingClientRect();
+//            if(sectionRect.top < scrollMainElem.offsetHeight && sectionRect.top > -sectionRect.height) { // is visible ?
+//                if(sectionTop > -snapScrollOffset && sectionTop < snapScrollOffset) { // same as above
+//                    ScrollMainOS.scroll(section, 600, 'easeOutQuint');
+//                }
+//            }
+//        }, 300)
     }
 }
 
 //- Scroll Snapping Function
-var snapScrollOffset = (!isTouchDevice) ? (ScrollMain.getSize().container.height / 3).toFixed(2) : (scrollMainElem.offsetHeight / 3).toFixed(2), // when to snap (at third of section)
+var snapScrollOffset = (scrollMainElem.offsetHeight / 3).toFixed(2), // when to snap (at third of section)
     isScrolling; // thx https://vanillajstoolkit.com/helpers/scrollstop/
 
-if(!scrollMainElem.getAttribute("style")) { scrollMainElem.setAttribute("style", ""); } // so it can check even if empty for delay down ther
+if(!scrollMainElem.getAttribute("style")) { scrollMainElem.setAttribute("style", ""); } // so it can check even if empty for delay down there
 
 function ScrollSnap(snap, delay) {
     window.clearTimeout(isScrolling);
     isScrolling = setTimeout(function() {
+        var sCount = 0;
+        const vpTop = (!isTouchDevice) ? (ScrollMain.offset.y) : (ScrollMainOS.scroll().position.y);
         allHomeSectionsToSnap.forEach(section => {
-            var sectionTop = section.getBoundingClientRect().top;
+            ++sCount;
+            const sectionTop = section.getBoundingClientRect().top;
+
+            if(section.id == "projects") { // Section Projects - Not snapping when inside & when project list opened (for ease of use)
+                const spPosTop = sectionProjects.getBoundingClientRect().top + vpTop;
+                if((isPMenuTopBar && vpTop > spPosTop) // is outside ?
+                || (isPMenuTopBar && vpTop > spPosTop && vpTop - snapScrollOffset < (sectionProjects.getBoundingClientRect().bottom + vpTop - pMenu.offsetHeight))) { // is inside ?
+                    return;
+                }
+            } else if(sCount == allHomeSectionsToSnap.length) { // Last Section - Not snapping when inside (to avoid jump bc of overscroll effect + momentum scroll to)
+                if(vpTop > (sectionTop + vpTop) && vpTop - snapScrollOffset < (section.getBoundingClientRect().bottom + vpTop - pMenu.offsetHeight)) { // is inside ?
+                    return;
+                }
+            }
+
+            // Normal behaviour
             snap(section, sectionTop);
         })
     }, delay); // delay before considering scroll is stopped
@@ -340,6 +357,7 @@ function menuProjectsSticky(offset) {
                     pMenu.setAttribute("transition", "true");
                     pMenu.classList.add("top-bar");
                     menuProjectsSticky(ScrollMain.offset)
+                    // TODO different menuProjectsSticky for touch devices
                 }
                 pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); }); // focus this project category button
                 loadProjectsList(p);
