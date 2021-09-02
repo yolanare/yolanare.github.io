@@ -869,6 +869,10 @@ section#projects {
             z-index: 10;
             overflow: visible;
             outline: solid 2px var(--dbfill-bounds);
+            
+            .pi-c {
+                overflow: visible;
+            }
 
             &:not(:hover) .sub .title {
                 opacity: 0;
