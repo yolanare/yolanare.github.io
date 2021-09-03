@@ -33,7 +33,7 @@ if(isChrome) { doc.classList.add("isChr"); }
 if(!isTouchDevice) { // PC
     //- Smooth Scrollbar -
     var isOverScroll,
-        scrollDamping = 0.14; //(isChrome) ? 0.12 : 0.14;
+        scrollDamping = (isChrome) ? 0.15 : 0.13;
 
     Scrollbar.use(OverscrollPlugin);
     var ScrollMain = Scrollbar.init(scrollMainElem, {
