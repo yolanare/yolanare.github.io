@@ -329,11 +329,10 @@ section#home {
 }
 
 .guide {
-    position: absolute;
+    position: fixed;
     top: 78.5%; /*default position*/
     width: 3vw;
     min-width: 3vw;
-    max-width: 100%;
     height: 1.1vw;
     min-height: 1.1vw;
     max-height: 100%;

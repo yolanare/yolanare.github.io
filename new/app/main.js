@@ -23,7 +23,7 @@ var language = (/^fr\b/.test(navigator.language)) ? "fr" : "en", // check langua
 
 // isMini
 function checkWinSize() { isMini = (window.innerWidth > 727); };
-checkWinSize(); window.addEventListener("resize", checkWinSize);
+checkWinSize(); // [+ resize update]
 
 
 if(isChrome) { doc.classList.add("isChr"); }
@@ -60,11 +60,11 @@ if(!isTouchDevice) { // PC
 
     ScrollMain.track.xAxis.element.remove(); // no scroll x
 
-    ScrollMain.addListener(({ offset }) => { //- Main Scroll Effects -
+    ScrollMain.addListener(() => { //- Main Scroll Effects -
         //- Things
         HomeGuide();
         if(isPMenuTopBar) {
-            menuProjectsSticky(offset);
+            menuProjectsSticky();
         }
 
         // prevents overscrolling left & right (might find a different workaround ? well it works so as we say, "don't worry about it")
@@ -155,6 +155,42 @@ function ScrollSnap(snap, delay) {
 }
 
 
+//- Getting the viewport's size -
+var vpSize;
+function vpSizeUpdate() {
+    if(!isTouchDevice) { // PC
+        vpSize = { w: ScrollMain.getSize().container.width, h: ScrollMain.getSize().container.height };
+    } else { // TOUCH
+        vpSize = { w: ScrollMainOS.getElements().viewport.offsetWidth, h: ScrollMainOS.scroll().trackLength.y };
+    }
+}
+// [+ resize update]
+// [+ DOMContentLoaded update]
+
+
+///- Updates -/
+//var resizeUpdate;
+window.addEventListener("resize", () => {
+//    window.clearTimeout(resizeUpdate);
+//    resizeUpdate = setTimeout(function() {
+        checkWinSize();
+        menuProjectsSticky();
+        HomeGuideUpdate();
+        vpSizeUpdate();
+//    }, 10);
+
+    // To be sure values are correct (because of transitions)
+    setTimeout(function() {
+        HomeGuideUpdate();
+    }, 1000);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    HomeGuideUpdate();
+    vpSizeUpdate();
+});
+
+
 ///- Tools -/
 function m(val1, val2) { // average of 2 numbers
     function copyToClipboard(text) {
@@ -222,8 +258,8 @@ function RemoveLoadingScreen() {
     document.querySelector("loading-screen").classList.remove("on");
 }
 
-window.addEventListener("load", () => {
-    if(!FontsLoaded) { RemoveLoadingScreen(); } // to be sure the loading screen goes off at some point :)
+window.addEventListener("load", () => { // to be sure the loading screen goes off at some point :)
+    if(!FontsLoaded) { RemoveLoadingScreen(); }
 });
 
 document.fonts.onloadingdone = () => { // fonts are not too fast and not too long to load, seems good
@@ -274,8 +310,8 @@ var pMenu = document.querySelector("nav.p-menu"),
     pMenuItemsC = pMenu.querySelector(".menu-items > .pm-i-c");
 
 
-function menuProjectsSticky(offset) {
-    const vpTop = offset.y,
+function menuProjectsSticky() {
+    const vpTop = ScrollMain.offset.y,
           spPosTop = sectionProjects.getBoundingClientRect().top + vpTop,
           spPosBottom = sectionProjects.getBoundingClientRect().bottom + vpTop - pMenu.offsetHeight;
 
@@ -296,7 +332,7 @@ function menuProjectsSticky(offset) {
         }
     }
 }
-
+// [+ resize update]
 
 //- Menu
 (function projectsMenuCreate() {
@@ -356,7 +392,7 @@ function menuProjectsSticky(offset) {
                     isPMenuTopBar = true;
                     pMenu.setAttribute("transition", "true");
                     pMenu.classList.add("top-bar");
-                    menuProjectsSticky(ScrollMain.offset)
+                    menuProjectsSticky();
                     // TODO different menuProjectsSticky for touch devices
                 }
                 pMenu.querySelectorAll(".p-item[p="+ p +"]").forEach(i => { i.classList.add("focus"); }); // focus this project category button
@@ -451,6 +487,8 @@ function loadProjectsList(p) {
           itemsNb = Object.keys(itemsData).length;
     pList.parentNode.style.height = "calc("+ pListCHeightNew + "px - (10rem * "+ (Math.floor(itemsNb / 3) + ((itemsNb % 3 > 0) ? 1 : 0)) +")";
 
+    addEvTrEnd(pList.parentNode, () => { HomeGuideUpdate(); }); // Home Guide
+
     // Removing every other (if ever there are) projects lists
     removeProjectsList(false);
 
@@ -510,70 +548,100 @@ function openProjectPopup(ev, item, pCategory) {
 
 //- Home Guide -
 const guide = document.querySelector(".guide"),
-    scrDtxt = document.querySelector("section.part#home #scroll_down");
+      scrDtxt = document.querySelector("section.part#home #scroll_down");
 
-//function HGScrRatio(minPos, restPos, endPos, sPos, trackH) { // old method
-//    var sign = 1, initPos = minPos;
-//    if(endPos < minPos) { var sign = -1, hold = minPos, minPos = endPos, endPos = hold; } // can reverse
-//    return ( clamp((  initPos + ((sPos / trackH).toFixed(2) * (restPos * trackH) / trackH) * sign  ), minPos, endPos) ).toFixed(2); // there are some logic in here that I'm too lazy to explain ; (  x + ((a / b) * (z * b) / b) * s  )
-//}
-function HGScrRatio(minPos, restPos, endPos, sPos, trackH) {
-    var sign = 1, initPos = minPos;
-    if(endPos < minPos) { var sign = -1, hold = minPos, minPos = endPos, endPos = hold; } // can reverse
-    return clamp((  parseFloat(((sPos * restPos) / (trackH * sign)).toFixed(2)) + initPos  ), minPos, endPos); // simplified of old method : (  (a * z) / (b * s) + x  ) // don't try to make sens of that, it works
+//-- Scaling values depending on scroll ratio inside section --
+function HGScrRatio(minPos, endPos, sPos, trackH) {
+    var restPos = endPos - minPos,
+        initPos = minPos;
+    if(restPos < 0) { // going backwards
+        var sign = -1,
+            hold = minPos, minPos = endPos, endPos = hold; // reversing 'initPos' & 'endPos' when 'restPos' negative
+    }
+    return clamp((  parseFloat( ( (sPos * Math.abs(restPos)) / (trackH * ((sign) ? sign : 1)) ).toFixed(2) ) + initPos  ), minPos, endPos);
+    // (  (a * z) / (b * s) + x  ) // it works, don't try to make sens of that bc it's simplified for optimization purpose
+    // old method : (  x + ((a / b) * (z * b) / b) * s  ) // is easier to undestand but i'm too lazy to explain, it's basic maths smh
+    
+    // initPos : starting point (to not start from 0)
+    // minPos : minimal value
+    // endPos : value we want at the end & max value
+    // restPos : what we need to get 'minPos' from 'endPos' (difference but should be positive for the maths)
+    // sPos : current scroll position, multiplier
+    // trackH : track height, scale
 }
 
-function HomeGuide() {
-    if(!isTouchDevice) { // pc
-        var sposy = ScrollMain.scrollTop,
-            stracky = ScrollMain.getSize().container.height;
-    } else { // touch
-        var sposy = ScrollMainOS.scroll().position.y,
-            stracky = ScrollMainOS.scroll().trackLength.y;
-    }
-    var step = 0;
+//-- Getting the Sections useful bounding -- to detect later when to change shape for the guide
+var allHomeSectionsPos;
+function HomeGuideUpdate() {
+    allHomeSectionsPos = {top : [], bottom : []};
+    allHomeSections.forEach(section => {
+        var offset = ((!isTouchDevice) ? ScrollMain.offset.y : 0);
+        allHomeSectionsPos.top.push(section.getBoundingClientRect().top + offset)
+        allHomeSectionsPos.bottom.push(section.getBoundingClientRect().bottom + offset)
+    });
+    HomeGuide();
+}
+// [+ resize update]
+// [+ DOMContentLoaded update]
 
-    if(sposy > 30) {
+//-- Brain of the Home Guide --
+function HomeGuide() {
+    //-- Variables --
+    var scrollPos, scrollY, scrollTrackH;
+    if(!isTouchDevice) { // PC
+        scrollY = ScrollMain.offset.y, // bc of how smooth-scrollbar works, we need offset
+        scrollPos = scrollY,
+        scrollTrackH = ScrollMain.getSize().container.height;
+    } else { // TOUCH
+        scrollY = 0,
+        scrollPos = ScrollMainOS.scroll().position.y,
+        scrollTrackH = ScrollMainOS.scroll().trackLength.y;
+    }
+    const scrollPosBottom = scrollPos + scrollTrackH;
+
+    //-- Guide per Section (from last to first because "logic") --
+    if(scrollPosBottom > allHomeSectionsPos.bottom[2]) { // <-> from projects to social
+        scrollPos -= allHomeSectionsPos.top[3] - scrollTrackH; // because section projects can change size we need the next 'top' minus 'viewport height'
+
+        guide.style.width = HGScrRatio((vpSize.w * 0.85), (vpSize.h * 0.85), scrollPos, scrollTrackH) +"px";
+        guide.style.height = "85%";
+        guide.style.top = "calc("+ (15 / 2) +"% + "+ scrollY +"px)";
+        guide.style.borderRadius = HGScrRatio(0, 50, scrollPos, scrollTrackH) +"%";
+
+        guide.style.clipPath = "polygon(0 100%, 0 0, 100% 0, 100% 100%, 50% 100%)";
+    }
+    else if(scrollPosBottom >= allHomeSectionsPos.bottom[1]) { // <-> from about to projects
+        scrollPos -= allHomeSectionsPos.top[1];
+
+        const a = HGScrRatio(100, 85, scrollPos, scrollTrackH),
+              a_clip = HGScrRatio(50, 100, scrollPos, scrollTrackH); //* 1.175;
+        guide.style.clipPath = "polygon(0 "+ a_clip +"%, 0 0, 100% 0, 100% "+ a_clip +"%, 50% 100%)";
+        guide.style.width = a +"%";
+        guide.style.height = a +"%";
+        guide.style.top = "calc("+ ((100 - a) / 2) +"% + "+ scrollY +"px)";
+
+        guide.style.borderRadius = "0%";
+        document.querySelector("section#home svg#y-logo").style.opacity = 0;
+    }
+    else if(scrollPosBottom < allHomeSectionsPos.bottom[1]) { // <-> from home to about
+
+        const h = ((scrollPos / scrollTrackH) * 100).toFixed(2),
+              h_clip = clamp(h / 2, 0, 50);
+        guide.style.clipPath = "polygon(0 "+ h_clip +"%, 0 0, 100% 0, 100% "+ h_clip +"%, 50% 100%)";
+        guide.style.width = h +"%";
+        guide.style.height = h +"%";
+        guide.style.top = "calc("+ HGScrRatio(78.5, 0, scrollPos, scrollTrackH) +"% + "+ scrollY +"px)";
+
+        guide.style.borderRadius = "0%";
+        document.querySelector("section#home svg#y-logo").style.opacity = null;
+    }
+
+
+    //-- Misc --
+    // home - "Scroll Down" txt hidden after 30px scroll
+    if(scrollPos > 30) {
         scrDtxt.classList.add("hide");
     } else {
         scrDtxt.classList.remove("hide");
     }
-
-    if(sposy < stracky) { // from home to about
-        step = "to about";
-
-        const h = ((sposy / stracky) * 100).toFixed(2), h_clip = clamp(h / 2, 0, 50);
-        guide.style.clipPath = "polygon(0 "+ h_clip +"%, 0 0, 100% 0, 100% "+ h_clip +"%, 50% 100%)";
-        guide.style.width = h +"%";
-        guide.style.height = h +"%";
-        guide.style.top = HGScrRatio(78.5, 21.5, 100, sposy, stracky) +"%";
-
-        guide.style.borderRadius = "0%";
-
-    } else if(sposy < stracky * 2.5) { // from about to projects
-        sposy -= stracky;
-        step = "to projects";
-
-        const a = HGScrRatio(100, 15, 85, sposy, stracky),
-            a_clip = HGScrRatio(50, 50, 100, sposy, stracky); //* 1.175;
-        guide.style.clipPath = "polygon(0 "+ a_clip +"%, 0 0, 100% 0, 100% "+ a_clip +"%, 50% 100%)";
-        guide.style.width = a +"%";
-        guide.style.height = a +"%";
-        guide.style.top = "calc("+ (parseFloat(HGScrRatio(0, 100, 100, sposy, stracky)) + ((100 - a) / 2)) +"% + "+ stracky +"px)";
-
-        guide.style.borderRadius = "0%";
-
-    } else if(sposy > stracky * 2.5) { // from bottom of projects to social
-        sposy -= stracky * 2;
-        step = "to social";
-
-        const s = HGScrRatio(85, 45, 40, sposy, stracky);
-        guide.style.width = "40vw";
-        guide.style.height = "40vw";
-        guide.style.top = "calc("+ (parseFloat(HGScrRatio(0, 100, 100, sposy, stracky)) + 10) +"% + "+ stracky * 2 +"px)";
-        guide.style.borderRadius = HGScrRatio(0, 50, 50, sposy, stracky) +"%";
-
-        guide.style.clipPath = "polygon(0 100%, 0 0, 100% 0, 100% 100%, 50% 100%)";
-    }
-    //console.log(step, sposy, stracky);
 };

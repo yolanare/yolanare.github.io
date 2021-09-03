@@ -468,12 +468,11 @@ section#home {
 }
 
 .guide {
-  position: absolute;
+  position: fixed;
   top: 78.5%;
   /*default position*/
   width: 3vw;
   min-width: 3vw;
-  max-width: 100%;
   height: 1.1vw;
   min-height: 1.1vw;
   max-height: 100%;
@@ -994,6 +993,9 @@ html:not(.isChr) .projects-list .project-item .sub .title span {
   z-index: 10;
   overflow: visible;
   outline: solid 2px var(--dbfill-bounds);
+}
+.projects-list .project-item.debug .pi-c {
+  overflow: visible;
 }
 .projects-list .project-item.debug:not(:hover) .sub .title {
   opacity: 0;
