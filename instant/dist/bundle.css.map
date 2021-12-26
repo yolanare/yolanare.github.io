@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./app/style.scss"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEA;AACA;AACA;AACA,C","file":"bundle.css","sourcesContent":["/*\n:root {}\n::selection {}\nhtml {}\nbody {}\n*/\nbody p {\n  color: red;\n  font-size: 2em;\n}\n\nh1 {\n  font-size: 3em;\n  color: blue;\n}"],"sourceRoot":""}

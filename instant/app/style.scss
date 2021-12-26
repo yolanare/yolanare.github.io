@@ -1,0 +1,24 @@
+//# Stylesheet #//
+
+//- Setup -
+/*
+:root {}
+::selection {}
+html {}
+body {}
+*/
+
+//- Content -
+
+// Sample styles
+body {
+    p {
+        color: red;
+        font-size: 2em;
+    }
+}
+
+h1 {
+    font-size: 3em;
+    color: blue;
+}
