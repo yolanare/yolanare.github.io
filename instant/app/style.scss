@@ -1,24 +1,21 @@
 //# Stylesheet #//
 
 //- Setup -
-/*
-:root {}
-::selection {}
-html {}
-body {}
-*/
+
+:root {
+    --y-d : #1E2021;
+    --y-l : #E8EBED;
+    --y-r : #F23655;
+    --y-rd : #B3203A;
+}
+::selection {
+    color: var(--y-r);
+    background-color: rgba(0,0,0,0.2);
+}
+body {
+    background-color: var(--y-d);
+    color: var(--y-l);
+}
+
 
 //- Content -
-
-// Sample styles
-body {
-    p {
-        color: red;
-        font-size: 2em;
-    }
-}
-
-h1 {
-    font-size: 3em;
-    color: blue;
-}
