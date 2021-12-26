@@ -315,16 +315,16 @@ var projectsDesc = {
                 <p>J’ai choisi de représenter son manque de personnalité en mettant en avant sa hauteur et sa répétitivité depuis le point de vue d’un piéton à travers le temps.</p>
                 <h2>CRÉATION</h2>
                 <p>En m’aidant du logiciel Cinema 4D, je l’ai entièrement créée en 3D.</p>
-                `+ ppDescSamples('img', srcP + '3d-renders/sch_1_wc/02 pts de vues 3D.jpg', 'Vues de la scène en 3D sur 4 axes différents') +`
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/02 pts de vues 3D.jpg', 'Vues de la scène en 3D sur 4 axes différents') +`
                 
                 <p>Puis j’ai placé la caméra dans un carrefour.
                 <br>J’ai modifié beaucoup de paramètres pour donner une impression vertigineuse : le point de fuite est déplacé dans le croisement des bâtiments et le champ de vision est étiré.</p>
-                `+ ppDescSamples('img', srcP + '3d-renders/sch_1_wc/01 camera 3D.jpg', 'Paramètres de la caméra') +`
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/01 camera 3D.jpg', 'Paramètres de la caméra') +`
                 
                 <p>J’ai simulé le déroulement du cycle jour/nuit et j’ai fait le rendu des images en vidéo.</p>
                 <h2>POST-PRODUCTION</h2>
                 <p>Sur VEGAS Pro, j’ai ajouté de nombreux effets pour polir le timelapse : de la brume, du grain, et surtout des effets lumineux pour le soleil. Le lever et le coucher sont plus colorés. J’ai simulé l’éblouissement en ajustant le contraste et le vignettage.</p>
-                `+ ppDescSamples('img', srcP + '3d-renders/sch_1_wc/04 montage en gros.jpg', 'Montage des effets vidéos') +`
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/04 montage en gros.jpg', 'Montage des effets vidéos') +`
             `,
             en : `
                 <h2>TOPIC</h2>
@@ -332,16 +332,16 @@ var projectsDesc = {
                 <p>I chose to depict its lack of character by emphasizing its height and repetitiveness from the point of view of a pedestrian across time.</p>
                 <h2>CREATION</h2>
                 <p>I created it entirely in 3D using Cinema 4D.</p>
-                `+ ppDescSamples('img', srcP + '3d-renders/sch_1_wc/02 pts de vues 3D.jpg', 'Scene overview on 4 different axes') +`
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/02 pts de vues 3D.jpg', 'Scene overview on 4 different axes') +`
                 
                 <p>Then I placed the camera in an intersection.
                 <br>I adjusted a lot of the camera settings to give it a dizzying effect: the vanishing point is shifted in the crossing of the buildings in the sky and the field of view is stretched.</p>
-                `+ ppDescSamples('img', srcP + '3d-renders/sch_1_wc/01 camera 3D.jpg', 'Camera settings') +`
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/01 camera 3D.jpg', 'Camera settings') +`
                 
                 <p>I added a day/night cycle and rendered the frames in a video.</p>
                 <h2>POST-PRODUCTION</h2>
                 <p>On VEGAS Pro, I added many effects to refine the timelapse: haze, grain, and especially light effects for the sun. The sunrise and sunset are more colorful. I tried to fake the sun glare by adjusting the contrast and other effects.</p>
-                `+ ppDescSamples('img', srcP + '3d-renders/sch_1_wc/04 montage en gros.jpg', 'Video effects') +`
+                `+ ppDescSamples('img', srcP + 'renders/sch_1_wc/04 montage en gros.jpg', 'Video effects') +`
             `,
         }
     },
