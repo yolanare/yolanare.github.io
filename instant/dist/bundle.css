@@ -1,17 +1,80 @@
-/*
-:root {}
-::selection {}
-html {}
-body {}
-*/
-body p {
-  color: red;
-  font-size: 2em;
+:root {
+  --y-d: #1E2021;
+  --y-l: #E8EBED;
+  --y-r: #F23655;
+  --y-rd: #B3203A;
 }
 
-h1 {
-  font-size: 3em;
-  color: blue;
+::selection {
+  color: var(--y-r);
+  background-color: rgba(0, 0, 0, 0.2);
 }
+
+body {
+  background-color: var(--y-d);
+  color: var(--y-l);
+}
+
+.dummy {
+  position: absolute;
+  opacity: 0 !important;
+  transition: none !important;
+  pointer-events: none !important;
+}
+
+loading-screen {
+  z-index: 99999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--y-d);
+  transition: opacity 1s;
+  pointer-events: none;
+}
+
+loading-screen:not([class*=on]) {
+  opacity: 0;
+}
+
+.y-layer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.y-layer > * {
+  position: absolute;
+}
+.y-layer .ywelcome {
+  width: 33vh;
+  height: 33vh;
+}
+.y-layer .ywelcome > *[id] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/src/patterns/p1.png");
+  background-color: var(--y-l);
+  --scroll-position: 50px;
+  --coef: 0.1;
+  background-position-x: calc(var(--scroll-position) * var(--coef));
+  background-position-y: calc(var(--scroll-position) * 0.5 * var(--coef));
+}
+.y-layer .ywelcome > *[id]#wing {
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.38 64.42"><polygon id="wing" points="13.38 30.23 25.44 19.28 0 0 13.38 30.23"/></svg>') 0/100% 100%;
+}
+.y-layer .ywelcome > *[id]#main {
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.38 64.42"><path id="main" d="M45.38,0,13,29.47l7.56,35ZM22,46.91,18.4,31.3,32.91,18.15Z"/></svg>') 0/100% 100%;
+}
+
+/*.ylogo {
+    fill: var(--y-l);
+}*/
 
 /*# sourceMappingURL=bundle.css.map*/
