@@ -2489,3 +2489,18 @@ noscript .ERROR {
         width: 93.5%;
     }
 }
+
+
+
+/* - 20211228
+Decision to make the portfolio more straightforward,
+I am also working on a new and better portfolio at yolan.art/instant/
+but this one will do just fine for now, it is still working it seems
+
+I am going to "remove" the about page, it is useless in my case
+a button somewhere in a corner to link my twitter is a 1000 times better than a page just for it lol
+- */
+
+nav a#a[link="about"] {
+    display: none;
+}
