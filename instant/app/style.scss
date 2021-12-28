@@ -12,9 +12,17 @@
     color: var(--y-r);
     background-color: rgba(0,0,0,0.2);
 }
+html {
+    font-size: 9px;
+    font-size: clamp(6px, 0.575vw, 10px);
+}
 body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
     background-color: var(--y-d);
     color: var(--y-l);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .dummy {
