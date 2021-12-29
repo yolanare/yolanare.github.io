@@ -61,16 +61,17 @@ function loadingStepsInfoAdd(loadingScreenEl, info, force) { // adds custom stat
 }
 
 function loadNormal(loadingScreenEl, removeLoadingScreen) { // events when normal necessary things are loaded
-    var FontsLoaded = false;
+    var FontsLoaded = false,
+        on = "-normal";
 
-    loadingScreenEl.classList.add("on-normal");
+    loadingScreenEl.classList.add("on" + on);
 
     window.addEventListener("load", () => { // to be sure the loading screen goes out at some point
-        if(!FontsLoaded) { removeLoadingScreen(); }
+        if(!FontsLoaded) { removeLoadingScreen(on); }
         loadingStepsInfoAdd(loadingScreenEl, "Page Loaded", true); // true = force dismiss loading screen
     });
     document.fonts.ready.then(() => { // fonts are not too fast and not too long to load, seems good enough
-        removeLoadingScreen(); FontsLoaded = true;
+        removeLoadingScreen(on); FontsLoaded = true;
         loadingStepsInfoAdd(loadingScreenEl, "Fonts Loaded");
     });
 };
@@ -81,7 +82,7 @@ assetsToLoad = [
     srcP + 'p1.png',
 ];
 
-function loadThings(assetsToLoad, customThingsToLoad, toExecAfterLoading) {
+function loadThings(assetsToLoad, customThingsToLoad, customToLoadOnID, toExecAfterLoading) {
     // creating basic loading screen
     var loadingScreenEl = document.createElement("loading-screen");
         loadingScreenEl.classList.add("on-assets");
@@ -97,7 +98,7 @@ function loadThings(assetsToLoad, customThingsToLoad, toExecAfterLoading) {
 
     // can load things other than assets if needed
     var customThingsToLoad = customThingsToLoad ? customThingsToLoad : false;
-    if(customThingsToLoad) { customThingsToLoad(loadingScreenEl, () => { removeLoadingScreen("-normal"); }); }
+    if(customThingsToLoad) { customThingsToLoad(loadingScreenEl, () => { removeLoadingScreen(customToLoadOnID); }); }
 
     // will need some visuals if it takes time, and it's cooler
     if(!loadingScreenEl.querySelector(".loading-animation-container")) {
@@ -170,7 +171,7 @@ function loadThings(assetsToLoad, customThingsToLoad, toExecAfterLoading) {
     })();
 };
 
-loadThings(assetsToLoad, loadNormal, WelcomeSpawnAnimation);
+loadThings(assetsToLoad, loadNormal, "-normal", WelcomeSpawnAnimation);
 
 
 //- Variables -
