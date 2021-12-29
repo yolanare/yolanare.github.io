@@ -2,6 +2,7 @@
   --y-d: #1E2021;
   --y-l: #E8EBED;
   --y-r: #F23655;
+  --y-r2: #FF5C7A;
   --y-rd: #B3203A;
 }
 
@@ -10,9 +11,18 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+html {
+  font-size: 9px;
+  font-size: clamp(6px, 0.575vw, 10px);
+}
+
 body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
   background-color: var(--y-d);
   color: var(--y-l);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .dummy {
@@ -30,23 +40,83 @@ loading-screen {
   width: 100%;
   height: 100%;
   background-color: var(--y-d);
-  transition: opacity 1s;
+  transition: opacity 0.85s ease;
   pointer-events: none;
 }
-
 loading-screen:not([class*=on]) {
   opacity: 0;
+}
+loading-screen.force-dismiss {
+  opacity: 0 !important;
+}
+loading-screen .loading-animation-container {
+  position: absolute;
+  width: 33vh;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+loading-screen .loading-animation-container.hide {
+  opacity: 0;
+}
+loading-screen .loading-animation-container .head {
+  font-size: 3em;
+}
+loading-screen .loading-animation-container .loading-bar > * {
+  display: block;
+}
+loading-screen .loading-animation-container .loading-bar .bar {
+  width: 0%;
+  height: 0.2em;
+  transition: 0.1s;
+  background-color: white;
+}
+loading-screen .loading-animation-container .loading-bar .percent {
+  font-size: 1.5em;
+}
+loading-screen .loading-animation-container .loading-steps-info {
+  display: flex;
+  flex-direction: column-reverse;
+  position: absolute;
+  width: 100%;
+  font-size: 1.5em;
+  font-weight: 500;
+  opacity: 1;
+}
+loading-screen .loading-animation-container .loading-steps-info > * {
+  position: relative;
+  white-space: nowrap;
+  height: 0.15em;
+  line-height: 0;
+  opacity: 0;
+  transform: rotateZ(0.001deg);
+  transition: height 0.6s, opacity 0.6s;
+}
+loading-screen .loading-animation-container .loading-steps-info > *.spawn {
+  height: 1.15em;
+  line-height: 1.15;
+  opacity: 1;
+  transition: height 0.6s cubic-bezier(0.3, 0.7, 0, 1), line-height 0.4s, opacity 0.4s;
+}
+loading-screen .loading-animation-container .loading-steps-info > *.spawn:not(:last-child) {
+  opacity: 0.65;
+}
+loading-screen .loading-animation-container .loading-steps-info > *.hide {
+  opacity: 0 !important;
+  transition: height 0.2s, line-height 0.2s, opacity 0.85s;
+}
+
+.y-layer, .y-wrapper-counterangle, loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .y-layer {
   position: fixed;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-.y-layer > * {
+.y-layer * {
   position: absolute;
 }
 .y-layer .ywelcome {
@@ -67,10 +137,22 @@ loading-screen:not([class*=on]) {
   background-position-y: calc(var(--scroll-position) * 0.5 * var(--coef));
 }
 .y-layer .ywelcome > *[id]#wing {
-  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.38 64.42"><polygon id="wing" points="13.38 30.23 25.44 19.28 0 0 13.38 30.23"/></svg>') 0/100% 100%;
+  transform: translateX(-20px);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 91.6 91.6"><polygon id="wing" points="35.66 39.86 56.33 39.77 48.71 0 35.66 39.86"/></svg>') 0/100% 100%;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 91.6 91.6"><polygon id="wing" points="35.66 39.86 56.33 39.77 48.71 0 35.66 39.86"/></svg>') 0/100% 100%;
 }
 .y-layer .ywelcome > *[id]#main {
-  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.38 64.42"><path id="main" d="M45.38,0,13,29.47l7.56,35ZM22,46.91,18.4,31.3,32.91,18.15Z"/></svg>') 0/100% 100%;
+  transform: translateX(20px);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 91.6 91.6"><path id="main" d="M91.49,38.52,36,38.86,13.45,78.23ZM29.59,62.86l9.9-17.73,24.84-.08Z"/></svg>') 0/100% 100%;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 91.6 91.6"><path id="main" d="M91.49,38.52,36,38.86,13.45,78.23ZM29.59,62.86l9.9-17.73,24.84-.08Z"/></svg>') 0/100% 100%;
+}
+@supports (mask: url("")) {
+  .y-layer .ywelcome > *[id] {
+    filter: blur(0.3px);
+  }
+}
+.y-layer .y-wrapper-counterangle {
+  transform: rotate(-42deg);
 }
 
 /*.ylogo {
