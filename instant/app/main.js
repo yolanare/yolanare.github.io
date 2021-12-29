@@ -105,12 +105,16 @@ function loadThings(assetsToLoad, customThingsToLoad, customToLoadOnID, toExecAf
         loadingScreenEl.innerHTML = `
             <div class="loading-animation-container hide">
                 <div class="head">
-                    <div class="idle-animation"></div>
                     <span>Loading...</span>
+                    <div class="loading-idle-animation"></div>
                 </div>
                 
-                <div class="loading-bar">
-                    <div class="bar"></div>
+                <div class="loading-percent">
+                    <div class="loading-bar">
+                        <div class="bar"></div>
+                        <div class="flash-1"></div>
+                        <div class="flash-2"></div>
+                    </div>
                     <span class="percent"></span>
                 </div>
                 <div class="loading-steps-info"></div>
@@ -153,8 +157,8 @@ function loadThings(assetsToLoad, customThingsToLoad, customToLoadOnID, toExecAf
                 ++assetLoaded; ++progressLoadingCurrent;
 
                 const percent = ((progressLoadingCurrent / assetsToLoad.length) * 100).toFixed(0) + "%";
-                loadingScreenEl.querySelector(".loading-bar .bar").style.width = percent;
-                loadingScreenEl.querySelector(".loading-bar .percent").innerHTML = percent;
+                loadingScreenEl.querySelector(".loading-percent .bar").style.width = percent;
+                loadingScreenEl.querySelector(".loading-percent .percent").innerHTML = percent;
 
                 if(assetLoaded >= chunk.length) { // when all assets are loaded
                     if(assetsChunkCount < assetsByChunks.length){ // if not the last chunk
