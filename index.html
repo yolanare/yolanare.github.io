@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" translate="no" class="notranslate">
+<html translate="no" class="notranslate">
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" content="notranslate" />
 
-    <meta name="theme-color" content="#101113" />
-    <meta name="msapplication-navbutton-color" content="#101113" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="msapplication-navbutton-color" content="#000000" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
@@ -18,26 +18,88 @@
     <title>Yolan'Art</title>
     <meta name="description" content="Take a look at my work and maybe praise me for it I guess, if you want, if you mean it...">
 
-<script defer src="app.f03ec1563b42470c36e0.js"></script><link href="app.2da777b0f6875f55a86b.css" rel="stylesheet"></head>
-<body>
+<script defer src="app.b440d9cc064a711acb45.js"></script><link href="app.74d92453d64259245c1c.css" rel="stylesheet"></head>
+<body style="background-color: black;">
 
     <noscript>
         <div class="ERROR" translate="yes"><div><span class="t">Something feels wrong...</span><span>Please try,</span><a class="l" href="https://www.enablejavascript.io/" target="_blank"><span>Enabling JavaScript</span></a><a class="l" href="https://browsehappy.com/" target="_blank"><span>Using an up-to-date Internet browser</span></a><span>to continue browsing here.</span></div></div>
     </noscript>
 
-    <div id="container" scroll-main>
-        <nav class="pre-spawn"></nav>
-        <div id="content-container">
-            <main id="swup" class="transition-op">
-                <div accordion-content level="1"></div>
-            </main>
-            <main id="swup" class="transition-y">
-                <!--TODO <div class="scrdown-notice"></div> -->
-                <div accordion-scroll></div>
-                <div class="margin-bott"></div>
-            </main>
+    <main id="content-container" scroll-main>
+        <nav>
+
+        </nav>
+
+        <header id="landing" class="content-sections">
+            <div class="ylogo-container">
+                <div class="y-logo-pattern cursor-glow"></div>
+                <!-- <div class="y-logo-pattern color"></div> -->
+                <svg class="y-logo" viewBox="0 0 16.93 24">
+                    <path d="M0,0l4.9,11l2.82,13l3.99-10.38l1-2.61l4.22-11l-7.7,7.04L0,0z M4.87,6.16L7.69,8.3L6.01,8.72L4.87,6.16z M8.24,17.22l-1.2-5.54l5.13-4.69L8.24,17.22z"/>
+                </svg>
+                <div class="y-logo-bgimg cursor-glow"></div>
+                <!-- <div class="y-logo-bgimg color"></div> -->
+            </div>
+            <div class="content">
+                <div class="head">
+                    <span class="t-yolan">Yolan</span>
+                    <span class="t-art">Art</span>
+                </div>
+                <div class="scroll-down-notice">
+                    <span translate-id="landing-scroll-down-notice"></span>
+                    <div class="scroll-down-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="1.73,7.69 12,16.31 22.27,7.69"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- <section id="recent-projects" class="content-sections">
+
+            <div id="intro-rp" class="col1">
+                <div class="in sticky">
+                    <span class="title-recent" translate-id="recent-proj-title" highlight-words="true"></span>
+                    <div class="goto_filters-txt">
+                        <span translate-id="recent-proj-goto_filters"></span>
+                        <svg class="arrow-right" viewBox="0 0 24 24"><polyline points="12 24 24 12 12 0"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div id="recent-projects-slides" class="col2">
+
+            </div>
+
+        </section> -->
+
+        <section id="filters" class="content-sections">
+            <div id="intro-filters">
+                <div class="in sticky">
+                    <div class="title-filters" translate-id="filters-title" highlight-words="true"></div>
+                    <div class="filters-selector">
+
+                    </div>
+                </div>
+            </div>
+            <div id="projects-list">
+
+            </div>
+        </section>
+
+        <footer id="contact" class="content-sections"></footer>
+
+        <nav class="menu"></nav>
+
+        <div boom-main-container></div>
+        <div bubble-tips-container></div>
+        <div video-popups-container></div>
+
+        <div project-files-container></div>
+
         </div>
-    </div>
+    </main>
 
 </body>
 </html>
